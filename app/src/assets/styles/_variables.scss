@@ -1,0 +1,80 @@
+// =============================================================================
+//  Design Tokens for wiewarm Mobile App
+//  Version: 1.0.0
+// =============================================================================
+@use 'sass:color';
+
+// 1. Colors (WCAG AA+)
+$color-primary: #ff8c00 !default; // Brand Orange
+$color-primary-dark: #e56b00 !default;
+$color-secondary: #0057b8 !default; // Blau
+$color-accent: #ffc107 !default; // Gelb-Akzent
+
+$color-bg: #f9fafc !default; // Seiten-Hintergrund
+$color-surface: #ffffff !default; // Karten, Panels
+$color-border: #e0e0e0 !default;
+
+$color-text: #212121 !default; // Haupttext
+$color-text-muted: #555555 !default; // Untertext
+$color-link: $color-primary !default;
+$color-link-hover: color.adjust($color-primary, $lightness: -10%) !default;
+
+// Tables
+$color-table-header-bg: $color-surface !default;
+$color-table-header-text: $color-primary-dark !default;
+$color-table-row-hover: rgba($color-primary, 0.05) !default;
+
+// 2. Typography
+$font-family-base: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+  Helvetica, Arial, sans-serif !default;
+$font-size-base: 1rem !default; // 16px
+$line-height-base: 1.5 !default;
+
+$font-weight-normal: 500 !default;
+$font-weight-bold: 600 !default;
+
+// Type Scale
+$font-size-sm: 0.875rem !default; // 14px
+$font-size-md: 1rem !default; // 16px
+$font-size-lg: 1.125rem !default; // 18px
+$font-size-xl: 1.25rem !default; // 20px
+
+// 3. Spacing (0.25rem Schritte)
+$space-0: 0 !default;
+$space-1: 0.25rem !default; // 4px
+$space-2: 0.5rem !default; // 8px
+$space-3: 0.75rem !default; //12px
+$space-4: 1rem !default; //16px
+$space-5: 1.5rem !default; //24px
+$space-6: 2rem !default; //32px
+
+// 4. Breakpoints
+$breakpoint-s: 36em !default; // ≥576px
+$breakpoint-m: 48em !default; // ≥768px
+$breakpoint-l: 75em !default; // ≥1200px
+
+// 5. Border & Radius
+$radius-sm: 0.25rem !default; //4px
+$radius-md: 0.5rem !default; //8px
+$radius-lg: 1rem !default; //16px
+
+// 6. Shadows
+$shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05) !default;
+$shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1) !default;
+
+// 7. Transitions
+$transition-fast: 0.2s ease-in-out !default;
+$transition-medium: 0.3s ease-in-out !default;
+$transition-slow: 0.5s ease-in-out !default;
+
+// 8. Accessibility – Focus-Ring
+$focus-outline-color: $color-primary-dark !default;
+$focus-outline-width: 3px !default;
+$focus-outline-offset: 2px !default;
+
+@mixin focus-ring {
+  &:focus {
+    outline: $focus-outline-width solid $focus-outline-color;
+    outline-offset: $focus-outline-offset;
+  }
+}
