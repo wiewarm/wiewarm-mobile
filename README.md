@@ -61,7 +61,13 @@ https://wiewarm.lueem.dev
    npm install
    ```
 
-3. -tbd
+3. ng build --configuration=production
+
+   ```bash
+   ng build --configuration=production
+   ```
+
+   
 
 ## Support
 
