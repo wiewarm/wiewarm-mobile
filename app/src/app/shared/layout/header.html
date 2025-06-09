@@ -1,22 +1,16 @@
-<header class="app-header">
-  <h1 class="app-title">{{ title }}</h1>
-  <nav cdkMenuBar class="menu-bar">
-    <button
-      [cdkMenuTriggerFor]="mainMenu"
-      class="menu-button"
-      aria-label="Hauptmenü"
-    >
-      <span class="menu-icon">☰</span>
-      Menü
-    </button>
-  </nav>
-  <button class="theme-toggle" (click)="toggleDarkMode()" aria-label="Dark Mode umschalten">
-    <span class="material-icons">{{ darkMode ? 'light_mode' : 'dark_mode' }}</span>
-  </button>
-</header>
-
-<ng-template #mainMenu>
-  <div cdkMenu class="menu-panel" cdkMenuGroup>
-    <button cdkMenuItem routerLink="/">Liste</button>
+<div class="grid">
+  <div class="branding">
+    <img class="app-icon" src="assets/img/sonne.svg" alt />
+    <h1 class="app-title">{{ title }}</h1>
   </div>
-</ng-template>
+  <button
+    class="theme-toggle"
+    (click)="toggleDarkMode()"
+    aria-label="Dark Mode umschalten"
+    [attr.aria-pressed]="darkMode"
+  >
+    <span class="material-icons">
+      {{ darkMode ? 'light_mode' : 'dark_mode' }}
+    </span>
+  </button>
+</div>

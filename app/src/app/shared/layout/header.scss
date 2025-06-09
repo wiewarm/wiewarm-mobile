@@ -1,7 +1,6 @@
 @use "../../../assets/styles/variables" as *;
-@use "../../../assets/styles/menu" as *;
 
-:host {
+.grid {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -9,10 +8,21 @@
   background: $color-surface;
   box-shadow: $shadow-sm;
 
-  .app-title {
-    margin: 0;
-    font-size: $font-size-lg;
-    color: $color-text;
+  .branding {
+    display: flex;
+    align-items: center;
+    gap: $space-2;
+
+    .app-icon {
+      width: 2rem; /* 32px */
+      height: 2rem;
+    }
+
+    .app-title {
+      margin: 0;
+      font-size: $font-size-lg;
+      color: $color-text;
+    }
   }
 
   .menu-bar {
@@ -24,8 +34,16 @@
     border: none;
     cursor: pointer;
     font-size: 1.5rem;
-    color: $color-text;
     display: flex;
     align-items: center;
+    transition: color $transition-fast;
+
+    &[aria-pressed="false"] .material-icons {
+      color: $color-secondary; // Blau
+    }
+
+    &[aria-pressed="true"] .material-icons {
+      color: $color-accent; // Gelb-Akzent
+    }
   }
 }
