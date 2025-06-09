@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
-import { Component, computed, inject, resource, signal } from '@angular/core';
+import { Component, computed, resource, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CdkMenuModule } from '@angular/cdk/menu';
 import { ScrollingModule } from '@angular/cdk/scrolling';
@@ -16,14 +15,21 @@ import { BadItem } from 'src/app/shared/interfaces/bad-item.interface';
 export class ListComponent {
   searchInput = signal('');
   sortBy = signal<'dist' | 'date'>('dist');
-  sortLabel = computed(() =>
-    this.sortBy() === 'dist' ? 'Entfernung' : 'Datum'
-  );
   userPosition = signal<{ lat: number; lon: number } | null>(null);
   loading = signal(false);
   error = signal<string | null>(null);
 
-  private readonly http = inject(HttpClient);
+  sortType = true;
+
+  toggleSort() {
+    this.sortType = !this.sortType;
+    const next = this.sortBy() === 'dist' ? 'date' : 'dist';
+    this.sortBy.set(next);
+  }
+
+  sortLabel() {
+    return this.sortBy() === 'dist' ? 'Entfernung' : 'Datum';
+  }
 
   itemsResource = resource<BadItem[], unknown>({
     loader: ({ abortSignal }) =>
@@ -73,22 +79,30 @@ export class ListComponent {
 
   requestPosition() {
     if (!navigator.geolocation) return;
-    navigator.geolocation.getCurrentPosition((pos) => {
-      this.userPosition.set({
-        lat: pos.coords.latitude,
-        lon: pos.coords.longitude,
-      });
-    });
+    this.loading.set(true);
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        this.userPosition.set({
+          lat: pos.coords.latitude,
+          lon: pos.coords.longitude,
+        });
+        this.loading.set(false);
+      },
+      (err) => {
+        this.error.set(err.message);
+        this.loading.set(false);
+      },
+      { timeout: 10000 }
+    );
   }
-
-  // --- 6) Hilfsfunktion zum Berechnen der Distanz ---
+  // Hilfsfunktion zum Berechnen der Distanz ---
   private distance(
     lat1: number,
     lon1: number,
     lat2: number,
     lon2: number
   ): number {
-    const R = 6_371_000; // Erdradius in Metern
+    const R = 6_371_000;
     const toRad = (d: number) => (d * Math.PI) / 180;
     const dLat = toRad(lat2 - lat1);
     const dLon = toRad(lon2 - lon1);

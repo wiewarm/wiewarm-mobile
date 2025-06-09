@@ -1,49 +1,69 @@
-<div class="toolbar">
-  <button (click)="requestPosition()">Meine Position abrufen</button>
-
-  <div class="filters">
-    <label>
-      <span class="visually-hidden">Suche</span>
-      <input
-        type="text"
-        [(ngModel)]="searchInput"
-        placeholder="Suche…"
-        aria-label="Suche"
-      />
-    </label>
-
-    <div cdkMenuBar>
-      <button
-        [cdkMenuTriggerFor]="sortMenu"
-        class="menu-button"
-        aria-label="Sortieren nach"
-      >
-        Sortieren: {{ sortLabel() }}
-      </button>
-    </div>
-    <ng-template #sortMenu>
-      <div cdkMenu class="menu-panel" cdkMenuGroup>
-        <button cdkMenuItem (click)="sortBy.set('dist')">Entfernung</button>
-        <button cdkMenuItem (click)="sortBy.set('date')">Datum</button>
-      </div>
-    </ng-template>
+<div class="list-header">
+  <!-- Suche -->
+  <div class="search">
+    <span class="search-emoij" aria-hidden="true">🔍</span>
+    <input
+      type="text"
+      [(ngModel)]="searchInput"
+      placeholder="Suche…"
+      aria-label="Suche"
+    />
   </div>
 </div>
 
+<div class="table-header">
+  <a
+    class="sort-link"
+    role="button"
+    (click)="toggleSort()"
+    [attr.aria-label]="'Sortieren nach ' + sortLabel()"
+  >
+    <span class="material-icons">
+      {{ sortType ? 'arrow_upward' : 'arrow_downward' }}
+    </span>
+    <span class="link-text">{{ sortLabel() }}</span>
+  </a>
+
+  <button
+    class="position-btn"
+    (click)="requestPosition()"
+    [disabled]="loading()"
+    aria-details="Aktualisiert meine Position"
+  >
+    <ng-container *ngIf="!loading(); else loadingTpl">
+      <span class="btn-text">Meine Position</span>
+      <span class="material-icons" aria-hidden="true">place</span>
+    </ng-container>
+    <ng-template #loadingTpl>
+      <span class="btn-text">Ladeen…</span>
+      <span class="material-icons spin" aria-hidden="true">autorenew</span>
+    </ng-template>
+  </button>
+</div>
+
+<!-- Loading / Error -->
 <ng-container *ngIf="itemsResource.isLoading()">
-  <div class="status" role="status">Lade Bad-Items…</div>
+  <div class="status" role="status">Laden…</div>
 </ng-container>
 <ng-container *ngIf="itemsResource.error() as err">
   <div class="status error" role="status">Fehler: {{ err.message }}</div>
 </ng-container>
 
-<cdk-virtual-scroll-viewport itemSize="60" class="item-viewport">
-  <ul class="item-list">
-    <li *cdkVirtualFor="let item of filteredItems()" class="item">
-      <strong>{{ item.bad }}</strong> in {{ item.ort }}
-      <span class="distance">
-        {{ item.dist ? (item.dist | number:'1.0-0') + ' m' : '–' }}
-      </span>
-    </li>
-  </ul>
+<cdk-virtual-scroll-viewport class="item-viewport" itemSize="60">
+  <table class="item-table">
+    <thead>
+      <tr>
+        <th scope="col">Bad</th>
+        <th scope="col">Ort</th>
+        <th scope="col">Entfernung</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *cdkVirtualFor="let item of filteredItems()" class="item-row">
+        <td>{{ item.bad }}</td>
+        <td>{{ item.ort }}</td>
+        <td>{{ item.dist ? (item.dist | number:'1.0-0') + ' m' : '–' }}</td>
+      </tr>
+    </tbody>
+  </table>
 </cdk-virtual-scroll-viewport>

@@ -6,11 +6,11 @@
   <button
     class="theme-toggle"
     (click)="toggleDarkMode()"
-    aria-label="Dark Mode umschalten"
+    [attr.aria-label]="darkMode ? 'Wechsel zu Light Mode' : 'Wechsel zu Dark Mode'"
     [attr.aria-pressed]="darkMode"
   >
-    <span class="material-icons">
-      {{ darkMode ? 'light_mode' : 'dark_mode' }}
+    <span class="theme-emoji" aria-hidden="true">
+      {{ darkMode ? '☀️' : '🌑' }}
     </span>
   </button>
 </div>

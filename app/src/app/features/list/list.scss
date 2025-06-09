@@ -2,72 +2,103 @@
 @use "../../../assets/styles/menu" as *;
 @use "sass:color";
 
-// 2. Toolbar & Filters (unverändert)
-.toolbar {
+.item-viewport {
+  height: 80vh;
+  width: 100%;
+  margin-top: $space-4;
+  overflow: auto;
+}
+
+.list-header {
   display: flex;
-  flex-wrap: wrap;
+  align-items: center;
   gap: $space-3;
-  background: $color-surface;
-  padding: $space-4;
-  box-shadow: $shadow-sm;
-  border-radius: $radius-md;
+  margin-top: $space-2;
+  padding: $space-3 $space-4;
+  flex-wrap: nowrap;
+}
 
-  button {
-    display: inline-flex;
-    align-items: center;
-    gap: $space-1;
-    padding: $space-2 $space-4;
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  padding-left: $space-4;
+  padding-right: $space-4;
+}
+
+.search {
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+
+  .search-emoij {
+    position: absolute;
+    left: $space-3;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
     font-size: $font-size-md;
-    font-weight: $font-weight-bold;
-    background: $color-primary;
-    color: $color-surface;
-    border: none;
-    border-radius: $radius-sm;
-    cursor: pointer;
-    transition: background $transition-fast, box-shadow $transition-fast;
-    @include focus-ring;
-
-    &:hover {
-      background: $color-primary-dark;
-      box-shadow: $shadow-md;
-    }
+    color: $color-text-muted;
   }
 
-  .filters {
-    display: flex;
-    flex-wrap: wrap;
-    gap: $space-3;
-    flex: 1;
-
-    label {
-      flex: 1 1 150px;
-      display: flex;
-      flex-direction: column;
-
-      span.visually-hidden {
-        margin-bottom: $space-1;
-      }
-
-      input {
-        padding: $space-2 $space-3;
-        font-size: $font-size-md;
-        border: 1px solid $color-border;
-        border-radius: $radius-sm;
-        @include focus-ring;
-      }
-    }
-
-    .menu-button {
-      // style comes from shared menu.scss
-    }
-
-    .menu-panel {
-      // style comes from shared menu.scss
-    }
+  input {
+    padding: $space-2 $space-3 $space-2 calc(#{$space-3 * 2} + 1rem);
+    font-size: $font-size-md;
+    border: 2px solid $color-border;
+    @include focus-ring;
   }
 }
 
-// 3. Status-Meldungen
+.sort-link {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-1;
+  font-size: $font-size-md;
+  color: $color-primary;
+  cursor: pointer;
+  text-decoration: none;
+  user-select: none;
+  @include focus-ring;
+
+  .material-icons {
+    font-size: $font-size-lg;
+    text-decoration: none;
+    transition: transform $transition-fast;
+  }
+
+  .link-text {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+}
+
+.position-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-1;
+  padding: 0;
+  background: none;
+  border: none;
+  font-size: $font-size-md;
+  color: $color-primary;
+  border-radius: $radius-sm;
+  padding-block: $space-1;
+  font-family: "Englebert", cursive;
+  cursor: pointer;
+  @include focus-ring;
+  text-decoration: none;
+
+  .btn-text {
+    text-decoration: underline;
+    text-decoration-color: currentColor;
+    text-underline-offset: 3px;
+  }
+
+  .material-icons {
+    font-size: $font-size-lg;
+    text-decoration: none;
+  }
+}
+
 .status {
   padding: $space-3 $space-4;
   font-size: $font-size-md;
@@ -79,81 +110,46 @@
   }
 }
 
-// 4. Liste & Items
-.item-list {
-  list-style: none;
-  margin: $space-4 0 0;
-  padding: 0;
+.item-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
 
-  .item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: $space-3 $space-4;
-    margin-bottom: $space-2;
-    background: $color-surface;
-    border: 1px solid $color-border;
-    border-radius: $radius-sm;
+  thead {
+    background: $color-surface-alt;
     box-shadow: $shadow-sm;
-    transition: background $transition-fast, box-shadow $transition-fast;
-    @include focus-ring;
+    border-bottom: 2px solid $color-border;
+    // border-top-left-radius: $radius-l;
+    // border-top-right-radius: $radius-sm;
+  }
 
-    // Zebra-Striping
-    &:nth-child(odd) {
-      background: $color-surface-alt;
+  th {
+    padding: $space-2 $space-4;
+    font-size: $font-size-md;
+    font-weight: $font-weight-bold;
+    border-bottom: 2px solid $color-border;
+  }
+
+  tbody {
+    tr {
+      transition: background $transition-fast, box-shadow $transition-fast;
+      &:nth-child(odd) {
+        background: $color-surface-alt;
+      }
+      &:hover {
+        background: $color-surface-hover;
+        box-shadow: $shadow-md;
+      }
     }
 
-    &:hover {
-      background: $color-surface-hover;
-      box-shadow: $shadow-md;
-    }
-
-    // Linke Spalte: Name + Meta
-    .item__info {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .item__name {
+    td {
+      padding: $space-3 $space-4;
       font-size: $font-size-md;
-      font-weight: $font-weight-bold;
-      color: $color-text;
-      margin-bottom: $space-1;
-    }
-
-    .item__meta {
-      font-size: $font-size-sm;
-      color: $color-text-muted;
-      display: flex;
-      align-items: center;
-
-      // optional: Icon vor Ort
-      .icon-location {
-        margin-right: $space-1;
-      }
-    }
-
-    // Rechte Spalte: Distanz
-    .item__distance {
-      font-size: $font-size-sm;
-      color: $color-text-muted;
-      display: flex;
-      align-items: center;
-
-      .icon-distance {
-        margin-right: $space-1;
-      }
+      border-bottom: 1px solid $color-border;
     }
   }
 }
 
-.item-viewport {
-  height: 60vh;
-  width: 100%;
-  margin-top: $space-4;
-}
-
-// 5. Responsive Breakpoints
 @media (min-width: $breakpoint-m) {
   .toolbar {
     flex-wrap: nowrap;

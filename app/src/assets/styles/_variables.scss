@@ -37,8 +37,7 @@ $font-weight-bold: 600 !default;
 // Type Scale
 $font-size-sm: 0.875rem !default; // 14px
 $font-size-md: 1rem !default; // 16px
-$font-size-lg: 1.125rem !default; // 18px
-$font-size-xl: 1.25rem !default; // 20px
+$font-size-lg: 1.25rem !default; // 24px
 
 // 3. Spacing (0.25rem Schritte)
 $space-0: 0 !default;
@@ -57,7 +56,7 @@ $breakpoint-l: 75em !default; // ≥1200px
 // 5. Border & Radius
 $radius-sm: 0.25rem !default; //4px
 $radius-md: 0.5rem !default; //8px
-$radius-lg: 1rem !default; //16px
+$radius-l: 1.25rem !default; //16px
 
 // 6. Shadows
 $shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05) !default;
@@ -71,7 +70,7 @@ $transition-slow: 0.5s ease-in-out !default;
 // 8. Accessibility – Focus-Ring
 $focus-outline-color: $color-primary-dark !default;
 $focus-outline-width: 3px !default;
-$focus-outline-offset: 2px !default;
+$focus-outline-offset: 0px !default;
 
 @mixin focus-ring {
   &:focus {
