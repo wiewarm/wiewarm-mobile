@@ -109,7 +109,7 @@ export class ListComponent {
       { timeout: 10000 }
     );
   }
-  // Hilfsfunktion zum Berechnen der Distanz ---
+  // ToDo: fix
   private distance(
     lat1: number,
     lon1: number,
