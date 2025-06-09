@@ -21,15 +21,50 @@ export class ListComponent {
 
   sortType = true;
 
-  toggleSort() {
+  toggleSortBy() {
+    this.sortBy.set(this.sortBy() === 'dist' ? 'date' : 'dist');
+  }
+
+  toggleSortDirection() {
     this.sortType = !this.sortType;
-    const next = this.sortBy() === 'dist' ? 'date' : 'dist';
-    this.sortBy.set(next);
   }
 
   sortLabel() {
     return this.sortBy() === 'dist' ? 'Entfernung' : 'Datum';
   }
+
+  sortDirLabel() {
+    return this.sortType ? 'aufsteigend' : 'absteigend';
+  }
+
+  filteredItems = computed(() => {
+    const term = this.searchInput().toLowerCase();
+    const list = this.itemsWithDist().filter((item) => {
+      const hay =
+        `${item.bad} ${item.becken} ${item.ort} ${item.plz}`.toLowerCase();
+      return !term || hay.includes(term);
+    });
+
+    const sorted = [...list];
+
+    sorted.sort((a, b) => {
+      let cmp: number;
+
+      if (this.sortBy() === 'date') {
+        const ta = new Date(a.date).getTime();
+        const tb = new Date(b.date).getTime();
+        cmp = ta - tb;
+      } else {
+        const da = a.dist ?? Infinity;
+        const db = b.dist ?? Infinity;
+        cmp = da - db;
+      }
+
+      return this.sortType ? cmp : -cmp;
+    });
+
+    return sorted;
+  });
 
   itemsResource = resource<BadItem[], unknown>({
     loader: ({ abortSignal }) =>
@@ -54,27 +89,6 @@ export class ListComponent {
       ...item,
       dist: this.distance(pos.lat, pos.lon, item.ortlat!, item.ortlong!),
     }));
-  });
-
-  filteredItems = computed(() => {
-    const term = this.searchInput().toLowerCase();
-    return this.itemsWithDist()
-      .filter((item) => {
-        const hay =
-          `${item.bad} ${item.becken} ${item.ort} ${item.plz}`.toLowerCase();
-        return !term || hay.includes(term);
-      })
-      .sort((a, b) => {
-        if (this.sortBy() === 'date') {
-          return a.date < b.date ? 1 : a.date > b.date ? -1 : 0;
-        }
-        const da = a.dist ?? Infinity;
-        const db = b.dist ?? Infinity;
-        if (da === db) {
-          return a.date < b.date ? 1 : a.date > b.date ? -1 : 0;
-        }
-        return da - db;
-      });
   });
 
   requestPosition() {

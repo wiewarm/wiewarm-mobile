@@ -15,7 +15,7 @@
   <a
     class="sort-link"
     role="button"
-    (click)="toggleSort()"
+    (click)="toggleSortBy()"
     [attr.aria-label]="'Sortieren nach ' + sortLabel()"
   >
     <span class="material-icons">
@@ -35,7 +35,7 @@
       <span class="material-icons" aria-hidden="true">place</span>
     </ng-container>
     <ng-template #loadingTpl>
-      <span class="btn-text">Ladeen…</span>
+      <span class="btn-text">Laden…</span>
       <span class="material-icons spin" aria-hidden="true">autorenew</span>
     </ng-template>
   </button>
@@ -54,15 +54,22 @@
     <thead>
       <tr>
         <th scope="col">Bad</th>
-        <th scope="col">Ort</th>
+        <th scope="col">PLZ / Ort</th>
         <th scope="col">Entfernung</th>
       </tr>
     </thead>
     <tbody>
       <tr *cdkVirtualFor="let item of filteredItems()" class="item-row">
-        <td>{{ item.bad }}</td>
-        <td>{{ item.ort }}</td>
-        <td>{{ item.dist ? (item.dist | number:'1.0-0') + ' m' : '–' }}</td>
+        <td>{{ item.bad || '–' }}</td>
+        <td>
+          <ng-container *ngIf="item.plz || item.ort; else noLocation">
+            {{ item.plz ? (item.plz + ' ') : '- ' }}{{ item.ort }}
+          </ng-container>
+          <ng-template #noLocation>–</ng-template>
+        </td>
+        <td>
+          {{ item.dist != null ? (item.dist | number:'1.0-0') + ' m' : '–' }}
+        </td>
       </tr>
     </tbody>
   </table>
