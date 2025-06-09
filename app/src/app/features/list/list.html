@@ -1,0 +1,39 @@
+<div class="toolbar">
+  <button (click)="requestPosition()">Meine Position abrufen</button>
+
+  <div class="filters">
+    <label>
+      <span class="visually-hidden">Suche</span>
+      <input
+        type="text"
+        [(ngModel)]="searchInput"
+        placeholder="Suche…"
+        aria-label="Suche"
+      />
+    </label>
+
+    <label>
+      <span class="visually-hidden">Sortieren nach</span>
+      <select [(ngModel)]="sortBy" aria-label="Sortieren nach">
+        <option value="dist">Entfernung</option>
+        <option value="date">Datum</option>
+      </select>
+    </label>
+  </div>
+</div>
+
+<ng-container *ngIf="itemsResource.isLoading()">
+  <div class="status">Lade Bad-Items…</div>
+</ng-container>
+<ng-container *ngIf="itemsResource.error() as err">
+  <div class="status error">Fehler: {{ err.message }}</div>
+</ng-container>
+
+<ul class="item-list">
+  <li *ngFor="let item of filteredItems()" class="item">
+    <strong>{{ item.bad }}</strong> in {{ item.ort }}
+    <span class="distance">
+      {{ item.dist ? (item.dist | number:'1.0-0') + ' m' : '–' }}
+    </span>
+  </li>
+</ul>

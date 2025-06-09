@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterModule, RouterOutlet } from '@angular/router';
+import { HeaderComponent } from './shared/layout/header';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, RouterModule, HeaderComponent],
   templateUrl: './app.html',
   styleUrls: ['./app.scss'],
 })
-export class App {
-  protected title = 'wiewarm';
-}
+export class App {}

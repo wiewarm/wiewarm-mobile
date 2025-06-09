@@ -1,0 +1,71 @@
+/* Global styles */
+@use "../assets/styles/variables" as *;
+@use "../assets/styles/_reset.css";
+
+body {
+  font-family: "Englebert", cursive;
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $space-4;
+  background: $color-surface;
+  box-shadow: $shadow-sm;
+
+  .app-title {
+    margin: 0;
+    font-size: $font-size-lg;
+    color: $color-text;
+  }
+
+  .menu-bar {
+    position: relative;
+  }
+
+  .menu-button {
+    display: inline-flex;
+    align-items: center;
+    gap: $space-2;
+    padding: $space-2 $space-3;
+    font-size: $font-size-md;
+    background: $color-primary;
+    color: $color-primary;
+    border: none;
+    border-radius: $radius-sm;
+    cursor: pointer;
+    transition: background $transition-fast, box-shadow $transition-fast;
+    @include focus-ring;
+
+    &:hover {
+      background: rgba($color-primary, -10);
+      box-shadow: $shadow-md;
+    }
+  }
+
+  .menu-panel {
+    display: flex;
+    flex-direction: column;
+    background: $color-surface;
+    border: 1px solid $color-border;
+    border-radius: $radius-sm;
+    box-shadow: $shadow-md;
+    padding: $space-2 0;
+
+    [cdkMenuItem] {
+      padding: $space-2 $space-4;
+      font-size: $font-size-md;
+      text-align: left;
+      background: transparent;
+      border: none;
+      width: 100%;
+      @include focus-ring;
+
+      &:hover,
+      &:focus {
+        background: rgba($color-surface, 5);
+      }
+    }
+  }
+}

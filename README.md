@@ -1,6 +1,6 @@
 # 🏊 wiewarm.ch App
 
-Di moderni Web-App zur schnäue und barrierefreiä Anzeig von Temperaturdate i schwizer Badis.
+Di moderni Web-App zur intuitive und barrierefreiä Anzeig von Temperaturdate i schwizer Badis.
 
 ---
 
@@ -47,15 +47,26 @@ https://wiewarm.lueem.dev
 
 ## 🛠️ Installation & Entwicklung
 
-1. Repository klonen  
+1. Repository klonen
+
    ```bash
    git clone https://github.com/nile4000/wiewarm-mobile.git
    cd wiewarm-mobile
    cd app (das isch d Angular-App)
    ```
-   
+
 2. Node Packages installiere (zersch lokal node 22 irichte)
+
    ```bash
    npm install
    ```
+
 3. -tbd
+
+## Support
+
+- Bi Frage oder Problem, bitte es Issue uf GitHub eröffne.
+
+## Credits
+
+- Externe Icons und Bilder findest du in [CREDITS.md](./CREDITS.md).

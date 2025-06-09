@@ -1,0 +1,17 @@
+<h1 class="app-title">{{ title }}</h1>
+<nav cdkMenuBar class="menu-bar">
+  <button
+    [cdkMenuTriggerFor]="mainMenu"
+    class="menu-button"
+    aria-label="Hauptmenü"
+  >
+    <span class="menu-icon">☰</span>
+    Menü
+  </button>
+</nav>
+
+<ng-template #mainMenu>
+  <div cdkMenu class="menu-panel" cdkMenuGroup>
+    <button cdkMenuItem routerLink="/">Liste</button>
+  </div>
+</ng-template>

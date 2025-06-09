@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
+import { ListComponent } from './features/list/list';
 
 export const routes: Routes = [
-  // TODO { path: '', component: List },
+  { path: '', component: ListComponent },
   // { path: 'badi/:id', component: BadDetail },
 ];

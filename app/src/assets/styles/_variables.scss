@@ -2,7 +2,6 @@
 //  Design Tokens for wiewarm Mobile App
 //  Version: 1.0.0
 // =============================================================================
-@use 'sass:color';
 
 // 1. Colors (WCAG AA+)
 $color-primary: #ff8c00 !default; // Brand Orange
@@ -17,7 +16,7 @@ $color-border: #e0e0e0 !default;
 $color-text: #212121 !default; // Haupttext
 $color-text-muted: #555555 !default; // Untertext
 $color-link: $color-primary !default;
-$color-link-hover: color.adjust($color-primary, $lightness: -10%) !default;
+$color-link-hover: rgba($color-primary, 0.1) !default;
 
 // Tables
 $color-table-header-bg: $color-surface !default;

@@ -1,0 +1,159 @@
+@use "../../../assets/styles/variables" as *;
+@use "sass:color";
+
+// 1. Basis-Mixins
+@mixin focus-ring {
+  &:focus {
+    outline: $focus-outline-width solid $focus-outline-color;
+    outline-offset: $focus-outline-offset;
+  }
+}
+
+// 2. Toolbar & Filters (unverändert)
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-3;
+  background: $color-surface;
+  padding: $space-4;
+  box-shadow: $shadow-sm;
+  border-radius: $radius-md;
+
+  button {
+    display: inline-flex;
+    align-items: center;
+    gap: $space-1;
+    padding: $space-2 $space-4;
+    font-size: $font-size-md;
+    font-weight: $font-weight-bold;
+    background: $color-primary;
+    color: $color-surface;
+    border: none;
+    border-radius: $radius-sm;
+    cursor: pointer;
+    transition: background $transition-fast, box-shadow $transition-fast;
+    @include focus-ring;
+
+    &:hover {
+      background: $color-primary-dark;
+      box-shadow: $shadow-md;
+    }
+  }
+
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $space-3;
+    flex: 1;
+
+    label {
+      flex: 1 1 150px;
+      display: flex;
+      flex-direction: column;
+
+      span.visually-hidden {
+        margin-bottom: $space-1;
+      }
+
+      input,
+      select {
+        padding: $space-2 $space-3;
+        font-size: $font-size-md;
+        border: 1px solid $color-border;
+        border-radius: $radius-sm;
+        @include focus-ring;
+      }
+    }
+  }
+}
+
+// 3. Status-Meldungen
+.status {
+  padding: $space-3 $space-4;
+  font-size: $font-size-md;
+  border-radius: $radius-sm;
+  &.error {
+    color: $color-accent;
+    background: rgba($color-accent, 0.1);
+    border-left: 4px solid $color-accent;
+  }
+}
+
+// 4. Liste & Items
+.item-list {
+  list-style: none;
+  margin: $space-4 0 0;
+  padding: 0;
+
+  .item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: $space-3 $space-4;
+    margin-bottom: $space-2;
+    background: $color-surface;
+    border: 1px solid $color-border;
+    border-radius: $radius-sm;
+    box-shadow: $shadow-sm;
+    transition: background $transition-fast, box-shadow $transition-fast;
+    @include focus-ring;
+
+    // Zebra-Striping
+    &:nth-child(odd) {
+      background: rgba($color-surface, 2%);
+    }
+
+    &:hover {
+      background: rgba($color-surface, 5%);
+      box-shadow: $shadow-md;
+    }
+
+    // Linke Spalte: Name + Meta
+    .item__info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .item__name {
+      font-size: $font-size-md;
+      font-weight: $font-weight-bold;
+      color: $color-text;
+      margin-bottom: $space-1;
+    }
+
+    .item__meta {
+      font-size: $font-size-sm;
+      color: $color-text-muted;
+      display: flex;
+      align-items: center;
+
+      // optional: Icon vor Ort
+      .icon-location {
+        margin-right: $space-1;
+      }
+    }
+
+    // Rechte Spalte: Distanz
+    .item__distance {
+      font-size: $font-size-sm;
+      color: $color-text-muted;
+      display: flex;
+      align-items: center;
+
+      .icon-distance {
+        margin-right: $space-1;
+      }
+    }
+  }
+}
+
+// 5. Responsive Breakpoints
+@media (min-width: $breakpoint-m) {
+  .toolbar {
+    flex-wrap: nowrap;
+  }
+
+  .filters label {
+    flex: 1;
+  }
+}
