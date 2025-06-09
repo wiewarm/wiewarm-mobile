@@ -18,8 +18,7 @@ Di moderni Web-App zur schnäue und barrierefreiä Anzeig von Temperaturdate i s
 ## 🎯 Principles
 
 1. **Barrierefreiheit (Accessibility)**  
-   - Konform nach WCAG 2.1 AA-Standard  
-   - Tastatur- und Screenreader-Support  
+   - Mostly Konform nach WCAG 2.1 AA-Standard
 2. **Suechmaschinenoptimierig (SEO)**  
    - Isatz vo Semantic HTML & Metadaten
 3. **Intuitivi Nutzerfüehrig (UX/UI)**
