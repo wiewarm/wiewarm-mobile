@@ -16,7 +16,7 @@
   @include focus-ring;
 
   &:hover {
-    background: color.adjust($color-primary, $lightness: -10%);
+    background: $color-primary-dark;
     box-shadow: $shadow-md;
   }
 }
@@ -41,7 +41,7 @@
 
     &:hover,
     &:focus {
-      background: color.adjust($color-surface, $lightness: 5%);
+      background: $color-surface-hover;
     }
   }
 }
