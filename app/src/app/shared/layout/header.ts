@@ -6,6 +6,7 @@ import { Component, Input } from '@angular/core';
   standalone: true,
   imports: [CdkMenuModule],
   templateUrl: './header.html',
+  styleUrls: ['./header.scss'],
 })
 export class HeaderComponent {
   protected title = 'wiewarm';
