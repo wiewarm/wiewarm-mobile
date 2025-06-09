@@ -100,11 +100,11 @@
 
     // Zebra-Striping
     &:nth-child(odd) {
-      background: color.adjust($color-surface, $lightness: 2%);
+      background: $color-surface-alt;
     }
 
     &:hover {
-      background: color.adjust($color-surface, $lightness: 5%);
+      background: $color-surface-hover;
       box-shadow: $shadow-md;
     }
 

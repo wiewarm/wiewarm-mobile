@@ -10,6 +10,9 @@
       Menü
     </button>
   </nav>
+  <button class="theme-toggle" (click)="toggleDarkMode()" aria-label="Dark Mode umschalten">
+    <span class="material-icons">{{ darkMode ? 'light_mode' : 'dark_mode' }}</span>
+  </button>
 </header>
 
 <ng-template #mainMenu>

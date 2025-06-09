@@ -1,5 +1,5 @@
 import { CdkMenuModule } from '@angular/cdk/menu';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -10,4 +10,10 @@ import { Component, Input } from '@angular/core';
 })
 export class HeaderComponent {
   protected title = 'wiewarm';
+  protected darkMode = false;
+
+  toggleDarkMode() {
+    this.darkMode = !this.darkMode;
+    document.body.classList.toggle('dark-mode', this.darkMode);
+  }
 }

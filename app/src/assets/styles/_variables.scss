@@ -4,19 +4,21 @@
 // =============================================================================
 
 // 1. Colors (WCAG AA+)
-$color-primary: #ff8c00 !default; // Brand Orange
-$color-primary-dark: #e56b00 !default;
-$color-secondary: #0057b8 !default; // Blau
-$color-accent: #ffc107 !default; // Gelb-Akzent
+$color-primary: var(--color-primary) !default; // Brand Orange
+$color-primary-dark: var(--color-primary-dark) !default;
+$color-secondary: var(--color-secondary) !default; // Blau
+$color-accent: var(--color-accent) !default; // Gelb-Akzent
 
-$color-bg: #f9fafc !default; // Seiten-Hintergrund
-$color-surface: #ffffff !default; // Karten, Panels
-$color-border: #e0e0e0 !default;
+$color-bg: var(--color-bg) !default; // Seiten-Hintergrund
+$color-surface: var(--color-surface) !default; // Karten, Panels
+$color-surface-alt: var(--color-surface-alt) !default;
+$color-surface-hover: var(--color-surface-hover) !default;
+$color-border: var(--color-border) !default;
 
-$color-text: #212121 !default; // Haupttext
-$color-text-muted: #555555 !default; // Untertext
-$color-link: $color-primary !default;
-$color-link-hover: rgba($color-primary, 0.1) !default;
+$color-text: var(--color-text) !default; // Haupttext
+$color-text-muted: var(--color-text-muted) !default; // Untertext
+$color-link: var(--color-primary) !default;
+$color-link-hover: var(--color-link-hover) !default;
 
 // Tables
 $color-table-header-bg: $color-surface !default;
