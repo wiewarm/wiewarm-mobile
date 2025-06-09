@@ -1,0 +1,21 @@
+@use "../../../assets/styles/variables" as *;
+@use "../../../assets/styles/menu" as *;
+
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $space-4;
+  background: $color-surface;
+  box-shadow: $shadow-sm;
+
+  .app-title {
+    margin: 0;
+    font-size: $font-size-lg;
+    color: $color-text;
+  }
+
+  .menu-bar {
+    position: relative;
+  }
+}

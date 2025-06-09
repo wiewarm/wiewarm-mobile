@@ -2,18 +2,23 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, computed, inject, resource, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { CdkMenuModule } from '@angular/cdk/menu';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 import { BadItem } from 'src/app/shared/interfaces/bad-item.interface';
 
 @Component({
   selector: 'app-list',
   templateUrl: './list.html',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, CdkMenuModule, ScrollingModule],
   standalone: true,
   styleUrl: './list.scss',
 })
 export class ListComponent {
   searchInput = signal('');
   sortBy = signal<'dist' | 'date'>('dist');
+  sortLabel = computed(() =>
+    this.sortBy() === 'dist' ? 'Entfernung' : 'Datum'
+  );
   userPosition = signal<{ lat: number; lon: number } | null>(null);
   loading = signal(false);
   error = signal<string | null>(null);

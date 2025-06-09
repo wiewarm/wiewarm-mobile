@@ -1,13 +1,6 @@
 @use "../../../assets/styles/variables" as *;
+@use "../../../assets/styles/menu" as *;
 @use "sass:color";
-
-// 1. Basis-Mixins
-@mixin focus-ring {
-  &:focus {
-    outline: $focus-outline-width solid $focus-outline-color;
-    outline-offset: $focus-outline-offset;
-  }
-}
 
 // 2. Toolbar & Filters (unverändert)
 .toolbar {
@@ -55,14 +48,21 @@
         margin-bottom: $space-1;
       }
 
-      input,
-      select {
+      input {
         padding: $space-2 $space-3;
         font-size: $font-size-md;
         border: 1px solid $color-border;
         border-radius: $radius-sm;
         @include focus-ring;
       }
+    }
+
+    .menu-button {
+      // style comes from shared menu.scss
+    }
+
+    .menu-panel {
+      // style comes from shared menu.scss
     }
   }
 }
@@ -100,11 +100,11 @@
 
     // Zebra-Striping
     &:nth-child(odd) {
-      background: rgba($color-surface, 2%);
+      background: color.adjust($color-surface, $lightness: 2%);
     }
 
     &:hover {
-      background: rgba($color-surface, 5%);
+      background: color.adjust($color-surface, $lightness: 5%);
       box-shadow: $shadow-md;
     }
 
@@ -145,6 +145,12 @@
       }
     }
   }
+}
+
+.item-viewport {
+  height: 60vh;
+  width: 100%;
+  margin-top: $space-4;
 }
 
 // 5. Responsive Breakpoints
