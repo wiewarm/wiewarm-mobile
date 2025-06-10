@@ -1,0 +1,128 @@
+@use "../../../assets/styles/variables" as *;
+
+.list-header {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+  margin-top: $space-4;
+  padding: $space-2 $space-3;
+  flex-wrap: nowrap;
+}
+
+.search {
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+
+  .search-emoji {
+    position: absolute;
+    left: $space-3;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    font-size: $font-size-md;
+    color: $color-text-muted;
+  }
+
+  input {
+    box-sizing: border-box;
+    width: 100%;
+    padding: $space-2 $space-3 $space-2 calc(#{$space-3 * 3} + 1rem);
+    font-size: $font-size-md;
+    border: 2px solid $color-border;
+    border-radius: $radius-l;
+    caret-color: currentColor;
+  }
+}
+
+.status {
+  padding: $space-3 $space-4;
+  font-size: $font-size-md;
+  border-radius: $radius-sm;
+  &.error {
+    color: $color-accent;
+    background: rgba($color-accent, 0.4);
+    border-left: 4px solid $color-accent;
+  }
+}
+
+.item-accordion {
+  margin-top: $space-4;
+}
+
+.accordion-item {
+  display: block;
+  border: 1px solid $color-border;
+  border-top: none;
+
+  &:first-child {
+    border-top: 1px solid $color-border;
+    border-top-left-radius: $radius-l;
+    border-top-right-radius: $radius-l;
+  }
+
+  &:last-child {
+    border-bottom-left-radius: $radius-l;
+    border-bottom-right-radius: $radius-l;
+  }
+}
+
+.accordion-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  background: none;
+  border: none;
+  padding: $space-3 $space-4;
+  text-align: left;
+  font-size: $font-size-lg;
+
+  &:hover {
+    cursor: pointer;
+    background-color: $color-surface-hover;
+  }
+}
+
+.accordion-body {
+  padding: $space-3 $space-4;
+  border-top: 1px solid $color-border;
+}
+
+.temp-label {
+  display: flex;
+  align-items: center;
+  gap: $space-2;
+}
+
+.temp-dot {
+  display: inline-block;
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
+  flex-shrink: 0;
+
+  &.temp-cold {
+    background-color: #2b7bb9;
+  }
+
+  &.temp-cool {
+    background-color: #00aaff;
+  }
+
+  &.temp-mild {
+    background-color: #ffc107;
+  }
+
+  &.temp-warm {
+    background-color: #ff9800;
+  }
+
+  &.temp-hot {
+    background-color: #e53935;
+  }
+
+  &.temp-unknown {
+    background-color: $color-border;
+  }
+}

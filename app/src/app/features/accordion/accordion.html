@@ -1,0 +1,53 @@
+<div class="list-header">
+  <div class="search">
+    <span class="search-emoji" aria-hidden="true">🔍</span>
+    <input
+      type="text"
+      [(ngModel)]="searchInput"
+      placeholder="Suche…"
+      aria-label="Badi suchen"
+    />
+  </div>
+</div>
+
+<div class="item-accordion" cdkAccordion>
+  @if(itemsResource.isLoading()) {
+  <div class="status" role="status">Laden…</div>
+  } @if(itemsResource.error()){ 
+  <div class="status error" role="alert">
+    Fehler beim Laden: {{ itemsResource.error()?.message }}. Bitte versuchen Sie es später erneut.
+  </div>
+  } @else {
+  @for(item of filteredItems(); track item.badid_text; let i = $index) {
+  <cdk-accordion-item class="accordion-item" #accItem="cdkAccordionItem">
+    <button
+      class="accordion-header"
+      (click)="accItem.toggle()"
+      type="button"
+      [attr.id]="'acc-header-' + i"
+      [attr.aria-expanded]="accItem.expanded"
+      [attr.aria-controls]="'acc-body-' + i"
+    >
+      {{ item.bad }}
+      <span class="accordion-header-sub">{{ item.plz ? item.plz + ' ' : '' }}{{ item.ort }}<span *ngIf="item.kanton"> ({{ item.kanton }})</span></span>
+    </button>
+    @if(accItem.expanded) {
+    <div
+      class="accordion-body"
+      role="region"
+      [attr.id]="'acc-body-' + i"
+      [attr.aria-labelledby]="'acc-header-' + i"
+    >
+      <div class="temp-label">
+        <span class="temp-dot" [ngClass]="temperatureClass(item.temp)"></span>
+        {{ item.temp != null ? item.temp + '°C' : '—' }}
+      </div>
+      <div class="time-label">
+        {{ item.date_pretty ?? '—' }}
+      </div>
+    </div>
+    }
+  </cdk-accordion-item>
+  }
+  }
+</div>
