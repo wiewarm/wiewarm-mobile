@@ -10,19 +10,20 @@
   </div>
 </div>
 
-@if(itemsResource.isLoading()) {
-<div class="status" role="status">Laden…</div>
-} @if(itemsResource.error()){
-<div class="status error" role="alert">
-  Fehler beim Laden: {{ itemsResource.error()?.message }}. Bitte versuchen Sie
-  es später erneut.
-</div>
-}
 <cdk-virtual-scroll-viewport
   class="item-viewport"
   [itemSize]="60"
   orientation="vertical"
 >
+  <!-- ToDo: fix show in table -->
+  @if(itemsResource.isLoading()) {
+  <div class="status" role="status">Laden…</div>
+  } @if(itemsResource.error()){
+  <div class="status error" role="alert">
+    Fehler beim Laden: {{ itemsResource.error()?.message }}. Bitte versuchen Sie
+    es später erneut.
+  </div>
+  } @else {
   <table cdk-table [dataSource]="filteredItems()" class="item-table">
     <ng-container cdkColumnDef="bad">
       <th cdk-header-cell *cdkHeaderCellDef sticky>Bad</th>
@@ -35,18 +36,19 @@
 
     <ng-container cdkColumnDef="ort">
       <th cdk-header-cell *cdkHeaderCellDef sticky>
-        <span aria-hidden="true">📍</span> PLZ / Ort
+        <span aria-hidden="true">📍</span> <span class="text-plz">PLZ/Ort</span>
       </th>
       <td cdk-cell *cdkCellDef="let item">
-        @if (item.plz || item.ort) { {{ item.plz ? item.plz + ' ' : '' }}{{
-        item.ort }} @if (item.kanton) { ({{ item.kanton }}) } } @else {
+        @if (item.plz || item.ort) {
+        <span class="plz">{{ item.plz ? item.plz + ' ' : '' }}</span>{{ item.ort
+        }} @if (item.kanton) { ({{ item.kanton }}) } } @else {
         <ng-template #noneTpl>&mdash;</ng-template>
         }
       </td>
     </ng-container>
 
     <ng-container cdkColumnDef="temp">
-      <th cdk-header-cell *cdkHeaderCellDef sticky>Temperatur</th>
+      <th cdk-header-cell *cdkHeaderCellDef sticky>Temp.</th>
       <td cdk-cell *cdkCellDef="let item">
         @if(item.temp) {
         <span class="temp-label">
@@ -61,7 +63,7 @@
     <ng-container cdkColumnDef="date_pretty">
       <th cdk-header-cell *cdkHeaderCellDef sticky>
         <span aria-hidden="true">🕒</span>
-        Zeit
+        <span class="text-date">Zeit</span>
       </th>
       <td cdk-cell *cdkCellDef="let item">
         @if(item.date_pretty) {
@@ -75,4 +77,5 @@
     <tr cdk-header-row *cdkHeaderRowDef="tableColumns"></tr>
     <tr cdk-row *cdkRowDef="let row; columns: tableColumns;"></tr>
   </table>
-</cdk-virtual-scroll-viewport>
+  }</cdk-virtual-scroll-viewport
+>

@@ -96,6 +96,11 @@
     line-height: 1.5;
   }
 
+  .cdk-column-bad {
+    word-break: break-word;
+    hyphens: auto;
+  }
+
   .temp-label {
     display: flex;
     align-items: center;
@@ -148,6 +153,20 @@
   }
 }
 
-@media (min-width: $breakpoint-m) {
-  // ToDo
+@media (max-width: $breakpoint-s) {
+  .text-plz,
+  .text-date {
+    display: none;
+  }
+
+  .plz {
+    display: none;
+  }
+
+  .cdk-column-bad {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 35ch;
+  }
 }
