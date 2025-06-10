@@ -77,7 +77,7 @@
           [attr.aria-labelledby]="'acc-header-' + i"
         >
           <div class="accordion-body-left">
-            <p>{{ item.bad }}</p>
+            <a [routerLink]="['/badi', item.badid_text]" class="detail-link">Details</a>
           </div>
           <div class="accordion-body-right">
             <p

@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, computed, resource, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CdkAccordionModule } from '@angular/cdk/accordion';
+import { RouterModule } from '@angular/router';
 import { BadItem } from 'src/app/shared/interfaces/bad-item.interface';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 
@@ -9,7 +10,13 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
   selector: 'app-accordion',
   templateUrl: './accordion.html',
   styleUrl: './accordion.scss',
-  imports: [CommonModule, FormsModule, CdkAccordionModule, ScrollingModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    CdkAccordionModule,
+    ScrollingModule,
+    RouterModule,
+  ],
 })
 export class AccordionComponent {
   private readonly BAD_ITEM_URL =

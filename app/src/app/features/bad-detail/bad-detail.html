@@ -1,0 +1,32 @@
+<div class="detail">
+  <a routerLink="/" class="back-link">&larr; Zurück</a>
+  @if(detailResource.isLoading()) {
+  <div class="status" role="status">Laden…</div>
+  } @else if(detailResource.error()) {
+  <div class="status error" role="alert">
+    Fehler beim Laden: {{ detailResource.error()?.message }}
+  </div>
+  } @else if(detailResource.value() as detail) {
+  <h2>{{ detail.badname }}, {{ detail.plz }} {{ detail.ort }}</h2>
+  <div class="address">
+    {{ detail.adresse1 }}<br />
+    {{ detail.adresse2 }}
+  </div>
+  <div class="contact">
+    {{ detail.telefon }}<br />
+    {{ detail.email }}<br />
+    {{ detail.www }}
+  </div>
+  <div class="info" [innerHTML]="detail.info"></div>
+  <h3>Becken</h3>
+  <ul>
+    @for(pool of poolEntries(detail); track pool.beckenid) {
+    <li>
+      <strong>{{ pool.beckenname }}:</strong>
+      {{ pool.temp != null ? pool.temp + '°C' : '—' }} – {{ pool.status }}
+      <span class="date">{{ pool.date_pretty }}</span>
+    </li>
+    }
+  </ul>
+  }
+</div>

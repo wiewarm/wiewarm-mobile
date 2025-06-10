@@ -149,6 +149,15 @@
   .accordion-body-left {
     display: flex;
     flex-direction: column;
+    .detail-link {
+      color: $color-link;
+      text-decoration: none;
+      margin-bottom: $space-2;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
   .accordion-body-right {
     display: flex;
