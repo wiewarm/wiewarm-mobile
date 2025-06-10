@@ -1,6 +1,6 @@
 /* Global styles */
-@use "../assets/styles/variables" as *; 
-@use "../assets/styles/_reset.css"; 
+@use "../assets/styles/variables" as *;
+@use "../assets/styles/_reset.css";
 
 :root {
   // Light Mode
@@ -23,8 +23,8 @@
 
 body {
   font-family: "Englebert", cursive;
-  background: var(--color-bg); 
-  color: var(--color-text); 
+  background: var(--color-bg);
+  color: var(--color-text);
 
   transition: background-color $transition-medium, color $transition-medium;
 }
@@ -39,18 +39,4 @@ body.dark-mode {
   --color-text: #f5f5f5;
   --color-text-muted: #cccccc;
   --color-link-hover: rgba(255, 140, 0, 0.25);
-}
-
-@media (prefers-color-scheme: dark) {
-  body:not(.dark-mode) {
-    color-scheme: dark;
-    --color-bg: #121212;
-    --color-surface: #1e1e1e;
-    --color-surface-alt: #242424;
-    --color-surface-hover: #2a2a2a;
-    --color-border: #232323;
-    --color-text: #f5f5f5;
-    --color-text-muted: #cccccc;
-    --color-link-hover: rgba(255, 140, 0, 0.25);
-  }
 }
