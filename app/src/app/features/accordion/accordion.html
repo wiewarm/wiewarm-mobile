@@ -37,10 +37,11 @@
               <ng-container *ngIf="item.kanton">
                 <img
                   class="kanton-wappen"
-                  [src]="'/assets/img/wappen/' + (item.kanton | uppercase) + '.svg'"
-                  [alt]="(item.kanton | titlecase) + ' Wappen'"
+                  [src]="'assets/img/wappen/' + (item.kanton | lowercase) + '.svg'"
+                  [attr.alt]="(item.kanton | titlecase) + ' Wappen'"
                   width="18"
                   height="18"
+                  loading="lazy"
                   style="vertical-align: middle; margin-left: 0.25em"
                 />
               </ng-container>
