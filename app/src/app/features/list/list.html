@@ -1,7 +1,6 @@
 <div class="list-header">
-  <!-- Suche -->
   <div class="search">
-    <span class="search-emoij" aria-hidden="true">🔍</span>
+    <span class="search-emoji" aria-hidden="true">🔍</span>
     <input
       type="text"
       [(ngModel)]="searchInput"
@@ -11,45 +10,34 @@
   </div>
 </div>
 
-<div class="table-header">
-  <a
-    class="sort-link"
-    role="button"
-    (click)="toggleSortDirection()"
-    [attr.aria-label]="'Sortier-Richtung ' + sortDirLabel()"
-  >
-    <span class="material-icons">
-      {{ sortType ? 'arrow_upward' : 'arrow_downward' }}
-    </span>
-    <span class="link-text">{{ sortDirLabel() }}</span>
-  </a>
-</div>
-
 <ng-container *ngIf="itemsResource.isLoading()">
   <div class="status" role="status">Laden…</div>
 </ng-container>
 <ng-container *ngIf="itemsResource.error() as err">
   <div class="status error" role="status">Fehler: {{ err.message }}</div>
 </ng-container>
+<cdk-virtual-scroll-viewport
+  class="item-viewport"
+  [itemSize]="60"
+  orientation="vertical"
+>
+  <table cdk-table [dataSource]="filteredItems()" class="item-table">
+    <ng-container cdkColumnDef="bad">
+      <th cdk-header-cell *cdkHeaderCellDef sticky>Bad</th>
+      <td cdk-cell *cdkCellDef="let item">{{ item.bad || '–' }}</td>
+    </ng-container>
 
-<cdk-virtual-scroll-viewport class="item-viewport" itemSize="60">
-  <table class="item-table">
-    <thead>
-      <tr>
-        <th scope="col">Bad</th>
-        <th scope="col">PLZ / Ort</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *cdkVirtualFor="let item of filteredItems()" class="item-row">
-        <td>{{ item.bad || '–' }}</td>
-        <td>
-          <ng-container *ngIf="item.plz || item.ort; else noneTpl">
-            {{ item.plz ? (item.plz + ' ') : '- ' }}{{ item.ort }}
-          </ng-container>
-          <ng-template #noneTpl>–</ng-template>
-        </td>
-      </tr>
-    </tbody>
+    <ng-container cdkColumnDef="ort">
+      <th cdk-header-cell *cdkHeaderCellDef sticky>PLZ / Ort</th>
+      <td cdk-cell *cdkCellDef="let item">
+        <ng-container *ngIf="item.plz || item.ort; else noneTpl">
+          {{ item.plz ? (item.plz + ' ') : '- ' }}{{ item.ort }}
+        </ng-container>
+        <ng-template #noneTpl>–</ng-template>
+      </td>
+    </ng-container>
+
+    <tr cdk-header-row *cdkHeaderRowDef="displayedColumns"></tr>
+    <tr cdk-row *cdkRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 </cdk-virtual-scroll-viewport>

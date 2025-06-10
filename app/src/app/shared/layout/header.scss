@@ -33,7 +33,6 @@
     background: none;
     border: none;
     font-size: 1.5rem;
-    line-height: 1;
     cursor: pointer;
     border-radius: $radius-sm;
     @include focus-ring;
@@ -44,8 +43,10 @@
   }
 
   .theme-emoji {
+    margin-right: -7px;
+    line-height: 1;
     display: inline-block;
-    padding-block-end: 4px;
+    padding-block-end: 6px;
     transform: translateY(2px);
   }
 }

@@ -6,15 +6,15 @@
   height: 80vh;
   width: 100%;
   margin-top: $space-4;
-  overflow: auto;
+  overflow-y: auto;
 }
 
 .list-header {
   display: flex;
   align-items: center;
   gap: $space-3;
-  margin-top: $space-2;
-  padding: $space-3 $space-4;
+  margin-top: $space-3;
+  padding: $space-2 $space-3;
   flex-wrap: nowrap;
 }
 
@@ -30,7 +30,7 @@
   flex: 1 1 0;
   min-width: 0;
 
-  .search-emoij {
+  .search-emoji {
     position: absolute;
     left: $space-3;
     top: 50%;
@@ -41,61 +41,15 @@
   }
 
   input {
+    box-sizing: border-box;
+    width: 100%;
     padding: $space-2 $space-3 $space-2 calc(#{$space-3 * 2} + 1rem);
     font-size: $font-size-md;
     border: 2px solid $color-border;
+    border-radius: $radius-l;
     @include focus-ring;
-  }
-}
 
-.sort-link {
-  display: inline-flex;
-  align-items: center;
-  gap: $space-1;
-  font-size: $font-size-md;
-  color: $color-primary;
-  cursor: pointer;
-  text-decoration: none;
-  user-select: none;
-  @include focus-ring;
-
-  .material-icons {
-    font-size: $font-size-lg;
-    text-decoration: none;
-    transition: transform $transition-fast;
-  }
-
-  .link-text {
-    text-decoration: underline;
-    text-underline-offset: 3px;
-  }
-}
-
-.position-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: $space-1;
-  padding: 0;
-  background: none;
-  border: none;
-  font-size: $font-size-md;
-  color: $color-primary;
-  border-radius: $radius-sm;
-  padding-block: $space-1;
-  font-family: "Englebert", cursive;
-  cursor: pointer;
-  @include focus-ring;
-  text-decoration: none;
-
-  .btn-text {
-    text-decoration: underline;
-    text-decoration-color: currentColor;
-    text-underline-offset: 3px;
-  }
-
-  .material-icons {
-    font-size: $font-size-lg;
-    text-decoration: none;
+    caret-color: currentColor;
   }
 }
 
@@ -113,39 +67,44 @@
 .item-table {
   width: 100%;
   border-collapse: collapse;
+  table-layout: fixed;
   text-align: left;
 
-  thead {
+  .cdk-header-cell {
+    position: sticky;
+    top: 0;
+    z-index: 2;
     background: $color-surface-alt;
     box-shadow: $shadow-sm;
     border-bottom: 2px solid $color-border;
-    // border-top-left-radius: $radius-l;
-    // border-top-right-radius: $radius-sm;
-  }
-
-  th {
     padding: $space-2 $space-4;
     font-size: $font-size-md;
     font-weight: $font-weight-bold;
-    border-bottom: 2px solid $color-border;
+
+    &:first-child {
+      border-top-left-radius: $radius-l;
+    }
+    &:last-child {
+      border-top-right-radius: $radius-l;
+    }
   }
 
-  tbody {
-    tr {
-      transition: background $transition-fast, box-shadow $transition-fast;
-      &:nth-child(odd) {
-        background: $color-surface-alt;
-      }
-      &:hover {
-        background: $color-surface-hover;
-        box-shadow: $shadow-md;
-      }
+  .cdk-cell {
+    padding: $space-3 $space-4;
+    font-size: $font-size-md;
+    border-bottom: 1px solid $color-border;
+  }
+
+  .cdk-row {
+    transition: background $transition-fast, box-shadow $transition-fast;
+
+    &:nth-child(odd) {
+      background: $color-surface-alt;
     }
 
-    td {
-      padding: $space-3 $space-4;
-      font-size: $font-size-md;
-      border-bottom: 1px solid $color-border;
+    &:hover {
+      background: $color-surface-hover;
+      box-shadow: $shadow-md;
     }
   }
 }
