@@ -9,121 +9,48 @@ import { BadItem } from 'src/app/shared/interfaces/bad-item.interface';
   selector: 'app-list',
   templateUrl: './list.html',
   imports: [CommonModule, FormsModule, CdkMenuModule, ScrollingModule],
-  standalone: true,
   styleUrl: './list.scss',
 })
 export class ListComponent {
+  private readonly BAD_ITEM_URL = '/api/v1/temperature/all_current.json/0';
+
   searchInput = signal('');
-  sortBy = signal<'dist' | 'date'>('dist');
-  userPosition = signal<{ lat: number; lon: number } | null>(null);
-  loading = signal(false);
-  error = signal<string | null>(null);
-
   sortType = true;
-
-  toggleSortBy() {
-    this.sortBy.set(this.sortBy() === 'dist' ? 'date' : 'dist');
-  }
 
   toggleSortDirection() {
     this.sortType = !this.sortType;
-  }
-
-  sortLabel() {
-    return this.sortBy() === 'dist' ? 'Entfernung' : 'Datum';
   }
 
   sortDirLabel() {
     return this.sortType ? 'aufsteigend' : 'absteigend';
   }
 
+  itemsResource = resource<BadItem[], unknown>({
+    loader: ({ abortSignal }) =>
+      fetch(this.BAD_ITEM_URL, { signal: abortSignal }).then((res) => {
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return res.json() as Promise<BadItem[]>;
+      }),
+  });
+
   filteredItems = computed(() => {
     const term = this.searchInput().toLowerCase();
-    const list = this.itemsWithDist().filter((item) => {
+    const items = this.itemsResource.value() ?? [];
+
+    const filtered = items.filter((item: any) => {
       const hay =
         `${item.bad} ${item.becken} ${item.ort} ${item.plz}`.toLowerCase();
       return !term || hay.includes(term);
     });
 
-    const sorted = [...list];
-
-    sorted.sort((a, b) => {
-      let cmp: number;
-
-      if (this.sortBy() === 'date') {
-        const ta = new Date(a.date).getTime();
-        const tb = new Date(b.date).getTime();
-        cmp = ta - tb;
-      } else {
-        const da = a.dist ?? Infinity;
-        const db = b.dist ?? Infinity;
-        cmp = da - db;
-      }
-
+    // Sortieren nach Datum
+    const sorted = [...filtered].sort((a, b) => {
+      const ta = new Date(a.date).getTime();
+      const tb = new Date(b.date).getTime();
+      const cmp = ta - tb;
       return this.sortType ? cmp : -cmp;
     });
 
     return sorted;
   });
-
-  itemsResource = resource<BadItem[], unknown>({
-    loader: ({ abortSignal }) =>
-      fetch(
-        'https://beta.wiewarm.ch:443/api/v1/temperature/all_current.json/0',
-        { signal: abortSignal }
-      ).then((res) => {
-        if (!res.ok) {
-          throw new Error(`HTTP ${res.status}`);
-        }
-        return res.json() as Promise<BadItem[]>;
-      }),
-  });
-
-  itemsWithDist = computed(() => {
-    const items = this.itemsResource.value() ?? [];
-    const pos = this.userPosition();
-    if (!pos) {
-      return items;
-    }
-    return items.map((item) => ({
-      ...item,
-      dist: this.distance(pos.lat, pos.lon, item.ortlat!, item.ortlong!),
-    }));
-  });
-
-  requestPosition() {
-    if (!navigator.geolocation) return;
-    this.loading.set(true);
-    navigator.geolocation.getCurrentPosition(
-      (pos) => {
-        this.userPosition.set({
-          lat: pos.coords.latitude,
-          lon: pos.coords.longitude,
-        });
-        this.loading.set(false);
-      },
-      (err) => {
-        this.error.set(err.message);
-        this.loading.set(false);
-      },
-      { timeout: 10000 }
-    );
-  }
-  // ToDo: fix
-  private distance(
-    lat1: number,
-    lon1: number,
-    lat2: number,
-    lon2: number
-  ): number {
-    const R = 6_371_000;
-    const toRad = (d: number) => (d * Math.PI) / 180;
-    const dLat = toRad(lat2 - lat1);
-    const dLon = toRad(lon2 - lon1);
-    const a =
-      Math.sin(dLat / 2) ** 2 +
-      Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLon / 2) ** 2;
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    return R * c;
-  }
 }

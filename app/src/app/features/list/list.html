@@ -15,33 +15,16 @@
   <a
     class="sort-link"
     role="button"
-    (click)="toggleSortBy()"
-    [attr.aria-label]="'Sortieren nach ' + sortLabel()"
+    (click)="toggleSortDirection()"
+    [attr.aria-label]="'Sortier-Richtung ' + sortDirLabel()"
   >
     <span class="material-icons">
       {{ sortType ? 'arrow_upward' : 'arrow_downward' }}
     </span>
-    <span class="link-text">{{ sortLabel() }}</span>
+    <span class="link-text">{{ sortDirLabel() }}</span>
   </a>
-
-  <button
-    class="position-btn"
-    (click)="requestPosition()"
-    [disabled]="loading()"
-    aria-details="Aktualisiert meine Position"
-  >
-    <ng-container *ngIf="!loading(); else loadingTpl">
-      <span class="btn-text">Meine Position</span>
-      <span class="material-icons" aria-hidden="true">place</span>
-    </ng-container>
-    <ng-template #loadingTpl>
-      <span class="btn-text">Laden…</span>
-      <span class="material-icons spin" aria-hidden="true">autorenew</span>
-    </ng-template>
-  </button>
 </div>
 
-<!-- Loading / Error -->
 <ng-container *ngIf="itemsResource.isLoading()">
   <div class="status" role="status">Laden…</div>
 </ng-container>
@@ -55,20 +38,16 @@
       <tr>
         <th scope="col">Bad</th>
         <th scope="col">PLZ / Ort</th>
-        <th scope="col">Entfernung</th>
       </tr>
     </thead>
     <tbody>
       <tr *cdkVirtualFor="let item of filteredItems()" class="item-row">
         <td>{{ item.bad || '–' }}</td>
         <td>
-          <ng-container *ngIf="item.plz || item.ort; else noLocation">
+          <ng-container *ngIf="item.plz || item.ort; else noneTpl">
             {{ item.plz ? (item.plz + ' ') : '- ' }}{{ item.ort }}
           </ng-container>
-          <ng-template #noLocation>–</ng-template>
-        </td>
-        <td>
-          {{ item.dist != null ? (item.dist | number:'1.0-0') + ' m' : '–' }}
+          <ng-template #noneTpl>–</ng-template>
         </td>
       </tr>
     </tbody>
