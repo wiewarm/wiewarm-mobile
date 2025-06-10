@@ -10,6 +10,7 @@ export interface BadItem {
   temp: number;
   ortlat: number;
   ortlong: number;
+  kanton: string;
   dist?: number;
   [key: string]: string | number | undefined;
 }
