@@ -12,7 +12,8 @@ import { BadItem } from 'src/app/shared/interfaces/bad-item.interface';
   styleUrl: './list.scss',
 })
 export class ListComponent {
-  private readonly BAD_ITEM_URL = '/api/v1/temperature/all_current.json/0';
+  private readonly BAD_ITEM_URL =
+    'https://beta.wiewarm.ch:443/api/v1/temperature/all_current.json/0';
 
   searchInput = signal('');
   readonly displayedColumns = ['bad', 'ort'];

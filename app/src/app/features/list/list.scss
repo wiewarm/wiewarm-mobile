@@ -59,7 +59,7 @@
   border-radius: $radius-sm;
   &.error {
     color: $color-accent;
-    background: rgba($color-accent, 0.1);
+    background: rgba($color-accent, 0.4);
     border-left: 4px solid $color-accent;
   }
 }
