@@ -41,7 +41,7 @@ Di moderni Web-App zur intuitive und barrierefreiä Anzeig von Temperaturdate i 
 ## 📱 Live-Demo
 
 Probier’s gleich aus:  
-https://wiewarm.lueem.dev
+https://wie-warm.web.app/
 
 ---
 
