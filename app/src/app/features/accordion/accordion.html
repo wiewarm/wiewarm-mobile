@@ -10,31 +10,44 @@
   </div>
 </div>
 
-<div class="accordion" cdkAccordion>
-  @if(itemsResource.isLoading()) {
-  <div class="status" role="status">Laden…</div>
-  } @if(itemsResource.error()){
-  <div class="status error" role="alert">
-    Fehler beim Laden: {{ itemsResource.error()?.message }}. Bitte versuchen Sie
-    es später erneut.
-  </div>
-  } @else { @for(item of filteredItems(); track item.beckenid; let i = $index) {
-  <section class="accordion-item">
-    <cdk-accordion-item cdk-accordion-item #accItem="cdkAccordionItem">
-      <h3>
-        <button
-          class="accordion-header"
-          (click)="accItem.toggle()"
-          type="button"
-          [attr.id]="'acc-header-' + i"
-          [attr.aria-expanded]="accItem.expanded"
-          [attr.aria-controls]="'acc-body-' + i"
-        >
-          <span class="accordion-header-left">
-            <span class="accordion-header-title">{{ item.bad }}</span>
-            <span class="accordion-header-subtitle">
-              {{ item.plz ? item.plz + ' ' : '' }}{{ item.ort }}
-              <ng-container *ngIf="item.kanton">
+<cdk-virtual-scroll-viewport
+  class="item-viewport"
+  [itemSize]="72"
+  orientation="vertical"
+>
+  <div class="accordion" cdkAccordion>
+    @if(badResource.isLoading()) {
+    <div class="status" role="status">
+      <span aria-hidden="true">⏳ </span>Laden…
+    </div>
+    } @if(badResource.error()) {
+    <div class="status error" role="alert">
+      <span aria-hidden="true">❌ </span>
+      Fehler beim Laden: {{ badResource.error()?.message }}. Bitte versuchen Sie
+      es später erneut.
+    </div>
+    } @if(!badResource.isLoading() && !badResource.error() &&
+    filteredItems().length === 0) {
+    <div class="status" role="status">
+      <span aria-hidden="true">😕 </span>Keine Resultate gefunden.
+    </div>
+    } @for(item of filteredItems(); track item.beckenid; let i = $index) {
+    <section class="accordion-item">
+      <cdk-accordion-item cdk-accordion-item #accItem="cdkAccordionItem">
+        <h3>
+          <button
+            class="accordion-header"
+            (click)="accItem.toggle()"
+            type="button"
+            [attr.id]="'acc-header-' + i"
+            [attr.aria-expanded]="accItem.expanded"
+            [attr.aria-controls]="'acc-body-' + i"
+          >
+            <span class="accordion-header-left">
+              <span class="accordion-header-title">{{ item.bad }}</span>
+              <span class="accordion-header-subtitle">
+                {{ item.plz ? item.plz + ' ' : '' }}{{ item.ort }}
+                @if(item.kanton) {
                 <img
                   class="kanton-wappen"
                   [src]="'assets/img/wappen/' + (item.kanton | lowercase) + '.svg'"
@@ -42,39 +55,35 @@
                   width="18"
                   height="18"
                   loading="lazy"
-                  style="vertical-align: middle; margin-left: 0.25em"
-                />
-              </ng-container>
+                />}
+              </span>
             </span>
-          </span>
-          <span class="accordion-header-right">
-            <span class="temp-label">
-              <span
-                class="temp-dot"
-                [ngClass]="temperatureClass(item.temp)"
-              ></span>
-              {{ item.temp != null ? item.temp + '°C' : '—' }}
+            <span class="accordion-header-right">
+              <span class="temp-label">
+                <span
+                  class="temp-dot"
+                  [ngClass]="temperatureClass(item.temp)"
+                ></span>
+                {{ item.temp != null ? item.temp + '°C' : '—' }}
+              </span>
             </span>
-          </span>
-        </button>
-      </h3>
-      @if(accItem.expanded) {
-      <div
-        class="accordion-body"
-        role="region"
-        [attr.id]="'acc-body-' + i"
-        [attr.aria-labelledby]="'acc-header-' + i"
-      >
-        <div class="accordion-body-left"></div>
-        <div class="accordion-body-right">
-          <div class="time-label">
-            <span aria-hidden="true">🕒 </span>{{ item.date_pretty }}
+          </button>
+        </h3>
+        @if(accItem.expanded) {
+        <div
+          class="accordion-body"
+          role="region"
+          [attr.id]="'acc-body-' + i"
+          [attr.aria-labelledby]="'acc-header-' + i"
+        >
+          <div class="accordion-body-left"></div>
+          <div class="accordion-body-right">
+            <div class="time-label">Aktualisiert: {{ item.date_pretty }}</div>
           </div>
         </div>
-      </div>
-
-      }
-    </cdk-accordion-item>
-  </section>
-  } }
-</div>
+        }
+      </cdk-accordion-item>
+    </section>
+    }
+  </div>
+</cdk-virtual-scroll-viewport>

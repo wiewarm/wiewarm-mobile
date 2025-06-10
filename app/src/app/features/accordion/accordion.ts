@@ -3,12 +3,13 @@ import { Component, computed, resource, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CdkAccordionModule } from '@angular/cdk/accordion';
 import { BadItem } from 'src/app/shared/interfaces/bad-item.interface';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 @Component({
   selector: 'app-accordion',
   templateUrl: './accordion.html',
   styleUrl: './accordion.scss',
-  imports: [CommonModule, FormsModule, CdkAccordionModule],
+  imports: [CommonModule, FormsModule, CdkAccordionModule, ScrollingModule],
 })
 export class AccordionComponent {
   private readonly BAD_ITEM_URL =
@@ -17,7 +18,7 @@ export class AccordionComponent {
   searchInput = signal('');
   readonly tableColumns = ['bad', 'ort', 'temp', 'date_pretty'];
 
-  itemsResource = resource<BadItem[], unknown>({
+  badResource = resource<BadItem[], unknown>({
     loader: ({ abortSignal }) =>
       fetch(this.BAD_ITEM_URL, { signal: abortSignal }).then((res) => {
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -27,7 +28,7 @@ export class AccordionComponent {
 
   filteredItems = computed(() => {
     const term = this.searchInput().toLowerCase();
-    const items = this.itemsResource.value() ?? [];
+    const items = this.badResource.value() ?? [];
 
     return items.filter((item) => {
       const hay = this.tableColumns

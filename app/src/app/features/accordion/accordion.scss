@@ -1,5 +1,12 @@
 @use "../../../assets/styles/variables" as *;
 
+.item-viewport {
+  height: 80vh;
+  width: 100%;
+  margin-top: $space-4;
+  overflow-y: auto;
+}
+
 .list-header {
   display: flex;
   align-items: center;
@@ -40,6 +47,17 @@
   padding: $space-3 $space-4;
   font-size: $font-size-md;
   border-radius: $radius-sm;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 8rem;
+  text-align: center;
+
+  // zentriert das Status-Element im Viewport
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+
   &.error {
     color: $color-accent;
     background: rgba($color-accent, 0.4);
@@ -48,7 +66,6 @@
 }
 
 .accordion {
-  padding: $space-2 $space-3;
   margin-top: $space-4;
   border-top-left-radius: $radius-l;
   border-top-right-radius: $radius-l;
@@ -72,7 +89,8 @@
   }
 
   &:nth-child(even) {
-    .accordion-header {
+    .accordion-header,
+    .accordion-body {
       background: $color-surface-alt;
     }
   }
@@ -89,6 +107,13 @@
   font-family: "Englebert", cursive;
   transition: background $transition-fast, box-shadow $transition-fast;
 
+  border-bottom: none;
+
+  .kanton-wappen {
+    vertical-align: middle;
+    margin-left: 0.25em;
+  }
+
   &:hover {
     background: $color-surface-hover;
     box-shadow: $shadow-md;
@@ -98,9 +123,9 @@
   .accordion-header-left {
     display: flex;
     flex-direction: column;
-    font-size: $font-size-md;
+    font-size: $font-size-lg;
     .accordion-header-title {
-      font-size: $font-size-lg;
+      font-weight: $font-weight-bold;
       line-height: 1.4;
       margin-bottom: $space-1;
     }
@@ -117,7 +142,10 @@
   flex-direction: row;
   justify-content: space-between;
   padding: $space-3 $space-4;
-  border-top: 1px solid $color-border;
+  font-family: "Englebert", cursive;
+  font-size: $font-size-md;
+  background: $color-surface-hover;
+
   .accordion-body-left {
     display: flex;
     flex-direction: column;
