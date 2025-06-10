@@ -50,7 +50,6 @@
     @include focus-ring;
 
     caret-color: currentColor;
-    caret-shape: "block";
   }
 }
 
@@ -80,7 +79,7 @@
     border-bottom: 2px solid $color-border;
     padding: $space-2 $space-4;
     font-size: $font-size-lg;
-    line-height: 1.4;
+    line-height: 1.6;
 
     &:first-child {
       border-top-left-radius: $radius-l;
@@ -95,6 +94,44 @@
     font-size: $font-size-md;
     border-bottom: 1px solid $color-border;
     line-height: 1.5;
+  }
+
+  .temp-label {
+    display: flex;
+    align-items: center;
+    gap: $space-2;
+  }
+
+  .temp-dot {
+    display: inline-block;
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 50%;
+    flex-shrink: 0;
+
+    &.temp-cold {
+      background-color: #2b7bb9;
+    }
+
+    &.temp-cool {
+      background-color: #00aaff;
+    }
+
+    &.temp-mild {
+      background-color: #ffc107;
+    }
+
+    &.temp-warm {
+      background-color: #ff9800;
+    }
+
+    &.temp-hot {
+      background-color: #e53935;
+    }
+
+    &.temp-unknown {
+      background-color: $color-border;
+    }
   }
 
   .cdk-row {

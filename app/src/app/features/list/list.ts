@@ -16,7 +16,7 @@ export class ListComponent {
     'https://beta.wiewarm.ch:443/api/v1/temperature/all_current.json/0';
 
   searchInput = signal('');
-  readonly displayedColumns = ['bad', 'ort'];
+  readonly tableColumns = ['bad', 'ort', 'temp', 'date_pretty'];
 
   itemsResource = resource<BadItem[], unknown>({
     loader: ({ abortSignal }) =>
@@ -25,15 +25,25 @@ export class ListComponent {
         return res.json() as Promise<BadItem[]>;
       }),
   });
-
   filteredItems = computed(() => {
     const term = this.searchInput().toLowerCase();
     const items = this.itemsResource.value() ?? [];
 
-    return items.filter((item: any) => {
-      const hay =
-        `${item.bad} ${item.becken} ${item.ort} ${item.plz}`.toLowerCase();
+    return items.filter((item) => {
+      const hay = this.tableColumns
+        .map((key) => item[key]?.toString().toLowerCase() ?? '')
+        .join(' ');
+
       return !term || hay.includes(term);
     });
   });
+
+  temperatureClass(temp: number | null | undefined): string {
+    if (temp == null) return 'temp-unknown';
+    if (temp < 15) return 'temp-cold';
+    if (temp < 20) return 'temp-cool';
+    if (temp < 24) return 'temp-mild';
+    if (temp < 27) return 'temp-warm';
+    return 'temp-hot';
+  }
 }

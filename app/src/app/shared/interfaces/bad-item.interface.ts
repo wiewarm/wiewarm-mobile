@@ -11,4 +11,5 @@ export interface BadItem {
   ortlat: number;
   ortlong: number;
   dist?: number;
+  [key: string]: string | number | undefined;
 }

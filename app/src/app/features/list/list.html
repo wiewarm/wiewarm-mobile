@@ -26,20 +26,53 @@
   <table cdk-table [dataSource]="filteredItems()" class="item-table">
     <ng-container cdkColumnDef="bad">
       <th cdk-header-cell *cdkHeaderCellDef sticky>Bad</th>
-      <td cdk-cell *cdkCellDef="let item">{{ item.bad || '–' }}</td>
-    </ng-container>
-
-    <ng-container cdkColumnDef="ort">
-      <th cdk-header-cell *cdkHeaderCellDef sticky>PLZ / Ort</th>
       <td cdk-cell *cdkCellDef="let item">
-        <ng-container *ngIf="item.plz || item.ort; else noneTpl">
-          {{ item.plz ? (item.plz + ' ') : '- ' }}{{ item.ort }}
-        </ng-container>
-        <ng-template #noneTpl>&mdash;</ng-template>
+        @if(item.bad) {{{ item.bad }} } @else {
+        <ng-template #dashTpl>&mdash;</ng-template>
+        }
       </td>
     </ng-container>
 
-    <tr cdk-header-row *cdkHeaderRowDef="displayedColumns"></tr>
-    <tr cdk-row *cdkRowDef="let row; columns: displayedColumns;"></tr>
+    <ng-container cdkColumnDef="ort">
+      <th cdk-header-cell *cdkHeaderCellDef sticky>
+        <span aria-hidden="true">📍</span> PLZ / Ort
+      </th>
+      <td cdk-cell *cdkCellDef="let item">
+        @if (item.plz || item.ort) { {{ item.plz ? item.plz + ' ' : '' }}{{
+        item.ort }} @if (item.kanton) { ({{ item.kanton }}) } } @else {
+        <ng-template #noneTpl>&mdash;</ng-template>
+        }
+      </td>
+    </ng-container>
+
+    <ng-container cdkColumnDef="temp">
+      <th cdk-header-cell *cdkHeaderCellDef sticky>Temperatur</th>
+      <td cdk-cell *cdkCellDef="let item">
+        @if(item.temp) {
+        <span class="temp-label">
+          <span class="temp-dot" [ngClass]="temperatureClass(item.temp)"></span>
+          {{ item.temp }}&deg;C
+        </span>
+        } @else {
+        <ng-template #dashTpl>&mdash;</ng-template>
+        }
+      </td>
+    </ng-container>
+    <ng-container cdkColumnDef="date_pretty">
+      <th cdk-header-cell *cdkHeaderCellDef sticky>
+        <span aria-hidden="true">🕒</span>
+        Zeit
+      </th>
+      <td cdk-cell *cdkCellDef="let item">
+        @if(item.date_pretty) {
+        <span class="time-label"> {{ item.date_pretty }} </span>
+        } @else {
+        <ng-template #dashTpl>&mdash;</ng-template>
+        }
+      </td>
+    </ng-container>
+
+    <tr cdk-header-row *cdkHeaderRowDef="tableColumns"></tr>
+    <tr cdk-row *cdkRowDef="let row; columns: tableColumns;"></tr>
   </table>
 </cdk-virtual-scroll-viewport>
