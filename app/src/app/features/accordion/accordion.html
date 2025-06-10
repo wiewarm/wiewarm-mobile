@@ -76,7 +76,9 @@
           [attr.id]="'acc-body-' + i"
           [attr.aria-labelledby]="'acc-header-' + i"
         >
-          <div class="accordion-body-left"></div>
+          <div class="accordion-body-left">
+            <a [routerLink]="['/badi', item.badid_text]" class="detail-link">Details</a>
+          </div>
           <div class="accordion-body-right">
             <div class="time-label">Aktualisiert: {{ item.date_pretty }}</div>
           </div>
