@@ -28,7 +28,7 @@
     <ng-container cdkColumnDef="bad">
       <th cdk-header-cell *cdkHeaderCellDef sticky>Bad</th>
       <td cdk-cell *cdkCellDef="let item">
-        @if(item.bad) {{{ item.bad }} } @else {
+        @if(item.bad) { {{ item.bad }} } @else {
         <ng-template #dashTpl>&mdash;</ng-template>
         }
       </td>

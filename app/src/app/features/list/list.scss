@@ -1,6 +1,5 @@
 @use "../../../assets/styles/variables" as *;
 @use "../../../assets/styles/menu" as *;
-@use "sass:color";
 
 .item-viewport {
   height: 80vh;
@@ -168,5 +167,14 @@
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 35ch;
+  }
+
+  .cdk-column-bad .cdk-column-ort {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: $space-3 $space-4;
+    box-sizing: border-box;
+    border-bottom: 1px solid $color-border;
   }
 }
