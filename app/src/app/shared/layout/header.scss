@@ -35,18 +35,22 @@
     font-size: 1.5rem;
     cursor: pointer;
     border-radius: $radius-sm;
-    @include focus-ring;
+    perspective: 600px;
+    transition: transform $transition-fast, filter $transition-fast;
 
     &:hover {
-      background: rgba($color-text, 0.5);
+      transform: scale(1.2);
+      filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.3));
     }
-  }
 
-  .theme-emoji {
-    margin-right: -7px;
-    line-height: 1;
-    display: inline-block;
-    padding-block-end: 6px;
-    transform: translateY(2px);
+    &.flipped .theme-emoji {
+      transform: rotateY(180deg);
+    }
+
+    .theme-emoji {
+      display: inline-block;
+      transform-style: preserve-3d;
+      transition: transform $transition-fast;
+    }
   }
 }

@@ -5,17 +5,19 @@
       type="text"
       [(ngModel)]="searchInput"
       placeholder="Suche…"
-      aria-label="Suche"
+      aria-label="Badi suchen"
     />
   </div>
 </div>
-<!-- ToDo: err styles -->
-<ng-container *ngIf="itemsResource.isLoading()">
-  <div class="status" role="status">Laden…</div>
-</ng-container>
-<ng-container *ngIf="itemsResource.error() as err">
-  <div class="status error" role="status">Fehler: {{ err.message }}</div>
-</ng-container>
+
+@if(itemsResource.isLoading()) {
+<div class="status" role="status">Laden…</div>
+} @if(itemsResource.error()){
+<div class="status error" role="alert">
+  Fehler beim Laden: {{ itemsResource.error()?.message }}. Bitte versuchen Sie
+  es später erneut.
+</div>
+}
 <cdk-virtual-scroll-viewport
   class="item-viewport"
   [itemSize]="60"
@@ -33,7 +35,7 @@
         <ng-container *ngIf="item.plz || item.ort; else noneTpl">
           {{ item.plz ? (item.plz + ' ') : '- ' }}{{ item.ort }}
         </ng-container>
-        <ng-template #noneTpl>–</ng-template>
+        <ng-template #noneTpl>&mdash;</ng-template>
       </td>
     </ng-container>
 

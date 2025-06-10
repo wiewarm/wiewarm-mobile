@@ -70,11 +70,12 @@ $transition-slow: 0.5s ease-in-out !default;
 // 8. Accessibility – Focus-Ring
 $focus-outline-color: $color-primary-dark !default;
 $focus-outline-width: 3px !default;
-$focus-outline-offset: 0px !default;
+$focus-outline-offset: -3px !default;
 
 @mixin focus-ring {
   &:focus {
-    outline: $focus-outline-width solid $focus-outline-color;
+    outline: $focus-outline-width solid var(--color-surface);
     outline-offset: $focus-outline-offset;
+    outline-color: $focus-outline-color;
   }
 }
