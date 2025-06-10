@@ -44,7 +44,7 @@
             [attr.aria-controls]="'acc-body-' + i"
           >
             <span class="accordion-header-left">
-              <span class="accordion-header-title">{{ item.bad }}</span>
+              <span class="accordion-header-title">{{item.becken}}</span>
               <span class="accordion-header-subtitle">
                 {{ item.plz ? item.plz + ' ' : '' }}{{ item.ort }}
                 @if(item.kanton) {
@@ -76,9 +76,16 @@
           [attr.id]="'acc-body-' + i"
           [attr.aria-labelledby]="'acc-header-' + i"
         >
-          <div class="accordion-body-left"></div>
+          <div class="accordion-body-left">
+            <p>{{ item.bad }}</p>
+          </div>
           <div class="accordion-body-right">
-            <div class="time-label">Aktualisiert: {{ item.date_pretty }}</div>
+            <p
+              class="time-label"
+              [ngClass]="{ 'time-label-old': isOlderThanOneMonth(item.date) }"
+            >
+              Zuletzt aktualisiert: {{ item.date_pretty }}
+            </p>
           </div>
         </div>
         }

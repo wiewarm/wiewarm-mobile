@@ -173,6 +173,7 @@
   display: flex;
   align-items: center;
   gap: $space-2;
+  font-size: $font-size-lg;
 }
 
 .temp-dot {
@@ -205,4 +206,8 @@
   &.temp-unknown {
     background-color: $color-border;
   }
+}
+
+.time-label-old {
+  color: $color-accent !important;
 }
