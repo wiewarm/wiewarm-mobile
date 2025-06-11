@@ -1,10 +1,12 @@
+import { CdkAccordionModule } from '@angular/cdk/accordion';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 import { CommonModule } from '@angular/common';
 import { Component, computed, resource, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CdkAccordionModule } from '@angular/cdk/accordion';
 import { RouterModule } from '@angular/router';
 import { BadItem } from 'src/app/shared/interfaces/bad-item.interface';
-import { ScrollingModule } from '@angular/cdk/scrolling';
+import { DialogDirective } from 'src/app/shared/layout/dialog/dialog.directive';
+import { filterItems, sortItems } from 'src/app/shared/util/filtersort.util';
 
 @Component({
   selector: 'app-accordion',
@@ -16,6 +18,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
     CdkAccordionModule,
     ScrollingModule,
     RouterModule,
+    DialogDirective,
   ],
 })
 export class AccordionComponent {
@@ -24,6 +27,15 @@ export class AccordionComponent {
 
   searchInput = signal('');
   readonly tableColumns = ['bad', 'ort', 'temp', 'date_pretty'];
+
+  sortDialogOpen = false;
+  sortField: keyof BadItem = 'becken';
+  sortDirection = signal<'asc' | 'desc'>('asc');
+
+  setSort(field: keyof BadItem, direction: 'asc' | 'desc' = 'asc') {
+    this.sortField = field;
+    this.sortDirection.set(direction);
+  }
 
   badResource = resource<BadItem[], unknown>({
     loader: ({ abortSignal }) =>
@@ -36,14 +48,12 @@ export class AccordionComponent {
   filteredItems = computed(() => {
     const term = this.searchInput().toLowerCase();
     const items = this.badResource.value() ?? [];
-
-    return items.filter((item) => {
-      const hay = this.tableColumns
-        .map((key) => item[key]?.toString().toLowerCase() ?? '')
-        .join(' ');
-
-      return !term || hay.includes(term);
-    });
+    const filtered = filterItems(
+      items,
+      term,
+      this.tableColumns as (keyof BadItem)[]
+    );
+    return sortItems(filtered, this.sortField, this.sortDirection());
   });
 
   temperatureClass(temp: number | null | undefined): string {

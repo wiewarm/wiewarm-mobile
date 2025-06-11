@@ -3,17 +3,28 @@
 .item-viewport {
   height: 80vh;
   width: 100%;
-  margin-top: $space-4;
   overflow-y: auto;
 }
 
 .list-header {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   gap: $space-3;
-  margin-top: $space-4;
-  padding: $space-2 $space-3;
-  flex-wrap: nowrap;
+  padding-top: $space-4;
+  padding-left: $space-3;
+  padding-right: $space-3;
+}
+
+.sort-link {
+  color: $color-secondary;
+  text-decoration: none;
+  padding-left: $space-2;
+  padding-right: $space-3;
+  font-size: $font-size-md;
+  .sort-text {
+    text-decoration: underline;
+    text-underline-offset: 0.15rem;
+  }
 }
 
 .search {
