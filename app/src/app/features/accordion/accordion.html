@@ -18,7 +18,7 @@
     <span class="sort-text">Sortieren</span>
   </a>
 </div>
-
+<!-- ToDo: use seperate component -->
 <dialog appDialog #dialog id="sort-dialog" aria-labelledby="sort-dialog-title">
   <div class="sort-dialog-content">
     <h2 id="sort-dialog-title" class="sort-dialog-title">Sortieren nach:</h2>
@@ -77,8 +77,7 @@
     } @if(badResource.error()) {
     <div class="status error" role="alert">
       <span aria-hidden="true">❌ </span>
-      Fehler beim Laden: {{ badResource.error()?.message }}. Bitte versuchen Sie
-      es später erneut.
+      Fehler beim Laden. Bitte versuchen Sie es später erneut.
     </div>
     } @if(!badResource.isLoading() && !badResource.error() &&
     filteredItems().length === 0) {

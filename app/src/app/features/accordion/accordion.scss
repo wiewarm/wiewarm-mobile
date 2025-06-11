@@ -60,6 +60,19 @@
   }
 }
 
+#sort-dialog {
+  min-width: 40%;
+  max-width: 120px;
+  border-radius: $radius-l;
+  border-color: $color-border;
+  li {
+    padding-bottom: $space-1;
+  }
+  a {
+    font-size: $font-size-lg;
+  }
+}
+
 .sort-dialog-title {
   font-size: $font-size-lg;
   font-weight: $font-weight-bold;
@@ -72,7 +85,6 @@
   right: 0.5rem;
   background: transparent;
   border: none;
-  color: blue;
   font-size: 1.5rem;
   cursor: pointer;
 }
