@@ -10,7 +10,7 @@ export class HeaderComponent {
   protected darkMode = signal(false);
 
   public toggleDarkMode() {
-    this.darkMode.set(!this.darkMode);
+    this.darkMode.set(!this.darkMode());
     document.body.classList.toggle('dark-mode', this.darkMode());
   }
 }
