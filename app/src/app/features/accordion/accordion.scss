@@ -18,13 +18,32 @@
 .sort-link {
   color: $color-secondary;
   text-decoration: none;
-  padding-left: $space-2;
+  padding-top: $space-3;
   padding-right: $space-3;
   font-size: $font-size-md;
   .sort-text {
+    padding-left: $space-2;
     text-decoration: underline;
     text-underline-offset: 0.15rem;
   }
+}
+
+.sort-dialog-title {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-bold;
+  padding-bottom: $space-2;
+}
+
+.close-button {
+  display: inline-block;
+  margin-top: $space-2;
+  border: none;
+  background: $color-secondary;
+  color: $color-surface;
+  padding: $space-1 $space-2;
+  border-radius: $radius-sm;
+  font-size: $font-size-md;
+  cursor: pointer;
 }
 
 .search {
@@ -45,7 +64,7 @@
   input {
     box-sizing: border-box;
     width: 100%;
-    padding: $space-2 $space-3 $space-2 calc(#{$space-3 * 3} + 1rem);
+    padding: $space-2 $space-3 $space-2 calc(#{$space-2 * 3} + 1rem);
     font-size: $font-size-md;
     border: 2px solid $color-border;
     border-radius: $radius-l;
@@ -77,7 +96,7 @@
 }
 
 .accordion {
-  margin-top: $space-4;
+  margin-top: $space-3;
   border-top-left-radius: $radius-l;
   border-top-right-radius: $radius-l;
 }

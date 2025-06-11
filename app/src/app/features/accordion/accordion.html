@@ -13,7 +13,7 @@
     class="sort-link"
     aria-haspopup="dialog"
     aria-controls="sort-dialog"
-    (click)="dialog.showModal(); $event.preventDefault();"
+    (click)="dialog.showModal();"
     ><span aria-hidden="true">🔽</span>
     <span class="sort-text">Sortieren</span>
   </a>
@@ -21,39 +21,40 @@
 
 <dialog appDialog #dialog id="sort-dialog" aria-labelledby="sort-dialog-title">
   <div class="sort-dialog-content">
-    <h2 id="sort-dialog-title">Sortieren nach</h2>
+    <h2 id="sort-dialog-title" class="sort-dialog-title">Sortieren nach:</h2>
     <ul>
       <li>
         <a
           href="#"
           role="option"
-          [attr.aria-selected]="sortField === 'becken'"
+          [attr.aria-selected]="sortField() === 'becken'"
           (click)="setSort('becken'); dialog.close(); $event.preventDefault();"
         >
-          Becken @if(sortField === 'becken') { <span>✓</span> }
+          Becken @if(sortField() === 'becken') { <span>✓</span> }
         </a>
       </li>
       <li>
         <a
           href="#"
           role="option"
-          [attr.aria-selected]="sortField === 'ort'"
+          [attr.aria-selected]="sortField() === 'ort'"
           (click)="setSort('ort'); dialog.close(); $event.preventDefault();"
         >
-          PLZ/Ort @if(sortField === 'ort') { <span>✓</span> }
+          PLZ/Ort @if(sortField() === 'ort') { <span>✓</span> }
         </a>
       </li>
       <li>
         <a
           href="#"
           role="option"
-          [attr.aria-selected]="sortField === 'temp'"
+          [attr.aria-selected]="sortField() === 'temp'"
           (click)="setSort('temp'); dialog.close(); $event.preventDefault();"
         >
-          Temperatur @if(sortField === 'temp') { <span>✓</span> }
+          Temperatur @if(sortField() === 'temp') { <span>✓</span> }
         </a>
       </li>
     </ul>
+    <button class="close-button" (click)="dialog.close()">Schliessen</button>
   </div>
 </dialog>
 

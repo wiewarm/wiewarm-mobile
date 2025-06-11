@@ -6,7 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { BadItem } from 'src/app/shared/interfaces/bad-item.interface';
 import { DialogDirective } from 'src/app/shared/layout/dialog/dialog.directive';
-import { filterItems, sortItems } from 'src/app/shared/util/filtersort.util';
+import { isOlderThanOneMonth } from 'src/app/shared/util/date.util';
 
 @Component({
   selector: 'app-accordion',
@@ -22,6 +22,8 @@ import { filterItems, sortItems } from 'src/app/shared/util/filtersort.util';
   ],
 })
 export class AccordionComponent {
+  isOlderThanOneMonth = isOlderThanOneMonth;
+
   private readonly BAD_ITEM_URL =
     'https://beta.wiewarm.ch:443/api/v1/temperature/all_current.json/0';
 
@@ -29,11 +31,11 @@ export class AccordionComponent {
   readonly tableColumns = ['bad', 'ort', 'temp', 'date_pretty'];
 
   sortDialogOpen = false;
-  sortField: keyof BadItem = 'becken';
+  sortField = signal<keyof BadItem>('becken');
   sortDirection = signal<'asc' | 'desc'>('asc');
 
   setSort(field: keyof BadItem, direction: 'asc' | 'desc' = 'asc') {
-    this.sortField = field;
+    this.sortField.set(field);
     this.sortDirection.set(direction);
   }
 
@@ -48,12 +50,8 @@ export class AccordionComponent {
   filteredItems = computed(() => {
     const term = this.searchInput().toLowerCase();
     const items = this.badResource.value() ?? [];
-    const filtered = filterItems(
-      items,
-      term,
-      this.tableColumns as (keyof BadItem)[]
-    );
-    return sortItems(filtered, this.sortField, this.sortDirection());
+    const filtered = term ? this.filterItems(items, term) : items;
+    return this.sortItems(filtered, this.sortField(), this.sortDirection());
   });
 
   temperatureClass(temp: number | null | undefined): string {
@@ -65,12 +63,34 @@ export class AccordionComponent {
     return 'temp-hot';
   }
 
-  isOlderThanOneMonth(dateStr: string | null | undefined): boolean {
-    if (!dateStr) return false;
-    const itemDate = new Date(dateStr.replace(' ', 'T'));
-    const now = new Date();
-    const oneMonthAgo = new Date();
-    oneMonthAgo.setMonth(now.getMonth() - 1);
-    return itemDate < oneMonthAgo;
+  private filterItems(items: BadItem[], term: string): BadItem[] {
+    return items.filter((item) => {
+      const searchFields = [item.bad, item.ort, item.becken]
+        .filter(Boolean)
+        .map((val) => val.toLowerCase());
+      return searchFields.some((field) => field.includes(term));
+    });
+  }
+
+  private sortItems(
+    items: BadItem[],
+    field: keyof BadItem,
+    direction: 'asc' | 'desc'
+  ): BadItem[] {
+    return [...items].sort((a, b) => {
+      const aVal = a[field];
+      const bVal = b[field];
+
+      if (aVal == null && bVal == null) return 0;
+      if (aVal == null) return 1;
+      if (bVal == null) return -1;
+
+      const comparison = String(aVal).localeCompare(String(bVal), undefined, {
+        numeric: true,
+        sensitivity: 'base',
+      });
+
+      return direction === 'asc' ? comparison : -comparison;
+    });
   }
 }
