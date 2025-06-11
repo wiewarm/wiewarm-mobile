@@ -19,6 +19,8 @@
 
   transition: background-color 0s ease-in-out, color 0.1s ease-in-out,
     border-color 0.1s ease-in-out;
+
+  overflow-y: hidden;
 }
 
 body {

@@ -54,7 +54,13 @@
         </a>
       </li>
     </ul>
-    <button class="close-button" (click)="dialog.close()">Schliessen</button>
+    <button
+      class="close-button"
+      (click)="dialog.close()"
+      aria-label="Schliessen"
+    >
+      ×
+    </button>
   </div>
 </dialog>
 
@@ -131,7 +137,7 @@
           <div class="accordion-body-right">
             <p
               class="time-label"
-              [ngClass]="{ 'time-label-old': isOlderThanOneMonth(item.date) }"
+              [ngClass]="{ 'label-older-than-one-month': isOlderThanOneMonth(item.date) }"
             >
               Zuletzt aktualisiert: {{ item.date_pretty }}
             </p>
