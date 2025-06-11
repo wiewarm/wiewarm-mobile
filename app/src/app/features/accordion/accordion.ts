@@ -1,11 +1,12 @@
 import { CdkAccordionModule } from '@angular/cdk/accordion';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { CommonModule } from '@angular/common';
-import { Component, computed, resource, signal } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { BadItem } from 'src/app/shared/interfaces/bad-item.interface';
 import { DialogDirective } from 'src/app/shared/layout/dialog/dialog.directive';
+import { BadResourceService } from 'src/app/shared/services/bad-detail.service';
 import { isOlderThanOneMonth } from 'src/app/shared/util/date.util';
 
 @Component({
@@ -24,13 +25,12 @@ import { isOlderThanOneMonth } from 'src/app/shared/util/date.util';
 export class AccordionComponent {
   isOlderThanOneMonth = isOlderThanOneMonth;
 
-  private readonly BAD_ITEM_URL =
-    'https://beta.wiewarm.ch:443/api/v1/temperature/all_current.json/0';
+  constructor(private detailService: BadResourceService) {}
+  readonly badResource = this.detailService.getResource();
 
   searchInput = signal('');
   readonly tableColumns = ['bad', 'ort', 'temp', 'date_pretty'];
 
-  sortDialogOpen = false;
   sortField = signal<keyof BadItem>('becken');
   sortDirection = signal<'asc' | 'desc'>('asc');
 
@@ -38,14 +38,6 @@ export class AccordionComponent {
     this.sortField.set(field);
     this.sortDirection.set(direction);
   }
-
-  badResource = resource<BadItem[], unknown>({
-    loader: ({ abortSignal }) =>
-      fetch(this.BAD_ITEM_URL, { signal: abortSignal }).then((res) => {
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        return res.json() as Promise<BadItem[]>;
-      }),
-  });
 
   filteredItems = computed(() => {
     const term = this.searchInput().toLowerCase();
