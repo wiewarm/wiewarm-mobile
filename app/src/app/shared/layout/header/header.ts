@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -7,10 +7,10 @@ import { Component } from '@angular/core';
 })
 export class HeaderComponent {
   protected title = 'wiewarm.ch';
-  protected darkMode = false;
+  protected darkMode = signal(false);
 
   public toggleDarkMode() {
-    this.darkMode = !this.darkMode;
-    document.body.classList.toggle('dark-mode', this.darkMode);
+    this.darkMode.set(!this.darkMode);
+    document.body.classList.toggle('dark-mode', this.darkMode());
   }
 }

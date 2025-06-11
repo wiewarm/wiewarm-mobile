@@ -5,13 +5,13 @@
   </div>
   <button
     class="theme-toggle"
-    [class.flipped]="darkMode"
+    [class.flipped]="darkMode()"
     (click)="toggleDarkMode()"
-    [attr.aria-label]="darkMode ? 'Wechsel zu Light Mode' : 'Wechsel zu Dark Mode'"
-    [attr.aria-pressed]="darkMode"
+    [attr.aria-label]="darkMode() ? 'Wechsel zu Light Mode' : 'Wechsel zu Dark Mode'"
+    [attr.aria-pressed]="darkMode()"
   >
     <span class="theme-emoji" aria-hidden="true">
-      {{ darkMode ? '☀️' : '🌑' }}
+      {{ darkMode() ? '☀️' : '🌑' }}
     </span>
   </button>
 </div>
