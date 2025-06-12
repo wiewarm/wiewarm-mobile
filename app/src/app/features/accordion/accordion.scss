@@ -95,17 +95,17 @@
   @include flex-row;
   justify-content: center;
   padding: $space-3 $space-4;
-  font-size: $font-size-lg;
-  border-radius: $radius-sm;
-  min-height: 8rem;
+  font-size: $font-size-md;
+  border-radius: $radius-md;
   text-align: center;
   left: 50%;
   transform: translateX(-50%);
 
   &.error {
     color: $color-accent;
-    background: rgba($color-accent, 0.4);
-    border-left: 4px solid $color-accent;
+    background-color: $color-surface;
+    border-bottom: 2px solid $color-border;
+    border-left: 6px solid $color-accent;
   }
 }
 

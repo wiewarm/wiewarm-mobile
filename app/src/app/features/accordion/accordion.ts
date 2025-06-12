@@ -8,6 +8,7 @@ import { BadItem } from 'src/app/shared/interfaces/bad-item.interface';
 import { DialogDirective } from 'src/app/shared/layout/dialog/dialog.directive';
 import { BadResourceService } from 'src/app/shared/services/bad-detail.service';
 import { isOlderThanOneMonth } from 'src/app/shared/util/date.util';
+import { temperatureClass } from 'src/app/shared/util/temperature.util';
 
 @Component({
   selector: 'app-accordion',
@@ -24,6 +25,7 @@ import { isOlderThanOneMonth } from 'src/app/shared/util/date.util';
 })
 export class AccordionComponent {
   isOlderThanOneMonth = isOlderThanOneMonth;
+  temperatureClass = temperatureClass;
 
   constructor(private detailService: BadResourceService) {}
   readonly badResource = this.detailService.getResource();
@@ -45,15 +47,6 @@ export class AccordionComponent {
     const filtered = term ? this.filterItems(items, term) : items;
     return this.sortItems(filtered, this.sortField(), this.sortDirection());
   });
-
-  temperatureClass(temp: number | null | undefined): string {
-    if (temp == null) return 'temp-unknown';
-    if (temp < 15) return 'temp-cold';
-    if (temp < 20) return 'temp-cool';
-    if (temp < 24) return 'temp-mild';
-    if (temp < 27) return 'temp-warm';
-    return 'temp-hot';
-  }
 
   private filterItems(items: BadItem[], term: string): BadItem[] {
     return items.filter((item) => {

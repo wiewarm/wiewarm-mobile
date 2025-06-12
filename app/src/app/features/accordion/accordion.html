@@ -1,4 +1,14 @@
 <div class="list-header">
+  @if(badResource.isLoading()) {
+  <div class="status" role="status" aria-live="polite">
+    <span aria-hidden="true">⏳ </span>Laden…
+  </div>
+  } @else if(badResource.error()) {
+  <div class="status error" role="alert" aria-live="assertive">
+    <span aria-hidden="true">❌ </span>
+    Fehler beim Laden. Bitte versuchen Sie es später erneut.
+  </div>
+  } @else {
   <div class="search">
     <span class="search-emoji" aria-hidden="true">🔍</span>
     <input
@@ -15,9 +25,10 @@
     aria-controls="sort-dialog"
     (click)="dialog.showModal();"
     ><span aria-hidden="true">🔽</span>
-    <span class="sort-text">Sortieren</span>
-  </a>
+    <span class="sort-text">Sortieren</span> </a
+  >}
 </div>
+
 <!-- ToDo: use seperate component -->
 <dialog appDialog #dialog id="sort-dialog" aria-labelledby="sort-dialog-title">
   <div class="sort-dialog-content">
@@ -70,16 +81,7 @@
   orientation="vertical"
 >
   <div class="accordion" cdkAccordion>
-    @if(badResource.isLoading()) {
-    <div class="status" role="status">
-      <span aria-hidden="true">⏳ </span>Laden…
-    </div>
-    } @if(badResource.error()) {
-    <div class="status error" role="alert">
-      <span aria-hidden="true">❌ </span>
-      Fehler beim Laden. Bitte versuchen Sie es später erneut.
-    </div>
-    } @if(!badResource.isLoading() && !badResource.error() &&
+    @if(!badResource.isLoading() && !badResource.error() &&
     filteredItems().length === 0) {
     <div class="status" role="status">
       <span aria-hidden="true">😕 </span>Keine Resultate gefunden.
@@ -131,7 +133,9 @@
         >
           <div class="accordion-body-left">
             <p>{{ item.bad }}</p>
-            <a class="detail-link">Details &rarr; (coming soon)</a>
+            <a class="detail-link" [routerLink]="['/detail', item.beckenid]"
+              >Details &rarr;</a
+            >
           </div>
           <div class="accordion-body-right">
             <p
