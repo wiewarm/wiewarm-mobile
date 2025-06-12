@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import {
   BadDetail,
   BadDetailPool,
@@ -11,7 +11,7 @@ import { BadResourceService } from 'src/app/shared/services/bad-detail.service';
   selector: 'app-bad-detail',
   templateUrl: './bad-detail.html',
   styleUrl: './bad-detail.scss',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
 })
 export class BadDetailComponent {
   private readonly route = inject(ActivatedRoute);

@@ -133,8 +133,8 @@
         >
           <div class="accordion-body-left">
             <p>{{ item.bad }}</p>
-            <a class="detail-link" [routerLink]="['/detail', item.beckenid]"
-              >Details &rarr;</a
+            <a class="detail-link" [routerLink]="[item.beckenid]">
+              <span class="detail-text">Details</span> &rarr;</a
             >
           </div>
           <div class="accordion-body-right">

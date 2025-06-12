@@ -1,10 +1,7 @@
 <div class="detail">
-  <a
-    routerLink="/"
-    class="back-link"
-    [attr.aria-label]="'Zurück zur Übersicht'"
-  >
-    &larr; Zurück
+  <a routerLink="/" class="back-link" aria-label="Zurück zur Übersicht">
+    &larr;
+    <span class="back-text">zurück</span>
   </a>
   @if(detailResource.isLoading()) {
   <div class="status" role="status" aria-live="polite">
@@ -17,70 +14,48 @@
   </div>
   }
   <ng-container *ngIf="detailResource.value() as detail">
-    <h2 id="bad-title">
-      {{ detail.badname }}, {{ detail.plz }} {{ detail.ort }}
-    </h2>
-    <address class="address" aria-label="Adresse">
-      <span>{{ detail.adresse1 }}</span><br />
-      <span>{{ detail.adresse2 }}</span>
-    </address>
+    <h2 class="bad-title">{{ detail.badname }}</h2>
+    <p>
+      <!-- <address aria-label="Adresse"> -->
+      {{ detail.adresse2 }}<br />
+      {{ detail.plz }} {{ detail.ort }}
+      <!-- </address> -->
+    </p>
+
     <div class="contact" aria-label="Kontakt">
       <span *ngIf="detail.telefon">
-        <span>Tel:</span>
-        <a [href]="'tel:' + detail.telefon" style="color: #1976d2"
-          >{{ detail.telefon }}</a
-        >
+        <span class="contact-title">Tel:</span>
+        <a [href]="'tel:' + detail.telefon">{{ detail.telefon }}</a>
       </span>
       <br *ngIf="detail.telefon" />
-      <span *ngIf="detail.email">
-        <span>E-Mail:</span>
-        <a [href]="'mailto:' + detail.email" style="color: #1976d2"
-          >{{ detail.email }}</a
-        >
-      </span>
+      @if(detail.email){
+      <span class="contact-title">E-Mail:</span>
+      <a [href]="'mailto:' + detail.email">{{ detail.email }}</a>
+      }
       <br *ngIf="detail.email" />
-      <span *ngIf="detail.www">
-        <span>Web:</span>
-        <a
-          [href]="detail.www"
-          target="_blank"
-          rel="noopener"
-          style="color: #1976d2"
-          >{{ detail.www }}</a
-        >
-      </span>
+      @if(detail.www){
+      <span class="contact-title">Web:</span>
+      <a [href]="detail.www" target="_blank" rel="noopener">{{ detail.www }}</a>
+      }
     </div>
     <section
       class="info"
       aria-label="Informationen"
       [innerHTML]="detail.info"
-      style="margin-bottom: 1.5em"
     ></section>
     <section aria-labelledby="becken-heading">
-      <h3 id="becken-heading">Becken</h3>
+      <h2 class="becken-title">Becken</h2>
       <ul>
         @for(pool of poolEntries(detail); track pool){
-        <li
-          style="
-            margin-bottom: 0.75em;
-            padding: 0.75em 1em;
-            background: #f8f9fa;
-            border-radius: 0.5em;
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
-          "
-        >
+        <li>
           <strong style="font-size: 1.1em">{{ pool.beckenname }}:</strong>
           <span style="margin-left: 0.5em">
             {{ pool.temp != null ? pool.temp + '°C' : '—' }}
           </span>
-          <span aria-label="Status" style="margin-left: 0.5em; color: #888"
+          <span aria-label="Pool Status" style="margin-left: 0.5em; color: #888"
             >– {{ pool.status }}</span
           >
-          <span
-            class="date"
-            aria-label="Aktualisiert am"
-            style="float: right; color: #b71c1c; font-size: 0.95em"
-          >
+          <span class="date" aria-label="Aktualisiert am">
             {{ pool.date_pretty }}
           </span>
         </li>

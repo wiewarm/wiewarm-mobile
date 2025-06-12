@@ -32,7 +32,7 @@
   .theme-toggle {
     background: none;
     border: none;
-    font-size: 1.5rem;
+    font-size: $font-size-lg;
     cursor: pointer;
     border-radius: $radius-sm;
     perspective: 600px;
@@ -44,6 +44,7 @@
     }
 
     &.flipped .theme-emoji {
+      color: $color-primary;
       transform: rotateY(180deg);
     }
 
@@ -51,6 +52,7 @@
       display: inline-block;
       transform-style: preserve-3d;
       transition: transform $transition-fast;
+      color: $color-secondary;
     }
   }
 }

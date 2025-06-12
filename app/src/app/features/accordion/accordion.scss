@@ -46,7 +46,7 @@
 .sort-link {
   display: inline-flex;
   align-items: center;
-  color: $color-secondary;
+  color: $color-primary;
   text-decoration: none;
   padding: $space-3 $space-3 $space-3 0;
   font-size: $font-size-md;
@@ -56,7 +56,7 @@
   .sort-text {
     padding-left: $space-2;
     text-decoration: underline;
-    text-underline-offset: 0.15rem;
+    text-underline-offset: $text-underline-offset;
   }
 }
 
@@ -87,26 +87,6 @@
   border: none;
   font-size: 1.5rem;
   cursor: pointer;
-}
-
-// Status
-.status {
-  position: relative;
-  @include flex-row;
-  justify-content: center;
-  padding: $space-3 $space-4;
-  font-size: $font-size-md;
-  border-radius: $radius-md;
-  text-align: center;
-  left: 50%;
-  transform: translateX(-50%);
-
-  &.error {
-    color: $color-accent;
-    background-color: $color-surface;
-    border-bottom: 2px solid $color-border;
-    border-left: 6px solid $color-accent;
-  }
 }
 
 // Accordion
@@ -191,9 +171,9 @@
       color: $color-link;
       text-decoration: none;
       margin-bottom: $space-2;
-
-      &:hover {
+      .detail-text:hover {
         text-decoration: underline;
+        text-underline-offset: $text-underline-offset;
       }
     }
   }

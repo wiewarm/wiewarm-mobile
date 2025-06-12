@@ -1,19 +1,64 @@
 @use "../../../assets/styles/variables" as *;
 .detail {
-  padding: 1rem;
-}
-
-.status {
-  padding: 1rem;
+  padding: $space-2;
 }
 
 .back-link {
   display: inline-block;
-  margin-bottom: 1rem;
+  margin-bottom: $space-2;
   color: $color-link;
   text-decoration: none;
-
-  &:hover {
+  .back-text:hover {
     text-decoration: underline;
+    text-underline-offset: $text-underline-offset;
   }
+}
+
+.bad-title,
+.becken-title {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-bold;
+  margin-bottom: $space-2;
+}
+
+.becken-title {
+  padding-top: $space-4;
+}
+
+.contact-title,
+.becken-title {
+  font-weight: $font-weight-bold;
+  padding-right: $space-1;
+}
+
+.contact-title {
+  padding-top: $space-3;
+}
+
+h3 {
+  padding-top: $space-3;
+  padding-bottom: $space-2;
+}
+
+a {
+  color: $color-secondary;
+  padding-left: $space-1;
+}
+
+li {
+  margin-bottom: $space-2;
+  padding: $space-2 $space-3;
+  background: $color-surface-alt;
+  border-radius: $radius-md;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+  background-color: $color-surface;
+  border-bottom: 2px solid $color-border;
+  border-left: 6px solid $color-primary-dark;
+  max-width: 80%;
+}
+
+.date {
+  float: right;
+  color: $color-accent;
+  font-size: $font-size-md;
 }
