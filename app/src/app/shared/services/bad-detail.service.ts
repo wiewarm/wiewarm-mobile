@@ -1,10 +1,11 @@
 import { Injectable, resource } from '@angular/core';
+import { environment } from '../../../environments/environment';
 import { BadDetail } from '../interfaces/bad-detail.interface';
 import { BadItem } from '../interfaces/bad-item.interface';
 
 @Injectable({ providedIn: 'root' })
 export class BadResourceService {
-  private readonly API_BASE = 'https://beta.wiewarm.ch/api/v1';
+  private readonly API_BASE = environment.apiBase;
 
   getResource() {
     return resource<BadItem[], unknown>({
