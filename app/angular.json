@@ -36,6 +36,12 @@
           },
           "configurations": {
             "production": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
               "budgets": [
                 {
                   "type": "initial",
@@ -98,7 +104,7 @@
             "stylePreprocessorOptions": {
               "includePaths": ["src/app"]
             },
-            "styles": ["src/app/app.scss"],
+            "styles": ["src/app/styles.scss"],
             "scripts": []
           }
         }
