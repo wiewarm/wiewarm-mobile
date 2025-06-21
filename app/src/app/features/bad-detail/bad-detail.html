@@ -1,66 +1,73 @@
-<div class="detail">
+<div class="container-lg">
   <a routerLink="/" class="back-link" aria-label="Zurück zur Übersicht">
     &larr;
     <span class="back-text">zurück</span>
   </a>
-  @if(detailResource.isLoading()) {
-  <div class="status" role="status" aria-live="polite">
-    <span aria-hidden="true">⏳ </span>Laden…
-  </div>
-  } @else if(detailResource.error()) {
-  <div class="status error" role="alert" aria-live="assertive">
-    <span aria-hidden="true">❌ </span>
-    Fehler beim Laden. Bitte versuchen Sie es später erneut.
-  </div>
-  }
-  <ng-container *ngIf="detailResource.value() as detail">
-    <h2 class="bad-title">{{ detail.badname }}</h2>
-    <p>
-      <!-- <address aria-label="Adresse"> -->
-      {{ detail.adresse2 }}<br />
-      {{ detail.plz }} {{ detail.ort }}
-      <!-- </address> -->
-    </p>
-
-    <div class="contact" aria-label="Kontakt">
-      <span *ngIf="detail.telefon">
-        <span class="contact-title">Tel:</span>
-        <a [href]="'tel:' + detail.telefon">{{ detail.telefon }}</a>
-      </span>
-      <br *ngIf="detail.telefon" />
-      @if(detail.email){
-      <span class="contact-title">E-Mail:</span>
-      <a [href]="'mailto:' + detail.email">{{ detail.email }}</a>
-      }
-      <br *ngIf="detail.email" />
-      @if(detail.www){
-      <span class="contact-title">Web:</span>
-      <a [href]="detail.www" target="_blank" rel="noopener">{{ detail.www }}</a>
-      }
+  <div class="detail container-lg">
+    @if(detailResource.isLoading()) {
+    <div class="status" role="status" aria-live="polite">
+      <span aria-hidden="true">⏳ </span>Laden…
     </div>
-    <section
-      class="info"
-      aria-label="Informationen"
-      [innerHTML]="detail.info"
-    ></section>
-    <section aria-labelledby="becken-heading">
-      <h2 class="becken-title">Becken</h2>
-      <ul>
-        @for(pool of poolEntries(detail); track pool){
-        <li>
-          <strong style="font-size: 1.1em">{{ pool.beckenname }}:</strong>
-          <span style="margin-left: 0.5em">
-            {{ pool.temp != null ? pool.temp + '°C' : '—' }}
-          </span>
-          <span aria-label="Pool Status" style="margin-left: 0.5em; color: #888"
-            >– {{ pool.status }}</span
-          >
-          <span class="date" aria-label="Aktualisiert am">
-            {{ pool.date_pretty }}
-          </span>
-        </li>
-        }
-      </ul>
-    </section>
-  </ng-container>
+    } @else if(detailResource.error()) {
+    <div class="status error" role="alert" aria-live="assertive">
+      <span aria-hidden="true">❌ </span>
+      Fehler beim Laden. Bitte versuchen Sie es später erneut.
+    </div>
+    }
+    <ng-container *ngIf="detailResource.value() as detail">
+      <address aria-label="Kontakt">
+        <h2 class="bad-title">{{ detail.badname }}</h2>
+        <p>
+          {{ detail.adresse2 }}<br />
+          {{ detail.plz }} {{ detail.ort }}
+        </p>
+        <span class="contact">
+          <dl>
+            <div class="contact-row" *ngIf="detail.telefon">
+              <dt class="contact-title">Tel:</dt>
+              <dd class="contact-content">
+                <a [href]="'tel:' + detail.telefon">{{ detail.telefon }}</a>
+              </dd>
+            </div>
+
+            <div class="contact-row" *ngIf="detail.email">
+              <dt class="contact-title">E-Mail:</dt>
+              <dd class="contact-content">
+                <a [href]="'mailto:' + detail.email">{{ detail.email }}</a>
+              </dd>
+            </div>
+
+            <div class="contact-row" *ngIf="detail.www">
+              <dt class="contact-title">Web:</dt>
+              <dd class="contact-content">
+                <a [attr.href]="detail.www" target="_blank" rel="noopener">
+                  Link
+                </a>
+              </dd>
+            </div>
+          </dl>
+        </span>
+      </address>
+      <section
+        class="info"
+        aria-label="Informationen"
+        [innerHTML]="detail.info"
+      ></section>
+      <section aria-labelledby="becken-heading">
+        <h2 class="becken-title">Becken</h2>
+        <ul>
+          @for(pool of poolEntries(detail); track pool){
+          <li>
+            <strong>{{ pool.beckenname }}:</strong>
+            <span> {{ pool.temp != null ? pool.temp + '°C' : '—' }} </span>
+            <span aria-label="Pool Status">– {{ pool.status }}</span>
+            <span class="date" aria-label="Aktualisiert am">
+              {{ pool.date_pretty }}
+            </span>
+          </li>
+          }
+        </ul>
+      </section>
+    </ng-container>
+  </div>
 </div>

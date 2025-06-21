@@ -5,7 +5,6 @@ import { Component, computed, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { BadItem } from 'src/app/shared/interfaces/bad-item.interface';
-import { DialogDirective } from 'src/app/shared/layout/dialog/dialog.directive';
 import { BadResourceService } from 'src/app/shared/services/bad-detail.service';
 import { isOlderThanOneMonth } from 'src/app/shared/util/date.util';
 import { temperatureClass } from 'src/app/shared/util/temperature.util';
@@ -20,7 +19,6 @@ import { temperatureClass } from 'src/app/shared/util/temperature.util';
     CdkAccordionModule,
     ScrollingModule,
     RouterModule,
-    DialogDirective,
   ],
 })
 export class AccordionComponent {
@@ -57,6 +55,7 @@ export class AccordionComponent {
     });
   }
 
+  // ToDo: add items for asc and desc
   private sortItems(
     items: BadItem[],
     field: keyof BadItem,

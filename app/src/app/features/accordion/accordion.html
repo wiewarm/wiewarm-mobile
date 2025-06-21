@@ -1,154 +1,158 @@
-<div class="list-header">
-  @if(badResource.isLoading()) {
-  <div class="status" role="status" aria-live="polite">
-    <span aria-hidden="true">⏳ </span>Laden…
-  </div>
-  } @else if(badResource.error()) {
-  <div class="status error" role="alert" aria-live="assertive">
-    <span aria-hidden="true">❌ </span>
-    Fehler beim Laden. Bitte versuchen Sie es später erneut.
-  </div>
-  } @else {
-  <div class="search">
-    <span class="search-emoji" aria-hidden="true">🔍</span>
-    <input
-      type="text"
-      [(ngModel)]="searchInput"
-      placeholder="Suche…"
-      aria-label="Badi suchen"
-    />
-  </div>
-  <a
-    href="#"
-    class="sort-link"
-    aria-haspopup="dialog"
-    aria-controls="sort-dialog"
-    (click)="dialog.showModal();"
-    ><span aria-hidden="true">🔽</span>
-    <span class="sort-text">Sortieren</span> </a
-  >}
-</div>
-
-<!-- ToDo: use seperate component -->
-<dialog appDialog #dialog id="sort-dialog" aria-labelledby="sort-dialog-title">
-  <div class="sort-dialog-content">
-    <h2 id="sort-dialog-title" class="sort-dialog-title">Sortieren nach:</h2>
-    <ul>
-      <li>
-        <a
-          href="#"
-          role="option"
-          [attr.aria-selected]="sortField() === 'becken'"
-          (click)="setSort('becken'); dialog.close(); $event.preventDefault();"
-        >
-          Becken @if(sortField() === 'becken') { <span>✓</span> }
-        </a>
-      </li>
-      <li>
-        <a
-          href="#"
-          role="option"
-          [attr.aria-selected]="sortField() === 'ort'"
-          (click)="setSort('ort'); dialog.close(); $event.preventDefault();"
-        >
-          PLZ/Ort @if(sortField() === 'ort') { <span>✓</span> }
-        </a>
-      </li>
-      <li>
-        <a
-          href="#"
-          role="option"
-          [attr.aria-selected]="sortField() === 'temp'"
-          (click)="setSort('temp'); dialog.close(); $event.preventDefault();"
-        >
-          Temperatur @if(sortField() === 'temp') { <span>✓</span> }
-        </a>
-      </li>
-    </ul>
-    <button
-      class="close-button"
-      (click)="dialog.close()"
-      aria-label="Schliessen"
-    >
-      ×
-    </button>
-  </div>
-</dialog>
-
-<cdk-virtual-scroll-viewport
-  class="item-viewport"
-  [itemSize]="72"
-  orientation="vertical"
->
-  <div class="accordion" cdkAccordion>
-    @if(!badResource.isLoading() && !badResource.error() &&
-    filteredItems().length === 0) {
-    <div class="status" role="status">
-      <span aria-hidden="true">😕 </span>Keine Resultate gefunden.
+<div class="container-lg">
+  <div class="list-header">
+    @if(badResource.isLoading()) {
+    <div class="status" role="status" aria-live="polite">
+      <span aria-hidden="true">⏳ </span>Laden…
     </div>
-    } @for(item of filteredItems(); track item.beckenid; let i = $index) {
-    <section class="accordion-item">
-      <cdk-accordion-item cdk-accordion-item #accItem="cdkAccordionItem">
-        <h3>
-          <button
-            class="accordion-header"
-            (click)="accItem.toggle()"
-            type="button"
-            [attr.id]="'acc-header-' + i"
-            [attr.aria-expanded]="accItem.expanded"
-            [attr.aria-controls]="'acc-body-' + i"
-          >
-            <span class="accordion-header-left">
-              <span class="accordion-header-title">{{item.becken}}</span>
-              <span class="accordion-header-subtitle">
-                {{ item.plz ? item.plz + ' ' : '' }}{{ item.ort }}
-                @if(item.kanton) {
-                <img
-                  class="kanton-wappen"
-                  [src]="'assets/img/wappen/' + (item.kanton | lowercase) + '.svg'"
-                  [attr.alt]="(item.kanton | titlecase) + ' Wappen'"
-                  width="18"
-                  height="18"
-                  loading="lazy"
-                />}
-              </span>
-            </span>
-            <span class="accordion-header-right">
-              <span class="temp-label">
-                <span
-                  class="temp-dot"
-                  [ngClass]="temperatureClass(item.temp)"
-                ></span>
-                {{ item.temp != null ? item.temp + '°C' : '—' }}
-              </span>
-            </span>
-          </button>
-        </h3>
-        @if(accItem.expanded) {
-        <div
-          class="accordion-body"
-          role="region"
-          [attr.id]="'acc-body-' + i"
-          [attr.aria-labelledby]="'acc-header-' + i"
-        >
-          <div class="accordion-body-left">
-            <p>{{ item.bad }}</p>
-            <a class="detail-link" [routerLink]="[item.beckenid]">
-              <span class="detail-text">Details</span> &rarr;</a
-            >
-          </div>
-          <div class="accordion-body-right">
-            <p
-              class="time-label"
-              [ngClass]="{ 'label-older-than-one-month': isOlderThanOneMonth(item.date) }"
-            >
-              Zuletzt aktualisiert: {{ item.date_pretty }}
-            </p>
-          </div>
-        </div>
-        }
-      </cdk-accordion-item>
-    </section>
-    }
+    } @else if(badResource.error()) {
+    <div class="status error" role="alert" aria-live="assertive">
+      <span aria-hidden="true">❌ </span>
+      Fehler beim Laden. Bitte versuchen Sie es später erneut.
+    </div>
+    } @else {
+    <div class="search">
+      <span class="search-emoji" aria-hidden="true">🔍</span>
+      <input
+        type="text"
+        [(ngModel)]="searchInput"
+        placeholder="Suche…"
+        aria-label="Badi suchen"
+      />
+    </div>
+    <a
+      href="#"
+      class="sort-link"
+      aria-haspopup="dialog"
+      aria-controls="sort-dialog"
+      (click)="dialog.showModal();"
+      ><span aria-hidden="true">🔽</span>
+      <span class="sort-text">Sortieren</span> </a
+    >}
   </div>
-</cdk-virtual-scroll-viewport>
+
+  <!-- ToDo: use seperate component -->
+  <dialog #dialog id="sort-dialog" aria-labelledby="sort-dialog-title" class="container-md">
+    <div class="sort-dialog-content">
+      <h2 id="sort-dialog-title">Sortieren nach:</h2>
+      <ul>
+        <li>
+          <a
+            href="#"
+            role="option"
+            [attr.aria-selected]="sortField() === 'becken'"
+            (click)="setSort('becken'); dialog.close(); $event.preventDefault();"
+          >
+            Becken @if(sortField() === 'becken') { <span>✓</span> }
+          </a>
+        </li>
+        <li>
+          <a
+            href="#"
+            role="option"
+            [attr.aria-selected]="sortField() === 'ort'"
+            (click)="setSort('ort'); dialog.close(); $event.preventDefault();"
+          >
+            PLZ/Ort @if(sortField() === 'ort') { <span>✓</span> }
+          </a>
+        </li>
+        <li>
+          <a
+            href="#"
+            role="option"
+            [attr.aria-selected]="sortField() === 'temp'"
+            (click)="setSort('temp'); dialog.close(); $event.preventDefault();"
+          >
+            Temperatur @if(sortField() === 'temp') { <span>✓</span> }
+          </a>
+        </li>
+      </ul>
+      <button
+        class="close-button"
+        (click)="dialog.close()"
+        aria-label="Schliessen"
+      >
+        ×
+      </button>
+    </div>
+  </dialog>
+
+  <cdk-virtual-scroll-viewport
+    class="item-viewport"
+    [itemSize]="72"
+    orientation="vertical"
+  >
+    <span class="accordion" cdkAccordion>
+      @if(!badResource.isLoading() && !badResource.error() &&
+      filteredItems().length === 0) {
+      <div class="status" role="status">
+        <span aria-hidden="true">😕 </span>Keine Resultate gefunden.
+      </div>
+      } @for(item of filteredItems(); track item.beckenid; let i = $index) {
+      <section class="accordion-item">
+        <cdk-accordion-item cdk-accordion-item #accItem="cdkAccordionItem">
+          <h3>
+            <button
+              [attr.id]="'acc-header-' + i"
+              class="accordion-header"
+              (click)="accItem.toggle()"
+              type="button"
+              [attr.aria-expanded]="accItem.expanded"
+              [attr.aria-controls]="'acc-body-' + i"
+            >
+              <span class="accordion-header-left">
+                <span class="accordion-header-title">{{item.becken}}</span>
+                <span class="accordion-header-subtitle">
+                  {{ item.plz ? item.plz + ' ' : '' }}{{ item.ort }}
+                  @if(item.kanton) {
+                  <img
+                    class="kanton-wappen"
+                    [src]="'assets/img/wappen/' + (item.kanton | lowercase) + '.svg'"
+                    [attr.alt]="(item.kanton | titlecase) + ' Wappen'"
+                    width="18"
+                    height="18"
+                    loading="lazy"
+                  />
+                <!-- ToDo: use sprite -->
+                  }
+                </span>
+              </span>
+              <span class="accordion-header-right">
+                <span class="temp-label">
+                  <span
+                    class="temp-dot"
+                    [ngClass]="temperatureClass(item.temp)"
+                  ></span>
+                  {{ item.temp != null ? item.temp + '°C' : '—' }}
+                </span>
+              </span>
+            </button>
+          </h3>
+          @if(accItem.expanded) {
+          <div
+            [attr.id]="'acc-body-' + i"
+            class="accordion-body"
+            role="region"
+            [attr.aria-labelledby]="'acc-header-' + i"
+          >
+            <div class="accordion-body-left">
+              <p>{{ item.bad }}</p>
+              <a class="detail-link" [routerLink]="[item.beckenid]">
+                <span class="detail-text">Details</span> &rarr;</a
+              >
+            </div>
+            <div class="accordion-body-right">
+              <p
+                class="time-label"
+                [ngClass]="{ 'label-older-than-one-month': isOlderThanOneMonth(item.date) }"
+              >
+                Zuletzt aktualisiert: {{ item.date_pretty }}
+              </p>
+            </div>
+          </div>
+          }
+        </cdk-accordion-item>
+      </section>
+      }
+    </span>
+  </cdk-virtual-scroll-viewport>
+</div>

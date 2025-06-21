@@ -73,7 +73,7 @@
   }
 }
 
-.sort-dialog-title {
+#sort-dialog-title {
   font-size: $font-size-lg;
   font-weight: $font-weight-bold;
   padding-bottom: $space-2;
@@ -126,12 +126,13 @@
   border: none;
   padding: $space-3 $space-4;
   text-align: left;
-  font-family: "Englebert", cursive;
   transition: background $transition-fast, box-shadow $transition-fast;
 
   .kanton-wappen {
     vertical-align: middle;
     margin-left: 0.25em;
+    width: 18px;
+    height: 18px;
   }
 
   &:hover {
@@ -148,11 +149,14 @@
       line-height: 1.4;
       margin-bottom: $space-1;
     }
+    .accordion-header-subtitle {
+      font-family: $font-family-base;
+    }
   }
 
   .accordion-header-right {
     display: flex;
-    font-size: $font-size-md;
+    font-family: $font-family-base;
   }
 }
 

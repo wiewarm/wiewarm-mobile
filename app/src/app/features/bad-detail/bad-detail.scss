@@ -1,5 +1,13 @@
 @use "../../../assets/styles/variables" as *;
+@use "../../../assets/styles/mixins" as *;
+
 .detail {
+  display: block;
+  padding: $space-2;
+  max-width: fit-content;
+}
+
+.container-lg {
   padding: $space-2;
 }
 
@@ -19,6 +27,7 @@
   font-size: $font-size-lg;
   font-weight: $font-weight-bold;
   margin-bottom: $space-2;
+  line-height: 1.5;
 }
 
 .becken-title {
@@ -31,8 +40,36 @@
   padding-right: $space-1;
 }
 
-.contact-title {
-  padding-top: $space-3;
+.contact {
+  display: block;
+  width: 100%;
+  font-style: normal;
+  padding-right: $space-1;
+}
+
+.contact-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: $space-2;
+  margin-top: $space-2;
+}
+
+/* Term (Titel) */
+.contact-row dt.contact-title {
+  flex: 0 0 60px;
+  text-align: left;
+  font-weight: $font-weight-bold;
+  margin: 0;
+}
+
+/* Definition (Content) */
+.contact-row dd.contact-content {
+  flex: 1 1 auto;
+  display: block;
+  text-overflow: clip;
+  box-sizing: border-box;
+  overflow-wrap: break-all;
+  word-break: break-all;
 }
 
 h3 {
@@ -42,7 +79,6 @@ h3 {
 
 a {
   color: $color-secondary;
-  padding-left: $space-1;
 }
 
 li {
@@ -54,7 +90,6 @@ li {
   background-color: $color-surface;
   border-bottom: 2px solid $color-border;
   border-left: 6px solid $color-primary-dark;
-  max-width: 80%;
 }
 
 .date {
