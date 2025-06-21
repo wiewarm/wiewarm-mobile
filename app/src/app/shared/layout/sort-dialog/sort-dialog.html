@@ -1,0 +1,40 @@
+<dialog appDialog #dialog id="sort-dialog" aria-labelledby="sort-dialog-title">
+  <div class="sort-dialog-content">
+    <h2 id="sort-dialog-title" class="sort-dialog-title">Sortieren nach:</h2>
+    <ul>
+      <li>
+        <a
+          href="#"
+          role="option"
+          [attr.aria-selected]="sortField() === 'becken'"
+          (click)="setSort('becken'); close(); $event.preventDefault();"
+        >
+          Becken @if(sortField() === 'becken') { <span>✓</span> }
+        </a>
+      </li>
+      <li>
+        <a
+          href="#"
+          role="option"
+          [attr.aria-selected]="sortField() === 'ort'"
+          (click)="setSort('ort'); close(); $event.preventDefault();"
+        >
+          PLZ/Ort @if(sortField() === 'ort') { <span>✓</span> }
+        </a>
+      </li>
+      <li>
+        <a
+          href="#"
+          role="option"
+          [attr.aria-selected]="sortField() === 'temp'"
+          (click)="setSort('temp'); close(); $event.preventDefault();"
+        >
+          Temperatur @if(sortField() === 'temp') { <span>✓</span> }
+        </a>
+      </li>
+    </ul>
+    <button class="close-button" (click)="close()" aria-label="Schliessen">
+      ×
+    </button>
+  </div>
+</dialog>

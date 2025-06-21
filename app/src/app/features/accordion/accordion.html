@@ -24,57 +24,17 @@
       class="sort-link"
       aria-haspopup="dialog"
       aria-controls="sort-dialog"
-      (click)="dialog.showModal();"
+      (click)="sortDialog.open();"
       ><span aria-hidden="true">🔽</span>
       <span class="sort-text">Sortieren</span> </a
     >}
   </div>
 
-  <!-- ToDo: use seperate component -->
-  <dialog #dialog id="sort-dialog" aria-labelledby="sort-dialog-title" class="container-md">
-    <div class="sort-dialog-content">
-      <h2 id="sort-dialog-title">Sortieren nach:</h2>
-      <ul>
-        <li>
-          <a
-            href="#"
-            role="option"
-            [attr.aria-selected]="sortField() === 'becken'"
-            (click)="setSort('becken'); dialog.close(); $event.preventDefault();"
-          >
-            Becken @if(sortField() === 'becken') { <span>✓</span> }
-          </a>
-        </li>
-        <li>
-          <a
-            href="#"
-            role="option"
-            [attr.aria-selected]="sortField() === 'ort'"
-            (click)="setSort('ort'); dialog.close(); $event.preventDefault();"
-          >
-            PLZ/Ort @if(sortField() === 'ort') { <span>✓</span> }
-          </a>
-        </li>
-        <li>
-          <a
-            href="#"
-            role="option"
-            [attr.aria-selected]="sortField() === 'temp'"
-            (click)="setSort('temp'); dialog.close(); $event.preventDefault();"
-          >
-            Temperatur @if(sortField() === 'temp') { <span>✓</span> }
-          </a>
-        </li>
-      </ul>
-      <button
-        class="close-button"
-        (click)="dialog.close()"
-        aria-label="Schliessen"
-      >
-        ×
-      </button>
-    </div>
-  </dialog>
+  <app-sort-dialog
+    #sortDialog
+    [sortField]="sortField"
+    [setSort]="setSort"
+  ></app-sort-dialog>
 
   <cdk-virtual-scroll-viewport
     class="item-viewport"
@@ -112,7 +72,7 @@
                     height="18"
                     loading="lazy"
                   />
-                <!-- ToDo: use sprite -->
+                  <!-- ToDo: use sprite -->
                   }
                 </span>
               </span>

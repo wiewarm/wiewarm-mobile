@@ -1,0 +1,34 @@
+@use "../../../../assets/styles/variables" as *;
+@use "../../../../assets/styles/mixins" as *;
+
+#sort-dialog {
+  min-width: 40%;
+  max-width: 120px;
+  border-radius: $radius-l;
+  border-color: $color-border;
+
+  li {
+    padding-bottom: $space-1;
+  }
+
+  a {
+    font-size: $font-size-lg;
+  }
+}
+
+.sort-dialog-title {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-bold;
+  font-family: $font-family-englebert;
+  padding-bottom: $space-2;
+}
+
+.close-button {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}

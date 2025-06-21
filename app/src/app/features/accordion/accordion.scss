@@ -60,35 +60,6 @@
   }
 }
 
-#sort-dialog {
-  min-width: 40%;
-  max-width: 120px;
-  border-radius: $radius-l;
-  border-color: $color-border;
-  li {
-    padding-bottom: $space-1;
-  }
-  a {
-    font-size: $font-size-lg;
-  }
-}
-
-#sort-dialog-title {
-  font-size: $font-size-lg;
-  font-weight: $font-weight-bold;
-  padding-bottom: $space-2;
-}
-
-.close-button {
-  position: absolute;
-  top: 0.5rem;
-  right: 0.5rem;
-  background: transparent;
-  border: none;
-  font-size: 1.5rem;
-  cursor: pointer;
-}
-
 // Accordion
 .accordion {
   border-top-left-radius: $radius-l;
@@ -121,6 +92,7 @@
 
 .accordion-header {
   @include flex-row;
+  font-family: $font-family-englebert;
   justify-content: space-between;
   width: 100%;
   border: none;
@@ -149,19 +121,16 @@
       line-height: 1.4;
       margin-bottom: $space-1;
     }
-    .accordion-header-subtitle {
-      font-family: $font-family-base;
-    }
   }
 
   .accordion-header-right {
     display: flex;
-    font-family: $font-family-base;
   }
 }
 
 .accordion-body {
   @include flex-row;
+  font-family: $font-family-englebert;
   justify-content: space-between;
   padding-left: $space-4;
   padding-right: $space-4;
@@ -172,6 +141,7 @@
     @include flex-column;
 
     .detail-link {
+      font-family: $font-family-base;
       color: $color-link;
       text-decoration: none;
       margin-bottom: $space-2;

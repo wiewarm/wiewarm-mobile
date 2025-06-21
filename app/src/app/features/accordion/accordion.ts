@@ -8,6 +8,7 @@ import { BadItem } from 'src/app/shared/interfaces/bad-item.interface';
 import { BadResourceService } from 'src/app/shared/services/bad-detail.service';
 import { isOlderThanOneMonth } from 'src/app/shared/util/date.util';
 import { temperatureClass } from 'src/app/shared/util/temperature.util';
+import { SortDialogComponent } from 'src/app/shared/layout/sort-dialog/sort-dialog';
 
 @Component({
   selector: 'app-accordion',
@@ -19,6 +20,7 @@ import { temperatureClass } from 'src/app/shared/util/temperature.util';
     CdkAccordionModule,
     ScrollingModule,
     RouterModule,
+    SortDialogComponent
   ],
 })
 export class AccordionComponent {
