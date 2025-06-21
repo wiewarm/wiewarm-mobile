@@ -10,6 +10,16 @@
       Fehler beim Laden. Bitte versuchen Sie es später erneut.
     </div>
     } @else {
+    <div class="favorite-box" *ngIf="favorite() as fav">
+      <span class="favorite-name"
+        ><span class="material-icons favorite-icon">star</span>
+        <span>{{ fav.bad }}</span></span
+      >
+      <span class="favorite-location">{{ fav.plz}} {{ fav.ort }}</span>
+      <span class="favorite-temp" [ngClass]="temperatureClass(fav.temp)"
+        >{{ fav.temp != null ? fav.temp + '°C' : '—' }}</span
+      >
+    </div>
     <div class="search">
       <span class="search-emoji" aria-hidden="true">🔍</span>
       <input
@@ -107,6 +117,13 @@
               >
                 Zuletzt aktualisiert: {{ item.date_pretty }}
               </p>
+              <button
+                class="favorite-button material-icons"
+                [attr.aria-label]="isFavorite(item) ? 'Favorit entfernen' : 'Als Favorit speichern'"
+                (click)="toggleFavorite(item); $event.stopPropagation();"
+              >
+                {{ isFavorite(item) ? 'star' : 'star_border' }}
+              </button>
             </div>
           </div>
           }

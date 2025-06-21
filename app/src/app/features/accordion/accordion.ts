@@ -9,6 +9,7 @@ import { BadResourceService } from 'src/app/shared/services/bad-detail.service';
 import { isOlderThanOneMonth } from 'src/app/shared/util/date.util';
 import { temperatureClass } from 'src/app/shared/util/temperature.util';
 import { SortDialogComponent } from 'src/app/shared/layout/sort-dialog/sort-dialog';
+import { FavoriteService } from 'src/app/shared/services/favorite.service';
 
 @Component({
   selector: 'app-accordion',
@@ -20,15 +21,20 @@ import { SortDialogComponent } from 'src/app/shared/layout/sort-dialog/sort-dial
     CdkAccordionModule,
     ScrollingModule,
     RouterModule,
-    SortDialogComponent
+    SortDialogComponent,
   ],
 })
 export class AccordionComponent {
   isOlderThanOneMonth = isOlderThanOneMonth;
   temperatureClass = temperatureClass;
 
-  constructor(private detailService: BadResourceService) {}
+  constructor(
+    private detailService: BadResourceService,
+    private favoriteService: FavoriteService
+  ) {}
+  
   readonly badResource = this.detailService.getResource();
+  readonly favorite = this.favoriteService.favorite;
 
   searchInput = signal('');
   readonly tableColumns = ['bad', 'ort', 'temp', 'date_pretty'];
@@ -39,6 +45,19 @@ export class AccordionComponent {
   setSort(field: keyof BadItem, direction: 'asc' | 'desc' = 'asc') {
     this.sortField.set(field);
     this.sortDirection.set(direction);
+  }
+
+  isFavorite(item: BadItem): boolean {
+    const fav = this.favorite();
+    return fav != null && fav.beckenid === item.beckenid;
+  }
+
+  toggleFavorite(item: BadItem) {
+    if (this.isFavorite(item)) {
+      this.favoriteService.clearFavorite();
+    } else {
+      this.favoriteService.setFavorite(item);
+    }
   }
 
   filteredItems = computed(() => {
