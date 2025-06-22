@@ -6,6 +6,7 @@ import {
   BadDetailPool,
 } from 'src/app/shared/interfaces/bad-detail.interface';
 import { BadResourceService } from 'src/app/shared/services/bad-detail.service';
+import { temperatureClass } from 'src/app/shared/util/temperature.util';
 
 @Component({
   selector: 'app-bad-detail',
@@ -14,6 +15,7 @@ import { BadResourceService } from 'src/app/shared/services/bad-detail.service';
   imports: [CommonModule, RouterModule],
 })
 export class BadDetailComponent {
+  temperatureClass = temperatureClass;
   private readonly route = inject(ActivatedRoute);
   private readonly id = this.route.snapshot.paramMap.get('id') ?? '';
 

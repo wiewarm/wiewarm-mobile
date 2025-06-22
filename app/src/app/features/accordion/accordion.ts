@@ -31,10 +31,12 @@ export class AccordionComponent {
   constructor(
     private detailService: BadResourceService,
     private favoriteService: FavoriteService
-  ) {}
-  
+  ) {
+    this.favoriteService.connect(computed(() => this.badResource.value()));
+  }
+
   readonly badResource = this.detailService.getResource();
-  readonly favorite = this.favoriteService.favorite;
+  readonly favorite = this.favoriteService.favoriteSignal;
 
   searchInput = signal('');
   readonly tableColumns = ['bad', 'ort', 'temp', 'date_pretty'];

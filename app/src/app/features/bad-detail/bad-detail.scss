@@ -5,6 +5,7 @@
   display: block;
   padding: $space-2;
   max-width: fit-content;
+  font-family: $font-family-englebert;
 }
 
 .container-lg {
@@ -26,7 +27,6 @@
 .becken-title {
   font-size: $font-size-lg;
   font-weight: $font-weight-bold;
-  font-family: $font-family-englebert;
   margin-bottom: $space-2;
   line-height: 1.5;
 }
@@ -93,8 +93,27 @@ li {
   border-left: 6px solid $color-primary-dark;
 }
 
-.date {
-  float: right;
-  color: $color-accent;
-  font-size: $font-size-md;
+.pool-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.pool-item {
+  text-align: center;
+  margin: 0.5em 0;
+}
+.pool-item > * {
+  display: inline-block;
+  padding: 0 0.5em;
+}
+.pool-item > *:not(:first-child)::before {
+  content: "|";
+  margin-right: 0.5em;
+}
+
+@each $name, $color in $temp-colors {
+  .temp-#{$name},
+  .pool-temp.temp-#{$name} {
+    color: $color;
+  }
 }

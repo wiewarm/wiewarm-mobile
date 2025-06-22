@@ -7,27 +7,30 @@ import { BadItem } from '../interfaces/bad-item.interface';
 export class BadResourceService {
   private readonly API_BASE = environment.apiBase;
 
+  private handleHttpResponse<T>(response: Response): Promise<T> {
+    if (!response.ok) {
+      throw new Error(
+        `HTTP error! Status: ${response.status} ${response.statusText || ''}`
+      );
+    }
+    return response.json() as Promise<T>;
+  }
+
   getResource() {
     return resource<BadItem[], unknown>({
       loader: ({ abortSignal }) =>
-        fetch(this.API_BASE + '/temperature/all_current.json/0', {
+        fetch(`${this.API_BASE}/temperature/all_current.json/0`, {
           signal: abortSignal,
-        }).then((res) => {
-          if (!res.ok) throw new Error(`HTTP ${res.status}`);
-          return res.json() as Promise<BadItem[]>;
-        }),
+        }).then((res) => this.handleHttpResponse<BadItem[]>(res)),
     });
   }
 
   getDetailResource(id: string) {
     return resource<BadDetail, unknown>({
       loader: ({ abortSignal }) =>
-        fetch(this.API_BASE + '/bad/' + id, {
-          signal: abortSignal,
-        }).then((res) => {
-          if (!res.ok) throw new Error(`HTTP ${res.status}`);
-          return res.json() as Promise<BadDetail>;
-        }),
+        fetch(`${this.API_BASE}/bad/${id}`, { signal: abortSignal }).then(
+          (res) => this.handleHttpResponse<BadDetail>(res)
+        ),
     });
   }
 }

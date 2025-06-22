@@ -1,32 +1,59 @@
-import { Injectable, computed, signal } from '@angular/core';
+import { Injectable, Signal, computed, effect, signal } from '@angular/core';
 import { BadItem } from '../interfaces/bad-item.interface';
 
 const STORAGE_KEY = 'favorite';
 
 @Injectable({ providedIn: 'root' })
 export class FavoriteService {
-  private _favorite = signal<BadItem | null>(null);
+  private favorite = signal<BadItem | null>(null);
 
-  readonly favorite = computed(() => this._favorite());
+  readonly favoriteSignal = computed(() => this.favorite());
 
   constructor() {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored) {
-      try {
-        this._favorite.set(JSON.parse(stored));
-      } catch {
-        // ignore parse errors
-      }
-    }
+    this.loadFavoriteFromLocalStorage();
   }
 
-  setFavorite(item: BadItem) {
-    this._favorite.set(item);
+  setFavorite(item: BadItem): void {
+    this.favorite.set(item);
     localStorage.setItem(STORAGE_KEY, JSON.stringify(item));
   }
 
-  clearFavorite() {
-    this._favorite.set(null);
+  clearFavorite(): void {
+    this.favorite.set(null);
     localStorage.removeItem(STORAGE_KEY);
+  }
+
+  connect(items: Signal<BadItem[] | null | undefined>): void {
+    effect(() => {
+      const currentFavorite = this.favorite();
+      const itemList = items();
+
+      if (!currentFavorite || !itemList) {
+        return;
+      }
+
+      const updatedFavorite = itemList.find(
+        (item) => item.beckenid === currentFavorite.beckenid
+      );
+
+      if (
+        updatedFavorite &&
+        (updatedFavorite.date !== currentFavorite.date ||
+          updatedFavorite.temp !== currentFavorite.temp)
+      ) {
+        this.setFavorite(updatedFavorite);
+      }
+    });
+  }
+
+  private loadFavoriteFromLocalStorage(): void {
+    try {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      if (stored) {
+        this.favorite.set(JSON.parse(stored));
+      }
+    } catch (e) {
+      console.error('Failed to parse favorite from local storage:', e);
+    }
   }
 }

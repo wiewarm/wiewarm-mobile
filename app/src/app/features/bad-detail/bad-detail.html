@@ -18,7 +18,7 @@
       <address aria-label="Kontakt">
         <h2 class="bad-title">{{ detail.badname }}</h2>
         <p>
-          {{ detail.adresse2 }}<br />
+          {{detail.adresse1}} {{ detail.adresse2 }}<br />
           {{ detail.plz }} {{ detail.ort }}
         </p>
         <span class="contact">
@@ -55,17 +55,20 @@
       ></section>
       <section aria-labelledby="becken-heading">
         <h2 class="becken-title">Becken</h2>
-        <ul>
-          @for(pool of poolEntries(detail); track pool){
-          <li>
-            <strong>{{ pool.beckenname }}:</strong>
-            <span> {{ pool.temp != null ? pool.temp + '°C' : '—' }} </span>
-            <span aria-label="Pool Status">– {{ pool.status }}</span>
-            <span class="date" aria-label="Aktualisiert am">
-              {{ pool.date_pretty }}
-            </span>
+        <ul class="pool-list">
+          <li *ngFor="let pool of poolEntries(detail)" class="pool-item">
+            <span>{{ pool.beckenname }}</span>
+            <span class="pool-temp" [ngClass]="temperatureClass(pool.temp)"
+              >{{ pool.temp != null ? pool.temp + '°C' : '—' }}</span
+            >
+            <span aria-label="Pool Status">{{ pool.status }}</span>
+            <time
+              [attr.datetime]="pool.date_pretty"
+              aria-label="Aktualisiert am"
+            >
+              {{ pool.date_pretty }} 🔄
+            </time>
           </li>
-          }
         </ul>
       </section>
     </ng-container>
