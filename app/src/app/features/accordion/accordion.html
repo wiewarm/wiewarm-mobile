@@ -60,7 +60,6 @@
       } @for(item of filteredItems(); track item.beckenid; let i = $index) {
       <section class="accordion-item">
         <cdk-accordion-item cdk-accordion-item #accItem="cdkAccordionItem">
-          <h3>
             <button
               [attr.id]="'acc-header-' + i"
               class="accordion-header"
@@ -70,7 +69,7 @@
               [attr.aria-controls]="'acc-body-' + i"
             >
               <span class="accordion-header-left">
-                <span class="accordion-header-title">{{item.becken}}</span>
+                <h3 class="accordion-header-title">{{item.becken}}</h3>
                 <span class="accordion-header-subtitle">
                   {{ item.plz ? item.plz + ' ' : '' }}{{ item.ort }}
                   @if(item.kanton) {
@@ -96,7 +95,6 @@
                 </span>
               </span>
             </button>
-          </h3>
           @if(accItem.expanded) {
           <div
             [attr.id]="'acc-body-' + i"
