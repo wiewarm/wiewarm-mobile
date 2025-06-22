@@ -6,34 +6,82 @@
         <a
           href="#"
           role="option"
-          [attr.aria-selected]="sortField() === 'becken'"
-          (click)="setSort('becken'); close(); $event.preventDefault();"
+          class="sort-link"
+          [attr.aria-selected]="sortField() === 'becken' && sortDirection() === 'asc'"
+          (click)="applySort('becken', 'asc'); close(); $event.preventDefault();"
         >
-          Becken @if(sortField() === 'becken') { <span>✓</span> }
+          <span class="no-underline">🔼</span>&nbsp;
+          <span class="underline">Becken</span> @if(sortField() === 'becken' &&
+          sortDirection() === 'asc') { <span>✓</span> }
         </a>
       </li>
       <li>
         <a
           href="#"
           role="option"
-          [attr.aria-selected]="sortField() === 'ort'"
-          (click)="setSort('ort'); close(); $event.preventDefault();"
+          class="sort-link"
+          [attr.aria-selected]="sortField() === 'becken' && sortDirection() === 'desc'"
+          (click)="applySort('becken', 'desc'); close(); $event.preventDefault();"
         >
-          PLZ/Ort @if(sortField() === 'ort') { <span>✓</span> }
+          <span class="no-underline">🔽</span>&nbsp;
+          <span class="underline">Becken</span> @if(sortField() === 'becken' &&
+          sortDirection() === 'desc') { <span>✓</span> }
         </a>
       </li>
       <li>
         <a
           href="#"
           role="option"
-          [attr.aria-selected]="sortField() === 'temp'"
-          (click)="setSort('temp'); close(); $event.preventDefault();"
+          class="sort-link"
+          [attr.aria-selected]="sortField() === 'ort' && sortDirection() === 'asc'"
+          (click)="applySort('ort', 'asc'); close(); $event.preventDefault();"
         >
-          Temperatur @if(sortField() === 'temp') { <span>✓</span> }
+          <span class="no-underline">🔼</span>&nbsp;
+          <span class="underline">PLZ/Ort</span> @if(sortField() === 'ort' &&
+          sortDirection() === 'asc') { <span>✓</span> }
+        </a>
+      </li>
+      <li>
+        <a
+          href="#"
+          role="option"
+          class="sort-link"
+          [attr.aria-selected]="sortField() === 'ort' && sortDirection() === 'desc'"
+          (click)="applySort('ort', 'desc'); close(); $event.preventDefault();"
+        >
+          <span class="no-underline">🔽</span>&nbsp;
+          <span class="underline">PLZ/Ort</span> @if(sortField() === 'ort' &&
+          sortDirection() === 'desc') { <span>✓</span> }
+        </a>
+      </li>
+      <li>
+        <a
+          href="#"
+          role="option"
+          class="sort-link"
+          [attr.aria-selected]="sortField() === 'temp' && sortDirection() === 'asc'"
+          (click)="applySort('temp', 'asc'); close(); $event.preventDefault();"
+        >
+          <span class="no-underline">🔼</span>&nbsp;
+          <span class="underline">Temperatur</span> @if(sortField() === 'temp'
+          && sortDirection() === 'asc') { <span>✓</span> }
+        </a>
+      </li>
+      <li>
+        <a
+          href="#"
+          role="option"
+          class="sort-link"
+          [attr.aria-selected]="sortField() === 'temp' && sortDirection() === 'desc'"
+          (click)="applySort('temp', 'desc'); close(); $event.preventDefault();"
+        >
+          <span class="no-underline">🔽</span>&nbsp;
+          <span class="underline">Temperatur</span> @if(sortField() === 'temp'
+          && sortDirection() === 'desc') { <span>✓</span> }
         </a>
       </li>
     </ul>
-    <button class="close-button" (click)="close()" aria-label="Schliessen">
+    <button class="close-button" (click)="close()" aria-label="Schließen">
       ×
     </button>
   </div>

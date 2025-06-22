@@ -7,12 +7,31 @@
   border-radius: $radius-l;
   border-color: $color-border;
 
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
   li {
     padding-bottom: $space-1;
   }
 
-  a {
+  .sort-link {
+    display: inline-block;
     font-size: $font-size-lg;
+    text-decoration: none; // Basis: keine Unterstreichung
+  }
+
+  .underline {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    text-decoration-thickness: 1px;
+  }
+
+  .no-underline {
+    text-decoration: none;
+    margin-left: 0.2em;
   }
 }
 

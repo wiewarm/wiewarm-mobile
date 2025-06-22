@@ -78,7 +78,6 @@ export class AccordionComponent {
     });
   }
 
-  // ToDo: add items for asc and desc
   private sortItems(
     items: BadItem[],
     field: keyof BadItem,
