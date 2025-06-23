@@ -23,24 +23,19 @@
       width: auto;
     }
 
-    .filter {
+    .filter-link {
       display: inline-flex;
       align-items: center;
       order: 2;
-      align-self: center;
       width: auto;
-      .filter-icon {
-        padding-left: $space-2;
-        font-weight: $font-weight-bold;
-      }
-
-      select {
-        padding: $space-2 $space-3;
-        font-size: $font-size-md;
-        border: 2px solid $color-border;
-        border-radius: $radius-l;
-        background: $color-surface;
-        color: inherit;
+      background: linear-gradient(to bottom, $color-secondary, #00aaff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      .filter-text {
+        color: $color-primary;
+        padding-right: $space-2;
+        text-decoration: underline;
+        text-underline-offset: $text-underline-offset;
       }
     }
   }
@@ -80,11 +75,12 @@
   font-size: $font-size-md;
   width: auto;
   cursor: pointer;
+  background: linear-gradient(to bottom, $color-primary-dark, #fddb5f);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 
   .sort-text {
     padding-left: $space-2;
-    text-decoration: underline;
-    text-underline-offset: $text-underline-offset;
   }
 }
 

@@ -51,14 +51,18 @@
           sortField().toString().slice(1) }}
         </span></a
       >
-      <div class="filter">
-        <!-- <span class="filter-text">Filtern</span>
-        <span class="material-icons filter-icon">filter_list</span> -->
-        <!-- <select [(ngModel)]="filterOption">
-          <option value="relevant">nur Relevante</option>
-          <option value="all">alle</option>
-        </select> -->
-      </div>
+      <a
+        href="#"
+        class="filter-link"
+        aria-haspopup="dialog"
+        aria-controls="filter-dialog"
+        (click)="filterDialog.open();"
+      >
+        <span class="filter-text"
+          >{{ filterOption() === 'aktuell' ? 'Aktuelle' : 'Alle' }}</span
+        >
+        <span class="material-icons gradient-icon">filter_list</span>
+      </a>
     </div>
     }
   </div>
@@ -69,6 +73,11 @@
     [sortDirection]="sortDirection()"
     (setSort)="setSort($event.field, $event.direction)"
   ></app-sort-dialog>
+  <app-filter-dialog
+    #filterDialog
+    [filterOption]="filterOption()"
+    (setFilter)="setFilter($event)"
+  ></app-filter-dialog>
 
   <cdk-virtual-scroll-viewport
     class="item-viewport"

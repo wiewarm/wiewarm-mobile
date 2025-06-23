@@ -1,0 +1,39 @@
+<dialog
+  appDialog
+  #dialog
+  id="filter-dialog"
+  aria-labelledby="filter-dialog-title"
+>
+  <div class="filter-dialog-content">
+    <h1 id="filter-dialog-title" class="filter-dialog-title">Filtern:</h1>
+    <ul>
+      <li>
+        <a
+          href="#"
+          role="option"
+          class="filter-link"
+          [attr.aria-selected]="filterOption() === 'aktuell'"
+          (click)="applyFilter('aktuell'); $event.preventDefault();"
+        >
+          <span class="underline">Aktuelle</span>
+          @if(filterOption() === 'aktuell') { <span> ✓</span> }
+        </a>
+      </li>
+      <li>
+        <a
+          href="#"
+          role="option"
+          class="filter-link"
+          [attr.aria-selected]="filterOption() === 'all'"
+          (click)="applyFilter('all'); $event.preventDefault();"
+        >
+          <span class="underline">Alle</span>
+          @if(filterOption() === 'all') { <span> ✓</span> }
+        </a>
+      </li>
+    </ul>
+    <button class="close-button" (click)="close()" aria-label="Schließen">
+      ×
+    </button>
+  </div>
+</dialog>

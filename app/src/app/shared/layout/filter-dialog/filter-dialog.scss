@@ -1,7 +1,7 @@
 @use "../../../../assets/styles/variables" as *;
 @use "../../../../assets/styles/mixins" as *;
 
-#sort-dialog {
+#filter-dialog {
   min-width: 40%;
   max-width: 150px;
   border-radius: $radius-l;
@@ -17,7 +17,7 @@
     padding-bottom: $space-1;
   }
 
-  .sort-link {
+  .filter-link {
     display: inline-block;
     font-size: $font-size-lg;
     text-decoration: none;
@@ -28,14 +28,9 @@
     text-underline-offset: 2px;
     text-decoration-thickness: 1px;
   }
-
-  .no-underline {
-    text-decoration: none;
-    margin-left: 0.2em;
-  }
 }
 
-.sort-dialog-title {
+.filter-dialog-title {
   font-size: $font-size-lg;
   font-weight: $font-weight-bold;
   font-family: $font-family-englebert;

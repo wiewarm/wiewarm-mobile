@@ -11,6 +11,7 @@ import { SortDialogComponent } from 'src/app/shared/layout/sort-dialog/sort-dial
 import { BadItemComponent } from './bad-item/bad-item';
 import { FavoriteService } from 'src/app/shared/services/favorite.service';
 import { isThisYear } from 'src/app/shared/util/date.util';
+import { FilterDialogComponent } from 'src/app/shared/layout/filter-dialog/filter-dialog';
 
 @Component({
   selector: 'app-bad-overview',
@@ -23,6 +24,7 @@ import { isThisYear } from 'src/app/shared/util/date.util';
     ScrollingModule,
     RouterModule,
     SortDialogComponent,
+    FilterDialogComponent,
     BadItemComponent,
   ],
 })
@@ -45,9 +47,9 @@ export class BadOverviewComponent {
   sortField = signal<keyof BadItem>('becken');
   sortDirection = signal<'asc' | 'desc'>('asc');
 
-  filterOption = signal<'relevant' | 'all'>('all');
+  filterOption = signal<'aktuell' | 'all'>('aktuell');
 
-  setFilter(option: 'relevant' | 'all') {
+  setFilter(option: 'aktuell' | 'all') {
     this.filterOption.set(option);
   }
 
@@ -60,7 +62,7 @@ export class BadOverviewComponent {
     const term = this.searchInput().toLowerCase();
     const items = this.badResource.value() ?? [];
     let filtered = term ? this.filterItems(items, term) : items;
-    if (this.filterOption() === 'relevant') {
+    if (this.filterOption() === 'aktuell') {
       filtered = filtered.filter((item) => isThisYear(item.date));
     }
     return this.sortItems(filtered, this.sortField(), this.sortDirection());
