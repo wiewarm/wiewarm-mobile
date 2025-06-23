@@ -1,0 +1,129 @@
+@use "../../../../assets/styles/variables" as *;
+@use "../../../../assets/styles/mixins" as *;
+
+.accordion-item {
+  border: 2px solid $color-border;
+  border-top: none;
+
+  &:first-child {
+    border-top: 2px solid $color-border;
+    border-top-left-radius: $radius-l;
+    border-top-right-radius: $radius-l;
+    overflow: hidden;
+  }
+
+  &:nth-child(even) {
+    .accordion-header,
+    .accordion-body {
+      background: $color-surface-alt;
+    }
+  }
+}
+
+.accordion-header {
+  @include flex-row;
+  font-family: $font-family-englebert;
+  justify-content: space-between;
+  width: 100%;
+  border: none;
+  padding: $space-3 $space-4;
+  text-align: left;
+  transition: background $transition-fast, box-shadow $transition-fast;
+
+  .kanton-wappen {
+    vertical-align: middle;
+    margin-left: 0.25em;
+    width: 18px;
+    height: 18px;
+  }
+
+  &:hover {
+    // ToDo: darkmode fix
+    @include hover-state;
+  }
+
+  .accordion-header-left {
+    @include flex-column;
+    font-size: $font-size-lg;
+
+    .accordion-header-title {
+      font-weight: $font-weight-bold;
+      line-height: 1.4;
+      margin-bottom: $space-1;
+    }
+  }
+
+  .accordion-header-right {
+    display: flex;
+  }
+}
+
+.accordion-body {
+  @include flex-row;
+  font-family: $font-family-englebert;
+  justify-content: space-between;
+  padding-left: $space-4;
+  padding-right: $space-4;
+  background: $color-surface-hover;
+  line-height: 1.5;
+
+  .accordion-body-left {
+    @include flex-column;
+
+    .detail-link {
+      text-decoration: none;
+      margin-bottom: $space-2;
+      .detail-text {
+        color: $color-link;
+        text-decoration: underline;
+        text-underline-offset: $text-underline-offset;
+      }
+    }
+  }
+  .accordion-body-right {
+    @include flex-row;
+    align-items: center;
+
+    .favorite-button {
+      background: none;
+      border: none;
+      color: $color-link;
+      cursor: pointer;
+      font-size: 2rem;
+      margin-left: $space-1;
+      padding-right: 0;
+    }
+  }
+}
+
+// Temperature
+.temp-label {
+  @include flex-row;
+  align-items: center;
+  gap: $space-2;
+  font-size: $font-size-lg;
+}
+
+.temp-dot {
+  display: inline-block;
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+// temparature color-codes
+@each $name, $color in $temp-colors {
+  .temp-#{$name},
+  .favorite-temp.temp-#{$name} {
+    color: $color;
+  }
+
+  .temp-dot.temp-#{$name} {
+    background-color: $color;
+  }
+}
+
+.label-older-than-one-month {
+  color: $color-accent !important;
+}

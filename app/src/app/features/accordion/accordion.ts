@@ -6,9 +6,9 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { BadItem } from 'src/app/shared/interfaces/bad-item.interface';
 import { BadResourceService } from 'src/app/shared/services/bad-detail.service';
-import { isOlderThanOneMonth } from 'src/app/shared/util/date.util';
 import { temperatureClass } from 'src/app/shared/util/temperature.util';
 import { SortDialogComponent } from 'src/app/shared/layout/sort-dialog/sort-dialog';
+import { AccordionItemComponent } from './accordion-item/accordion-item';
 import { FavoriteService } from 'src/app/shared/services/favorite.service';
 
 @Component({
@@ -22,10 +22,10 @@ import { FavoriteService } from 'src/app/shared/services/favorite.service';
     ScrollingModule,
     RouterModule,
     SortDialogComponent,
+    AccordionItemComponent,
   ],
 })
 export class AccordionComponent {
-  isOlderThanOneMonth = isOlderThanOneMonth;
   temperatureClass = temperatureClass;
 
   constructor(
@@ -49,18 +49,6 @@ export class AccordionComponent {
     this.sortDirection.set(direction);
   }
 
-  isFavorite(item: BadItem): boolean {
-    const fav = this.favorite();
-    return fav != null && fav.beckenid === item.beckenid;
-  }
-
-  toggleFavorite(item: BadItem) {
-    if (this.isFavorite(item)) {
-      this.favoriteService.clearFavorite();
-    } else {
-      this.favoriteService.setFavorite(item);
-    }
-  }
 
   filteredItems = computed(() => {
     const term = this.searchInput().toLowerCase();
