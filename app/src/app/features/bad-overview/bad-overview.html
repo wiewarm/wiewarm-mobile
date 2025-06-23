@@ -38,13 +38,22 @@
         aria-haspopup="dialog"
         aria-controls="sort-dialog"
         (click)="sortDialog.open();"
-        ><span aria-hidden="true"
-          >{{ sortDirection() === 'asc' ? '🔼' : '🔽' }}</span
-        >
-        <span class="sort-text">{{ sortField() }}</span></a
+        ><img
+          [attr.src]="sortDirection() === 'asc' ? 'assets/img/up.png' : 'assets/img/down.png'"
+          aria-hidden="true"
+          alt
+          width="16"
+          height="16"
+        />
+        <span class="sort-text">
+          <!-- Todo: No temp fix -->
+          {{ sortField().toString().charAt(0).toUpperCase() +
+          sortField().toString().slice(1) }}
+        </span></a
       >
       <div class="filter">
-        <span class="material-icons filter-icon">filter_list</span>
+        <!-- <span class="filter-text">Filtern</span>
+        <span class="material-icons filter-icon">filter_list</span> -->
         <!-- <select [(ngModel)]="filterOption">
           <option value="relevant">nur Relevante</option>
           <option value="all">alle</option>
@@ -74,7 +83,7 @@
       </div>
       }@else{ @for(item of filteredItems(); track item.beckenid; let i = $index)
       {
-      <app-bad-item id="bad-item" [item]="item" [index]="i"></app-bad-item>
+      <app-bad-item [item]="item" [index]="i"></app-bad-item>
       } }
     </span>
   </cdk-virtual-scroll-viewport>

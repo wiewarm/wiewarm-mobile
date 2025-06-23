@@ -10,6 +10,7 @@ import { temperatureClass } from 'src/app/shared/util/temperature.util';
 import { SortDialogComponent } from 'src/app/shared/layout/sort-dialog/sort-dialog';
 import { BadItemComponent } from './bad-item/bad-item';
 import { FavoriteService } from 'src/app/shared/services/favorite.service';
+import { isThisYear } from 'src/app/shared/util/date.util';
 
 @Component({
   selector: 'app-bad-overview',
@@ -58,7 +59,10 @@ export class BadOverviewComponent {
   filteredItems = computed(() => {
     const term = this.searchInput().toLowerCase();
     const items = this.badResource.value() ?? [];
-    const filtered = term ? this.filterItems(items, term) : items;
+    let filtered = term ? this.filterItems(items, term) : items;
+    if (this.filterOption() === 'relevant') {
+      filtered = filtered.filter((item) => isThisYear(item.date));
+    }
     return this.sortItems(filtered, this.sortField(), this.sortDirection());
   });
 

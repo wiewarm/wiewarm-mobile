@@ -1,6 +1,17 @@
 @use "../../../../assets/styles/variables" as *;
 @use "../../../../assets/styles/mixins" as *;
 
+:host {
+  display: block;
+
+  &:nth-child(even) {
+    .accordion-header,
+    .accordion-body {
+      background: $color-surface-alt;
+    }
+  }
+}
+
 .accordion-header {
   @include flex-row;
   font-family: $font-family-englebert;
