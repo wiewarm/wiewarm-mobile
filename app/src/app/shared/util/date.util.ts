@@ -8,3 +8,9 @@ export function isOlderThanOneMonth(
   oneMonthAgo.setMonth(now.getMonth() - 1);
   return itemDate < oneMonthAgo;
 }
+
+export function isThisYear(dateStr: string | null | undefined): boolean {
+  if (!dateStr) return false;
+  const itemDate = new Date(dateStr.replace(' ', 'T'));
+  return itemDate.getFullYear() === new Date().getFullYear();
+}

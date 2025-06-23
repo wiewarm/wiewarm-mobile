@@ -8,13 +8,13 @@ import { BadItem } from 'src/app/shared/interfaces/bad-item.interface';
 import { BadResourceService } from 'src/app/shared/services/bad-detail.service';
 import { temperatureClass } from 'src/app/shared/util/temperature.util';
 import { SortDialogComponent } from 'src/app/shared/layout/sort-dialog/sort-dialog';
-import { AccordionItemComponent } from './accordion-item/accordion-item';
+import { BadItemComponent } from './bad-item/bad-item';
 import { FavoriteService } from 'src/app/shared/services/favorite.service';
 
 @Component({
-  selector: 'app-accordion',
-  templateUrl: './accordion.html',
-  styleUrl: './accordion.scss',
+  selector: 'app-bad-overview',
+  templateUrl: './bad-overview.html',
+  styleUrl: './bad-overview.scss',
   imports: [
     CommonModule,
     FormsModule,
@@ -22,10 +22,10 @@ import { FavoriteService } from 'src/app/shared/services/favorite.service';
     ScrollingModule,
     RouterModule,
     SortDialogComponent,
-    AccordionItemComponent,
+    BadItemComponent,
   ],
 })
-export class AccordionComponent {
+export class BadOverviewComponent {
   temperatureClass = temperatureClass;
 
   constructor(
@@ -44,11 +44,16 @@ export class AccordionComponent {
   sortField = signal<keyof BadItem>('becken');
   sortDirection = signal<'asc' | 'desc'>('asc');
 
+  filterOption = signal<'relevant' | 'all'>('all');
+
+  setFilter(option: 'relevant' | 'all') {
+    this.filterOption.set(option);
+  }
+
   setSort(field: keyof BadItem, direction: 'asc' | 'desc' = 'asc') {
     this.sortField.set(field);
     this.sortDirection.set(direction);
   }
-
 
   filteredItems = computed(() => {
     const term = this.searchInput().toLowerCase();

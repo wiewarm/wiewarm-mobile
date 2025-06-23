@@ -31,17 +31,27 @@
         aria-label="Badi suchen"
       />
     </div>
-    <a
-      href="#"
-      class="sort-link"
-      aria-haspopup="dialog"
-      aria-controls="sort-dialog"
-      (click)="sortDialog.open();"
-      ><span aria-hidden="true"
-        >{{ sortDirection() === 'asc' ? '🔼' : '🔽' }}</span
+    <div class="filter-sort">
+      <a
+        href="#"
+        class="sort-link"
+        aria-haspopup="dialog"
+        aria-controls="sort-dialog"
+        (click)="sortDialog.open();"
+        ><span aria-hidden="true"
+          >{{ sortDirection() === 'asc' ? '🔼' : '🔽' }}</span
+        >
+        <span class="sort-text">{{ sortField() }}</span></a
       >
-      <span class="sort-text">{{ sortField() }}</span></a
-    >}
+      <div class="filter">
+        <span class="material-icons filter-icon">filter_list</span>
+        <!-- <select [(ngModel)]="filterOption">
+          <option value="relevant">nur Relevante</option>
+          <option value="all">alle</option>
+        </select> -->
+      </div>
+    </div>
+    }
   </div>
 
   <app-sort-dialog
@@ -62,9 +72,10 @@
       <div class="status" role="status">
         <span aria-hidden="true">😕 </span>Keine Resultate gefunden.
       </div>
-      } @for(item of filteredItems(); track item.beckenid; let i = $index) {
-      <app-accordion-item [item]="item" [index]="i"></app-accordion-item>
-      }
+      }@else{ @for(item of filteredItems(); track item.beckenid; let i = $index)
+      {
+      <app-bad-item id="bad-item" [item]="item" [index]="i"></app-bad-item>
+      } }
     </span>
   </cdk-virtual-scroll-viewport>
 </div>

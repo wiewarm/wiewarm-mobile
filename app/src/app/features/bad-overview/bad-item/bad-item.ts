@@ -8,13 +8,13 @@ import { isOlderThanOneMonth } from 'src/app/shared/util/date.util';
 import { temperatureClass } from 'src/app/shared/util/temperature.util';
 
 @Component({
-  selector: 'app-accordion-item',
+  selector: 'app-bad-item',
   standalone: true,
-  templateUrl: './accordion-item.html',
-  styleUrl: './accordion-item.scss',
+  templateUrl: './bad-item.html',
+  styleUrl: './bad-item.scss',
   imports: [CommonModule, RouterModule, CdkAccordionModule],
 })
-export class AccordionItemComponent {
+export class BadItemComponent {
   isOlderThanOneMonth = isOlderThanOneMonth;
   temperatureClass = temperatureClass;
 
