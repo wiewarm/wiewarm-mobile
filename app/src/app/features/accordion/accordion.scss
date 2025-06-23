@@ -77,11 +77,6 @@
     overflow: hidden;
   }
 
-  &:last-child {
-    border-bottom-left-radius: $radius-l;
-    border-bottom-right-radius: $radius-l;
-  }
-
   &:nth-child(even) {
     .accordion-header,
     .accordion-body {
@@ -165,11 +160,10 @@
     @include flex-column;
 
     .detail-link {
-      font-family: $font-family-base;
-      color: $color-link;
       text-decoration: none;
       margin-bottom: $space-2;
-      .detail-text:hover {
+      .detail-text {
+        color: $color-link;
         text-decoration: underline;
         text-underline-offset: $text-underline-offset;
       }
@@ -185,7 +179,7 @@
       color: $color-link;
       cursor: pointer;
       font-size: 2rem;
-      margin-left: $space-3;
+      margin-left: $space-1;
       padding-right: 0;
     }
   }

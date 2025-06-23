@@ -1,6 +1,8 @@
 <div class="container-lg">
   <a routerLink="/" class="back-link" aria-label="Zurück zur Übersicht">
-    &larr;
+    <span aria-hidden="true" class="material-icons back-icon"
+      >arrow_back_ios</span
+    >
     <span class="back-text">zurück</span>
   </a>
   <div class="detail container-lg">
@@ -66,7 +68,7 @@
               [attr.datetime]="pool.date_pretty"
               aria-label="Aktualisiert am"
             >
-              {{ pool.date_pretty }} 🔄
+              Zuletzt aktualisiert {{ pool.date_pretty }}
             </time>
           </li>
         </ul>

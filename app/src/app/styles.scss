@@ -53,6 +53,13 @@ body.dark-mode {
   max-width: 824px;
 }
 
+h1 {
+  font-size: $font-size-xl;
+  font-family: $font-family-englebert;
+  font-weight: $font-weight-bold;
+  margin-bottom: $space-3;
+}
+
 // Status
 .status {
   position: relative;

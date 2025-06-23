@@ -10,6 +10,8 @@
       Fehler beim Laden. Bitte versuchen Sie es später erneut.
     </div>
     } @else {
+    <h1>Aktuelle Temperatur</h1>
+
     <div class="favorite-box" *ngIf="favorite() as fav">
       <span class="favorite-name"
         ><span class="material-icons favorite-icon">star</span>
@@ -106,18 +108,24 @@
             [attr.aria-labelledby]="'acc-header-' + i"
           >
             <div class="accordion-body-left">
-              <p>{{ item.bad }}</p>
-              <a class="detail-link" [routerLink]="[item.beckenid]">
-                <span class="detail-text">Details</span> &rarr;</a
-              >
-            </div>
-            <div class="accordion-body-right">
+              <p>
+                <span class="detail-title"
+                  ><span aria-hidden="true">• </span></span
+                >{{ item.bad }}
+              </p>
               <p
                 class="time-label"
                 [ngClass]="{ 'label-older-than-one-month': isOlderThanOneMonth(item.date) }"
               >
-                Zuletzt aktualisiert: {{ item.date_pretty }} 🔄
+                <span aria-hidden="true">• </span>Zuletzt aktualisiert {{
+                item.date_pretty }}
               </p>
+              <a class="detail-link" [routerLink]="[item.beckenid]">
+                <span aria-hidden="true">• </span
+                ><span class="detail-text">mehr..</span></a
+              >
+            </div>
+            <div class="accordion-body-right">
               <button
                 class="favorite-button material-icons"
                 [attr.aria-label]="isFavorite(item) ? 'Favorit entfernen' : 'Als Favorit speichern'"

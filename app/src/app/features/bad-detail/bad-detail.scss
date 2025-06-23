@@ -4,7 +4,6 @@
 .detail {
   display: block;
   padding: $space-2;
-  max-width: fit-content;
   font-family: $font-family-englebert;
 }
 
@@ -13,10 +12,16 @@
 }
 
 .back-link {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
   margin-bottom: $space-2;
   color: $color-link;
   text-decoration: none;
+
+  .back-icon {
+    font-size: $font-size-md;
+  }
+
   .back-text:hover {
     text-decoration: underline;
     text-underline-offset: $text-underline-offset;
