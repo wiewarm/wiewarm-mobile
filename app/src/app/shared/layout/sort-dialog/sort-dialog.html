@@ -37,7 +37,7 @@
           (click)="applySort('ort', 'asc'); close(); $event.preventDefault();"
         >
           <span class="no-underline" aria-hidden="true">🔼</span>&nbsp;
-          <span class="underline">Plz/Ort</span> @if(sortField() === 'ort' &&
+          <span class="underline">Ort</span> @if(sortField() === 'ort' &&
           sortDirection() === 'asc') { <span>✓</span> }
         </a>
       </li>
@@ -50,7 +50,7 @@
           (click)="applySort('ort', 'desc'); close(); $event.preventDefault();"
         >
           <span class="no-underline" aria-hidden="true">🔽</span>&nbsp;
-          <span class="underline">Plz/Ort</span> @if(sortField() === 'ort' &&
+          <span class="underline">Ort</span> @if(sortField() === 'ort' &&
           sortDirection() === 'desc') { <span>✓</span> }
         </a>
       </li>

@@ -9,14 +9,14 @@
       [attr.aria-controls]="'acc-body-' + index"
     >
       <span class="accordion-header-left">
-        <h3 class="accordion-header-title">{{ item.becken }}</h3>
+        <h3 class="accordion-header-title">{{ item().becken }}</h3>
         <span class="accordion-header-subtitle">
-          {{ item.plz ? item.plz + ' ' : '' }}{{ item.ort }}
-          @if(item.kanton) {
+          {{ item().plz ? item().plz + ' ' : '' }}{{ item().ort }}
+          @if(item().kanton) {
           <img
             class="kanton-wappen"
-            [src]="'assets/img/wappen/' + (item.kanton | lowercase) + '.svg'"
-            [attr.alt]="(item.kanton | titlecase) + ' Wappen'"
+            [src]="'assets/img/wappen/' + (item().kanton | lowercase) + '.svg'"
+            [attr.alt]="(item().kanton | titlecase) + ' Wappen'"
             width="18"
             height="18"
             loading="lazy"
@@ -27,8 +27,11 @@
       </span>
       <span class="accordion-header-right">
         <span class="temp-label">
-          <span class="temp-dot" [ngClass]="temperatureClass(item.temp)"></span>
-          {{ item.temp != null ? item.temp + '°C' : '—' }}
+          <span
+            class="temp-dot"
+            [ngClass]="temperatureClass(item().temp)"
+          ></span>
+          {{ item().temp != null ? item().temp + '°C' : '—' }}
         </span>
       </span>
     </button>
@@ -41,23 +44,28 @@
     >
       <div class="accordion-body-left">
         <p>
-          <span class="detail-title"><span aria-hidden="true">• </span></span
-          >{{ item.bad }}
+          <span class="detail-title"><span aria-hidden="true">• </span></span>{{
+          item().bad }}
         </p>
-        <p class="time-label" [ngClass]="{ 'label-older-than-one-month': isOlderThanOneMonth(item.date) }">
-          <span aria-hidden="true">• </span>Zuletzt aktualisiert {{ item.date_pretty }}
+        <p
+          class="time-label"
+          [ngClass]="{ 'label-older-than-one-month': isOlderThanOneMonth(item().date) }"
+        >
+          <span aria-hidden="true">• </span>Zuletzt aktualisiert {{
+          item().date_pretty }}
         </p>
-        <a class="detail-link" [routerLink]="[item.beckenid]">
-          <span aria-hidden="true">• </span><span class="detail-text">mehr..</span></a
+        <a class="detail-link" [routerLink]="[item().beckenid]">
+          <span aria-hidden="true">• </span
+          ><span class="detail-text">mehr..</span></a
         >
       </div>
       <div class="accordion-body-right">
         <button
           class="favorite-button material-icons"
-          [attr.aria-label]="isFavorite(item) ? 'Favorit entfernen' : 'Als Favorit speichern'"
-          (click)="toggleFavorite(item); $event.stopPropagation();"
+          [attr.aria-label]="isFavorite(item()) ? 'Favorit entfernen' : 'Als Favorit speichern'"
+          (click)="toggleFavorite(item()); $event.stopPropagation();"
         >
-          {{ isFavorite(item) ? 'star' : 'star_border' }}
+          {{ isFavorite(item()) ? 'star' : 'star_border' }}
         </button>
       </div>
     </div>
