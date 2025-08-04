@@ -6,9 +6,9 @@ Di moderni Web-App zur intuitive und barrierefreiä Anzeig von Temperaturdate i 
 
 ## 🔧 Technologie-Stack
 
-- **Framework:** Angular 20  
-- **Sprach:** TypeScript  
-- **Styles:** - TBD 
+- **Framework:** Angular 20
+- **Sprach:** TypeScript
+- **Styles:** Design Tokens mit SCSS
 - **Build & Deployment:** Vite/Firebase
 - **Entwicklig:** Node 22+
 - **Hosting:** Firebase Hosting
@@ -17,18 +17,19 @@ Di moderni Web-App zur intuitive und barrierefreiä Anzeig von Temperaturdate i 
 
 ## 🎯 Principles
 
-1. **Barrierefreiheit (Accessibility)**  
+1. **Barrierefreiheit (Accessibility)**
    - Mostly Konform nach WCAG 2.1 AA-Standard
-2. **Suechmaschinenoptimierig (SEO)**  
+2. **Suechmaschinenoptimierig (SEO)**
    - Isatz vo Semantic HTML & Metadaten
 3. **Intuitivi Nutzerfüehrig (UX/UI)**
-   - Klar strukturierte Navigation  
+   - Klar strukturierte Navigation
    - Responsive Design für 3 Bildschirmgrössine (Mobile, Tablet & Desktop)
-   - Müglechscht aglehnt a ds wiewarm.ch-Design 
+   - Müglechscht aglehnt a ds wiewarm.ch-Design
 4. **Performance**
-   - Lazy Loading von Modulen  
-   - Optimierti Bild- und Asset-Usliferig 
-   - Ev. Caching optimiert
+   - Lazy Loading vo Modul
+   - Optimierti Bild- und Asset-Uusliferig
+   - Clientsitigs Caching vo API-Date
+   - Virtuells Scrolling über d'Angular CDK
 
 ---
 
@@ -61,13 +62,11 @@ https://wie-warm.web.app/
    npm install
    ```
 
-3. ng build --configuration=production
+3. Startet d App im Entwickligsmodus
 
    ```bash
-   ng build --configuration=production
+   npm run start
    ```
-
-   
 
 ## Support
 
