@@ -13,7 +13,7 @@
 }
 
 .accordion-header {
-  @include flex-row;
+  display: flex;
   font-family: $font-family-englebert;
   justify-content: space-between;
   width: 100%;
@@ -51,7 +51,7 @@
 }
 
 .accordion-body {
-  @include flex-row;
+  display: flex;
   font-family: $font-family-englebert;
   justify-content: space-between;
   padding-left: $space-4;
@@ -73,7 +73,7 @@
     }
   }
   .accordion-body-right {
-    @include flex-row;
+    display: flex;
     align-items: center;
 
     .favorite-button {
@@ -90,7 +90,7 @@
 
 // Temperature
 .temp-label {
-  @include flex-row;
+  display: flex;
   align-items: center;
   gap: $space-2;
   font-size: $font-size-lg;

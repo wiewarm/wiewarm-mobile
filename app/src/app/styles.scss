@@ -63,8 +63,8 @@ h1 {
 
 // Status
 .status {
+  display: flex;
   position: relative;
-  @include flex-row;
   justify-content: center;
   padding: $space-3 $space-4;
   font-size: $font-size-md;
