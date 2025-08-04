@@ -46,9 +46,8 @@
           height="16"
         />
         <span class="sort-text">
-          <!-- Todo: No temp fix -->
-          {{ sortField().toString().charAt(0).toUpperCase() +
-          sortField().toString().slice(1) }}
+          <!-- Todo: Use full name -->
+          {{ capitalize(sortField().toString()) }}
         </span></a
       >
       <a
@@ -88,12 +87,16 @@
       @if(!badResource.isLoading() && !badResource.error() &&
       filteredItems().length === 0) {
       <div class="status" role="status">
-        <span aria-hidden="true">😕 </span>Keine Resultate gefunden.
+        <span aria-hidden="true">😕 </span>
+        <p>Keine Resultate gefunden.</p>
       </div>
-      }@else{ @for(item of filteredItems(); track item.beckenid; let i = $index)
-      {
+      }@else{ @for(item of filteredItems(); track item.badid_text; let i =
+      $index) {
       <app-bad-item [item]="item" [index]="i"></app-bad-item>
       } }
     </span>
   </cdk-virtual-scroll-viewport>
+  <div class="bottom-bar">
+    <span>2025 | lueem.dev</span>
+  </div>
 </div>

@@ -44,8 +44,9 @@ body.dark-mode {
 }
 
 .container-lg {
-  margin: 0 auto;
-  max-width: 1100px;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
 }
 
 .container-md {
