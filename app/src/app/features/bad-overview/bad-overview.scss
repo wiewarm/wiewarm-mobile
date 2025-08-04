@@ -32,6 +32,7 @@
       width: auto;
       background: linear-gradient(to bottom, $color-secondary, #00aaff);
       -webkit-background-clip: text;
+      background-clip: text;
       -webkit-text-fill-color: transparent;
       .filter-text {
         color: $color-primary;
@@ -59,7 +60,6 @@
   input {
     width: 100%;
     padding: $space-2 $space-3 $space-2 calc(#{$space-2 * 3} + 1rem);
-    font-size: $font-size-md;
     border: 2px solid $color-border;
     border-radius: $radius-l;
     @include focus-ring;
@@ -74,11 +74,11 @@
   color: $color-primary;
   text-decoration: none;
   padding: $space-3 $space-3 $space-3 0;
-  font-size: $font-size-md;
   width: auto;
   cursor: pointer;
   background: linear-gradient(to bottom, $color-primary-dark, #fddb5f);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 
   .sort-text {

@@ -1,9 +1,9 @@
 // =============================================================================
-//  Design Tokens for wiewarm Mobile App
-//  Version: 1.0.0
+//  Design Tokens for wiewarm App
+//  Version: 1.0.1
 // =============================================================================
 
-// 1. Colors (WCAG AA+)
+// Colors (WCAG AA+)
 $color-primary: var(--color-primary) !default; // Brand Orange
 $color-primary-dark: var(--color-primary-dark) !default;
 $color-secondary: var(--color-secondary) !default; // Blau
@@ -25,7 +25,7 @@ $color-table-header-bg: $color-surface !default;
 $color-table-header-text: $color-primary-dark !default;
 $color-table-row-hover: rgba($color-primary, 0.05) !default;
 
-// 2. Typography
+// Typography
 $font-family-base: Helvetica, -apple-system, BlinkMacSystemFont, "Segoe UI",
   Roboto, Helvetica, Arial, sans-serif !default;
 $font-family-englebert: "Englebert", cursive !default;
@@ -41,7 +41,7 @@ $font-size-md: 1rem !default; // 16px
 $font-size-lg: 1.25rem !default; // 24px
 $font-size-xl: 1.75rem !default;
 
-// 3. Spacing (0.25rem Schritte)
+// Spacing (0.25rem Schritte)
 $space-0: 0 !default;
 $space-1: 0.25rem !default; // 4px
 $space-2: 0.5rem !default; // 8px
@@ -52,26 +52,26 @@ $space-6: 2rem !default; //32px
 
 $text-underline-offset: 0.15rem !default;
 
-// 4. Breakpoints
+// Breakpoints
 $breakpoint-s: 36em !default; // ≥576px
 $breakpoint-m: 48em !default; // ≥768px
 $breakpoint-l: 75em !default; // ≥1200px
 
-// 5. Border & Radius
+// Border & Radius
 $radius-sm: 0.25rem !default; //4px
 $radius-md: 0.5rem !default; //8px
 $radius-l: 1.25rem !default; //16px
 
-// 6. Shadows
+// Shadows
 $shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05) !default;
 $shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1) !default;
 
-// 7. Transitions
+// Transitions
 $transition-fast: 0.2s ease-in-out !default;
 $transition-medium: 0.3s ease-in-out !default;
 $transition-slow: 0.5s ease-in-out !default;
 
-// 8. Accessibility – Focus-Ring
+// Accessibility – Focus-Ring
 $focus-outline-color: $color-primary-dark !default;
 $focus-outline-width: 3px !default;
 $focus-outline-offset: -3px !default;
@@ -85,11 +85,3 @@ $temp-colors: (
   hot: #e53935,
   unknown: $color-border,
 );
-
-@mixin focus-ring {
-  &:focus {
-    outline: $focus-outline-width solid var(--color-surface);
-    outline-offset: $focus-outline-offset;
-    outline-color: $focus-outline-color;
-  }
-}

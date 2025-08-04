@@ -22,6 +22,7 @@
     border-color 0.1s ease-in-out;
 
   overflow-y: hidden;
+  font-size: $font-size-md;
 }
 
 body {
@@ -67,7 +68,6 @@ h1 {
   position: relative;
   justify-content: center;
   padding: $space-3 $space-4;
-  font-size: $font-size-md;
   border-radius: $radius-md;
   text-align: center;
   left: 50%;

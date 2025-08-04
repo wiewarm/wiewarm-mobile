@@ -10,3 +10,12 @@
   box-shadow: $shadow-md;
   cursor: pointer;
 }
+
+// Accessibility – Focus-Ring
+@mixin focus-ring {
+  &:focus {
+    outline: $focus-outline-width solid var(--color-surface);
+    outline-offset: $focus-outline-offset;
+    outline-color: $focus-outline-color;
+  }
+}
