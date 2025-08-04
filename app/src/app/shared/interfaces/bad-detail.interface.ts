@@ -20,5 +20,6 @@ export interface BadDetail {
   preise?: string;
   info?: string;
   becken?: Record<string, BadDetailPool>;
+  // Allow additional properties
   [key: string]: unknown;
 }

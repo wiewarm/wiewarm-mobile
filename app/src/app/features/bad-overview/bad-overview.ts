@@ -1,11 +1,11 @@
 import { CdkAccordionModule } from '@angular/cdk/accordion';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { CommonModule } from '@angular/common';
-import { Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { BadItem } from 'src/app/shared/interfaces/bad-item.interface';
-import { BadResourceService } from 'src/app/shared/services/bad-detail.service';
+import { BadResourceService } from 'src/app/shared/services/bad.service';
 import { temperatureClass } from 'src/app/shared/util/temperature.util';
 import { SortDialogComponent } from 'src/app/shared/layout/sort-dialog/sort-dialog';
 import { BadItemComponent } from './bad-item/bad-item';
@@ -17,6 +17,7 @@ import { FilterDialogComponent } from 'src/app/shared/layout/filter-dialog/filte
   selector: 'app-bad-overview',
   templateUrl: './bad-overview.html',
   styleUrl: './bad-overview.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     CommonModule,
     FormsModule,
@@ -42,7 +43,6 @@ export class BadOverviewComponent {
   readonly favorite = this.favoriteService.favoriteSignal;
 
   searchInput = signal('');
-  readonly tableColumns = ['bad', 'ort', 'temp', 'date_pretty'];
 
   sortField = signal<keyof BadItem>('becken');
   sortDirection = signal<'asc' | 'desc'>('asc');

@@ -9,7 +9,6 @@ import { temperatureClass } from 'src/app/shared/util/temperature.util';
 
 @Component({
   selector: 'app-bad-item',
-  standalone: true,
   templateUrl: './bad-item.html',
   styleUrl: './bad-item.scss',
   imports: [CommonModule, RouterModule, CdkAccordionModule],

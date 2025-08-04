@@ -1,24 +1,24 @@
 import { Component, ViewChild, ElementRef, input, output } from '@angular/core';
+import { DialogDirective } from '../dialog.directive';
 
 @Component({
   selector: 'app-filter-dialog',
   templateUrl: './filter-dialog.html',
   styleUrl: './filter-dialog.scss',
-  standalone: true,
-  imports: [],
+  imports: [DialogDirective],
 })
 export class FilterDialogComponent {
-  @ViewChild('dialog') private dialog?: ElementRef<HTMLDialogElement>;
+  @ViewChild(DialogDirective) private dialog?: DialogDirective;
 
   readonly filterOption = input.required<'aktuell' | 'all'>();
   readonly setFilter = output<'aktuell' | 'all'>();
 
   open() {
-    this.dialog?.nativeElement.showModal();
+    this.dialog?.open();
   }
 
   close() {
-    this.dialog?.nativeElement.close();
+    this.dialog?.close();
   }
 
   applyFilter(option: 'aktuell' | 'all') {

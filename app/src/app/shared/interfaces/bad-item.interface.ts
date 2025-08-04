@@ -12,5 +12,6 @@ export interface BadItem {
   ortlong: number;
   kanton: string;
   dist?: number;
+  // Allow additional properties
   [key: string]: string | number | undefined;
 }

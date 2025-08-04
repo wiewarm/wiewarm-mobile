@@ -1,10 +1,10 @@
 @use "../../../../assets/styles/variables" as *;
 @use "../../../../assets/styles/dialog" as dialog;
 
-#sort-dialog {
+#filter-dialog {
   @include dialog.dialog-container;
 
-  .sort-link {
+  .filter-link {
     @include dialog.dialog-link;
   }
 
@@ -14,7 +14,7 @@
   }
 }
 
-.sort-dialog-title {
+.filter-dialog-title {
   @include dialog.dialog-title;
 }
 
