@@ -82,16 +82,16 @@
     maxBufferPx="324"
   >
     <span class="accordion" cdkAccordion>
-      @if(!badResource.isLoading() && !badResource.error() &&
-      filteredItems().length === 0) {
-      <div class="status" role="status">
-        <span aria-hidden="true">😕 </span>
-        <p>Keine Resultate gefunden.</p>
-      </div>
-      }@else{
       <ng-container *cdkVirtualFor="let item of filteredItems(); let i = index">
         <app-bad-item [item]="item" [index]="i"></app-bad-item>
       </ng-container>
+
+      @if (!badResource.isLoading() && !badResource.error() &&
+      filteredItems().length === 0) {
+      <div class="status" role="status">
+        <span aria-hidden="true">😕</span>
+        <p>Keine Resultate gefunden.</p>
+      </div>
       }
     </span>
   </cdk-virtual-scroll-viewport>
