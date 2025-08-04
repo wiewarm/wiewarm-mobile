@@ -18,7 +18,7 @@
             aria-hidden="true"
             [attr.src]="option.icon"
             alt
-            width="16"
+            width="19"
             height="16"
           />&nbsp;
           <span class="underline">{{ option.label }}</span>
@@ -31,7 +31,7 @@
       }
     </ul>
     <button class="close-button" (click)="close()" aria-label="Schliessen">
-      ×
+      <span aria-hidden="true">×</span>
     </button>
   </div>
 </dialog>

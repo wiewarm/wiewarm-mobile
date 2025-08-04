@@ -37,6 +37,11 @@
     cursor: pointer;
     border-radius: $radius-sm;
     perspective: 600px;
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     transition: transform $transition-fast, filter $transition-fast;
 
     &:hover {

@@ -65,7 +65,10 @@
                 }
               },
               "sourceMap": false,
-              "namedChunks": false
+              "namedChunks": false,
+              "scripts": [
+                "src/assets/scripts/analytics.js"
+              ]
             },
             "development": {
               "optimization": false,

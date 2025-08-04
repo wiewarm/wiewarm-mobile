@@ -17,6 +17,8 @@
   font-family: $font-family-englebert;
   justify-content: space-between;
   width: 100%;
+  box-sizing: border-box;
+  min-height: 81px;
   border: none;
   padding: $space-3 $space-4;
   text-align: left;

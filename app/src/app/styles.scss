@@ -22,11 +22,11 @@
     border-color 0.1s ease-in-out;
 
   overflow-y: hidden;
-  font-size: $font-size-md;
 }
 
 body {
   font-family: $font-family-base;
+  font-size: $font-size-md;
   background: var(--color-bg);
   color: var(--color-text);
   transition: background-color $transition-medium, color $transition-medium;

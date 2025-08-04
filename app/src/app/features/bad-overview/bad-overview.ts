@@ -8,7 +8,6 @@ import {
   signal,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
 import { BadItem } from 'src/app/shared/services/interfaces/bad-item.interface';
 import { BadResourceService } from 'src/app/shared/services/bad.service';
 import { temperatureClass } from 'src/app/shared/util/temperature.util';
@@ -37,7 +36,6 @@ import {
     FormsModule,
     CdkAccordionModule,
     ScrollingModule,
-    RouterModule,
     SortDialogComponent,
     FilterDialogComponent,
     BadItemComponent,
