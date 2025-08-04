@@ -58,11 +58,6 @@ export class BadOverviewComponent {
     this.sortDirection.set(direction);
   }
 
-  capitalize(str: string) {
-    if (!str) return '';
-    return str.charAt(0).toUpperCase() + str.slice(1);
-  }
-
   filteredItems = computed(() => {
     const term = this.searchInput().toLowerCase();
     const items = this.badResource.value() ?? [];

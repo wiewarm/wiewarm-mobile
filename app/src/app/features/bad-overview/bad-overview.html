@@ -47,7 +47,7 @@
         />
         <span class="sort-text">
           <!-- Todo: Use full name -->
-          {{ capitalize(sortField().toString()) }}
+          {{ sortField().toString() | titlecase}}
         </span></a
       >
       <a
@@ -82,6 +82,8 @@
     class="item-viewport"
     [itemSize]="72"
     orientation="vertical"
+    minBufferPx="144"
+    maxBufferPx="288"
   >
     <span class="accordion" cdkAccordion>
       @if(!badResource.isLoading() && !badResource.error() &&
@@ -90,10 +92,11 @@
         <span aria-hidden="true">😕 </span>
         <p>Keine Resultate gefunden.</p>
       </div>
-      }@else{ @for(item of filteredItems(); track item.badid_text; let i =
-      $index) {
-      <app-bad-item [item]="item" [index]="i"></app-bad-item>
-      } }
+      }@else{
+      <ng-container *cdkVirtualFor="let item of filteredItems(); let i = index">
+        <app-bad-item [item]="item" [index]="i"></app-bad-item>
+      </ng-container>
+      }
     </span>
   </cdk-virtual-scroll-viewport>
   <div class="bottom-bar">

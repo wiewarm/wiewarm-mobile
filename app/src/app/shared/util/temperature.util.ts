@@ -1,5 +1,5 @@
 export function temperatureClass(temp: number | null | undefined): string {
-  if (temp == null) return 'temp-unknown';
+  if (temp == null || Number.isNaN(temp)) return 'temp-unknown';
   switch (true) {
     case temp < 15:
       return 'temp-cold';

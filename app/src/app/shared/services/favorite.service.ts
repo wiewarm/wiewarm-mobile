@@ -1,4 +1,4 @@
-import { Injectable, Signal, computed, effect, signal } from '@angular/core';
+import { Injectable, signal, Signal, computed, effect } from '@angular/core';
 import { BadItem } from '../interfaces/bad-item.interface';
 
 const STORAGE_KEY = 'favorite';
@@ -6,16 +6,23 @@ const STORAGE_KEY = 'favorite';
 @Injectable({ providedIn: 'root' })
 export class FavoriteService {
   private favorite = signal<BadItem | null>(null);
-
-  readonly favoriteSignal = computed(() => this.favorite());
+  readonly favoriteSignal: Signal<BadItem | null> = computed(() =>
+    this.favorite()
+  );
 
   constructor() {
-    this.loadFavoriteFromLocalStorage();
+    try {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      if (stored) this.favorite.set(JSON.parse(stored));
+    } catch {
+      console.warn('Error reading favorite from localStorage');
+    }
   }
 
   setFavorite(item: BadItem): void {
-    this.favorite.set(item);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(item));
+    const clone = structuredClone(item) as BadItem;
+    this.favorite.set(clone);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(clone));
   }
 
   clearFavorite(): void {
@@ -25,35 +32,15 @@ export class FavoriteService {
 
   connect(items: Signal<BadItem[] | null | undefined>): void {
     effect(() => {
-      const currentFavorite = this.favorite();
-      const itemList = items();
-
-      if (!currentFavorite || !itemList) {
-        return;
-      }
-
-      const updatedFavorite = itemList.find(
-        (item) => item.beckenid === currentFavorite.beckenid
-      );
-
+      const fav = this.favorite();
+      const updated = items()?.find((i) => i.beckenid === fav?.beckenid);
       if (
-        updatedFavorite &&
-        (updatedFavorite.date !== currentFavorite.date ||
-          updatedFavorite.temp !== currentFavorite.temp)
+        fav &&
+        updated &&
+        (updated.date !== fav.date || updated.temp !== fav.temp)
       ) {
-        this.setFavorite(updatedFavorite);
+        this.setFavorite(updated);
       }
     });
-  }
-
-  private loadFavoriteFromLocalStorage(): void {
-    try {
-      const stored = localStorage.getItem(STORAGE_KEY);
-      if (stored) {
-        this.favorite.set(JSON.parse(stored));
-      }
-    } catch (e) {
-      console.error('Failed to parse favorite from local storage:', e);
-    }
   }
 }

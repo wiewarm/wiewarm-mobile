@@ -1,48 +1,23 @@
 @use "../../../../assets/styles/variables" as *;
-@use "../../../../assets/styles/mixins" as *;
+@use "../../../../assets/styles/dialog" as dialog;
 
-#filter-dialog {
-  min-width: 40%;
-  max-width: 150px;
-  border-radius: $radius-l;
-  border-color: $color-border;
+#sort-dialog {
+  @include dialog.dialog-container;
 
-  ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+  .sort-link {
+    @include dialog.dialog-link;
   }
 
-  li {
-    padding-bottom: $space-1;
-  }
-
-  .filter-link {
-    display: inline-block;
-    font-size: $font-size-lg;
+  .no-underline {
     text-decoration: none;
-  }
-
-  .underline {
-    text-decoration: underline;
-    text-underline-offset: 2px;
-    text-decoration-thickness: 1px;
+    margin-left: 0.2em;
   }
 }
 
-.filter-dialog-title {
-  font-size: $font-size-lg;
-  font-weight: $font-weight-bold;
-  font-family: $font-family-englebert;
-  padding-bottom: $space-2;
+.sort-dialog-title {
+  @include dialog.dialog-title;
 }
 
 .close-button {
-  position: absolute;
-  top: 0.5rem;
-  right: 0.5rem;
-  background: transparent;
-  border: none;
-  font-size: 2rem;
-  cursor: pointer;
+  @include dialog.close-button;
 }
