@@ -1,7 +1,7 @@
 import { Injectable, resource } from '@angular/core';
 import { environment } from '../../../environments/environment';
-import { BadDetail } from '../interfaces/bad-detail.interface';
-import { BadItem } from '../interfaces/bad-item.interface';
+import { BadDetail } from './interfaces/bad-detail.interface';
+import { BadItem } from './interfaces/bad-item.interface';
 
 @Injectable({ providedIn: 'root' })
 export class BadResourceService {

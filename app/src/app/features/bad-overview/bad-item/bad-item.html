@@ -40,12 +40,13 @@
   >
     <div class="accordion-body-left">
       <p>
-        <span class="detail-title"><span aria-hidden="true">• </span></span>{{
-        item().bad }}
+        <span class="detail-title"
+          ><span aria-hidden="true">• </span>{{ item().bad }}</span
+        >
       </p>
       <p
         class="time-label"
-        [ngClass]="{ 'label-older-than-one-month': isOlderThanOneMonth(item().date) }"
+        [ngClass]="{ 'label-older-than-one-month': isOlderThanOneMonth(item().date || null) }"
       >
         <span aria-hidden="true">• </span>Zuletzt aktualisiert {{
         item().date_pretty }}

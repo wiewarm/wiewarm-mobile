@@ -1,5 +1,5 @@
 import { Injectable, signal, Signal, computed, effect } from '@angular/core';
-import { BadItem } from '../interfaces/bad-item.interface';
+import { BadItem } from './interfaces/bad-item.interface';
 
 const STORAGE_KEY = 'favorite';
 

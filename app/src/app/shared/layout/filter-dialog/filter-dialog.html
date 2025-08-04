@@ -1,37 +1,23 @@
-<dialog
-  appDialog
-  id="filter-dialog"
-  aria-labelledby="filter-dialog-title"
->
+<dialog appDialog id="filter-dialog" aria-labelledby="filter-dialog-title">
   <div class="filter-dialog-content">
     <h1 id="filter-dialog-title" class="filter-dialog-title">Filtern:</h1>
     <ul>
+      @for (option of filterOptions; track option.value) {
       <li>
         <a
           href="#"
           role="option"
           class="filter-link"
-          [attr.aria-selected]="filterOption() === 'aktuell'"
-          (click)="applyFilter('aktuell'); $event.preventDefault();"
+          [attr.aria-selected]="filterOption() === option.value"
+          (click)="applyFilter(option.value); $event.preventDefault();"
         >
-          <span class="underline">Aktuell</span>
-          @if(filterOption() === 'aktuell') { <span> ✓</span> }
+          <span class="underline">{{ option.label }}</span>
+          @if(filterOption() === option.value) { <span> ✓</span> }
         </a>
       </li>
-      <li>
-        <a
-          href="#"
-          role="option"
-          class="filter-link"
-          [attr.aria-selected]="filterOption() === 'all'"
-          (click)="applyFilter('all'); $event.preventDefault();"
-        >
-          <span class="underline">Alle</span>
-          @if(filterOption() === 'all') { <span> ✓</span> }
-        </a>
-      </li>
+      }
     </ul>
-    <button class="close-button" (click)="close()" aria-label="Schließen">
+    <button class="close-button" (click)="close()" aria-label="Schliessen">
       ×
     </button>
   </div>

@@ -1,5 +1,6 @@
-import { Component, ViewChild, ElementRef, input, output } from '@angular/core';
+import { Component, ViewChild, input, output } from '@angular/core';
 import { DialogDirective } from '../dialog.directive';
+import { FILTER_OPTION_LIST, FilterOption } from '../../util/constants/filter-options';
 
 @Component({
   selector: 'app-filter-dialog',
@@ -10,8 +11,9 @@ import { DialogDirective } from '../dialog.directive';
 export class FilterDialogComponent {
   @ViewChild(DialogDirective) private dialog?: DialogDirective;
 
-  readonly filterOption = input.required<'aktuell' | 'all'>();
-  readonly setFilter = output<'aktuell' | 'all'>();
+  readonly filterOptions = FILTER_OPTION_LIST;
+  readonly filterOption = input.required<FilterOption>();
+  readonly setFilter = output<FilterOption>();
 
   open() {
     this.dialog?.open();
@@ -21,7 +23,7 @@ export class FilterDialogComponent {
     this.dialog?.close();
   }
 
-  applyFilter(option: 'aktuell' | 'all') {
+  applyFilter(option: FilterOption) {
     this.setFilter.emit(option);
     this.close();
   }

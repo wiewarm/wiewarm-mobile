@@ -8,12 +8,13 @@
   <div class="detail container-lg">
     @if(detailResource.isLoading()) {
     <div class="status" role="status" aria-live="polite">
-      <span aria-hidden="true">⏳ </span>Laden…
+      <span aria-hidden="true">⏳ </span>
+      <p>Laden…</p>
     </div>
     } @else if(detailResource.error()) {
     <div class="status error" role="alert" aria-live="assertive">
       <span aria-hidden="true">❌ </span>
-      Fehler beim Laden. Bitte versuchen Sie es später erneut.
+      <p>Fehler beim Laden. Bitte versuchen Sie es später erneut.</p>
     </div>
     }
     <ng-container *ngIf="detailResource.value() as detail">

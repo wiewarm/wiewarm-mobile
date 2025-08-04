@@ -1,6 +1,10 @@
-import { Component, ViewChild, ElementRef, input, output } from '@angular/core';
-import { BadItem } from 'src/app/shared/interfaces/bad-item.interface';
+import { Component, ViewChild, input, output } from '@angular/core';
 import { DialogDirective } from '../dialog.directive';
+import {
+  SORT_OPTION_LIST,
+  SortDirection,
+  SortField,
+} from '../../util/constants/sort-options';
 
 @Component({
   selector: 'app-sort-dialog',
@@ -11,13 +15,11 @@ import { DialogDirective } from '../dialog.directive';
 export class SortDialogComponent {
   @ViewChild(DialogDirective) private dialog?: DialogDirective;
 
-  readonly sortField = input.required<keyof BadItem>();
-  readonly sortDirection = input.required<'asc' | 'desc'>();
+  readonly sortOptions = SORT_OPTION_LIST;
+  readonly sortField = input.required<SortField>();
+  readonly sortDirection = input.required<SortDirection>();
 
-  readonly setSort = output<{
-    field: keyof BadItem;
-    direction: 'asc' | 'desc';
-  }>();
+  readonly setSort = output<{ field: SortField; direction: SortDirection }>();
 
   open() {
     this.dialog?.open();
@@ -27,7 +29,7 @@ export class SortDialogComponent {
     this.dialog?.close();
   }
 
-  applySort(field: keyof BadItem, direction: 'asc' | 'desc') {
+  applySort(field: SortField, direction: SortDirection) {
     this.setSort.emit({ field, direction });
     this.close();
   }

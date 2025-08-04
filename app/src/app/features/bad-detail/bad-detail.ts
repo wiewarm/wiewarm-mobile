@@ -4,7 +4,7 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 import {
   BadDetail,
   BadDetailPool,
-} from 'src/app/shared/interfaces/bad-detail.interface';
+} from 'src/app/shared/services/interfaces/bad-detail.interface';
 import { BadResourceService } from 'src/app/shared/services/bad.service';
 import { temperatureClass } from 'src/app/shared/util/temperature.util';
 

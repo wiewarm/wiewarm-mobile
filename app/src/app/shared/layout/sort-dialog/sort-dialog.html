@@ -2,122 +2,35 @@
   <div class="sort-dialog-content">
     <h1 id="sort-dialog-title" class="sort-dialog-title">Sortieren nach:</h1>
     <ul>
+      @for (option of sortOptions; track option.field + option.direction) {
       <li>
         <a
           href="#"
           role="option"
           class="sort-link"
-          [attr.aria-selected]="sortField() === 'becken' && sortDirection() === 'asc'"
-          (click)="applySort('becken', 'asc'); close(); $event.preventDefault();"
+          [attr.aria-selected]="
+              sortField() === option.field && sortDirection() === option.direction
+            "
+          (click)="applySort(option.field, option.direction); $event.preventDefault();"
         >
           <img
             class="no-underline"
             aria-hidden="true"
-            src="assets/img/up.png"
-            alt=""
-            width="16"
-            height="16"
-          />&nbsp; <span class="underline">Becken</span> @if(sortField() ===
-          'becken' && sortDirection() === 'asc') { <span> ✓</span> }
-        </a>
-      </li>
-      <li>
-        <a
-          href="#"
-          role="option"
-          class="sort-link"
-          [attr.aria-selected]="sortField() === 'becken' && sortDirection() === 'desc'"
-          (click)="applySort('becken', 'desc'); close(); $event.preventDefault();"
-        >
-          <img
-            class="no-underline"
-            aria-hidden="true"
-            src="assets/img/down.png"
-            alt=""
-            width="16"
-            height="16"
-          />&nbsp; <span class="underline">Becken</span> @if(sortField() ===
-          'becken' && sortDirection() === 'desc') { <span> ✓</span> }
-        </a>
-      </li>
-      <li>
-        <a
-          href="#"
-          role="option"
-          class="sort-link"
-          [attr.aria-selected]="sortField() === 'ort' && sortDirection() === 'asc'"
-          (click)="applySort('ort', 'asc'); close(); $event.preventDefault();"
-        >
-          <img
-            class="no-underline"
-            aria-hidden="true"
-            src="assets/img/up.png"
+            [attr.src]="option.icon"
             alt
             width="16"
             height="16"
-          />&nbsp; <span class="underline">Ort</span> @if(sortField() === 'ort'
-          && sortDirection() === 'asc') { <span> ✓</span> }
+          />&nbsp;
+          <span class="underline">{{ option.label }}</span>
+          @if( sortField() === option.field && sortDirection() ===
+          option.direction ) {
+          <span> ✓</span>
+          }
         </a>
       </li>
-      <li>
-        <a
-          href="#"
-          role="option"
-          class="sort-link"
-          [attr.aria-selected]="sortField() === 'ort' && sortDirection() === 'desc'"
-          (click)="applySort('ort', 'desc'); close(); $event.preventDefault();"
-        >
-          <img
-            class="no-underline"
-            aria-hidden="true"
-            src="assets/img/down.png"
-            alt
-            width="16"
-            height="16"
-          />&nbsp; <span class="underline">Ort</span> @if(sortField() === 'ort'
-          && sortDirection() === 'desc') { <span> ✓</span> }
-        </a>
-      </li>
-      <li>
-        <a
-          href="#"
-          role="option"
-          class="sort-link"
-          [attr.aria-selected]="sortField() === 'temp' && sortDirection() === 'asc'"
-          (click)="applySort('temp', 'asc'); close(); $event.preventDefault();"
-        >
-          <img
-            class="no-underline"
-            aria-hidden="true"
-            src="assets/img/up.png"
-            alt
-            width="16"
-            height="16"
-          />&nbsp; <span class="underline">Temperatur</span> @if(sortField() ===
-          'temp' && sortDirection() === 'asc') { <span> ✓</span> }
-        </a>
-      </li>
-      <li>
-        <a
-          href="#"
-          role="option"
-          class="sort-link"
-          [attr.aria-selected]="sortField() === 'temp' && sortDirection() === 'desc'"
-          (click)="applySort('temp', 'desc'); close(); $event.preventDefault();"
-        >
-          <img
-            class="no-underline"
-            aria-hidden="true"
-            src="assets/img/down.png"
-            alt
-            width="16"
-            height="16"
-          />&nbsp; <span class="underline">Temperatur</span> @if(sortField() ===
-          'temp' && sortDirection() === 'desc') { <span> ✓</span> }
-        </a>
-      </li>
+      }
     </ul>
-    <button class="close-button" (click)="close()" aria-label="Schließen">
+    <button class="close-button" (click)="close()" aria-label="Schliessen">
       ×
     </button>
   </div>
