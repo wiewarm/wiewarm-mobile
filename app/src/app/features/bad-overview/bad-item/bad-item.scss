@@ -72,6 +72,7 @@
         color: $color-link;
         text-decoration: underline;
         text-underline-offset: $text-underline-offset;
+        @include hover-link;
       }
     }
   }
@@ -92,7 +93,7 @@
       display: inline-flex;
 
       &:hover {
-        @include hover-icon;
+        transform: scale(1.1);
       }
     }
   }

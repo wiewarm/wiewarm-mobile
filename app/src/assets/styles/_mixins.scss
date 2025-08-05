@@ -16,11 +16,23 @@
   filter: drop-shadow(0 2px 5px rgba(232, 127, 70, 0.3));
 }
 
+@mixin hover-link {
+  transition: filter $transition-fast, color $transition-fast;
+
+  &:hover {
+    filter: brightness(1.2);
+  }
+}
+
 // Accessibility – Focus-Ring
 @mixin focus-ring {
+  transition: filter $transition-slow, color $transition-slow;
   &:focus {
     outline: $focus-outline-width solid var(--color-surface);
     outline-offset: $focus-outline-offset;
     outline-color: $focus-outline-color;
+  }
+  &:hover {
+    box-shadow: $shadow-md;
   }
 }

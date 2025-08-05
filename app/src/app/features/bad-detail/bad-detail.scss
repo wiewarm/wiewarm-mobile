@@ -17,14 +17,10 @@
   margin-bottom: $space-2;
   color: $color-link;
   text-decoration: none;
+  @include hover-link;
 
   .back-icon {
     font-size: $font-size-md;
-  }
-
-  .back-text:hover {
-    text-decoration: underline;
-    text-underline-offset: $text-underline-offset;
   }
 }
 
