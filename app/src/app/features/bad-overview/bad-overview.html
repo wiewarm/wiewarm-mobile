@@ -20,16 +20,9 @@
       } @else {
       <h1>Aktuelle Temperaturen</h1>
 
-      <div class="favorite-box" *ngIf="favorite() as fav">
-        <span class="favorite-name"
-          ><span class="material-icons favorite-icon">star</span>
-          <span>{{ fav.bad }}</span></span
-        >
-        <span class="favorite-location">{{ fav.plz}} {{ fav.ort }}</span>
-        <span class="favorite-temp" [ngClass]="temperatureClass(fav.temp)"
-          >{{ fav.temp != null ? fav.temp + '°C' : '—' }}</span
-        >
-      </div>
+      @if(favorite()) {
+      <app-favorite-item [favorite]="favorite()"></app-favorite-item>
+      }
       <div class="search">
         <span class="search-emoji" aria-hidden="true">🔍</span>
         <input

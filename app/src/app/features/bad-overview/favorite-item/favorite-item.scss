@@ -1,0 +1,46 @@
+@use "../../../../assets/styles/variables" as *;
+
+.favorite-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: $space-4;
+  padding: $space-3 $space-4;
+  border: 2px solid $color-border;
+  border-radius: $radius-l;
+  background: $color-surface-alt;
+  font-size: $font-size-lg;
+  font-family: $font-family-englebert;
+  box-shadow: $shadow-sm;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  transition: background $transition-medium, transform $transition-fast;
+
+  &:hover,
+  &:focus {
+    box-shadow: $shadow-md;
+  }
+
+  .favorite-name {
+    display: flex;
+    align-items: center;
+    gap: $space-2;
+  }
+
+  .favorite-icon {
+    color: $color-primary;
+    font-size: $font-size-xl;
+    vertical-align: middle;
+  }
+
+  .favorite-location {
+    font-size: $font-size-md;
+    color: $color-text-muted;
+  }
+
+  .favorite-temp {
+    font-size: 1.5rem;
+    font-weight: $font-weight-bold;
+  }
+}

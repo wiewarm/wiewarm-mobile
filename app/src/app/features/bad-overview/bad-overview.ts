@@ -10,7 +10,6 @@ import {
 import { FormsModule } from '@angular/forms';
 import { BadItem } from 'src/app/shared/services/interfaces/bad-item.interface';
 import { BadResourceService } from 'src/app/shared/services/bad.service';
-import { temperatureClass } from 'src/app/shared/util/temperature.util';
 import { SortDialogComponent } from 'src/app/shared/layout/sort-dialog/sort-dialog';
 import { BadItemComponent } from './bad-item/bad-item';
 import { FavoriteService } from 'src/app/shared/services/favorite.service';
@@ -25,6 +24,7 @@ import {
   SortDirection,
   SortField,
 } from 'src/app/shared/util/constants/sort-options';
+import { FavoriteItemComponent } from './favorite-item/favorite-item';
 
 @Component({
   selector: 'app-bad-overview',
@@ -32,17 +32,16 @@ import {
   styleUrl: './bad-overview.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    CommonModule,
     FormsModule,
     CdkAccordionModule,
     ScrollingModule,
     SortDialogComponent,
     FilterDialogComponent,
     BadItemComponent,
+    FavoriteItemComponent,
   ],
 })
 export class BadOverviewComponent {
-  temperatureClass = temperatureClass;
 
   constructor(
     private detailService: BadResourceService,

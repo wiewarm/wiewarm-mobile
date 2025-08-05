@@ -1,4 +1,4 @@
-export function temperatureClass(temp: number | null | undefined): string {
+export function temperatureClass(temp: number | null): string {
   if (temp == null || Number.isNaN(temp)) return 'temp-unknown';
   switch (true) {
     case temp < 15:

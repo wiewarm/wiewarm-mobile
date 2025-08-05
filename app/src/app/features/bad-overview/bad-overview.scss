@@ -109,30 +109,6 @@ h1 {
   }
 }
 
-.favorite-box {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: $space-2 $space-4;
-  border: 2px solid $color-border;
-  border-radius: $radius-l;
-  background: $color-surface;
-  font-size: $font-size-lg;
-  font-family: $font-family-englebert;
-
-  .favorite-name {
-    display: flex;
-    align-items: center;
-    gap: $space-2;
-  }
-
-  .favorite-icon {
-    color: $color-link;
-    font-size: $font-size-lg;
-    vertical-align: middle;
-  }
-}
-
 .spacer-bottom {
   flex: 0 0 auto;
   padding: 0.75rem 1rem;
