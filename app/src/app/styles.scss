@@ -30,9 +30,9 @@ body {
   color: var(--color-text);
   transition: background-color $transition-medium, color $transition-medium;
 
-  background-color: var(--color-bg);
-  background-image: url("/assets/img/waves.svg");
-  background-repeat: repeat;
+  background-image: url("/assets/img/wav-bg.svg");
+  background-repeat: repeat-x;
+  background-size: auto 100%;
 }
 
 body.dark-mode {
