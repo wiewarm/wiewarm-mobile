@@ -1,4 +1,5 @@
 @use "../../../../assets/styles/variables" as *;
+@use "../../../../assets/styles/mixins" as *;
 
 .grid {
   display: flex;
@@ -45,8 +46,7 @@
     transition: transform $transition-fast, filter $transition-fast;
 
     &:hover {
-      transform: scale(1.2);
-      filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.3));
+      @include hover-icon;
     }
 
     &.flipped .theme-emoji {

@@ -11,6 +11,11 @@
   cursor: pointer;
 }
 
+@mixin hover-icon {
+  transform: scale(1.2);
+  filter: drop-shadow(0 2px 5px rgba(232, 127, 70, 0.3));
+}
+
 // Accessibility – Focus-Ring
 @mixin focus-ring {
   &:focus {

@@ -86,6 +86,13 @@
       font-size: 2rem;
       margin-left: $space-1;
       padding-right: 0;
+
+      transition: transform $transition-fast, filter $transition-fast;
+      display: inline-flex;
+
+      &:hover {
+        @include hover-icon;
+      }
     }
   }
 }
