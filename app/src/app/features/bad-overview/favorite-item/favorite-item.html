@@ -1,18 +1,24 @@
-<a
-  class="favorite-box"
-  [routerLink]="[favorite()?.badid_text]"
-  [attr.aria-label]="'Details zu {{ favorite()?.bad }} ansehen'"
->
-  <span class="favorite-name">
-    <span class="material-icons favorite-icon">star</span>
-    <span>{{ favorite()?.bad }}</span>
-  </span>
-  <span class="favorite-location"
-    >{{ favorite()?.plz }} {{ favorite()?.ort }}</span
-  >{{favorite()?.temp}}
-  <span
-    class="favorite-temp"
-    [ngClass]="temperatureClass(favorite()?.temp || null)"
-    >{{ favorite()?.temp != null ? favorite()?.temp + "°C" : "—" }}</span
+<article>
+  <a
+    class="favorite-card"
+    [routerLink]="[favorite()?.badid_text]"
+    [attr.aria-label]="'Details zu ' + favorite()?.bad + ' ansehen'"
   >
-</a>
+    <header class="favorite-header">
+      <span class="material-icons favorite-icon" aria-hidden="true">star</span>
+      <h2 class="favorite-name">{{ favorite()?.bad }}</h2>
+    </header>
+
+    <address class="favorite-location">
+      {{ favorite()?.plz }} {{ favorite()?.ort }}
+    </address>
+
+    <data
+      class="favorite-temp"
+      [value]="favorite()?.temp"
+      [ngClass]="temperatureClass(favorite()?.temp || null)"
+    >
+      {{ favorite()?.temp != null ? favorite()?.temp + ' °C' : '—' }}
+    </data>
+  </a>
+</article>

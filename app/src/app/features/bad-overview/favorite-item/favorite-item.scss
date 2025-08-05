@@ -1,6 +1,7 @@
 @use "../../../../assets/styles/variables" as *;
+@use "../../../../assets/styles/mixins" as *;
 
-.favorite-box {
+.favorite-card {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -20,6 +21,11 @@
   &:hover,
   &:focus {
     box-shadow: $shadow-md;
+  }
+
+  .favorite-header {
+    display: flex;
+    direction: row;
   }
 
   .favorite-name {
@@ -42,5 +48,10 @@
   .favorite-temp {
     font-size: 1.5rem;
     font-weight: $font-weight-bold;
+  }
+  @each $name, $color in $temp-colors {
+    .favorite-temp.temp-#{$name} {
+      color: $color;
+    }
   }
 }

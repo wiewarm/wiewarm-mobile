@@ -60,6 +60,7 @@
   padding-right: $space-4;
   background: $color-surface-hover;
   line-height: 1.5;
+  overflow: hidden;
 
   .accordion-body-left {
     @include flex-column;
