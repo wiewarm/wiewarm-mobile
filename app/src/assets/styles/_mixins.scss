@@ -24,6 +24,28 @@
   }
 }
 
+@mixin stripe-effect {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-radial-gradient(
+      circle 4px at 50% -4px,
+      transparent 0 2px,
+      rgba(255, 255, 255, 0.5) 2px 4px
+    );
+    background-size: 20px 20px;
+    pointer-events: none;
+  }
+}
+
 // Accessibility – Focus-Ring
 @mixin focus-ring {
   transition: filter $transition-slow, color $transition-slow;

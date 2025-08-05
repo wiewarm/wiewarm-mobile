@@ -27,9 +27,12 @@
 body {
   font-family: $font-family-base;
   font-size: $font-size-md;
-  background: var(--color-bg);
   color: var(--color-text);
   transition: background-color $transition-medium, color $transition-medium;
+
+  background-color: var(--color-bg);
+  background-image: url("/assets/img/waves.svg");
+  background-repeat: repeat;
 }
 
 body.dark-mode {

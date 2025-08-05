@@ -32,11 +32,12 @@
     display: flex;
     align-items: center;
     gap: $space-2;
+    padding-left: $space-1;
   }
 
   .favorite-icon {
     color: $color-primary;
-    font-size: $font-size-xl;
+    font-size: 1.5rem;
     vertical-align: middle;
   }
 
@@ -46,7 +47,7 @@
   }
 
   .favorite-temp {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     font-weight: $font-weight-bold;
   }
   @each $name, $color in $temp-colors {
