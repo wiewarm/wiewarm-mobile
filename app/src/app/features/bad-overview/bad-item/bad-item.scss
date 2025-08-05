@@ -108,11 +108,29 @@
 }
 
 .temp-dot {
+  position: relative;
   display: inline-block;
-  width: 0.75rem;
-  height: 0.75rem;
+  width: 0.85rem;
+  height: 0.85rem;
   border-radius: 50%;
-  flex-shrink: 0;
+  background-color: #0098d8;
+  overflow: hidden;
+}
+
+.temp-dot::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-radial-gradient(
+    circle 4px at 50% -4px,
+    transparent 0 2px,
+    rgba(255, 255, 255, 0.5) 2px 4px
+  );
+  background-size: 20px 20px;
+  pointer-events: none;
 }
 
 // temparature color-codes
