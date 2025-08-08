@@ -17,7 +17,10 @@ import { trigger, transition, style, animate } from '@angular/animations';
     trigger('fadeIn', [
       transition(':enter', [
         style({ opacity: 0, transform: 'translateY(10px)' }),
-        animate('200ms ease-in-out', style({ opacity: 1, transform: 'translateY(0)' })),
+        animate(
+          '200ms ease-in-out',
+          style({ opacity: 1, transform: 'translateY(0)' })
+        ),
       ]),
     ]),
     trigger('expandCollapse', [

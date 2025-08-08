@@ -3,66 +3,123 @@
 
 .favorite-card {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   gap: $space-4;
-  padding: $space-2 $space-3;
+  padding: $space-3 $space-4;
   border: 2px solid $color-border;
   border-radius: $radius-l;
   background: $color-surface-alt;
-  font-size: $font-size-lg;
   font-family: $font-family-englebert;
-  box-shadow: $shadow-sm;
-  text-decoration: none;
   color: inherit;
-  cursor: pointer;
-  transition: background $transition-medium, transform $transition-fast;
+  text-decoration: none;
+  box-shadow: $shadow-sm;
+  transition: box-shadow $transition-fast, transform $transition-fast;
 
   &:hover,
-  &:focus {
+  &:focus-visible {
     box-shadow: $shadow-md;
+    transform: translateY(-1px);
+    outline: none;
+  }
+}
+
+.favorite-content {
+  display: flex; /* ⭐ + Textblock */
+  align-items: center;
+  gap: $space-3;
+  min-width: 0;
+}
+
+.favorite-icon {
+  color: $color-primary;
+  font-size: $font-size-xl;
+  flex: 0 0 auto;
+}
+
+.favorite-text {
+  display: flex;
+  flex-direction: column;
+  gap: $space-1;
+  min-width: 0;
+}
+
+.favorite-name {
+  margin: 0;
+  line-height: 1.1;
+  font-size: $font-size-lg;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.favorite-meta {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0;
+  font-style: normal;
+  color: $color-text-muted;
+
+  .favorite-location,
+  .favorite-time {
+    white-space: nowrap;
   }
 
-  .favorite-content {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    grid-template-rows: auto auto;
-    column-gap: $space-2;
-    align-items: center;
+  .favorite-location::after {
+    content: "|";
+    margin: 0 $space-2;
+    color: $color-border;
   }
+}
 
-  .favorite-icon {
-    grid-column: 1;
-    grid-row: 1 / span 2;
-    color: $color-primary;
-    font-size: $font-size-xl;
+.favorite-temp {
+  margin-left: auto;
+  font-size: $font-size-xxl;
+  font-weight: $font-weight-bold;
+}
+
+@each $name, $color in $temp-colors {
+  .favorite-temp.temp-#{$name} {
+    color: $color;
+  }
+}
+
+.favorite-meta .favorite-time {
+  display: none;
+}
+.favorite-meta .favorite-location::after {
+  content: none;
+}
+
+@media (min-width: $breakpoint-m) {
+  .favorite-text {
+    flex-direction: row;
+    align-items: baseline;
+    gap: $space-3;
   }
 
   .favorite-name {
-    grid-column: 2;
-    grid-row: 1;
-    margin: 0;
-    line-height: 1.1;
+    font-size: $font-size-lg;
+    max-width: 40ch;
   }
 
-  .favorite-location {
-    grid-column: 2;
-    grid-row: 2;
-    margin: 0;
-    font-size: $font-size-md;
-    color: $color-text-muted;
-    font-style: normal;
+  .favorite-meta .favorite-time {
+    display: inline;
+  }
+
+  .favorite-meta .favorite-location::after {
+    content: "•";
+    margin: 0 $space-2;
+    color: $color-border;
   }
 
   .favorite-temp {
-    font-size: $font-size-xxl;
-    font-weight: $font-weight-bold;
-    margin-left: auto;
+    font-size: clamp($font-size-xl, 1.2vw + 1.2rem, $font-size-xxl);
   }
+}
 
-  @each $name, $color in $temp-colors {
-    .favorite-temp.temp-#{$name} {
-      color: $color;
-    }
+/* Motion */
+@media (prefers-reduced-motion: reduce) {
+  .favorite-card {
+    transition: none;
   }
 }
