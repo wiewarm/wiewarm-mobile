@@ -1,6 +1,8 @@
 import { CdkAccordionModule } from '@angular/cdk/accordion';
-import { ScrollingModule } from '@angular/cdk/scrolling';
-import { CommonModule } from '@angular/common';
+import {
+  ScrollingModule,
+  VIRTUAL_SCROLL_STRATEGY,
+} from '@angular/cdk/scrolling';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -8,7 +10,6 @@ import {
   signal,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { BadItem } from 'src/app/shared/services/interfaces/bad-item.interface';
 import { BadResourceService } from 'src/app/shared/services/bad.service';
 import { SortDialogComponent } from 'src/app/shared/layout/sort-dialog/sort-dialog';
 import { BadItemComponent } from './bad-item/bad-item';
@@ -25,6 +26,11 @@ import {
   SortField,
 } from 'src/app/shared/util/constants/sort-options';
 import { FavoriteItemComponent } from './favorite-item/favorite-item';
+import {
+  ADAPTIVE_VS_CONFIG,
+  AdaptiveVirtualScrollStrategy,
+} from 'src/app/shared/layout/virtual-scroll/adaptive-virtual-scroll.strategy';
+import { filterItems, sortItems } from 'src/app/shared/util/list.util';
 
 @Component({
   selector: 'app-bad-overview',
@@ -40,9 +46,23 @@ import { FavoriteItemComponent } from './favorite-item/favorite-item';
     BadItemComponent,
     FavoriteItemComponent,
   ],
+  providers: [
+    {
+      provide: ADAPTIVE_VS_CONFIG,
+      useValue: {
+        mobile: { itemSize: 81 },
+        desktop: { itemSize: 52 },
+        factorMin: 7,
+        factorMax: 14,
+      },
+    },
+    {
+      provide: VIRTUAL_SCROLL_STRATEGY,
+      useClass: AdaptiveVirtualScrollStrategy,
+    },
+  ],
 })
 export class BadOverviewComponent {
-
   constructor(
     private detailService: BadResourceService,
     private favoriteService: FavoriteService
@@ -72,44 +92,12 @@ export class BadOverviewComponent {
   }
 
   filteredItems = computed(() => {
-    const term = this.searchInput().toLowerCase();
     const items = this.badResource.value() ?? [];
-    let filtered = term ? this.filterItems(items, term) : items;
-    // Custom behavior for specific filter option
+    const term = this.searchInput().toLowerCase();
+    let out = filterItems(items, term, ['bad', 'ort', 'becken']);
     if (this.filterOption() === 'aktuell') {
-      filtered = filtered.filter((item) => isThisYear(item.date || null));
+      out = out.filter((i) => isThisYear(i.date || null));
     }
-    return this.sortItems(filtered, this.sortField(), this.sortDirection());
+    return sortItems(out, this.sortField(), this.sortDirection());
   });
-
-  private filterItems(items: BadItem[], term: string): BadItem[] {
-    return items.filter((item) => {
-      const searchFields = [item.bad, item.ort, item.becken]
-        .filter(Boolean)
-        .map((val) => val.toLowerCase());
-      return searchFields.some((field) => field.includes(term));
-    });
-  }
-
-  private sortItems(
-    items: BadItem[],
-    field: keyof BadItem,
-    direction: 'asc' | 'desc'
-  ): BadItem[] {
-    return [...items].sort((a, b) => {
-      const aVal = a[field];
-      const bVal = b[field];
-
-      if (aVal == null && bVal == null) return 0;
-      if (aVal == null) return 1;
-      if (bVal == null) return -1;
-
-      const comparison = String(aVal).localeCompare(String(bVal), undefined, {
-        numeric: true,
-        sensitivity: 'base',
-      });
-
-      return direction === 'asc' ? comparison : -comparison;
-    });
-  }
 }

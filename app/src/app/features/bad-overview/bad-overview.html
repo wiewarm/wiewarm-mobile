@@ -1,11 +1,5 @@
 <div class="container-lg">
-  <cdk-virtual-scroll-viewport
-    class="item-viewport"
-    [itemSize]="81"
-    orientation="vertical"
-    minBufferPx="567"
-    maxBufferPx="1134"
-  >
+  <cdk-virtual-scroll-viewport class="item-viewport" orientation="vertical">
     <div class="list-header">
       @if(badResource.isLoading()) {
       <div class="status" role="status" aria-live="polite">

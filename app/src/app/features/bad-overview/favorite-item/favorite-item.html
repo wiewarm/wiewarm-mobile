@@ -4,15 +4,13 @@
     [routerLink]="[favorite()?.badid_text]"
     [attr.aria-label]="'Details zu ' + favorite()?.bad + ' ansehen'"
   >
-    <header class="favorite-header">
+    <div class="favorite-content">
       <span class="material-icons favorite-icon" aria-hidden="true">star</span>
       <h2 class="favorite-name">{{ favorite()?.bad }}</h2>
-    </header>
-
-    <address class="favorite-location">
-      {{ favorite()?.plz }} {{ favorite()?.ort }}
-    </address>
-
+      <address class="favorite-location">
+        {{ favorite()?.plz }} {{ favorite()?.ort }}
+      </address>
+    </div>
     <data
       class="favorite-temp"
       [value]="favorite()?.temp"

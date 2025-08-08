@@ -18,7 +18,7 @@
   justify-content: space-between;
   width: 100%;
   box-sizing: border-box;
-  min-height: 81px;
+  min-height: 81px; // important for virtual scroll
   border: none;
   padding: $space-3 $space-4;
   text-align: left;
@@ -49,6 +49,22 @@
 
   .accordion-header-right {
     display: flex;
+  }
+}
+
+@media (min-width: $breakpoint-m) {
+  .accordion-header {
+    min-height: 51px; // important for virtual scroll
+    .accordion-header-left {
+      display: flex;
+      flex-direction: row;
+      align-items: baseline;
+      gap: $space-3;
+
+      .accordion-header-title {
+        margin: 0;
+      }
+    }
   }
 }
 

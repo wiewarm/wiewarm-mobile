@@ -23,33 +23,43 @@
     box-shadow: $shadow-md;
   }
 
-  .favorite-header {
-    display: flex;
-    direction: row;
-  }
-
-  .favorite-name {
-    display: flex;
+  .favorite-content {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto;
+    column-gap: $space-2;
     align-items: center;
-    gap: $space-2;
-    padding-left: $space-1;
   }
 
   .favorite-icon {
+    grid-column: 1;
+    grid-row: 1 / span 2;
     color: $color-primary;
-    font-size: 1.5rem;
-    vertical-align: middle;
+    font-size: $font-size-xl;
+  }
+
+  .favorite-name {
+    grid-column: 2;
+    grid-row: 1;
+    margin: 0;
+    line-height: 1.1;
   }
 
   .favorite-location {
+    grid-column: 2;
+    grid-row: 2;
+    margin: 0;
     font-size: $font-size-md;
     color: $color-text-muted;
+    font-style: normal;
   }
 
   .favorite-temp {
-    font-size: 1.4rem;
+    font-size: $font-size-xxl;
     font-weight: $font-weight-bold;
+    margin-left: auto;
   }
+
   @each $name, $color in $temp-colors {
     .favorite-temp.temp-#{$name} {
       color: $color;
