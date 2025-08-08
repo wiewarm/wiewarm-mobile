@@ -6,12 +6,7 @@ import { BadItem } from 'src/app/shared/services/interfaces/bad-item.interface';
 import { FavoriteService } from 'src/app/shared/services/favorite.service';
 import { isOlderThanOneMonth } from 'src/app/shared/util/date.util';
 import { temperatureClass } from 'src/app/shared/util/temperature.util';
-import {
-  trigger,
-  transition,
-  style,
-  animate,
-} from 'node_modules/@angular/animations';
+import { trigger, transition, style, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-bad-item',
@@ -22,10 +17,7 @@ import {
     trigger('fadeIn', [
       transition(':enter', [
         style({ opacity: 0, transform: 'translateY(10px)' }),
-        animate(
-          '200ms ease-in-out',
-          style({ opacity: 1, transform: 'translateY(0)' })
-        ),
+        animate('200ms ease-in-out', style({ opacity: 1, transform: 'translateY(0)' })),
       ]),
     ]),
     trigger('expandCollapse', [
@@ -48,18 +40,5 @@ export class BadItemComponent {
   readonly item = input.required<BadItem>();
   readonly index = input.required<number>();
 
-  constructor(private favoriteService: FavoriteService) {}
-
-  isFavorite(item: BadItem): boolean {
-    const fav = this.favoriteService.favoriteSignal();
-    return fav != null && fav.beckenid === item.beckenid;
-  }
-
-  toggleFavorite(item: BadItem) {
-    if (this.isFavorite(item)) {
-      this.favoriteService.clearFavorite();
-    } else {
-      this.favoriteService.setFavorite(item);
-    }
-  }
+  constructor(public favoriteService: FavoriteService) {}
 }

@@ -71,7 +71,7 @@ export class BadOverviewComponent {
   }
 
   readonly badResource = this.detailService.getResource();
-  readonly favorite = this.favoriteService.favoriteSignal;
+  readonly favorite = this.favoriteService.favoriteItem;
 
   searchInput = signal('');
 

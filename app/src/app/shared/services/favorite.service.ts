@@ -1,46 +1,62 @@
-import { Injectable, signal, Signal, computed, effect } from '@angular/core';
+// favorite.service.ts
+import { Injectable, Signal, signal, computed, effect } from '@angular/core';
 import { BadItem } from './interfaces/bad-item.interface';
 
-const STORAGE_KEY = 'favorite';
+const STORAGE_KEY = 'favoriteId';
 
 @Injectable({ providedIn: 'root' })
 export class FavoriteService {
-  private favorite = signal<BadItem | null>(null);
-  readonly favoriteSignal: Signal<BadItem | null> = computed(() =>
-    this.favorite()
-  );
+  private favoriteId = signal<string | null>(null);
+  private items?: Signal<BadItem[] | null | undefined>;
+
+  readonly favoriteItem: Signal<BadItem | null> = computed(() => {
+    const id = this.favoriteId();
+    const list = this.items?.() ?? null;
+    if (!id || !Array.isArray(list)) return null;
+    return list.find((i) => String(i.beckenid) === id) ?? null;
+  });
 
   constructor() {
+    // init from localStorage
     try {
       const stored = localStorage.getItem(STORAGE_KEY);
-      if (stored) this.favorite.set(JSON.parse(stored));
+      if (stored) this.favoriteId.set(stored);
     } catch {
-      console.warn('Error reading favorite from localStorage');
+      /* noop */
     }
-  }
 
-  setFavorite(item: BadItem): void {
-    const clone = structuredClone(item) as BadItem;
-    this.favorite.set(clone);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(clone));
-  }
-
-  clearFavorite(): void {
-    this.favorite.set(null);
-    localStorage.removeItem(STORAGE_KEY);
-  }
-
-  connect(items: Signal<BadItem[] | null | undefined>): void {
+    // persist changes
     effect(() => {
-      const fav = this.favorite();
-      const updated = items()?.find((i) => i.beckenid === fav?.beckenid);
-      if (
-        fav &&
-        updated &&
-        (updated.date !== fav.date || updated.temp !== fav.temp)
-      ) {
-        this.setFavorite(updated);
+      const id = this.favoriteId();
+      try {
+        if (id) localStorage.setItem(STORAGE_KEY, id);
+        else localStorage.removeItem(STORAGE_KEY);
+      } catch {
+        /* noop */
       }
     });
+  }
+
+  connect(items: Signal<BadItem[] | null | undefined>) {
+    this.items = items;
+  }
+
+  setFavorite(itemOrId: BadItem | string) {
+    const id =
+      typeof itemOrId === 'string' ? itemOrId : String(itemOrId.beckenid);
+    this.favoriteId.set(id);
+  }
+
+  clearFavorite() {
+    this.favoriteId.set(null);
+  }
+
+  toggleFavorite(item: BadItem) {
+    const id = String(item.beckenid);
+    this.favoriteId.update((curr) => (curr === id ? null : id));
+  }
+
+  isFavorite(item: BadItem): boolean {
+    return this.favoriteId() === String(item.beckenid);
   }
 }

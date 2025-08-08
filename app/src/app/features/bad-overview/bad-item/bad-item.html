@@ -60,10 +60,10 @@
     <div class="accordion-body-right">
       <button
         class="favorite-button material-icons"
-        [attr.aria-label]="isFavorite(item()) ? 'Favorit entfernen' : 'Als Favorit speichern'"
-        (click)="toggleFavorite(item()); $event.stopPropagation();"
+        [attr.aria-label]="favoriteService.isFavorite(item()) ? 'Favorit entfernen' : 'Als Favorit speichern'"
+        (click)="favoriteService.toggleFavorite(item()); $event.stopPropagation();"
       >
-        {{ isFavorite(item()) ? 'star' : 'star_border' }}
+        {{ favoriteService.isFavorite(item()) ? 'star' : 'star_border' }}
       </button>
     </div>
   </div>
