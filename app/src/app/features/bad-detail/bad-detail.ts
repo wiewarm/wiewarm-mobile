@@ -8,9 +8,13 @@ import { BadResourceService } from 'src/app/shared/services/bad.service';
 import { temperatureClass } from 'src/app/shared/util/temperature.util';
 
 @Component({
-  selector: 'app-bad-detail',
+  selector: 'main[app-bad-detail]',
   templateUrl: './bad-detail.html',
   styleUrl: './bad-detail.scss',
+  host: {
+    role: 'main', // a11y
+    class: 'bad-detail',
+  },
   imports: [RouterModule],
 })
 export class BadDetailComponent {

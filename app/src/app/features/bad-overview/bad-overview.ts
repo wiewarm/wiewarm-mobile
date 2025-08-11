@@ -47,7 +47,7 @@ import { filterItems, sortItems } from 'src/app/shared/util/list.util';
     FavoriteItemComponent,
   ],
   host: {
-    role: 'main', // a11y: Landmark Rolle
+    role: 'main', // a11y
     class: 'bad-overview',
   },
   providers: [
