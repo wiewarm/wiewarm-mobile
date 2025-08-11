@@ -77,6 +77,7 @@
   font-weight: $font-weight-bold;
 }
 
+// temparature color-codes
 @each $name, $color in $temp-colors {
   .favorite-temp.temp-#{$name} {
     color: $color;
@@ -90,7 +91,7 @@
   content: none;
 }
 
-@media (min-width: $breakpoint-m) {
+@media (min-width: $breakpoint-md) {
   .favorite-card {
     padding: $space-3 $space-4;
   }

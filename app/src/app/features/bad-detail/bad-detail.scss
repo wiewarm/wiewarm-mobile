@@ -1,7 +1,7 @@
 @use "../../../assets/styles/variables" as *;
 @use "../../../assets/styles/mixins" as *;
 
-.detail {
+.bad-detail {
   display: block;
   padding: $space-2;
   font-family: $font-family-englebert;
@@ -113,6 +113,7 @@ li {
   margin-right: 0.5em;
 }
 
+// temparature color-codes
 @each $name, $color in $temp-colors {
   .temp-#{$name},
   .pool-temp.temp-#{$name} {

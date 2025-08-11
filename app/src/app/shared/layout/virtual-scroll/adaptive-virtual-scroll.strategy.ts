@@ -11,7 +11,7 @@ export const ADAPTIVE_VS_CONFIG = new InjectionToken<AdaptiveVsConfig>(
   'ADAPTIVE_VS_CONFIG'
 );
 
-/** Is $breakpoint-m from SCSS (48em = 768px) */
+/** Is $breakpoint-md from SCSS (48em = 768px) */
 export const BREAKPOINT_M = '(min-width: 48em)';
 
 export interface AdaptiveVsConfig {

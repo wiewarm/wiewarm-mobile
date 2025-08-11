@@ -1,5 +1,10 @@
-import { Component, ViewChild, input, output } from '@angular/core';
-import { DialogDirective } from '../dialog.directive';
+import {
+  Component,
+  ElementRef,
+  inject,
+  input,
+  output,
+} from '@angular/core';
 import {
   SORT_OPTION_LIST,
   SortDirection,
@@ -7,13 +12,19 @@ import {
 } from '../../util/constants/sort-options';
 
 @Component({
-  selector: 'app-sort-dialog',
+  selector: 'dialog[app-sort-dialog]',
   templateUrl: './sort-dialog.html',
   styleUrl: './sort-dialog.scss',
-  imports: [DialogDirective],
+  host: {
+    role: 'dialog',
+    'aria-modal': 'true',
+    'aria-labelledby': 'sort-dialog-title',
+    tabindex: '-1',
+    class: 'sort-dialog',
+  },
 })
 export class SortDialogComponent {
-  @ViewChild(DialogDirective) private dialog?: DialogDirective;
+  private elementRef = inject(ElementRef<HTMLDialogElement>);
 
   readonly sortOptions = SORT_OPTION_LIST;
   readonly sortField = input.required<SortField>();
@@ -22,11 +33,11 @@ export class SortDialogComponent {
   readonly setSort = output<{ field: SortField; direction: SortDirection }>();
 
   open() {
-    this.dialog?.open();
+    this.elementRef.nativeElement.showModal();
   }
 
   close() {
-    this.dialog?.close();
+    this.elementRef.nativeElement.close();
   }
 
   applySort(field: SortField, direction: SortDirection) {

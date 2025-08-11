@@ -1,7 +1,7 @@
 @use "../../../../assets/styles/variables" as *;
 @use "../../../../assets/styles/dialog" as dialog;
 
-#filter-dialog {
+:host {
   @include dialog.dialog-container;
 
   .filter-link {

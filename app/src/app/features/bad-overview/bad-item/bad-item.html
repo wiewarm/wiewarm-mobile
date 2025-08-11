@@ -26,7 +26,7 @@
     </span>
     <span class="accordion-header-right">
       <span class="temp-label">
-        <span class="temp-dot" [ngClass]="temperatureClass(item().temp)"></span>
+        <span class="temp-dot" [class]="temperatureClass(item().temp)"></span>
         {{ item().temp != null ? item().temp + '°C' : '—' }}
       </span>
     </span>
@@ -47,10 +47,10 @@
       </p>
       <p
         class="time-label"
-        [ngClass]="{ 'label-older-than-one-month': isOlderThanOneMonth(item().date || null) }"
+        [class.label-older-than-one-month]="isOlderThanOneMonth(item().date || null)"
       >
-        <span aria-hidden="true">• </span>Zuletzt aktualisiert {{
-        item().date_pretty }}
+        <span aria-hidden="true">• </span>
+        Zuletzt aktualisiert {{ item().date_pretty }}
       </p>
       <a class="detail-link" [routerLink]="[item().badid_text]">
         <span aria-hidden="true">• </span

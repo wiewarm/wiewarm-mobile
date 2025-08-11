@@ -25,22 +25,6 @@ export class BadResourceService {
     });
   }
 
-  // Cache-APIs
-  clearCaches(): void {
-    this.badCache = undefined;
-    this.detailCache.clear();
-  }
-
-  refreshAll() {
-    this.badCache = undefined;
-    return this.getResource();
-  }
-
-  refreshDetail(id: string) {
-    this.detailCache.delete(String(id));
-    return this.getDetailResource(id);
-  }
-
   private isFresh(entry?: CacheEntry<unknown>): boolean {
     return !!entry && Date.now() - entry.ts <= this.TTL_MS;
   }

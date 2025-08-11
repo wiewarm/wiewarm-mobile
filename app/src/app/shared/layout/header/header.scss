@@ -1,10 +1,8 @@
 @use "../../../../assets/styles/variables" as *;
 @use "../../../../assets/styles/mixins" as *;
 
-.grid {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+.header-content {
+  @include flex-between;
   padding: $space-2 $space-3;
   background: $color-surface;
   box-shadow: $shadow-sm;

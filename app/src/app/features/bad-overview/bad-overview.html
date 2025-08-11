@@ -1,6 +1,6 @@
 <div class="container-lg">
   <cdk-virtual-scroll-viewport class="item-viewport" orientation="vertical">
-    <div class="list-header">
+    <div class="bad-overview-header">
       @if(badResource.isLoading()) {
       <div class="status" role="status" aria-live="polite">
         <span aria-hidden="true">⏳ </span>
@@ -56,17 +56,19 @@
       }
     </div>
 
-    <app-sort-dialog
+    <dialog
+      app-sort-dialog
       #sortDialog
       [sortField]="sortField()"
       [sortDirection]="sortDirection()"
       (setSort)="setSort($event.field, $event.direction)"
-    ></app-sort-dialog>
-    <app-filter-dialog
+    ></dialog>
+    <dialog
+      app-filter-dialog
       #filterDialog
-      [filterOption]="filterOption()"
+      [filterField]="filterOption()"
       (setFilter)="setFilter($event)"
-    ></app-filter-dialog>
+    ></dialog>
     <span class="accordion" cdkAccordion>
       <ng-container *cdkVirtualFor="let item of filteredItems(); let i = index">
         <app-bad-item [item]="item" [index]="i"></app-bad-item>

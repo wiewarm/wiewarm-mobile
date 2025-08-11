@@ -1,13 +1,18 @@
-export const FILTER_OPTIONS = {
+export const FILTER_FIELDS = {
   aktuell: 'Aktuelle',
   all: 'Alle',
 } as const;
 
-export type FilterOption = keyof typeof FILTER_OPTIONS;
+export type FilterField = keyof typeof FILTER_FIELDS;
 
-export const FILTER_OPTION_LIST = Object.entries(FILTER_OPTIONS).map(
-  ([value, label]) => ({
-    value: value as FilterOption,
-    label,
-  })
-);
+export interface FilterOption {
+  value: FilterField;
+  label: string;
+}
+
+export const FILTER_OPTION_LIST: FilterOption[] = Object.entries(
+  FILTER_FIELDS
+).map(([value, label]) => ({
+  value: value as FilterField,
+  label,
+}));

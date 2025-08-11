@@ -5,7 +5,7 @@ h1 {
   margin-top: $space-1;
 }
 
-:root {
+.container-lg {
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -17,18 +17,15 @@ h1 {
   height: 100%;
 }
 
-// Header Styles
-
-.list-header {
+// List header styles
+.bad-overview-header {
   @include flex-column;
   gap: $space-3;
   padding: $space-4 $space-3 0;
   flex: 0 0 auto;
 
   .filter-sort {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    @include flex-between;
     gap: $space-3;
 
     .sort-link {
@@ -41,10 +38,7 @@ h1 {
       align-items: center;
       order: 2;
       width: auto;
-      background: linear-gradient(to bottom, $color-secondary, #00aaff);
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
+      @include gradient-text($color-secondary, $color-secondary-light);
       .filter-text {
         color: $color-primary;
         padding-right: $space-2;
@@ -87,10 +81,7 @@ h1 {
   padding: $space-3 $space-3 $space-3 0;
   width: auto;
   cursor: pointer;
-  background: linear-gradient(to bottom, $color-primary-dark, #fddb5f);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  @include gradient-text($color-primary-dark, $color-primary-light);
 
   .sort-text {
     padding-left: $space-2;

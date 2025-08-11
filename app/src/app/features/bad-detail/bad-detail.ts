@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import {
@@ -12,7 +11,7 @@ import { temperatureClass } from 'src/app/shared/util/temperature.util';
   selector: 'app-bad-detail',
   templateUrl: './bad-detail.html',
   styleUrl: './bad-detail.scss',
-  imports: [CommonModule, RouterModule],
+  imports: [RouterModule],
 })
 export class BadDetailComponent {
   temperatureClass = temperatureClass;

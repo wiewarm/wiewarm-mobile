@@ -1,18 +1,21 @@
-<article *ngIf="favorite() as fav">
+@if(favorite()){
+<article>
   <a
     class="favorite-card"
-    [routerLink]="[fav.badid_text]"
-    [attr.aria-label]="'Details zu ' + fav.bad + ' ansehen'">
-    
+    [routerLink]="[favorite()?.badid_text]"
+    [attr.aria-label]="'Details zu ' + favorite()?.bad + ' ansehen'"
+  >
     <div class="favorite-content">
       <span class="material-icons favorite-icon" aria-hidden="true">star</span>
 
       <span class="favorite-text">
-        <h2 class="favorite-name">{{ fav.bad }}</h2>
+        <h2 class="favorite-name">{{ favorite()?.bad }}</h2>
         <address class="favorite-meta">
-          <span class="favorite-location">{{ fav.plz }} {{ fav.ort }}</span>
-          <time class="favorite-time" [attr.datetime]="fav.date_pretty">
-            Zuletzt aktualisiert {{ fav.date_pretty }}
+          <span class="favorite-location"
+            >{{ favorite()?.plz }} {{ favorite()?.ort }}</span
+          >
+          <time class="favorite-time" [attr.datetime]="favorite()?.date_pretty">
+            Zuletzt aktualisiert {{ favorite()?.date_pretty }}
           </time>
         </address>
       </span>
@@ -20,9 +23,11 @@
 
     <data
       class="favorite-temp"
-      [value]="fav.temp"
-      [ngClass]="temperatureClass(fav.temp || null)">
-      {{ fav.temp != null ? (fav.temp + ' °C') : '—' }}
+      [value]="favorite()?.temp"
+      [class]="temperatureClass(favorite()?.temp || null)"
+    >
+      {{ favorite()?.temp != null ? (favorite()?.temp + ' °C') : '—' }}
     </data>
   </a>
 </article>
+}

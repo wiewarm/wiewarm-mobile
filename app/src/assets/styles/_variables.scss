@@ -6,17 +6,19 @@
 // Colors (WCAG AA+)
 $color-primary: var(--color-primary) !default; // Brand Orange
 $color-primary-dark: var(--color-primary-dark) !default;
-$color-secondary: var(--color-secondary) !default; // Blau
-$color-accent: var(--color-accent) !default; // Gelb-Akzent
+$color-primary-light: var(--color-primary-light) !default; // Darker Orange for contrast
+$color-secondary: var(--color-secondary) !default; // Blue
+$color-secondary-light: var(--color-secondary-light) !default; // Contrast color for blue
+$color-accent: var(--color-accent) !default; // Yellow-Accent
 
-$color-bg: var(--color-bg) !default; // Seiten-Hintergrund
-$color-surface: var(--color-surface) !default; // Karten, Panels
+$color-bg: var(--color-bg) !default; // Page Background
+$color-surface: var(--color-surface) !default; // Cards, Panels, etc.
 $color-surface-alt: var(--color-surface-alt) !default;
 $color-surface-hover: var(--color-surface-hover) !default;
 $color-border: var(--color-border) !default;
 
-$color-text: var(--color-text) !default; // Haupttext
-$color-text-muted: var(--color-text-muted) !default; // Untertext
+$color-text: var(--color-text) !default; // Maintext
+$color-text-muted: var(--color-text-muted) !default; // Muted Text
 $color-link: var(--color-primary) !default;
 $color-link-hover: var(--color-link-hover) !default;
 
@@ -54,14 +56,18 @@ $space-6: 2rem !default; //32px
 $text-underline-offset: 0.15rem !default;
 
 // Breakpoints
-$breakpoint-s: 36em !default; // ≥576px
-$breakpoint-m: 48em !default; // ≥768px
-$breakpoint-l: 75em !default; // ≥1200px
+$breakpoint-sm: 36em !default; // ≥576px
+$breakpoint-md: 48em !default; // ≥768px
+$breakpoint-lg: 75em !default; // ≥1200px
 
 // Border & Radius
 $radius-sm: 0.25rem !default; //4px
 $radius-md: 0.5rem !default; //8px
 $radius-l: 1.25rem !default; //16px
+
+// Fixed row heights
+$row-height-sm: 52px !default;
+$row-height-md: 81px !default;
 
 // Shadows
 $shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05) !default;

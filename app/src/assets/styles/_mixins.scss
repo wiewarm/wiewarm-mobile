@@ -5,6 +5,12 @@
   flex-direction: column;
 }
 
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 @mixin hover-state {
   background: $color-surface-hover;
   box-shadow: $shadow-md;
@@ -44,6 +50,14 @@
     background-size: 20px 20px;
     pointer-events: none;
   }
+}
+
+// Gradient text (handles background-clip + webkit fill)
+@mixin gradient-text($from, $to) {
+  background: linear-gradient(to bottom, $from, $to);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 // Accessibility – Focus-Ring

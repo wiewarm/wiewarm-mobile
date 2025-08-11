@@ -17,9 +17,9 @@ import { FavoriteService } from 'src/app/shared/services/favorite.service';
 import { isThisYear } from 'src/app/shared/util/date.util';
 import { FilterDialogComponent } from 'src/app/shared/layout/filter-dialog/filter-dialog';
 import {
-  FILTER_OPTIONS,
-  FilterOption,
-} from 'src/app/shared/util/constants/filter-options';
+  FilterField,
+  FILTER_FIELDS,
+} from './../../shared/util/constants/filter-options';
 import {
   SORT_FIELDS,
   SortDirection,
@@ -33,7 +33,7 @@ import {
 import { filterItems, sortItems } from 'src/app/shared/util/list.util';
 
 @Component({
-  selector: 'app-bad-overview',
+  selector: 'main[app-bad-overview]',
   templateUrl: './bad-overview.html',
   styleUrl: './bad-overview.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -46,6 +46,10 @@ import { filterItems, sortItems } from 'src/app/shared/util/list.util';
     BadItemComponent,
     FavoriteItemComponent,
   ],
+  host: {
+    role: 'main', // a11y: Landmark Rolle
+    class: 'bad-overview',
+  },
   providers: [
     {
       provide: ADAPTIVE_VS_CONFIG,
@@ -79,10 +83,10 @@ export class BadOverviewComponent {
   sortDirection = signal<SortDirection>('asc');
   sortFieldLabel = computed(() => SORT_FIELDS[this.sortField()]);
 
-  filterOption = signal<FilterOption>('aktuell');
-  filterOptionLabel = computed(() => FILTER_OPTIONS[this.filterOption()]);
+  filterOption = signal<FilterField>('aktuell');
+  filterOptionLabel = computed(() => FILTER_FIELDS[this.filterOption()]);
 
-  setFilter(option: FilterOption) {
+  setFilter(option: FilterField) {
     this.filterOption.set(option);
   }
 

@@ -1,29 +1,43 @@
-import { Component, ViewChild, input, output } from '@angular/core';
-import { DialogDirective } from '../dialog.directive';
-import { FILTER_OPTION_LIST, FilterOption } from '../../util/constants/filter-options';
+import {
+  Component,
+  ElementRef,
+  inject,
+  input,
+  output,
+} from '@angular/core';
+import {
+  FILTER_OPTION_LIST,
+  FilterField,
+} from '../../util/constants/filter-options';
 
 @Component({
-  selector: 'app-filter-dialog',
+  selector: 'dialog[app-filter-dialog]',
   templateUrl: './filter-dialog.html',
   styleUrl: './filter-dialog.scss',
-  imports: [DialogDirective],
+  host: {
+    role: 'dialog',
+    'aria-modal': 'true',
+    'aria-labelledby': 'filter-dialog-title',
+    tabindex: '-1',
+    class: 'filter-dialog',
+  },
 })
 export class FilterDialogComponent {
-  @ViewChild(DialogDirective) private dialog?: DialogDirective;
+  private elementRef = inject(ElementRef<HTMLDialogElement>);
 
   readonly filterOptions = FILTER_OPTION_LIST;
-  readonly filterOption = input.required<FilterOption>();
-  readonly setFilter = output<FilterOption>();
+  readonly filterField = input.required<FilterField>();
+  readonly setFilter = output<FilterField>();
 
   open() {
-    this.dialog?.open();
+    this.elementRef.nativeElement.showModal();
   }
 
   close() {
-    this.dialog?.close();
+    this.elementRef.nativeElement.close();
   }
 
-  applyFilter(option: FilterOption) {
+  applyFilter(option: FilterField) {
     this.setFilter.emit(option);
     this.close();
   }
