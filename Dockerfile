@@ -7,8 +7,8 @@ WORKDIR /app
 # Copy package files
 COPY app/package*.json ./
 
-# Install dependencies
-RUN npm ci --only=production
+# Install all dependencies (including dev dependencies for Angular CLI)
+RUN npm ci
 
 # Copy source code
 COPY app/ ./
