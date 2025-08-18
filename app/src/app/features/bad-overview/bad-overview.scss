@@ -1,0 +1,108 @@
+@use "../../../assets/styles/variables" as *;
+@use "../../../assets/styles/mixins" as *;
+
+h1 {
+  margin-top: $space-1;
+}
+
+.item-viewport {
+  flex: 1 1 auto;
+  min-height: 0;
+  height: 100%;
+}
+
+// List header styles
+.bad-overview-header {
+  @include flex-column;
+  gap: $space-3;
+  padding: $space-4 $space-3 0;
+  flex: 0 0 auto;
+
+  .filter-sort {
+    @include flex-between;
+    gap: $space-3;
+
+    .sort-link {
+      order: 1;
+      width: auto;
+    }
+
+    .filter-link {
+      display: inline-flex;
+      align-items: center;
+      order: 2;
+      width: auto;
+      @include gradient-text($color-secondary, $color-secondary-light);
+      .filter-text {
+        color: $color-primary;
+        padding-right: $space-2;
+        text-decoration: underline;
+        text-underline-offset: $text-underline-offset;
+      }
+    }
+  }
+}
+
+.search {
+  position: relative;
+
+  .search-emoji {
+    position: absolute;
+    left: $space-3;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    font-size: $font-size-md;
+    color: $color-text-muted;
+  }
+
+  input {
+    width: 100%;
+    padding: $space-2 $space-3 $space-2 calc(#{$space-2 * 3} + 1rem);
+    border: 2px solid $color-border;
+    border-radius: $radius-l;
+    @include focus-ring;
+    caret-color: currentColor;
+    box-sizing: border-box;
+  }
+}
+
+.sort-link {
+  display: inline-flex;
+  align-items: center;
+  color: $color-primary;
+  text-decoration: none;
+  padding: $space-3 $space-3 $space-3 0;
+  width: auto;
+  cursor: pointer;
+  @include gradient-text($color-primary-dark, $color-primary-light);
+
+  .sort-text {
+    padding-left: $space-2;
+  }
+}
+
+// Accordion container
+.accordion {
+  border-top-left-radius: $radius-l;
+  border-top-right-radius: $radius-l;
+  //accordion items
+  app-bad-item {
+    border: 2px solid $color-border;
+    border-top: none;
+
+    &:first-of-type {
+      border-top: 2px solid $color-border;
+      border-top-left-radius: $radius-l;
+      border-top-right-radius: $radius-l;
+      overflow: hidden;
+    }
+  }
+}
+
+.spacer-bottom {
+  flex: 0 0 auto;
+  padding: 0.75rem 1rem;
+  box-sizing: border-box;
+  height: 56px;
+}

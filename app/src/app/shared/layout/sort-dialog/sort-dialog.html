@@ -1,0 +1,35 @@
+<div class="sort-dialog-content">
+  <h1 id="sort-dialog-title" class="sort-dialog-title">Sortieren nach:</h1>
+  <ul>
+    @for (option of sortOptions; track option.field + option.direction) {
+    <li>
+      <a
+        href="#"
+        role="option"
+        class="sort-link"
+        [attr.aria-selected]="
+              sortField() === option.field && sortDirection() === option.direction
+            "
+        (click)="applySort(option.field, option.direction); $event.preventDefault();"
+      >
+        <img
+          class="no-underline"
+          aria-hidden="true"
+          [attr.src]="option.icon"
+          alt
+          width="19"
+          height="16"
+        />&nbsp;
+        <span class="underline">{{ option.label }}</span>
+        @if( sortField() === option.field && sortDirection() ===
+        option.direction ) {
+        <span> ✓</span>
+        }
+      </a>
+    </li>
+    }
+  </ul>
+  <button class="close-button" (click)="close()" aria-label="Schliessen">
+    <span aria-hidden="true">×</span>
+  </button>
+</div>

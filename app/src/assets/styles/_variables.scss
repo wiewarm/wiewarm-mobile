@@ -1,0 +1,94 @@
+// =============================================================================
+//  Design Tokens for wiewarm App
+//  Version: 1.0.1
+// =============================================================================
+
+// Colors (WCAG AA+)
+$color-primary: var(--color-primary) !default; // Brand Orange
+$color-primary-dark: var(--color-primary-dark) !default;
+$color-primary-light: var(--color-primary-light) !default; // Darker Orange for contrast
+$color-secondary: var(--color-secondary) !default; // Blue
+$color-secondary-light: var(--color-secondary-light) !default; // Contrast color for blue
+$color-accent: var(--color-accent) !default; // Yellow-Accent
+
+$color-bg: var(--color-bg) !default; // Page Background
+$color-surface: var(--color-surface) !default; // Cards, Panels, etc.
+$color-surface-alt: var(--color-surface-alt) !default;
+$color-surface-hover: var(--color-surface-hover) !default;
+$color-border: var(--color-border) !default;
+
+$color-text: var(--color-text) !default; // Maintext
+$color-text-muted: var(--color-text-muted) !default; // Muted Text
+$color-link: var(--color-primary) !default;
+$color-link-hover: var(--color-link-hover) !default;
+
+// Tables
+$color-table-header-bg: $color-surface !default;
+$color-table-header-text: $color-primary-dark !default;
+$color-table-row-hover: rgba($color-primary, 0.05) !default;
+
+// Typography
+$font-family-base: Helvetica, -apple-system, BlinkMacSystemFont, "Segoe UI",
+  Roboto, Helvetica, Arial, sans-serif !default;
+$font-family-englebert: "Englebert", cursive !default;
+$font-size-base: 1rem !default; // 16px
+$line-height-base: 1.5 !default;
+
+$font-weight-normal: 500 !default;
+$font-weight-bold: 600 !default;
+
+// Type Scale
+$font-size-sm: 0.875rem !default; // 14px
+$font-size-md: 1rem !default; // 16px
+$font-size-lg: 1.25rem !default; // 20px
+$font-size-xl: 1.75rem !default; // 28px
+$font-size-xxl: 2.1rem !default; // 34px
+
+// Spacing (0.25rem Schritte)
+$space-0: 0 !default;
+$space-1: 0.25rem !default; // 4px
+$space-2: 0.5rem !default; // 8px
+$space-3: 0.75rem !default; //12px
+$space-4: 1rem !default; //16px
+$space-5: 1.5rem !default; //24px
+$space-6: 2rem !default; //32px
+
+$text-underline-offset: 0.15rem !default;
+
+// Breakpoints
+$breakpoint-sm: 36em !default; // ≥576px
+$breakpoint-md: 48em !default; // ≥768px
+$breakpoint-lg: 75em !default; // ≥1200px
+
+// Border & Radius
+$radius-sm: 0.25rem !default; //4px
+$radius-md: 0.5rem !default; //8px
+$radius-l: 1.25rem !default; //16px
+
+// Fixed row heights
+$row-height-sm: 52px !default;
+$row-height-md: 81px !default;
+
+// Shadows
+$shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05) !default;
+$shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1) !default;
+
+// Transitions
+$transition-fast: 0.2s ease-in-out !default;
+$transition-medium: 0.3s ease-in-out !default;
+$transition-slow: 0.5s ease-in-out !default;
+
+// Accessibility – Focus-Ring
+$focus-outline-color: $color-primary-dark !default;
+$focus-outline-width: 3px !default;
+$focus-outline-offset: -3px !default;
+
+// Temperatur-Styles loop
+$temp-colors: (
+  cold: #2b7bb9,
+  cool: #00aaff,
+  mild: #ffc107,
+  warm: #ff9800,
+  hot: #e53935,
+  unknown: $color-border,
+);

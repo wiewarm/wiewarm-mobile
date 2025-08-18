@@ -1,0 +1,53 @@
+@use "./variables" as *;
+
+// Shared dialog styles for sort and filter dialogs
+@mixin dialog-container {
+  min-width: 40%;
+  max-width: 150px;
+  border-radius: $radius-l;
+  border-color: $color-border;
+
+  background-color: var(--color-bg);
+  background-image: url("/assets/img/wav-bg.svg");
+  background-repeat: repeat;
+  background-size: auto;
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+    padding-bottom: $space-1;
+  }
+
+  .underline {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    text-decoration-thickness: 1px;
+  }
+}
+
+@mixin dialog-link {
+  display: inline-block;
+  font-size: $font-size-lg;
+  text-decoration: none;
+}
+
+@mixin dialog-title {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-bold;
+  font-family: $font-family-englebert;
+  padding-bottom: $space-2;
+}
+
+@mixin close-button {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: transparent;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+}

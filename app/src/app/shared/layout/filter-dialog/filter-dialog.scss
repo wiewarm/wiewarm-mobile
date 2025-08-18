@@ -1,0 +1,23 @@
+@use "../../../../assets/styles/variables" as *;
+@use "../../../../assets/styles/dialog" as dialog;
+
+:host {
+  @include dialog.dialog-container;
+
+  .filter-link {
+    @include dialog.dialog-link;
+  }
+
+  .no-underline {
+    text-decoration: none;
+    margin-left: 0.2em;
+  }
+}
+
+.filter-dialog-title {
+  @include dialog.dialog-title;
+}
+
+.close-button {
+  @include dialog.close-button;
+}

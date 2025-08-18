@@ -1,0 +1,129 @@
+@use "../../../../assets/styles/variables" as *;
+@use "../../../../assets/styles/mixins" as *;
+
+.favorite-card {
+  display: flex;
+  align-items: center;
+  gap: $space-4;
+  padding: $space-3 $space-3;
+  border: 2px solid $color-border;
+  border-radius: $radius-l;
+  background: $color-surface-alt;
+  font-family: $font-family-englebert;
+  color: inherit;
+  text-decoration: none;
+  box-shadow: $shadow-sm;
+  transition: box-shadow $transition-fast, transform $transition-fast;
+
+  &:hover,
+  &:focus-visible {
+    box-shadow: $shadow-md;
+    transform: translateY(-1px);
+    outline: none;
+  }
+}
+
+.favorite-content {
+  display: flex; /* ⭐ + Textblock */
+  align-items: center;
+  gap: $space-1;
+  min-width: 0;
+}
+
+.favorite-icon {
+  color: $color-primary;
+  font-size: $font-size-xl;
+  flex: 0 0 auto;
+}
+
+.favorite-text {
+  display: flex;
+  flex-direction: column;
+  gap: $space-1;
+  min-width: 0;
+}
+
+.favorite-name {
+  margin: 0;
+  line-height: 1.1;
+  font-size: $font-size-lg;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.favorite-meta {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0;
+  font-style: normal;
+  color: $color-text-muted;
+
+  .favorite-location,
+  .favorite-time {
+    white-space: nowrap;
+  }
+
+  .favorite-location::after {
+    content: "|";
+    margin: 0 $space-1;
+    color: $color-border;
+  }
+}
+
+.favorite-temp {
+  margin-left: auto;
+  font-size: $font-size-xxl;
+  font-weight: $font-weight-bold;
+}
+
+// temparature color-codes
+@each $name, $color in $temp-colors {
+  .favorite-temp.temp-#{$name} {
+    color: $color;
+  }
+}
+
+.favorite-meta .favorite-time {
+  display: none;
+}
+.favorite-meta .favorite-location::after {
+  content: none;
+}
+
+@media (min-width: $breakpoint-md) {
+  .favorite-card {
+    padding: $space-3 $space-4;
+  }
+  .favorite-text {
+    flex-direction: row;
+    align-items: baseline;
+    gap: $space-3;
+  }
+
+  .favorite-name {
+    font-size: $font-size-lg;
+    max-width: 40ch;
+  }
+
+  .favorite-meta .favorite-time {
+    display: inline;
+  }
+
+  .favorite-meta .favorite-location::after {
+    content: "•";
+    margin: 0 $space-2;
+    color: $color-border;
+  }
+
+  .favorite-temp {
+    font-size: clamp($font-size-xl, 1.2vw + 1.2rem, $font-size-xxl);
+  }
+}
+
+/* Motion */
+@media (prefers-reduced-motion: reduce) {
+  .favorite-card {
+    transition: none;
+  }
+}

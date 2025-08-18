@@ -1,46 +1,42 @@
 {
-  "name": "app",
-  "homepage": "./",
-  "version": "0.1.0",
+  "name": "wiewarm",
+  "version": "0.0.1",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "watch": "ng build --watch --configuration development",
+    "test": "ng test",
+    "deploy": "npx firebase deploy --only hosting"
+  },
   "private": true,
   "dependencies": {
-    "@material-ui/core": "^4.11.3",
-    "@material-ui/data-grid": "^4.0.0-alpha.24",
-    "@material-ui/icons": "^4.11.2",
-    "@testing-library/jest-dom": "^5.11.10",
-    "@testing-library/react": "^11.2.6",
-    "@testing-library/user-event": "^12.8.3",
-    "haversine-distance": "^1.2.1",
-    "i18next": "^20.1.0",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-geolocated": "^3.1.0",
-    "react-i18next": "^11.8.12",
-    "react-router-dom": "^5.2.0",
-    "react-scripts": "^5.0.1"
+    "@angular-devkit/build-angular": "^20.0.1",
+    "@angular/animations": "^20.0.2",
+    "@angular/cdk": "^20.0.2",
+    "@angular/common": "^20.0.2",
+    "@angular/compiler": "^20.0.2",
+    "@angular/core": "^20.0.2",
+    "@angular/fire": "^20.0.0",
+    "@angular/forms": "^20.0.2",
+    "@angular/platform-browser": "^20.0.2",
+    "@angular/platform-browser-dynamic": "^20.0.2",
+    "@angular/router": "^20.0.2",
+    "rxjs": "^7.8.2",
+    "tslib": "^2.8.1",
+    "zone.js": "~0.15.1"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "devDependencies": {
+    "@angular/build": "^20.0.1",
+    "@angular/cli": "~20.0.1",
+    "@angular/compiler-cli": "^20.0.2",
+    "@types/jasmine": "~4.3.0",
+    "jasmine-core": "~4.6.0",
+    "karma": "~6.4.0",
+    "karma-chrome-launcher": "~3.2.0",
+    "karma-coverage": "~2.2.0",
+    "karma-jasmine": "~5.1.0",
+    "karma-jasmine-html-reporter": "~2.1.0",
+    "typescript": "~5.8.3"
   }
 }

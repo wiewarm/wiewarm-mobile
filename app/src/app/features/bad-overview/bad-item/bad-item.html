@@ -1,0 +1,71 @@
+<cdk-accordion-item cdk-accordion-item #accItem="cdkAccordionItem">
+  <button
+    [attr.id]="'acc-header-' + index"
+    class="accordion-header"
+    (click)="accItem.toggle()"
+    type="button"
+    [attr.aria-expanded]="accItem.expanded"
+    [attr.aria-controls]="'acc-body-' + index"
+  >
+    <span class="accordion-header-left">
+      <h2 class="accordion-header-title">{{ item().becken }}</h2>
+      <span class="accordion-header-subtitle">
+        {{ item().plz ? item().plz + ' ' : '' }}{{ item().ort }}
+        @if(item().kanton) {
+        <img
+          class="kanton-wappen"
+          [src]="'assets/img/wappen/' + (item().kanton | lowercase) + '.svg'"
+          [attr.alt]="(item().kanton | titlecase) + ' Wappen'"
+          width="18"
+          height="18"
+          loading="lazy"
+        />
+        <!-- ToDo: use sprite -->
+        }
+      </span>
+    </span>
+    <span class="accordion-header-right">
+      <span class="temp-label">
+        <span class="temp-dot" [class]="temperatureClass(item().temp)"></span>
+        {{ item().temp != null ? item().temp + '°C' : '—' }}
+      </span>
+    </span>
+  </button>
+  @if(accItem.expanded) {
+  <div
+    [attr.id]="'acc-body-' + index"
+    class="accordion-body"
+    role="region"
+    [attr.aria-labelledby]="'acc-header-' + index"
+    [@expandCollapse]
+  >
+    <div class="accordion-body-left">
+      <p>
+        <span class="detail-title"
+          ><span aria-hidden="true">• </span>{{ item().bad }}</span
+        >
+      </p>
+      <p
+        class="time-label"
+        [class.label-older-than-one-month]="isOlderThanOneMonth(item().date || null)"
+      >
+        <span aria-hidden="true">• </span>
+        Zuletzt aktualisiert {{ item().date_pretty }}
+      </p>
+      <a class="detail-link" [routerLink]="[item().badid_text]">
+        <span aria-hidden="true">• </span
+        ><span class="detail-text">mehr..</span></a
+      >
+    </div>
+    <div class="accordion-body-right">
+      <button
+        class="favorite-button material-icons"
+        [attr.aria-label]="favoriteService.isFavorite(item()) ? 'Favorit entfernen' : 'Als Favorit speichern'"
+        (click)="favoriteService.toggleFavorite(item()); $event.stopPropagation();"
+      >
+        {{ favoriteService.isFavorite(item()) ? 'star' : 'star_border' }}
+      </button>
+    </div>
+  </div>
+  }
+</cdk-accordion-item>

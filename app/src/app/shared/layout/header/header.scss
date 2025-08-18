@@ -1,0 +1,62 @@
+@use "../../../../assets/styles/variables" as *;
+@use "../../../../assets/styles/mixins" as *;
+
+.header-content {
+  @include flex-between;
+  padding: $space-2 $space-3;
+  background: $color-surface;
+  box-shadow: $shadow-sm;
+
+  .branding {
+    display: flex;
+    align-items: center;
+    gap: $space-2;
+
+    .app-icon {
+      width: 2.5rem;
+      height: 2.5rem;
+    }
+
+    .app-title {
+      margin: 0;
+      font-size: $font-size-lg;
+      font-family: $font-family-englebert;
+      color: $color-text;
+    }
+  }
+
+  .menu-bar {
+    position: relative;
+  }
+
+  .theme-toggle {
+    background: none;
+    border: none;
+    font-size: $font-size-lg;
+    cursor: pointer;
+    border-radius: $radius-sm;
+    perspective: 600px;
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform $transition-fast, filter $transition-fast;
+
+    &:hover {
+      @include hover-icon;
+    }
+
+    &.flipped .theme-emoji {
+      color: $color-primary;
+      transform: rotateY(180deg);
+    }
+
+    .theme-emoji {
+      display: inline-block;
+      transform-style: preserve-3d;
+      transition: transform $transition-fast;
+      color: $color-secondary;
+    }
+  }
+}

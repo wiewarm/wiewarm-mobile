@@ -1,0 +1,88 @@
+/* Global styles */
+@use "../assets/styles/variables" as *;
+@use "../assets/styles/mixins" as *;
+@use "../assets/styles/_reset.css";
+
+:root {
+  // Light Mode
+  --color-primary: #ff8c00;
+  --color-primary-dark: #e56b00;
+  --color-primary-light: #fddb5f;
+  --color-secondary: #0057b8;
+  --color-secondary-light: #00aaff;
+  --color-accent: #ff5107;
+  --color-bg: #f9fafc;
+  --color-surface: #ffffff;
+  --color-surface-alt: #fffdfa;
+  --color-surface-hover: #f0f0f0;
+  --color-border: #c6c6c6;
+  --color-text: #212121;
+  --color-text-muted: #555555;
+  --color-link-hover: rgba(255, 140, 0, 0.1);
+
+  transition: background-color 0s ease-in-out, color 0.1s ease-in-out,
+    border-color 0.1s ease-in-out;
+
+  overflow-y: hidden;
+}
+
+body {
+  font-family: $font-family-base;
+  font-size: $font-size-md;
+  color: var(--color-text);
+  transition: background-color $transition-medium, color $transition-medium;
+
+  background-color: var(--color-bg);
+  background-image: url("/assets/img/wav-bg.svg");
+  background-repeat: repeat;
+  background-size: auto;
+}
+
+body.dark-mode {
+  color-scheme: dark;
+  --color-bg: #121212;
+  --color-surface: #1e1e1e;
+  --color-surface-alt: #242424;
+  --color-surface-hover: #2a2a2a;
+  --color-border: #232323;
+  --color-text: #f5f5f5;
+  --color-text-muted: #cccccc;
+  --color-link-hover: rgba(255, 140, 0, 0.25);
+}
+
+.container-lg {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.container-md {
+  margin: 0 auto;
+  max-width: 824px;
+}
+
+h1 {
+  font-size: $font-size-xl;
+  font-family: $font-family-englebert;
+  font-weight: $font-weight-bold;
+  margin-bottom: $space-3;
+}
+
+// Status
+.status {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  padding: $space-3 $space-4;
+  border-radius: $radius-md;
+  text-align: center;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 50%;
+
+  &.error {
+    background-color: $color-surface;
+    border-bottom: 2px solid $color-border;
+    border-left: 6px solid $color-accent;
+  }
+}

@@ -1,0 +1,90 @@
+<div class="container-lg">
+  <a routerLink="/" class="back-link" aria-label="Zurück zur Übersicht">
+    <span aria-hidden="true" class="material-icons back-icon"
+      >arrow_back_ios</span
+    >
+    <span class="back-text">zurück</span>
+  </a>
+  <div class="bad-detail container-lg">
+    @if(detailResource.isLoading()) {
+    <div class="status" role="status" aria-live="polite">
+      <span aria-hidden="true">⏳ </span>
+      <p>Laden…</p>
+    </div>
+    } @else if(detailResource.error()) {
+    <div class="status error" role="alert" aria-live="assertive">
+      <span aria-hidden="true">❌ </span>
+      <p>Fehler beim Laden. Bitte versuchen Sie es später erneut.</p>
+    </div>
+    } @if(detailResource.value()) {
+    <address aria-label="Kontakt">
+      <h1 class="bad-title">{{ detailResource.value()?.badname }}</h1>
+      <p>
+        {{ detailResource.value()?.adresse1 }} {{
+        detailResource.value()?.adresse2 }}<br />
+        {{ detailResource.value()?.plz }} {{ detailResource.value()?.ort }}
+      </p>
+
+      <span class="contact">
+        <dl>
+          <div class="contact-row" [hidden]="!detailResource.value()?.telefon">
+            <dt class="contact-title">Tel:</dt>
+            <dd class="contact-content">
+              <a [href]="'tel:' + detailResource.value()?.telefon">
+                {{ detailResource.value()?.telefon }}
+              </a>
+            </dd>
+          </div>
+
+          <div class="contact-row" [hidden]="!detailResource.value()?.email">
+            <dt class="contact-title">E-Mail:</dt>
+            <dd class="contact-content">
+              <a [href]="'mailto:' + detailResource.value()?.email">
+                {{ detailResource.value()?.email }}
+              </a>
+            </dd>
+          </div>
+
+          <div class="contact-row" [hidden]="!detailResource.value()?.www">
+            <dt class="contact-title">Web:</dt>
+            <dd class="contact-content">
+              <a
+                [attr.href]="detailResource.value()?.www"
+                target="_blank"
+                rel="noopener"
+              >
+                Link
+              </a>
+            </dd>
+          </div>
+        </dl>
+      </span>
+    </address>
+
+    <section
+      class="info"
+      aria-label="Informationen"
+      [innerHTML]="detailResource.value()?.info"
+    ></section>
+
+    <section aria-labelledby="becken-heading">
+      <h2 class="becken-title">Becken</h2>
+      <ul class="pool-list">
+        @for (pool of poolEntries(detailResource.value()!); track pool.beckenid)
+        {
+        <li class="pool-item">
+          <span>{{ pool.beckenname }}</span>
+          <span class="pool-temp" [class]="temperatureClass(pool.temp)">
+            {{ pool.temp != null ? pool.temp + '°C' : '—' }}
+          </span>
+          <span aria-label="Pool Status">{{ pool.status }}</span>
+          <time [attr.datetime]="pool.date_pretty" aria-label="Aktualisiert am">
+            Zuletzt aktualisiert {{ pool.date_pretty }}
+          </time>
+        </li>
+        }
+      </ul>
+    </section>
+    }
+  </div>
+</div>

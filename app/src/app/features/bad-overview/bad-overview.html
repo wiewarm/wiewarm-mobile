@@ -1,0 +1,87 @@
+<div class="container-lg">
+  <cdk-virtual-scroll-viewport class="item-viewport" orientation="vertical">
+    <div class="bad-overview-header">
+      @if(badResource.isLoading()) {
+      <div class="status" role="status" aria-live="polite">
+        <span aria-hidden="true">⏳ </span>
+        <p>Laden…</p>
+      </div>
+      } @else if(badResource.error()) {
+      <div class="status error" role="alert" aria-live="assertive">
+        <span aria-hidden="true">❌ </span>
+        <p>Fehler beim Laden. Bitte versuchen Sie es später erneut.</p>
+      </div>
+      } @else {
+      <h1>Aktuelle Temperaturen</h1>
+
+      @if(favorite()) {
+      <app-favorite-item [favorite]="favorite()"></app-favorite-item>
+      }
+      <div class="search">
+        <span class="search-emoji" aria-hidden="true">🔍</span>
+        <input
+          type="text"
+          [(ngModel)]="searchInput"
+          placeholder="Suche…"
+          aria-label="Badi suchen"
+        />
+      </div>
+      <div class="filter-sort">
+        <a
+          href="#"
+          class="sort-link"
+          aria-haspopup="dialog"
+          aria-controls="sort-dialog"
+          (click)="sortDialog.open();"
+          ><img
+            [attr.src]="sortDirection() === 'asc' ? 'assets/img/up.png' : 'assets/img/down.png'"
+            aria-hidden="true"
+            alt
+            width="17"
+            height="16"
+          />
+          <span class="sort-text">{{ sortFieldLabel() }}</span></a
+        >
+        <a
+          href="#"
+          class="filter-link"
+          aria-haspopup="dialog"
+          aria-controls="filter-dialog"
+          (click)="filterDialog.open();"
+        >
+          <span class="filter-text">{{ filterOptionLabel() }}</span>
+          <span class="material-icons gradient-icon">filter_list</span>
+        </a>
+      </div>
+      }
+    </div>
+
+    <dialog
+      app-sort-dialog
+      #sortDialog
+      [sortField]="sortField()"
+      [sortDirection]="sortDirection()"
+      (setSort)="setSort($event.field, $event.direction)"
+    ></dialog>
+    <dialog
+      app-filter-dialog
+      #filterDialog
+      [filterField]="filterOption()"
+      (setFilter)="setFilter($event)"
+    ></dialog>
+    <span class="accordion" cdkAccordion>
+      <ng-container *cdkVirtualFor="let item of filteredItems(); let i = index">
+        <app-bad-item [item]="item" [index]="i"></app-bad-item>
+      </ng-container>
+
+      @if (!badResource.isLoading() && !badResource.error() &&
+      filteredItems().length === 0) {
+      <div class="status" role="status">
+        <span aria-hidden="true">😕</span>
+        <p>Keine Resultate gefunden.</p>
+      </div>
+      }
+    </span>
+  </cdk-virtual-scroll-viewport>
+  <div class="spacer-bottom"></div>
+</div>
