@@ -76,7 +76,7 @@ https://wie-warm.web.app/
 
 - Externe Icons und Bilder findest du in [CREDITS.md](./CREDITS.md).
 
-## 📝 Lizenz
+## 📝 Lizenz - ds Legalese chunnt itz in Hochdütsch
 
 ### Code
 
