@@ -25,98 +25,20 @@
   }
 }
 
-.bad-title,
 .becken-title {
   font-size: $font-size-lg;
   font-weight: $font-weight-bold;
   margin-bottom: $space-2;
   line-height: 1.5;
-}
-
-.becken-title {
   padding-top: $space-4;
 }
 
-.contact-title,
-.becken-title {
-  font-weight: $font-weight-bold;
-  padding-right: $space-1;
-}
-
-.contact {
-  display: block;
-  width: 100%;
-  font-style: normal;
-  padding-right: $space-1;
-}
-
-.contact-row {
-  display: flex;
-  align-items: center;
-  margin-bottom: $space-2;
+.info {
   margin-top: $space-2;
-}
-
-/* Term (Titel) */
-.contact-row dt.contact-title {
-  flex: 0 0 60px;
-  text-align: left;
-  font-weight: $font-weight-bold;
-  margin: 0;
-}
-
-/* Definition (Content) */
-.contact-row dd.contact-content {
-  flex: 1 1 auto;
-  display: block;
-  text-overflow: clip;
-  box-sizing: border-box;
-  overflow-wrap: break-all;
-  word-break: break-all;
-}
-
-h3 {
-  padding-top: $space-3;
-  padding-bottom: $space-2;
-}
-
-a {
-  color: $color-secondary;
-}
-
-li {
-  margin-bottom: $space-2;
-  padding: $space-2 $space-3;
-  background: $color-surface-alt;
-  border-radius: $radius-md;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
-  background-color: $color-surface;
-  border-bottom: 2px solid $color-border;
-  border-left: 6px solid $color-primary-dark;
 }
 
 .pool-list {
   list-style: none;
   padding: 0;
   margin: 0;
-}
-.pool-item {
-  text-align: center;
-  margin: 0.5em 0;
-}
-.pool-item > * {
-  display: inline-block;
-  padding: 0 0.5em;
-}
-.pool-item > *:not(:first-child)::before {
-  content: "|";
-  margin-right: 0.5em;
-}
-
-// temparature color-codes
-@each $name, $color in $temp-colors {
-  .temp-#{$name},
-  .pool-temp.temp-#{$name} {
-    color: $color;
-  }
 }

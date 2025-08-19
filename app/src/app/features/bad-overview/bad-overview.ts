@@ -31,6 +31,7 @@ import {
   AdaptiveVirtualScrollStrategy,
 } from 'src/app/shared/layout/virtual-scroll/adaptive-virtual-scroll.strategy';
 import { filterItems, sortItems } from 'src/app/shared/util/list.util';
+import { LoadingErrorComponent } from '../../shared/layout/loading-error/loading-error.component';
 
 @Component({
   selector: 'main[app-bad-overview]',
@@ -45,6 +46,7 @@ import { filterItems, sortItems } from 'src/app/shared/util/list.util';
     FilterDialogComponent,
     BadItemComponent,
     FavoriteItemComponent,
+    LoadingErrorComponent,
   ],
   host: {
     role: 'main', // a11y
