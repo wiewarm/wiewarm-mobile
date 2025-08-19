@@ -41,8 +41,11 @@ Di moderni Web-App zur intuitive und barrierefreiä Anzeig von Temperaturdate i 
 
 ## 📱 Live-Demo
 
-Probier’s us:  
-https://wie-warm.web.app/
+Probier’s us: 
+
+ * https://händy.wiewarm.ch/ öffischel
+ * https://wie-warm.web.app/ Firebase 
+ * `podman run -p 300:3000 ghcr.io/wiewarm/wiewarm-mobile:latest` On-Prem :) 
 
 ---
 
