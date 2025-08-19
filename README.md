@@ -44,6 +44,7 @@ Di moderni Web-App zur intuitive und barrierefreiä Anzeig von Temperaturdate i 
 Probier’s us: 
 
  * https://händy.wiewarm.ch/ öffischel
+ * https://m.wiewarm.ch/ Auternative für Schribfuli
  * https://wie-warm.web.app/ Firebase 
  * `podman run -p 300:3000 ghcr.io/wiewarm/wiewarm-mobile:latest` On-Prem :) 
 
