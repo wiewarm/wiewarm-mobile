@@ -75,3 +75,30 @@ https://wie-warm.web.app/
 ## Credits
 
 - Externe Icons und Bilder findest du in [CREDITS.md](./CREDITS.md).
+
+## 📝 Lizenz
+
+### Code
+
+Der Code in diesem Repository steht unter der [MIT License](./LICENSE).
+
+### Daten
+
+Alle auf wiewarm.ch erhobenen Daten unterstehen der CC BY-SA 3.0 Lizenz. Das heisst dass die Daten frei kopiert und adaptiert werden können, solange folgende Bedingungen eingehalten werden:
+
+- **Namensnennung** – Sie müssen den Namen des Autors/Rechteinhabers in der von ihm festgelegten Weise nennen. In unserem Fall ist dies:
+  "http://www.wiewarm.ch sowie teilnehmende Badeanstalten und Individuen"
+  Falls es das Medium erlaubt, sollte die URL ein Hyperlink sein.
+- **Weitergabe unter gleichen Bedingungen** — Wenn Sie das lizenzierte Werk bzw. den lizenzierten Inhalt bearbeiten oder in anderer Weise erkennbar als Grundlage für eigenes Schaffen verwenden, dürfen Sie die daraufhin neu entstandenen Werke bzw. Inhalte nur unter Verwendung von Lizenzbedingungen weitergeben, die mit denen dieses Lizenzvertrages identisch oder vergleichbar sind.
+
+```
+Creative Commons License
+
+The full dataset of wiewarm.ch by http://www.wiewarm.ch and contributing baths
+and individuals is licensed under a Creative Commons Attribution-ShareAlike
+3.0 Unported License.
+
+Based on a work at http://www.wiewarm.ch.
+Permissions beyond the scope of this license may be available at
+mailto:info@wiewarm.ch.
+```
