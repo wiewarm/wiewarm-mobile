@@ -46,3 +46,10 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
+      - uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.WIEWARMMOBILE_DEPLOY_KEY }}
+
+      - name: Trigger update via SSH
+        run: |
+          ssh -o StrictHostKeyChecking=no -o BatchMode=yes -o ServerAliveInterval=30 wiewarmmobile@www.wiewarm.ch
