@@ -8,10 +8,13 @@
   --font-size-xl: 1.75rem; /* 28px */
   --font-size-xxl: 2.1rem; /* 34px */
 
-  // TBD
+  --font-size-responsive-md: 1rem; /* 16px */
+
   @media (min-width: $breakpoint-md) {
+    --font-size-responsive-md: 1.125rem; /* 18px */
   }
 
   @media (min-width: $breakpoint-lg) {
+    --font-size-responsive-md: 1.25rem; /* 20px */
   }
 }
