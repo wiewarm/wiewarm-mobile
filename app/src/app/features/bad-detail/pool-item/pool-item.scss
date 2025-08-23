@@ -20,6 +20,7 @@
 .pool-item > *:not(:first-child)::before {
   content: "|";
   margin-right: 0.5em;
+  color: $color-border;
 }
 
 @each $name, $color in $temp-colors {

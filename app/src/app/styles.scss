@@ -1,10 +1,14 @@
 /* Global styles */
-@use "../assets/_fonts" as *;
+@use "../assets/fonts/fonts" as *;
 @use "../assets/styles/variables" as *;
 @use "../assets/styles/mixins" as *;
 @use "../assets/styles/_reset.css";
 
 :root {
+  overflow-y: hidden;
+  transition: background-color 0s ease-in-out, color 0.1s ease-in-out,
+    border-color 0.1s ease-in-out;
+
   // Light Mode
   --color-primary: #ff8c00;
   --color-primary-dark: #e56b00;
@@ -21,10 +25,26 @@
   --color-text-muted: #555555;
   --color-link-hover: rgba(255, 140, 0, 0.1);
 
-  transition: background-color 0s ease-in-out, color 0.1s ease-in-out,
-    border-color 0.1s ease-in-out;
+  // ToDo: responsive token system
+  --font-size-sm: 0.875rem; /* 14px */
+  --font-size-md: 1rem; /* 16px */
+  --font-size-lg: 1.25rem; /* 20px */
+  --font-size-xl: 1.75rem; /* 28px */
+  --font-size-xxl: 2.1rem; /* 34px */
 
-  overflow-y: hidden;
+  @media (min-width: $breakpoint-md) {
+    // --font-size-md: 1.125rem;
+    // --font-size-lg: 1.5rem;
+    // --font-size-xl: 2rem;
+    // --font-size-xxl: 2.5rem;
+  }
+
+  @media (min-width: $breakpoint-lg) {
+    // --font-size-md: 1.25rem;
+    // --font-size-lg: 1.75rem;
+    // --font-size-xl: 2.25rem;
+    // --font-size-xxl: 3rem;
+  }
 }
 
 body {
