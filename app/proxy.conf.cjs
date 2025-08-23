@@ -1,9 +1,8 @@
-const apiBase = process.env.NG_APP_API_BASE || 'https://beta.wiewarm.ch/api/v1';
-const target = new URL(apiBase).origin;
+const base = new URL(process.env.NG_APP_API_BASE ?? 'https://beta.wiewarm.ch/api/v1');
 
 module.exports = {
   '/api': {
-    target,
+    target: base.origin,
     secure: false,
     changeOrigin: true,
     logLevel: 'debug',

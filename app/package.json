@@ -3,9 +3,9 @@
   "version": "0.0.1",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --proxy-config proxy.conf.cjs",
+    "start": "ng serve -c development",
     "build": "ng build",
-    "watch": "ng build --watch --configuration development",
+    "watch": "ng build --watch -c development",
     "test": "ng test",
     "deploy": "npx firebase deploy --only hosting"
   },
