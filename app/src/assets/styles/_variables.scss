@@ -37,7 +37,7 @@ $line-height-base: 1.5 !default;
 $font-weight-normal: 500 !default;
 $font-weight-bold: 600 !default;
 
-// Type Scale
+// Type Scale (Using design tokens from _responsive.scss)
 $font-size-sm: var(--font-size-sm) !default; 
 $font-size-md: var(--font-size-md) !default; 
 $font-size-lg: var(--font-size-lg) !default;
