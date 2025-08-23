@@ -1,6 +1,10 @@
 # Multi-stage build for Angular application
 FROM node:22-alpine AS builder
 
+# Default API endpoint can be overridden at build time
+ARG NG_APP_API_BASE=https://www.wiewarm.ch/api/v1
+ENV NG_APP_API_BASE=$NG_APP_API_BASE
+
 # Set working directory
 WORKDIR /app
 

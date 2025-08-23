@@ -65,7 +65,9 @@ https://wie-warm.web.app/
 3. Startet d App im Entwickligsmodus
 
    ```bash
-   npm run start
+   # API-Endpoint chan via Umgebigsvariable chonfiguriert werde
+   # Standard: https://www.wiewarm.ch/api/v1
+   NG_APP_API_BASE=https://beta.wiewarm.ch/api/v1 npm run start
    ```
 
 ## Support
