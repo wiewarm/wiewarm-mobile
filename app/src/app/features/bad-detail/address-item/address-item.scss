@@ -1,0 +1,42 @@
+@use "../../../../assets/styles/variables" as *;
+
+.bad-title {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-bold;
+  margin-bottom: $space-2;
+  line-height: 1.5;
+}
+
+.contact {
+  display: block;
+  width: 100%;
+  font-style: normal;
+  padding-right: $space-1;
+}
+
+.contact-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: $space-2;
+  margin-top: $space-2;
+}
+
+.contact-title {
+  flex: 0 0 60px;
+  text-align: left;
+  font-weight: $font-weight-bold;
+  margin: 0;
+}
+
+.contact-content {
+  flex: 1 1 auto;
+  display: block;
+  text-overflow: clip;
+  box-sizing: border-box;
+  overflow-wrap: break-all;
+  word-break: break-all;
+}
+
+a {
+  color: $color-secondary;
+}

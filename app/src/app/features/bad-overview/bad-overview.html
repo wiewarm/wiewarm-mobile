@@ -1,17 +1,13 @@
 <div class="container-lg">
   <cdk-virtual-scroll-viewport class="item-viewport" orientation="vertical">
     <div class="bad-overview-header">
-      @if(badResource.isLoading()) {
-      <div class="status" role="status" aria-live="polite">
-        <span aria-hidden="true">⏳ </span>
-        <p>Laden…</p>
-      </div>
-      } @else if(badResource.error()) {
-      <div class="status error" role="alert" aria-live="assertive">
-        <span aria-hidden="true">❌ </span>
-        <p>Fehler beim Laden. Bitte versuchen Sie es später erneut.</p>
-      </div>
-      } @else {
+      <app-loading-error
+        [isLoading]="badResource.isLoading()"
+        [error]="badResource.error()"
+      >
+      </app-loading-error>
+
+      @if (!badResource.isLoading() && !badResource.error()) {
       <h1>Aktuelle Temperaturen</h1>
 
       @if(favorite()) {

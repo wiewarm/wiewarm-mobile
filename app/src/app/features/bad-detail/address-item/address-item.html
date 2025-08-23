@@ -1,0 +1,36 @@
+<address aria-label="Kontakt">
+  <h1 class="bad-title">{{ detail.badname }}</h1>
+  <p>
+    @if (detail.adresse1 || detail.adresse2) { {{ detail.adresse1 }} {{
+    detail.adresse2 }}<br />} {{ detail.plz }} {{ detail.ort }}
+  </p>
+  <div class="contact">
+    <dl>
+      @if (detail.telefon) {
+      <div class="contact-row">
+        <dt class="contact-title">Tel:</dt>
+        <dd class="contact-content">
+          <a [href]="'tel:' + detail.telefon">{{ detail.telefon }}</a>
+        </dd>
+      </div>
+      } @if (detail.email) {
+      <div class="contact-row">
+        <dt class="contact-title">E-Mail:</dt>
+        <dd class="contact-content">
+          <a [href]="'mailto:' + detail.email">{{ detail.email }}</a>
+        </dd>
+      </div>
+      } @if (detail.www && (detail.www.startsWith('http://') ||
+      detail.www.startsWith('https://'))) {
+      <div class="contact-row">
+        <dt class="contact-title">Web:</dt>
+        <dd class="contact-content">
+          <a [attr.href]="detail.www" target="_blank" rel="noopener noreferrer"
+            >Link</a
+          >
+        </dd>
+      </div>
+      }
+    </dl>
+  </div>
+</address>

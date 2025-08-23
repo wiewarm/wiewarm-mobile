@@ -1,0 +1,20 @@
+@use "./variables" as *;
+
+:root {
+  /* Base */
+  --font-size-sm: 0.875rem; /* 14px */
+  --font-size-md: 1rem; /* 16px */
+  --font-size-lg: 1.25rem; /* 20px */
+  --font-size-xl: 1.75rem; /* 28px */
+  --font-size-xxl: 2.1rem; /* 34px */
+
+  --font-size-responsive-md: 1rem; /* 16px */
+
+  @media (min-width: $breakpoint-md) {
+    --font-size-responsive-md: 1.125rem; /* 18px */
+  }
+
+  @media (min-width: $breakpoint-lg) {
+    --font-size-responsive-md: 1.25rem; /* 20px */
+  }
+}
