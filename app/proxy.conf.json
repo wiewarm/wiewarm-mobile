@@ -1,8 +1,0 @@
-{
-  "/api": {
-    "target": "https://beta.wiewarm.ch:443",
-    "secure": false,
-    "changeOrigin": true,
-    "logLevel": "debug"
-  }
-}
