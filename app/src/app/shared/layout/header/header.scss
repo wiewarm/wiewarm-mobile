@@ -53,10 +53,11 @@
     }
 
     .theme-emoji {
+      font-size: $font-size-lg;
+      color: $color-secondary;
       display: inline-block;
       transform-style: preserve-3d;
       transition: transform $transition-fast;
-      color: $color-secondary;
     }
   }
 }

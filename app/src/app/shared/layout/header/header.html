@@ -14,8 +14,9 @@
     [attr.aria-label]="darkMode() ? 'Wechsel zu Light Mode' : 'Wechsel zu Dark Mode'"
     [attr.aria-pressed]="darkMode()"
   >
-    <span class="theme-emoji material-icons" aria-hidden="true">
-      {{ darkMode() ? 'light_mode' : 'dark_mode' }}
-    </span>
+    <app-icon
+      class="theme-emoji"
+      [symbolId]="darkMode() ? 'light_mode' : 'dark_mode'"
+    />
   </button>
 </div>

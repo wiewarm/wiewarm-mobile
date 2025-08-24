@@ -28,7 +28,7 @@
           class="sort-link"
           aria-haspopup="dialog"
           aria-controls="sort-dialog"
-          (click)="sortDialog.open();"
+          (click)="$event.preventDefault(); sortDialog.open();"
           ><img
             [attr.src]="sortDirection() === 'asc' ? 'assets/img/up.png' : 'assets/img/down.png'"
             aria-hidden="true"
@@ -43,10 +43,10 @@
           class="filter-link"
           aria-haspopup="dialog"
           aria-controls="filter-dialog"
-          (click)="filterDialog.open();"
+          (click)="$event.preventDefault();filterDialog.open();"
         >
           <span class="filter-text">{{ filterOptionLabel() }}</span>
-          <span class="material-icons gradient-icon">filter_list</span>
+          <app-icon class="gradient-icon" symbolId="filter_list" />
         </a>
       </div>
       }

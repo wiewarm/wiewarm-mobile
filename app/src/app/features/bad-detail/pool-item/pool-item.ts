@@ -1,13 +1,13 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { BadDetailPool } from '../../../shared/services/interfaces/bad-detail.interface';
-import { temperatureClass } from '../../../shared/util/temperature.util';
+import { TemperatureDirective } from 'src/app/shared/directives/temperature';
 
 @Component({
   selector: 'app-pool-item',
+  imports: [TemperatureDirective],
   styleUrls: ['./pool-item.scss'],
   templateUrl: './pool-item.html',
 })
 export class PoolItemComponent {
-  @Input({ required: true }) pool!: BadDetailPool;
-  temperatureClass = temperatureClass;
+  readonly pool = input.required<BadDetailPool>();
 }

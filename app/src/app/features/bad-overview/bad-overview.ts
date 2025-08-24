@@ -32,6 +32,7 @@ import {
 } from 'src/app/shared/layout/virtual-scroll/adaptive-virtual-scroll.strategy';
 import { filterItems, sortItems } from 'src/app/shared/util/list.util';
 import { LoadingErrorComponent } from '../../shared/layout/loading-error/loading-error.component';
+import { IconComponent } from 'src/app/shared/layout/icon/icon';
 
 @Component({
   selector: 'main[app-bad-overview]',
@@ -47,6 +48,7 @@ import { LoadingErrorComponent } from '../../shared/layout/loading-error/loading
     BadItemComponent,
     FavoriteItemComponent,
     LoadingErrorComponent,
+    IconComponent
   ],
   host: {
     role: 'main', // a11y

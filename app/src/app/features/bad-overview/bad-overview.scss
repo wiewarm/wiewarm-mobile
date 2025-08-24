@@ -26,6 +26,10 @@ h1 {
       order: 1;
       width: auto;
     }
+    .gradient-icon {
+      font-size: $font-size-lg;
+      color: $color-secondary;
+    }
 
     .filter-link {
       display: inline-flex;

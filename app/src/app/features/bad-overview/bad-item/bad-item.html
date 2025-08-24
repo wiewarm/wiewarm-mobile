@@ -26,7 +26,7 @@
     </span>
     <span class="accordion-header-right">
       <span class="temp-label">
-        <span class="temp-dot" [class]="temperatureClass(item().temp)"></span>
+        <span class="temp-dot" [temperature]="item().temp"></span>
         {{ item().temp != null ? item().temp + '°C' : '—' }}
       </span>
     </span>
@@ -59,11 +59,13 @@
     </div>
     <div class="accordion-body-right">
       <button
-        class="favorite-button material-icons"
+        class="favorite-button"
         [attr.aria-label]="favoriteService.isFavorite(item()) ? 'Favorit entfernen' : 'Als Favorit speichern'"
         (click)="favoriteService.toggleFavorite(item()); $event.stopPropagation();"
       >
-        {{ favoriteService.isFavorite(item()) ? 'star' : 'star_border' }}
+        <app-icon
+          [symbolId]="favoriteService.isFavorite(item()) ? 'star' : 'star_border'"
+        />
       </button>
     </div>
   </div>

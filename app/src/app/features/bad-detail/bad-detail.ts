@@ -6,9 +6,9 @@ import {
   BadDetailPool,
 } from 'src/app/shared/services/interfaces/bad-detail.interface';
 import { BadResourceService } from 'src/app/shared/services/bad.service';
-import { temperatureClass } from 'src/app/shared/util/temperature.util';
 import { AddressItemComponent } from './address-item/address-item';
 import { PoolItemComponent } from './pool-item/pool-item';
+import { IconComponent } from 'src/app/shared/layout/icon/icon';
 
 @Component({
   selector: 'main[app-bad-detail]',
@@ -23,10 +23,10 @@ import { PoolItemComponent } from './pool-item/pool-item';
     LoadingErrorComponent,
     AddressItemComponent,
     PoolItemComponent,
+    IconComponent,
   ],
 })
 export class BadDetailComponent {
-  temperatureClass = temperatureClass;
   private readonly id =
     inject(ActivatedRoute).snapshot.paramMap.get('id') ?? '';
 

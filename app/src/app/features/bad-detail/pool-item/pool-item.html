@@ -1,10 +1,13 @@
 <li class="pool-item">
-  <span>{{ pool.beckenname }}</span>
-  <span class="pool-temp" [class]="temperatureClass(pool.temp)">
-    {{ pool.temp != null ? pool.temp + '°C' : '—' }}
+  <span>{{ pool().beckenname }}</span>
+
+  <span class="pool-temp" [temperature]="pool().temp">
+    {{ pool().temp != null ? (pool().temp + '°C') : '—' }}
   </span>
-  <span aria-label="Pool Status">{{ pool.status }}</span>
-  <time [attr.datetime]="pool.date_pretty" aria-label="Aktualisiert am">
-    Zuletzt aktualisiert {{ pool.date_pretty }}
+
+  <span aria-label="Pool Status">{{ pool().status }}</span>
+
+  <time [attr.datetime]="pool().date_pretty" aria-label="Aktualisiert am">
+    Zuletzt aktualisiert {{ pool().date_pretty }}
   </time>
 </li>

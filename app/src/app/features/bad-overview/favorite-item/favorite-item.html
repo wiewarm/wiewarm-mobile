@@ -6,8 +6,7 @@
     [attr.aria-label]="'Details zu ' + favorite()?.bad + ' ansehen'"
   >
     <div class="favorite-content">
-      <span class="material-icons favorite-icon" aria-hidden="true">star</span>
-
+      <app-icon class="favorite-icon" symbolId="star" />
       <span class="favorite-text">
         <h2 class="favorite-name">{{ favorite()?.bad }}</h2>
         <address class="favorite-meta">
@@ -24,7 +23,7 @@
     <data
       class="favorite-temp"
       [value]="favorite()?.temp"
-      [class]="temperatureClass(favorite()?.temp || null)"
+      [temperature]="favorite()?.temp"
     >
       {{ favorite()?.temp != null ? (favorite()?.temp + ' °C') : '—' }}
     </data>

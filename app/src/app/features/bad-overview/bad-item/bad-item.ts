@@ -5,14 +5,21 @@ import { RouterModule } from '@angular/router';
 import { BadItem } from 'src/app/shared/services/interfaces/bad-item.interface';
 import { FavoriteService } from 'src/app/shared/services/favorite.service';
 import { isOlderThanOneMonth } from 'src/app/shared/util/date.util';
-import { temperatureClass } from 'src/app/shared/util/temperature.util';
 import { trigger, transition, style, animate } from '@angular/animations';
+import { TemperatureDirective } from 'src/app/shared/directives/temperature';
+import { IconComponent } from 'src/app/shared/layout/icon/icon';
 
 @Component({
   selector: 'app-bad-item',
   templateUrl: './bad-item.html',
   styleUrl: './bad-item.scss',
-  imports: [CommonModule, RouterModule, CdkAccordionModule],
+  imports: [
+    CommonModule,
+    RouterModule,
+    CdkAccordionModule,
+    TemperatureDirective,
+    IconComponent,
+  ],
   animations: [
     trigger('fadeIn', [
       transition(':enter', [
@@ -38,7 +45,6 @@ import { trigger, transition, style, animate } from '@angular/animations';
 })
 export class BadItemComponent {
   isOlderThanOneMonth = isOlderThanOneMonth;
-  temperatureClass = temperatureClass;
 
   readonly item = input.required<BadItem>();
   readonly index = input.required<number>();
