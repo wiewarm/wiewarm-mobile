@@ -1,13 +1,20 @@
 <li class="pool-item">
-  <span>{{ pool().beckenname }}</span>
+  <div class="pool-left">
+    <app-icon class="app-water" symbolId="#water"></app-icon>
+    <div class="pool-left-text">
+      <span class="pool-name">{{ pool().beckenname }}</span>
+      <time [attr.datetime]="pool().date_pretty" aria-label="Aktualisiert am">
+        Zuletzt aktualisiert {{ pool().date_pretty }}
+      </time>
+    </div>
+  </div>
 
-  <span class="pool-temp" [temperature]="pool().temp">
-    {{ pool().temp != null ? (pool().temp + '°C') : '—' }}
-  </span>
-
-  <span aria-label="Pool Status">{{ pool().status }}</span>
-
-  <time [attr.datetime]="pool().date_pretty" aria-label="Aktualisiert am">
-    Zuletzt aktualisiert {{ pool().date_pretty }}
-  </time>
+  <div class="pool-right">
+    <div class="pool-right-text">
+      <span class="temp-value" [temperature]="pool().temp">
+        {{ pool().temp != null ? (pool().temp + '°C') : '—' }}
+      </span>
+      <span class="temp-status">{{ pool().status }}</span>
+    </div>
+  </div>
 </li>

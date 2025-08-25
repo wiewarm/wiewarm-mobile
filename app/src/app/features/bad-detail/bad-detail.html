@@ -1,6 +1,6 @@
 <div class="container-lg">
   <a routerLink="/" class="back-link" aria-label="Zurück zur Übersicht">
-    <app-icon class="back-icon" symbolId="arrow_back_ios" />
+    <app-icon class="back-icon" symbolId="#arrow_back" />
     <span class="back-text">zurück</span>
   </a>
 
@@ -13,11 +13,12 @@
     @let dRes = detailResource.value(); @if (dRes) {
     <app-address-item [detail]="dRes"></app-address-item>
 
-    <section
-      class="info"
-      aria-label="Informationen"
-      [innerHTML]="dRes.info"
-    ></section>
+    @if(dRes.info) {
+    <section aria-labelledby="info-heading">
+      <h2 id="info-heading" class="info-title">Informationen</h2>
+      <div [innerHTML]="dRes.info"></div>
+    </section>
+    }
 
     <section aria-labelledby="becken-heading">
       <h2 id="becken-heading" class="becken-title">Becken und Temperaturen</h2>

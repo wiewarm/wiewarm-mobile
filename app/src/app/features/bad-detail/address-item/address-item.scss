@@ -3,7 +3,7 @@
 .bad-title {
   font-size: $font-size-lg;
   font-weight: $font-weight-bold;
-  margin-bottom: $space-2;
+  margin-bottom: $space-1;
   line-height: 1.5;
 }
 
@@ -22,9 +22,9 @@
 }
 
 .contact-title {
-  flex: 0 0 60px;
+  flex: 0 0 80px;
   text-align: left;
-  font-weight: $font-weight-bold;
+  font-size: $font-size-md;
   margin: 0;
 }
 
@@ -39,4 +39,12 @@
 
 a {
   color: $color-secondary;
+}
+
+app-icon {
+  margin-right: $space-2;
+  color: white;
+  background-color: $color-primary;
+  border: 2px solid transparent;
+  border-radius: $radius-md;
 }

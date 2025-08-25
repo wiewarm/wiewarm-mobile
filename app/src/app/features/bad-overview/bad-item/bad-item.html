@@ -64,7 +64,7 @@
         (click)="favoriteService.toggleFavorite(item()); $event.stopPropagation();"
       >
         <app-icon
-          [symbolId]="favoriteService.isFavorite(item()) ? 'star' : 'star_border'"
+          [symbolId]="favoriteService.isFavorite(item()) ? '#star' : '#star_border'"
         />
       </button>
     </div>

@@ -15,21 +15,29 @@
 .back-link {
   display: inline-flex;
   align-items: center;
-  margin-bottom: $space-2;
+  margin: $space-1;
   color: $color-link;
   text-decoration: none;
   @include hover-link;
 
   .back-icon {
-    font-size: $font-size-md;
+    font-size: $font-size-sm;
     color: $color-primary;
   }
+}
+
+.info-title {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-bold;
+  margin-bottom: $space-1;
+  line-height: 1.5;
+  padding-top: $space-2;
 }
 
 .becken-title {
   font-size: $font-size-lg;
   font-weight: $font-weight-bold;
-  margin-bottom: $space-2;
+  margin-bottom: $space-1;
   line-height: 1.5;
   padding-top: $space-4;
 }
@@ -39,6 +47,9 @@
 }
 
 .pool-list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   list-style: none;
   padding: 0;
   margin: 0;

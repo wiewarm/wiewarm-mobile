@@ -8,14 +8,19 @@
     <dl>
       @if (detail.telefon) {
       <div class="contact-row">
-        <dt class="contact-title">Tel:</dt>
+        <dt class="contact-title">
+          <app-icon symbolId="#call"></app-icon>Tel:
+        </dt>
         <dd class="contact-content">
           <a [href]="'tel:' + detail.telefon">{{ detail.telefon }}</a>
         </dd>
       </div>
       } @if (detail.email) {
       <div class="contact-row">
-        <dt class="contact-title">E-Mail:</dt>
+        <dt class="contact-title">
+          <app-icon symbolId="#mail"></app-icon>
+          E-Mail:
+        </dt>
         <dd class="contact-content">
           <a [href]="'mailto:' + detail.email">{{ detail.email }}</a>
         </dd>
@@ -23,7 +28,10 @@
       } @if (detail.www && (detail.www.startsWith('http://') ||
       detail.www.startsWith('https://'))) {
       <div class="contact-row">
-        <dt class="contact-title">Web:</dt>
+        <dt class="contact-title">
+          <app-icon symbolId="#link"></app-icon>
+          Web:
+        </dt>
         <dd class="contact-content">
           <a [attr.href]="detail.www" target="_blank" rel="noopener noreferrer"
             >Link</a
