@@ -55,7 +55,9 @@ body.dark-mode {
 .container-lg {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  /* Use dynamic viewport units */
+  min-height: 100svh;
+  height: 100dvh;
 }
 
 .container-md {
