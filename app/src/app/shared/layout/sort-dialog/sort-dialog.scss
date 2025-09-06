@@ -5,8 +5,8 @@
   @include dialog.dialog-container;
 
   .sort-link {
-
     @include dialog.dialog-link;
+    color: $color-primary;
   }
 
   .no-underline {
