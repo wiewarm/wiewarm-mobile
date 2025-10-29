@@ -1,6 +1,6 @@
-// favorite.service.ts
-import { Injectable, Signal, signal, computed, effect } from '@angular/core';
-import { BadItem } from './interfaces/bad-item.interface';
+import type { Signal} from '@angular/core';
+import { Injectable, signal, computed, effect } from '@angular/core';
+import type { BadItem } from './interfaces/bad-item.interface';
 
 const STORAGE_KEY = 'favoriteId';
 

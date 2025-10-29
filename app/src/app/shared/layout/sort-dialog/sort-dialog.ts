@@ -5,10 +5,11 @@ import {
   input,
   output,
 } from '@angular/core';
-import {
-  SORT_OPTION_LIST,
+import type {
   SortDirection,
-  SortField,
+  SortField} from '../../util/constants/sort-options';
+import {
+  SORT_OPTION_LIST
 } from '../../util/constants/sort-options';
 
 @Component({

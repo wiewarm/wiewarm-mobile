@@ -1,8 +1,8 @@
 import { CdkAccordionModule } from '@angular/cdk/accordion';
 import { CommonModule } from '@angular/common';
-import { Component, input } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { BadItem } from 'src/app/shared/services/interfaces/bad-item.interface';
+import type { BadItem } from 'src/app/shared/services/interfaces/bad-item.interface';
 import { FavoriteService } from 'src/app/shared/services/favorite.service';
 import { isOlderThanOneMonth } from 'src/app/shared/util/date.util';
 import { trigger, transition, style, animate } from '@angular/animations';
@@ -48,6 +48,6 @@ export class BadItemComponent {
 
   readonly item = input.required<BadItem>();
   readonly index = input.required<number>();
+  readonly favoriteService = inject(FavoriteService);
 
-  constructor(public favoriteService: FavoriteService) {}
 }

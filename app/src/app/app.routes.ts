@@ -1,4 +1,4 @@
-import { Routes } from '@angular/router';
+import type { Routes } from '@angular/router';
 import { BadOverviewComponent } from './features/bad-overview/bad-overview';
 import { BadDetailComponent } from './features/bad-detail/bad-detail';
 

@@ -5,9 +5,9 @@ import {
   input,
   output,
 } from '@angular/core';
+import type { FilterField } from '../../util/constants/filter-options';
 import {
-  FILTER_OPTION_LIST,
-  FilterField,
+  FILTER_OPTION_LIST
 } from '../../util/constants/filter-options';
 
 @Component({

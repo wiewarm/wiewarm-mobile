@@ -1,7 +1,7 @@
 import { Injectable, resource } from '@angular/core';
 import { environment } from '../../../environments/environment';
-import { BadDetail } from './interfaces/bad-detail.interface';
-import { BadItem } from './interfaces/bad-item.interface';
+import type { BadDetail } from './interfaces/bad-detail.interface';
+import type { BadItem } from './interfaces/bad-item.interface';
 
 type CacheEntry<T> = { data: T; ts: number };
 

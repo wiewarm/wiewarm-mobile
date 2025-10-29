@@ -7,6 +7,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  inject,
   signal,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -16,14 +17,15 @@ import { BadItemComponent } from './bad-item/bad-item';
 import { FavoriteService } from 'src/app/shared/services/favorite.service';
 import { isThisYear } from 'src/app/shared/util/date.util';
 import { FilterDialogComponent } from 'src/app/shared/layout/filter-dialog/filter-dialog';
+import type { FilterField } from './../../shared/util/constants/filter-options';
 import {
-  FilterField,
   FILTER_FIELDS,
 } from './../../shared/util/constants/filter-options';
-import {
-  SORT_FIELDS,
+import type {
   SortDirection,
-  SortField,
+  SortField} from 'src/app/shared/util/constants/sort-options';
+import {
+  SORT_FIELDS
 } from 'src/app/shared/util/constants/sort-options';
 import { FavoriteItemComponent } from './favorite-item/favorite-item';
 import {
@@ -71,14 +73,13 @@ import { IconComponent } from 'src/app/shared/layout/icon/icon';
   ],
 })
 export class BadOverviewComponent {
-  constructor(
-    private detailService: BadResourceService,
-    private favoriteService: FavoriteService
-  ) {
-    this.favoriteService.connect(computed(() => this.badResource.value()));
-  }
+  private readonly favoriteService = inject(FavoriteService);
+  private readonly detailService = inject(BadResourceService);
 
   readonly badResource = this.detailService.getResource();
+  readonly connectFavorite = this.favoriteService.connect(
+    computed(() => this.badResource.value())
+  );
   readonly favorite = this.favoriteService.favoriteItem;
 
   searchInput = signal('');

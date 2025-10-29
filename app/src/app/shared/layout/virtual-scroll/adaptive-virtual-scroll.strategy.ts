@@ -1,11 +1,12 @@
 import { Injectable, InjectionToken, inject } from '@angular/core';
 import { BreakpointObserver } from '@angular/cdk/layout';
-import {
+import type {
   CdkVirtualScrollViewport,
-  FixedSizeVirtualScrollStrategy,
-  VirtualScrollStrategy as CdkVirtualScrollStrategy,
+  VirtualScrollStrategy as CdkVirtualScrollStrategy} from '@angular/cdk/scrolling';
+import {
+  FixedSizeVirtualScrollStrategy
 } from '@angular/cdk/scrolling';
-import { Observable, Subscription } from 'rxjs';
+import type { Observable, Subscription } from 'rxjs';
 
 export const ADAPTIVE_VS_CONFIG = new InjectionToken<AdaptiveVsConfig>(
   'ADAPTIVE_VS_CONFIG'

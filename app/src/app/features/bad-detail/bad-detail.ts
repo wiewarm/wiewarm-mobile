@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { LoadingErrorComponent } from '../../shared/layout/loading-error/loading-error.component';
-import {
+import type {
   BadDetail,
   BadDetailPool,
 } from 'src/app/shared/services/interfaces/bad-detail.interface';
@@ -30,8 +30,8 @@ export class BadDetailComponent {
   private readonly id =
     inject(ActivatedRoute).snapshot.paramMap.get('id') ?? '';
 
+  private readonly detailService = inject(BadResourceService);
   readonly detailResource = this.detailService.getDetailResource(this.id);
-  constructor(private detailService: BadResourceService) {}
 
   poolEntries(detail: BadDetail | null | undefined): BadDetailPool[] {
     return detail?.becken ? Object.values(detail.becken) : [];

@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { BadDetail } from '../../../shared/services/interfaces/bad-detail.interface';
+import { Component, input } from '@angular/core';
+import type { BadDetail } from '../../../shared/services/interfaces/bad-detail.interface';
 import { IconComponent } from "src/app/shared/layout/icon/icon";
 
 @Component({
@@ -9,5 +9,5 @@ import { IconComponent } from "src/app/shared/layout/icon/icon";
   imports: [IconComponent],
 })
 export class AddressItemComponent {
-  @Input({ required: true }) detail!: BadDetail;
+  readonly detail = input.required<BadDetail>();
 }

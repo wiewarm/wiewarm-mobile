@@ -1,7 +1,7 @@
 import { Component, input } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { TemperatureDirective } from 'src/app/shared/directives/temperature';
-import { BadItem } from 'src/app/shared/services/interfaces/bad-item.interface';
+import type { BadItem } from 'src/app/shared/services/interfaces/bad-item.interface';
 import { IconComponent } from 'src/app/shared/layout/icon/icon';
 
 @Component({
