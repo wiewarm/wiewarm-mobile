@@ -12,8 +12,23 @@
   <div class="menu" role="menu">
     <ul>
       <li>
-        <a role="menuitem" routerLink="/" fragment="" (click)="closeMenu()">
-          Startseite
+        <a role="menuitem" routerLink="/" (click)="closeMenu()">
+          Aktuelle Temperaturen
+        </a>
+      </li>
+      <li>
+        <a role="menuitem" href="https://www.wiewarm.ch/info" (click)="closeMenu()">
+          Info
+        </a>
+      </li>
+      <li>
+        <a role="menuitem" href="https://www.wiewarm.ch/sms-und-twitter" (click)="closeMenu()">
+          SMS
+        </a>
+      </li>
+      <li>
+        <a role="menuitem" href="https://www.wiewarm.ch/admin" (click)="closeMenu()">
+          Login
         </a>
       </li>
     </ul>

@@ -7,7 +7,6 @@
 @use "../assets/styles/responsive" as *;
 
 :root {
-  overflow-y: hidden;
   transition: background-color 0s ease-in-out, color 0.1s ease-in-out,
     border-color 0.1s ease-in-out;
 
@@ -57,6 +56,8 @@ body.dark-mode {
   flex-direction: column;
   /* Use dynamic viewport units */
   min-height: 100svh;
+
+  overflow-y: hidden;
 }
 
 .container-md {
@@ -64,11 +65,6 @@ body.dark-mode {
   max-width: 824px;
 }
 
-.app-main {
-  flex: 1 1 auto;
-  min-height: 0;
-  overflow: hidden;
-}
 
 h1 {
   font-size: $font-size-xl;

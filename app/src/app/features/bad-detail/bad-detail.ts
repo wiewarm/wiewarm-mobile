@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject} from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { LoadingErrorComponent } from '../../shared/layout/loading-error/loading-error.component';
 import type {
