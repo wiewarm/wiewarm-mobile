@@ -1,0 +1,22 @@
+<div class="menu-bar">
+  <button
+    class="menu-button"
+    aria-haspopup="menu"
+    [attr.aria-expanded]="menuOpen()"
+    (click)="toggleMenu()"
+    (keydown.escape)="closeMenu()"
+  >
+    <app-icon symbolId="#arrow_down" />
+  </button>
+  @if (menuOpen()) {
+  <div class="menu" role="menu">
+    <ul>
+      <li>
+        <a role="menuitem" routerLink="/" fragment="" (click)="closeMenu()">
+          Startseite
+        </a>
+      </li>
+    </ul>
+  </div>
+  }
+</div>

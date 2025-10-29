@@ -6,7 +6,10 @@
 
   .filter-link {
     @include dialog.dialog-link;
-    color: $color-secondary;
+    color: black;
+    &:hover {
+      color: $color-secondary;
+    }
   }
 
   .no-underline {

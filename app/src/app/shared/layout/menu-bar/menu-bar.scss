@@ -1,0 +1,57 @@
+@use "../../../../assets/styles/variables" as *;
+@use "../../../../assets/styles/mixins" as *;
+@use "../../../../assets/styles/dialog" as dialog;
+
+.menu-bar {
+  position: relative;
+}
+
+.menu-button {
+  background: none;
+  border: none;
+  font-size: $font-size-lg;
+  color: $color-text;
+  cursor: pointer;
+  border-radius: $radius-sm;
+  width: inherit;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    @include hover-icon;
+  }
+}
+
+.menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  background: $color-surface;
+  border: 1px solid $color-border;
+  border-radius: $radius-l;
+  box-shadow: $shadow-md;
+  min-width: auto;
+  padding: $space-2;
+  z-index: 1000;
+
+  background-color: var(--color-bg);
+  background-image: url("/assets/img/wav-bg.svg");
+  background-repeat: repeat;
+  background-size: auto;
+
+  a {
+    @include dialog.dialog-link;
+    color: $color-text;
+    padding: $space-1 $space-2;
+    display: block;
+    margin: 0 $space-2;
+
+    &:hover {
+      padding: $space-1 $space-2;
+      border-radius: $radius-md;
+      color: $color-primary;
+    }
+  }
+}
