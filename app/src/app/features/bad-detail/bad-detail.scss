@@ -26,19 +26,18 @@
   }
 }
 
-.info-title {
+h2 {
   font-size: $font-size-lg;
   font-weight: $font-weight-bold;
   margin-bottom: $space-1;
   line-height: 1.5;
+}
+
+.info-title {
   padding-top: $space-2;
 }
 
 .becken-title {
-  font-size: $font-size-lg;
-  font-weight: $font-weight-bold;
-  margin-bottom: $space-1;
-  line-height: 1.5;
   padding-top: $space-4;
 }
 
