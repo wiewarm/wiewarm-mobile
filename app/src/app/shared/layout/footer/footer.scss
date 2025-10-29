@@ -1,0 +1,26 @@
+@use "../../../../assets/styles/variables" as *;
+@use "../../../../assets/styles/mixins" as *;
+
+.footer-content {
+  padding: $space-2 $space-3;
+  font-size: $font-size-sm;
+
+  .meta {
+    color: $color-text;
+    font-family: $font-family-englebert;
+  }
+
+  .sr-only {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+    white-space: nowrap;
+  }
+}
+
+

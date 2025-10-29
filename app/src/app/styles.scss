@@ -57,12 +57,17 @@ body.dark-mode {
   flex-direction: column;
   /* Use dynamic viewport units */
   min-height: 100svh;
-  height: 100dvh;
 }
 
 .container-md {
   margin: 0 auto;
   max-width: 824px;
+}
+
+.app-main {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden;
 }
 
 h1 {
