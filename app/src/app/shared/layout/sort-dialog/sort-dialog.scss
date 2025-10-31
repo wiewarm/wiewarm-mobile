@@ -6,7 +6,6 @@
 
   .sort-link {
     @include dialog.dialog-link;
-    color: black;
     &:hover {
       color: $color-primary;
     }

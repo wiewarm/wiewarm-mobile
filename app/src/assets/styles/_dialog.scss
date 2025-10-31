@@ -32,6 +32,7 @@
 @mixin dialog-link {
   display: inline-block;
   font-size: $font-size-lg;
+  color: $color-text;
   text-decoration: none;
 }
 

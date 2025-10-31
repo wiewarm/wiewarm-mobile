@@ -21,7 +21,8 @@
   box-sizing: border-box;
   min-height: $row-height-md; // important for virtual scroll
   border: none;
-  padding: $space-2 $space-4;
+  align-items: center;
+  padding: 0 $space-4;
   text-align: left;
   transition: background $transition-fast, box-shadow $transition-fast;
 
@@ -58,6 +59,7 @@
 @media (min-width: $breakpoint-md) {
   .accordion-header {
     min-height: $row-height-sm; // important for virtual scroll
+    padding: $space-2 $space-4;
     .accordion-header-left {
       display: flex;
       flex-direction: row;
@@ -107,7 +109,6 @@
       cursor: pointer;
       font-size: 2rem;
       margin-left: $space-1;
-      padding-right: 0;
 
       transition: transform $transition-fast, filter $transition-fast;
       display: inline-flex;
