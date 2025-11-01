@@ -1,6 +1,10 @@
 <li class="pool-item">
   <div class="pool-left">
+    @if(pool().status === 'geschlossen') {
+    <app-icon class="app-block" symbolId="#block"></app-icon>
+    } @else {
     <app-icon class="app-water" symbolId="#water"></app-icon>
+    }
     <div class="pool-left-text">
       <span class="pool-name">{{ pool().beckenname }}</span>
       <time [attr.datetime]="pool().date_pretty" aria-label="Aktualisiert am">

@@ -84,31 +84,16 @@ pre:last-of-type {
 .pool-list {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: stretch;
   list-style: none;
   padding: 0;
   margin: 0;
+  width: inherit;
 }
 
 @media (min-width: 900px) {
   .bad-detail {
-    display: grid;
-    grid-template-columns: 1fr 1fr; // fluid
     gap: $space-4;
     align-items: start;
-  }
-
-  app-address-item {
-    order: 1;
-  }
-  .info-section {
-    order: 2;
-  }
-  .pools-section {
-    order: 3;
-  }
-
-  .pool-list {
-    grid-template-columns: repeat(2, 1fr);
   }
 }

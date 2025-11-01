@@ -5,12 +5,10 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: $space-2;
-  padding: $space-2 $space-3;
+  padding: $space-2 $space-2;
   background-color: $color-surface-alt;
-  border-radius: $radius-md;
   border: 2px solid $color-border;
   border-radius: $radius-l;
-  width: 100%;
 }
 
 .pool-left {
@@ -20,7 +18,13 @@
 
   app-icon {
     font-size: $font-size-lg;
+  }
+
+  .app-water {
     color: $color-secondary-light;
+  }
+  .app-block {
+    color: $color-accent;
   }
 
   .pool-left-text {
