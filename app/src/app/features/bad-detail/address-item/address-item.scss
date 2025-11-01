@@ -16,6 +16,21 @@ address {
   width: fit-content;
 }
 
+.address-header {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+}
+
+.address-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.address-text > p {
+  margin: 0;
+}
+
 .contact {
   display: block;
   width: 100%;
@@ -52,7 +67,7 @@ a {
 app-icon {
   margin-right: $space-2;
   color: $color-text;
-  background-color: $color-primary-light;
+  background-color: $color-border;
   border: 2px solid transparent;
   border-radius: $radius-md;
 }

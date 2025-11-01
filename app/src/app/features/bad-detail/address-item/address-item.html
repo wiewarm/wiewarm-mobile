@@ -1,15 +1,22 @@
 <address aria-label="Kontakt">
-  <p class="bad-name">{{ detail().badname }} </p>
-  <p>
-    @if (detail().adresse1 || detail().adresse2) { {{ detail().adresse1 }} {{
-    detail().adresse2 }}<br />} {{ detail().plz }} {{ detail().ort }}
-  </p>
+  <div class="address-header">
+    <div class="address-icon">
+      <app-icon class="location-icon" symbolId="#location"></app-icon>
+    </div>
+    <div class="address-text">
+      <p class="bad-name">{{ detail().badname }}</p>
+      <p>
+        @if (detail().adresse1 || detail().adresse2) { {{ detail().adresse1 }}
+        {{ detail().adresse2 }}<br />} {{ detail().plz }} {{ detail().ort }}
+      </p>
+    </div>
+  </div>
   <div class="contact">
     <dl>
       @if (detail().telefon) {
       <div class="contact-row">
         <dt class="contact-title">
-          <app-icon symbolId="#call"></app-icon>Tel:
+          <app-icon symbolId="#call"></app-icon>Tel.:
         </dt>
         <dd class="contact-content">
           <a [href]="'tel:' + detail().telefon">{{ detail().telefon }}</a>
