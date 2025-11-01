@@ -58,6 +58,12 @@
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+  &:hover {
+    background: linear-gradient(to bottom, $to, $from);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
 }
 
 // Accessibility – Focus-Ring
