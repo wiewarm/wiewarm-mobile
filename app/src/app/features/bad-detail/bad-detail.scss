@@ -5,7 +5,7 @@
   display: block;
   padding: $space-2;
   font-family: $font-family-englebert;
-  overflow-x: scroll;
+  overflow: visible;
 }
 
 .container-lg {
@@ -15,14 +15,21 @@
 .back-link {
   display: inline-flex;
   align-items: center;
-  margin: $space-1;
-  color: $color-link;
+  width: fit-content;
+  padding: $space-1 $space-2;
+  margin-top: $space-1;
+  margin-bottom: $space-1;
+  background-color: $color-primary;
+  color: $color-bg;
   text-decoration: none;
+  border: 1px transparent;
+  border-radius: $radius-l;
   @include hover-link;
 
   .back-icon {
+    display: inline-block;
     font-size: $font-size-sm;
-    color: $color-primary;
+    color: $color-bg;
   }
 }
 
@@ -33,16 +40,45 @@ h2 {
   line-height: 1.5;
 }
 
+pre {
+  white-space: pre-wrap;
+  word-break: break-all;
+  word-wrap: break-word;
+  overflow: visible;
+  max-width: 100%;
+  border-bottom: 2px solid $color-border-light;
+  padding-bottom: $space-4;
+  margin-top: $space-4;
+}
+
+pre:first-of-type {
+  margin-top: 0;
+}
+
+pre:last-of-type {
+  border-bottom: none;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+
+.info-box {
+  background-color: $color-surface-alt;
+  border: 2px solid $color-border;
+  border-radius: $radius-l;
+  padding: $space-3;
+  margin-bottom: $space-4;
+}
+
 .info-title {
-  padding-top: $space-2;
-}
-
-.becken-title {
-  padding-top: $space-4;
-}
-
-.info {
-  margin-top: $space-2;
+  .info-tag {
+    display: inline-block;
+    color: $color-text;
+  }
+  .info-tag + .info-tag::before {
+    content: " | ";
+    color: $color-border-light;
+    margin: 0 $space-1;
+  }
 }
 
 .pool-list {
@@ -52,4 +88,27 @@ h2 {
   list-style: none;
   padding: 0;
   margin: 0;
+}
+
+@media (min-width: 900px) {
+  .bad-detail {
+    display: grid;
+    grid-template-columns: 1fr 1fr; // fluid
+    gap: $space-4;
+    align-items: start;
+  }
+
+  app-address-item {
+    order: 1;
+  }
+  .info-section {
+    order: 2;
+  }
+  .pools-section {
+    order: 3;
+  }
+
+  .pool-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }

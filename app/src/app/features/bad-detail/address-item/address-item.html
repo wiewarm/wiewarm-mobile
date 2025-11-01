@@ -1,5 +1,6 @@
+<h2 class="address-title">Adresse</h2>
 <address aria-label="Kontakt">
-  <h1 class="bad-title">{{ detail().badname }}</h1>
+  <p class="bad-name">{{ detail().badname }}</p>
   <p>
     @if (detail().adresse1 || detail().adresse2) { {{ detail().adresse1 }} {{
     detail().adresse2 }}<br />} {{ detail().plz }} {{ detail().ort }}
@@ -33,7 +34,10 @@
           Web:
         </dt>
         <dd class="contact-content">
-          <a [attr.href]="detail().www" target="_blank" rel="noopener noreferrer"
+          <a
+            [attr.href]="detail().www"
+            target="_blank"
+            rel="noopener noreferrer"
             >Link</a
           >
         </dd>

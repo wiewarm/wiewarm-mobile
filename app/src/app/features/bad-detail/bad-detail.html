@@ -4,21 +4,35 @@
     <span class="back-text">zurück</span>
   </a>
 
-  <div class="bad-detail container-lg">
-    <app-loading-error
-      [isLoading]="detailResource.isLoading()"
-      [error]="detailResource.error()"
-    ></app-loading-error>
+  <app-loading-error
+    [isLoading]="detailResource.isLoading()"
+    [error]="detailResource.error()"
+  ></app-loading-error>
 
+  <div class="bad-detail">
     @let dRes = detailResource.value(); @if (dRes) {
     <app-address-item [detail]="dRes"></app-address-item>
 
-    @if(dRes.info) {
     <section aria-labelledby="info-heading">
-      <h2 id="info-heading" class="info-title">Informationen</h2>
-      <div [innerHTML]="dRes.info"></div>
+      <h2 id="info-heading" class="info-title">
+        @if(dRes.info) {
+        <span class="info-tag">Informationen</span>
+        } @if(dRes.zeiten) {
+        <span class="info-tag">Öffnungszeiten</span>
+        } @if(dRes.preise) {
+        <span class="info-tag">Preise</span>
+        }
+      </h2>
+      <div class="info-box">
+        @if(dRes.info) {
+        <pre [innerHTML]="dRes.info"></pre>
+        } @if(dRes.zeiten) {
+        <pre [innerHTML]="dRes.zeiten"></pre>
+        } @if(dRes.preise) {
+        <pre [innerHTML]="dRes.preise"></pre>
+        }
+      </div>
     </section>
-    }
 
     <section aria-labelledby="becken-heading">
       <h2 id="becken-heading" class="becken-title">Becken und Temperaturen</h2>
