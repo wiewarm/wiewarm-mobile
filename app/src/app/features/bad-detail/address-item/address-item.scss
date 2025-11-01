@@ -4,6 +4,7 @@
 .address-title {
   font-weight: $font-weight-bold;
   font-size: $font-size-lg;
+  word-break: break-all;
 }
 
 address {
