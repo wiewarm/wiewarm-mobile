@@ -1,4 +1,5 @@
 @use "../../../../assets/styles/variables" as *;
+@use "../../../../assets/styles/mixins" as *;
 @use "../../../../assets/styles/dialog" as dialog;
 
 :host {
@@ -7,7 +8,7 @@
   .sort-link {
     @include dialog.dialog-link;
     &:hover {
-      color: $color-primary;
+      @include gradient-text($color-primary, $color-primary-light);
     }
   }
 
