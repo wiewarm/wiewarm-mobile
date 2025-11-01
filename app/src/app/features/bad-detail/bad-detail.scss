@@ -22,7 +22,7 @@
   background-color: $color-primary;
   color: $color-bg;
   text-decoration: none;
-  border: 1px transparent;
+  border: 1px solid transparent;
   border-radius: $radius-l;
   @include hover-link;
 

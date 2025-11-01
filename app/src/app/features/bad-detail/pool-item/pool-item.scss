@@ -32,7 +32,7 @@
     flex-direction: column;
 
     .pool-name {
-      font-weight: bold;
+      font-weight: $font-weight-bold;
       font-size: $font-size-lg;
       word-break: break-all;
     }
@@ -58,7 +58,7 @@
     text-align: left;
 
     .temp-value {
-      font-weight: bold;
+      font-weight: $font-weight-bold;
       font-size: $font-size-xl;
     }
   }
