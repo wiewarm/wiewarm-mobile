@@ -1,7 +1,7 @@
 <address aria-label="Kontakt">
   <div class="address-header">
     <div class="address-icon">
-      <app-icon class="location-icon" symbolId="#location"></app-icon>
+      <app-icon class="location-icon" symbolId="#location"></app-icon>Adresse:
     </div>
     <div class="address-text">
       <p class="bad-name">{{ detail().badname }}</p>
@@ -16,7 +16,7 @@
       @if (detail().telefon) {
       <div class="contact-row">
         <dt class="contact-title">
-          <app-icon symbolId="#call"></app-icon>Tel.:
+          <app-icon symbolId="#call"></app-icon>Telefon:
         </dt>
         <dd class="contact-content">
           <a [href]="'tel:' + detail().telefon">{{ detail().telefon }}</a>

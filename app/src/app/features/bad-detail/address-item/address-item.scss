@@ -3,7 +3,6 @@
 .bad-name,
 .address-title {
   font-weight: $font-weight-bold;
-  line-height: 1.5;
   font-size: $font-size-lg;
 }
 
@@ -16,10 +15,20 @@ address {
   width: fit-content;
 }
 
+dt {
+  min-width: 100px;
+}
+
 .address-header {
   display: flex;
   align-items: center;
   gap: $space-3;
+}
+
+.address-icon {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .address-text {
