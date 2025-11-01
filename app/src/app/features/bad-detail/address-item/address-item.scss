@@ -4,10 +4,6 @@
 .address-title {
   font-weight: $font-weight-bold;
   line-height: 1.5;
-  font-size: larger;
-}
-
-.address-title {
   font-size: $font-size-lg;
 }
 
@@ -30,8 +26,7 @@ address {
 .contact-row {
   display: flex;
   align-items: center;
-  margin-bottom: $space-2;
-  margin-top: $space-2;
+  margin: $space-2 0;
 }
 
 .contact-title {
@@ -56,8 +51,8 @@ a {
 
 app-icon {
   margin-right: $space-2;
-  color: white;
-  background-color: $color-primary;
+  color: $color-text;
+  background-color: $color-primary-light;
   border: 2px solid transparent;
   border-radius: $radius-md;
 }

@@ -17,12 +17,10 @@
   align-items: center;
   width: fit-content;
   padding: $space-1 $space-2;
-  margin-top: $space-1;
-  margin-bottom: $space-1;
+  margin: $space-1 0 $space-1 $space-2;
   background-color: $color-primary;
   color: $color-bg;
   text-decoration: none;
-  border: 1px solid transparent;
   border-radius: $radius-l;
   @include hover-link;
 
