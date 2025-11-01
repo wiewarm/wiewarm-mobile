@@ -14,22 +14,23 @@
     <app-address-item [detail]="dRes"></app-address-item>
 
     <section aria-labelledby="info-heading">
-      <h2 id="info-heading" class="info-title">
+
+      <div class="info-box" style="display:none;">
         @if(dRes.info) {
-        <span class="info-tag">Informationen</span>
+        <div class="info-item">
+          <span class="info-icon">ℹ️</span>
+          <pre [innerHTML]="dRes.info"></pre>
+        </div>
         } @if(dRes.zeiten) {
-        <span class="info-tag">Öffnungszeiten</span>
+        <div class="info-item">
+          <span class="info-icon">🕓</span>
+          <pre [innerHTML]="dRes.zeiten"></pre>
+        </div>
         } @if(dRes.preise) {
-        <span class="info-tag">Preise</span>
-        }
-      </h2>
-      <div class="info-box">
-        @if(dRes.info) {
-        <pre [innerHTML]="dRes.info"></pre>
-        } @if(dRes.zeiten) {
-        <pre [innerHTML]="dRes.zeiten"></pre>
-        } @if(dRes.preise) {
-        <pre [innerHTML]="dRes.preise"></pre>
+        <div class="info-item">
+          <span class="info-icon">💰</span>
+          <pre [innerHTML]="dRes.preise"></pre>
+        </div>
         }
       </div>
     </section>
