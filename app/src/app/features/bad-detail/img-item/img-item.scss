@@ -1,0 +1,42 @@
+@use "../../../../assets/styles/variables" as *;
+
+:host {
+  display: block;
+  margin-bottom: $space-4;
+}
+
+.img-carousel {
+  display: flex;
+  flex-direction: column;
+  gap: $space-3;
+}
+
+.img-carousel__slider {
+  width: 100%;
+}
+
+.img-carousel__slide {
+  margin: 0;
+}
+
+.img-carousel__image {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.img-carousel__caption {
+  margin-top: $space-2;
+  font-size: $font-size-sm;
+  text-align: center;
+  color: $color-text-muted;
+}
+
+.img-carousel__state,
+.img-carousel__empty {
+  text-align: center;
+  font-size: $font-size-sm;
+  color: $color-text-muted;
+  padding: $space-3 0;
+}

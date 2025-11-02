@@ -7,24 +7,27 @@
   word-break: break-all;
 }
 
+.bad-name {
+  margin-bottom: $space-3;
+}
+
 address {
   padding: $space-2 $space-3;
   background-color: $color-surface-alt;
   margin-bottom: $space-4;
   border: 2px solid $color-border;
   border-radius: $radius-l;
-  width: fit-content;
-  max-width: 400px;
 }
 
 dt {
-  min-width: 100px;
+  justify-content: space-between;
 }
 
 .address-header {
   display: flex;
   align-items: center;
   gap: $space-3;
+  justify-content: space-between;
 }
 
 .address-icon {
@@ -53,18 +56,16 @@ dt {
   display: flex;
   align-items: center;
   margin: $space-2 0;
+  justify-content: space-between;
 }
 
 .contact-title {
-  flex: 0 0 80px;
   text-align: left;
   font-size: $font-size-md;
   margin: 0;
 }
 
 .contact-content {
-  flex: 1 1 auto;
-  display: block;
   text-overflow: clip;
   box-sizing: border-box;
   overflow-wrap: break-all;

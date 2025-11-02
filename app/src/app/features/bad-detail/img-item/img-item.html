@@ -1,0 +1,28 @@
+@let images = (detail().bilder ?? []);
+<section class="img-carousel" aria-label="Bildergalerie">
+  @if (images.length > 0) {
+  <owl-carousel-o
+    class="img-carousel__slider"
+    [options]="carouselOptions"
+    aria-live="polite"
+  >
+    @for (image of images; track image.image) {
+    <ng-template carouselSlide>
+      <figure class="img-carousel__slide">
+        <img
+          class="img-carousel__image"
+          [src]="imageSrc(image)"
+          [alt]="image.text || 'Badbild'"
+          loading="lazy"
+        />
+        @if (image.text) {
+        <figcaption class="img-carousel__caption">{{ image.text }}</figcaption>
+        }
+      </figure>
+    </ng-template>
+    }
+  </owl-carousel-o>
+  } @else {
+  <div class="img-carousel__empty">Keine Bilder verfügbar.</div>
+  }
+</section>

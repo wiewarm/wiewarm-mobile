@@ -6,6 +6,9 @@
 
 @use "../assets/styles/responsive" as *;
 
+@import 'ngx-owl-carousel-o/lib/styles/scss/owl.carousel';
+@import 'ngx-owl-carousel-o/lib/styles/scss/owl.theme.default';
+
 :root {
   transition: background-color 0s ease-in-out, color 0.1s ease-in-out,
     border-color 0.1s ease-in-out;
@@ -60,6 +63,7 @@ body.dark-mode {
   min-height: 100svh;
 
   overflow-y: hidden;
+  position: relative; // allow absolute-positioned children (e.g., back-link)
 }
 
 .container-md {

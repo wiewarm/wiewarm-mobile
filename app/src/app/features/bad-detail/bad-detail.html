@@ -11,11 +11,11 @@
 
   <div class="bad-detail">
     @let dRes = detailResource.value(); @if (dRes) {
+    <app-img-item [detail]="dRes"></app-img-item>
     <app-address-item [detail]="dRes"></app-address-item>
 
     <section aria-labelledby="info-heading">
-
-      <div class="info-box" style="display:none;">
+      <div class="info-box" style="display: none">
         @if(dRes.info) {
         <div class="info-item">
           <span class="info-icon">ℹ️</span>

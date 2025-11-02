@@ -3,13 +3,8 @@
 
 .bad-detail {
   display: block;
-  padding: $space-2;
   font-family: $font-family-englebert;
   overflow: visible;
-}
-
-.container-lg {
-  padding: $space-2;
 }
 
 .back-link {
@@ -17,12 +12,17 @@
   align-items: center;
   width: fit-content;
   padding: $space-1 $space-2;
-  margin: $space-1 0 $space-1 $space-2;
   background-color: $color-primary;
   color: $color-bg;
   text-decoration: none;
   border-radius: $radius-l;
   @include hover-link;
+  
+  // Overlay over the image carousel
+  position: absolute;
+  top: $space-3;
+  left: $space-2;
+  z-index: 100;
 
   .back-icon {
     display: inline-block;

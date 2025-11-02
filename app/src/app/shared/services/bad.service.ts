@@ -1,6 +1,7 @@
 import { Injectable, resource } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import type { BadDetail } from './interfaces/bad-detail.interface';
+import type { BadImage } from './interfaces/bad-image.interface';
 import type { BadItem } from './interfaces/bad-item.interface';
 
 type CacheEntry<T> = { data: T; ts: number };
@@ -29,8 +30,12 @@ export class BadResourceService {
     return !!entry && Date.now() - entry.ts <= this.TTL_MS;
   }
 
-  private async fetchJson<T>(path: string, signal?: AbortSignal): Promise<T> {
-    const res = await fetch(`${this.API_BASE}${path}`, { signal });
+  private async fetchJson<T>(
+    base: string,
+    path: string,
+    signal?: AbortSignal
+  ): Promise<T> {
+    const res = await fetch(`${base}${path}`, { signal });
     if (!res.ok) {
       throw new Error(`HTTP ${res.status} ${res.statusText || ''}`.trim());
     }
@@ -43,6 +48,7 @@ export class BadResourceService {
     }
 
     const data = await this.fetchJson<BadItem[]>(
+      this.API_BASE,
       '/temperature/all_current.json/0',
       signal
     );
@@ -60,7 +66,11 @@ export class BadResourceService {
       return cached!.data;
     }
 
-    const data = await this.fetchJson<BadDetail>(`/bad/${key}`, signal);
+    const data = await this.fetchJson<BadDetail>(
+      this.API_BASE,
+      `/bad/${key}`,
+      signal
+    );
     this.detailCache.set(key, { data, ts: Date.now() });
     return data;
   }

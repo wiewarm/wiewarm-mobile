@@ -1,10 +1,10 @@
 <address aria-label="Kontakt">
+  <h2 class="bad-name">{{ detail().badname }}</h2>
   <div class="address-header">
     <div class="address-icon">
       <app-icon class="location-icon" symbolId="#location"></app-icon>Adresse:
     </div>
     <div class="address-text">
-      <p class="bad-name">{{ detail().badname }}</p>
       <p>
         @if (detail().adresse1 || detail().adresse2) { {{ detail().adresse1 }}
         {{ detail().adresse2 }}<br />} {{ detail().plz }} {{ detail().ort }}

@@ -1,3 +1,5 @@
+import type { BadImage } from './bad-image.interface';
+
 export interface BadDetailPool {
   beckenid: number;
   beckenname: string;
@@ -8,6 +10,7 @@ export interface BadDetailPool {
 }
 
 export interface BadDetail {
+  badid: number;
   badname: string;
   plz: string;
   ort: string;
@@ -20,6 +23,7 @@ export interface BadDetail {
   preise?: string;
   info?: string;
   becken?: Record<string, BadDetailPool>;
+  bilder?: BadImage[];
   // Allow additional properties
   [key: string]: unknown;
 }
