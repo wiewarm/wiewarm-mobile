@@ -1,8 +1,11 @@
 <div class="container-lg">
+  <div>
   <a routerLink="/" class="back-link" aria-label="Zurück zur Übersicht">
     <app-icon class="back-icon" symbolId="#arrow_back" />
     <span class="back-text">zurück</span>
   </a>
+  
+  </div>
 
   <app-loading-error
     [isLoading]="detailResource.isLoading()"

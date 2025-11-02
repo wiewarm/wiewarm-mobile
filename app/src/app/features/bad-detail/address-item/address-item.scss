@@ -1,13 +1,22 @@
 @use "../../../../assets/styles/variables" as *;
 
+/* address card overlaps the image slightly */
+:host {
+  display: block;
+  position: relative;
+  z-index: 10; 
+  margin-top: -$space-5;
+}
+
 .bad-name,
 .address-title {
   font-weight: $font-weight-bold;
-  font-size: $font-size-lg;
+  font-size: $font-size-xl;
   word-break: break-all;
 }
 
 .bad-name {
+  margin-top: $space-1;
   margin-bottom: $space-3;
 }
 
@@ -17,6 +26,7 @@ address {
   margin-bottom: $space-4;
   border: 2px solid $color-border;
   border-radius: $radius-l;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
 }
 
 dt {
