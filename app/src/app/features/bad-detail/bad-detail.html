@@ -1,11 +1,25 @@
 <div class="container-lg">
-  <div>
   <a routerLink="/" class="back-link" aria-label="Zurück zur Übersicht">
     <app-icon class="back-icon" symbolId="#arrow_back" />
     <span class="back-text">zurück</span>
   </a>
-  
-  </div>
+  @let bItem = badItem();
+  <button
+    type="button"
+    class="favorite-link"
+    [disabled]="!bItem"
+    [attr.aria-label]="
+      bItem && favoriteService.isFavorite(bItem)
+        ? 'Favorit entfernen'
+        : 'Als Favorit speichern'
+    "
+    (click)="bItem && favoriteService.toggleFavorite(bItem)"
+  >
+    <app-icon
+      class="favorite-icon"
+      [symbolId]="bItem && favoriteService.isFavorite(bItem) ? '#star' : '#star_border'"
+    />
+  </button>
 
   <app-loading-error
     [isLoading]="detailResource.isLoading()"

@@ -12,12 +12,13 @@
   align-items: center;
   width: fit-content;
   padding: $space-1 $space-2;
-  background-color: $color-primary;
-  color: $color-bg;
+  background-color: $color-surface;
+  color: $color-text;
   text-decoration: none;
+  border: 2px solid $color-border;
   border-radius: $radius-l;
   @include hover-link;
-  
+
   // Overlay over the image carousel
   position: absolute;
   top: $space-3;
@@ -27,8 +28,24 @@
   .back-icon {
     display: inline-block;
     font-size: $font-size-sm;
-    color: $color-bg;
+    color: $color-text;
   }
+}
+
+.favorite-link {
+  display: inline-flex;
+  background: none;
+  border: none;
+  color: var(--color-primary);
+  cursor: pointer;
+  font-size: 2rem;
+  margin-left: 0.25rem;
+  transition: transform 0.2s ease-in-out, filter 0.2s;
+
+  position: absolute;
+  top: $space-2;
+  right: $space-2;
+  z-index: 100;
 }
 
 h2 {
