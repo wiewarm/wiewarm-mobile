@@ -1,5 +1,5 @@
 # Multi-stage build for Angular application
-FROM node:22-alpine AS builder
+FROM --platform=$BUILDPLATFORM node:22-alpine AS builder
 
 # Set working directory
 WORKDIR /app
@@ -8,7 +8,7 @@ WORKDIR /app
 COPY app/package*.json ./
 
 # Install all dependencies (including dev dependencies for Angular CLI)
-RUN npm ci
+RUN npm ci --no-audit --no-fund
 
 # Copy source code
 COPY app/ ./
