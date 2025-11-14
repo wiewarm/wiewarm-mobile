@@ -1,4 +1,5 @@
 @use "../../../../assets/styles/variables" as *;
+@use "../../../../assets/styles/mixins" as *;
 
 :host {
   display: block;
@@ -6,55 +7,53 @@
 }
 
 .img-carousel {
-  display: flex;
-  flex-direction: column;
+  @include flex-column;
   gap: $space-3;
   position: relative;
 }
 
-.img-carousel__slider {
+.img-slider {
   width: 100%;
 }
 
-.img-carousel__slide {
+.img-slide {
   margin: 0;
   position: relative;
   overflow: hidden;
 }
 
 /* Soft fade address card morphs */
-.img-carousel__slide::after {
+.img-slide::after {
   content: "";
   position: absolute;
   left: 0;
   right: 0;
   bottom: 0;
-  height: clamp(40px, 8vw, 96px);
+  height: clamp(2.5rem, 8vw, 6rem);
   pointer-events: none;
   background: linear-gradient(
     to bottom,
     rgba(0, 0, 0, 0) 30%,
-    var(--color-surface-alt) 95%
+    $color-surface-alt 95%
   );
 }
 
-.img-carousel__image {
+.img-image {
   display: block;
   width: 100%;
   aspect-ratio: 16 / 9;
   object-fit: cover;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  box-shadow: $shadow-md;
 }
 
-.img-carousel__caption {
+.img-caption {
   margin-top: $space-2;
   font-size: $font-size-sm;
   text-align: center;
   color: $color-text-muted;
 }
 
-.img-carousel__state,
-.img-carousel__empty {
+.img-empty {
   text-align: center;
   font-size: $font-size-sm;
   color: $color-text-muted;
