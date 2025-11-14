@@ -1,5 +1,5 @@
 import { CdkAccordionModule } from '@angular/cdk/accordion';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { Component, inject, input } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import type { BadItem } from 'src/app/shared/services/interfaces/bad-item.interface';
@@ -19,7 +19,8 @@ import { IconComponent } from 'src/app/shared/layout/icon/icon';
     CdkAccordionModule,
     TemperatureDirective,
     IconComponent,
-  ],
+    NgOptimizedImage
+],
   animations: [
     trigger('fadeIn', [
       transition(':enter', [

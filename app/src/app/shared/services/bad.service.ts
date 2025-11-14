@@ -1,7 +1,6 @@
 import { Injectable, resource } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import type { BadDetail } from './interfaces/bad-detail.interface';
-import type { BadImage } from './interfaces/bad-image.interface';
 import type { BadItem } from './interfaces/bad-item.interface';
 
 type CacheEntry<T> = { data: T; ts: number };
@@ -26,7 +25,7 @@ export class BadResourceService {
     });
   }
 
-  private isFresh(entry?: CacheEntry<unknown>): boolean {
+  private isFresh<T>(entry?: CacheEntry<T>): entry is CacheEntry<T> {
     return !!entry && Date.now() - entry.ts <= this.TTL_MS;
   }
 
@@ -44,7 +43,7 @@ export class BadResourceService {
 
   private async loadList(signal?: AbortSignal): Promise<BadItem[]> {
     if (this.isFresh(this.badCache)) {
-      return this.badCache!.data;
+      return this.badCache.data;
     }
 
     const data = await this.fetchJson<BadItem[]>(
@@ -63,7 +62,7 @@ export class BadResourceService {
     const key = String(id);
     const cached = this.detailCache.get(key);
     if (this.isFresh(cached)) {
-      return cached!.data;
+      return cached.data;
     }
 
     const data = await this.fetchJson<BadDetail>(

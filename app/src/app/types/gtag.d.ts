@@ -5,10 +5,10 @@ declare function gtag(
 declare function gtag(
   command: 'config',
   targetId: string,
-  config?: object
+  config?: Record<string, unknown>
 ): void;
 declare function gtag(
   command: 'event',
   eventName: string,
-  eventParams?: object
+  eventParams?: Record<string, unknown>
 ): void;

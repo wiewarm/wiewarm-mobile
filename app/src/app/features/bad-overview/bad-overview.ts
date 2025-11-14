@@ -77,10 +77,13 @@ export class BadOverviewComponent {
   private readonly detailService = inject(BadResourceService);
 
   readonly badResource = this.detailService.getResource();
-  readonly connectFavorite = this.favoriteService.connect(
-    computed(() => this.badResource.value())
-  );
   readonly favorite = this.favoriteService.favoriteItem;
+
+  constructor() {
+    this.favoriteService.connect(
+      computed(() => this.badResource.value())
+    );
+  }
 
   searchInput = signal('');
 
