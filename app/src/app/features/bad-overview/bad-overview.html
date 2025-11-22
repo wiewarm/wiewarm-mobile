@@ -28,6 +28,7 @@
         class="sort-link"
         aria-haspopup="dialog"
         aria-controls="sort-dialog"
+        aria-label="Sortieroptionen öffnen"
         (click)="$event.preventDefault(); sortDialog.open();"
         ><img
           [attr.src]="sortDirection() === 'asc' ? 'assets/img/up.png' : 'assets/img/down.png'"
@@ -43,6 +44,7 @@
         class="filter-link"
         aria-haspopup="dialog"
         aria-controls="filter-dialog"
+        aria-label="Filteroptionen öffnen"
         (click)="$event.preventDefault(); filterDialog.open();"
       >
         <span class="filter-text">{{ filterOptionLabel() }}</span>

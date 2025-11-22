@@ -54,18 +54,7 @@
                   "maximumError": "10kb"
                 }
               ],
-              "outputHashing": "all",
-              "optimization": {
-                "scripts": true,
-                "styles": {
-                  "minify": true
-                },
-                "fonts": {
-                  "inline": true
-                }
-              },
-              "sourceMap": false,
-              "namedChunks": false
+              "outputHashing": "all"
             },
             "development": {
               "optimization": false,
