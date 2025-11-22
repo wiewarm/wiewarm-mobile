@@ -1,10 +1,5 @@
 <cdk-virtual-scroll-viewport class="item-viewport">
   <div class="bad-overview-header">
-    <app-loading-error
-      [isLoading]="badResource.isLoading()"
-      [error]="badResource.error()"
-    >
-    </app-loading-error>
 
     <h1>Aktuelle Temperaturen</h1>
 
@@ -66,6 +61,12 @@
     [filterField]="filterOption()"
     (setFilter)="setFilter($event)"
   ></dialog>
+
+      <app-loading-error
+      [isLoading]="badResource.isLoading()"
+      [error]="badResource.error()"
+    >
+    </app-loading-error>
 
   <span class="accordion" cdkAccordion>
     <ng-container *cdkVirtualFor="let item of filteredItems(); let i = index">
