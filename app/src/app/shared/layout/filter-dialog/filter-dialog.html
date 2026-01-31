@@ -10,13 +10,18 @@
         [attr.aria-selected]="filterField() === option.value"
         (click)="applyFilter(option.value); $event.preventDefault();"
       >
-        <span class="underline">{{ option.label }}</span>
-        @if(filterField() === option.value) { <span> ✓</span> }
+        <span
+          class="no-underline"
+          [class.is-selected]="filterField() === option.value"
+        >
+          {{ option.label }}
+        </span>
+        @if(filterField() === option.value) { <span>✓</span> }
       </a>
     </li>
     }
   </ul>
   <button class="close-button" (click)="close()" aria-label="Schliessen">
-    <span aria-hidden="true">×</span>
+    <span aria-hidden="true">❌</span>
   </button>
 </div>

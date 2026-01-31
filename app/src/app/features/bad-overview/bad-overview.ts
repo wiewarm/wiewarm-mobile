@@ -14,19 +14,17 @@ import { FormsModule } from '@angular/forms';
 import { BadResourceService } from 'src/app/shared/services/bad.service';
 import { SortDialogComponent } from 'src/app/shared/layout/sort-dialog/sort-dialog';
 import { BadItemComponent } from './bad-item/bad-item';
-import { FavoriteService } from 'src/app/shared/services/favorite.service';
+import { FavoriteService } from 'src/app/shared/services/storage/favorite.service';
+import { ListPreferencesService } from 'src/app/shared/services/storage/list-preferences.service';
 import { isThisYear } from 'src/app/shared/util/date.util';
 import { FilterDialogComponent } from 'src/app/shared/layout/filter-dialog/filter-dialog';
 import type { FilterField } from './../../shared/util/constants/filter-options';
-import {
-  FILTER_FIELDS,
-} from './../../shared/util/constants/filter-options';
+import { FILTER_FIELDS } from './../../shared/util/constants/filter-options';
 import type {
   SortDirection,
-  SortField} from 'src/app/shared/util/constants/sort-options';
-import {
-  SORT_FIELDS
+  SortField,
 } from 'src/app/shared/util/constants/sort-options';
+import { SORT_FIELDS } from 'src/app/shared/util/constants/sort-options';
 import { FavoriteItemComponent } from './favorite-item/favorite-item';
 import {
   ADAPTIVE_VS_CONFIG,
@@ -50,7 +48,7 @@ import { IconComponent } from 'src/app/shared/layout/icon/icon';
     BadItemComponent,
     FavoriteItemComponent,
     LoadingErrorComponent,
-    IconComponent
+    IconComponent,
   ],
   host: {
     role: 'main', // a11y
@@ -75,38 +73,37 @@ import { IconComponent } from 'src/app/shared/layout/icon/icon';
 export class BadOverviewComponent {
   private readonly favoriteService = inject(FavoriteService);
   private readonly detailService = inject(BadResourceService);
+  private readonly listPreferences = inject(ListPreferencesService);
 
   readonly badResource = this.detailService.getResource();
-  readonly favorite = this.favoriteService.favoriteItem;
+  readonly favorites = this.favoriteService.favoriteItems;
 
   constructor() {
-    this.favoriteService.connect(
-      computed(() => this.badResource.value())
-    );
+    this.favoriteService.connect(computed(() => this.badResource.value()));
   }
 
   searchInput = signal('');
 
-  sortField = signal<SortField>('kanton');
-  sortDirection = signal<SortDirection>('asc');
-  sortFieldLabel = computed(() => SORT_FIELDS[this.sortField()]);
-
-  filterOption = signal<FilterField>('aktuell');
-  filterOptionLabel = computed(() => FILTER_FIELDS[this.filterOption()]);
+  readonly sortField = this.listPreferences.sortField;
+  readonly sortDirection = this.listPreferences.sortDirection;
+  readonly filterOption = this.listPreferences.filterField;
+  readonly SORT_FIELDS = SORT_FIELDS;
+  readonly FILTER_FIELDS = FILTER_FIELDS;
 
   setFilter(option: FilterField) {
-    this.filterOption.set(option);
+    this.listPreferences.setFilter(option);
   }
 
   setSort(field: SortField, direction: SortDirection = 'asc') {
-    this.sortField.set(field);
-    this.sortDirection.set(direction);
+    this.listPreferences.setSort(field, direction);
   }
 
   filteredItems = computed(() => {
-    const items = this.badResource.value() ?? [];
-    const term = this.searchInput().toLowerCase();
-    let out = filterItems(items, term, ['bad', 'ort', 'becken']);
+    let out = filterItems(
+      this.badResource.value() ?? [],
+      this.searchInput().toLowerCase(),
+      ['bad', 'ort', 'becken'],
+    );
     if (this.filterOption() === 'aktuell') {
       out = out.filter((i) => isThisYear(i.date || null));
     }

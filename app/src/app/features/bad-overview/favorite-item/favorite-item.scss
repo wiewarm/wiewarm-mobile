@@ -17,7 +17,6 @@
   &:hover,
   &:focus-visible {
     box-shadow: $shadow-md;
-    transform: translateY(-1px);
     outline: none;
   }
 }

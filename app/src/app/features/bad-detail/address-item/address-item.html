@@ -4,13 +4,19 @@
     <div class="address-icon">
       <app-icon class="location-icon" symbolId="#location"></app-icon>Adresse:
     </div>
-    <div class="address-text">
+    <a
+      class="address-text"
+      [href]="mapUrl(detail())"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Adresse in Google Maps öffnen"
+    >
       <p>
         @if (detail().adresse1 || detail().adresse2) { {{ detail().adresse1 }}
         {{ detail().adresse2 }}<br />
         } {{ detail().plz }} {{ detail().ort }}
       </p>
-    </div>
+    </a>
   </div>
   <div class="contact">
     <dl>

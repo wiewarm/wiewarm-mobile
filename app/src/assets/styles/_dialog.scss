@@ -1,4 +1,5 @@
 @use "./variables" as *;
+@use "./mixins" as *;
 
 // Shared dialog styles for sort and filter dialogs
 @mixin dialog-container {
@@ -19,13 +20,23 @@
   }
 
   li {
-    padding-bottom: $space-1;
+    padding-bottom: $space-2;
   }
 
   .underline {
     text-decoration: underline;
     text-underline-offset: 2px;
     text-decoration-thickness: 1px;
+  }
+
+  .no-underline {
+    text-decoration: none;
+    margin-left: 0.2em;
+  }
+
+  .no-underline.is-selected {
+    text-decoration: wavy underline;
+    text-underline-offset: $text-underline-offset;
   }
 }
 
@@ -45,10 +56,13 @@
 
 @mixin close-button {
   position: absolute;
-  top: 0.5rem;
+  top: 0.75rem;
   right: 0.5rem;
   background: transparent;
   border: none;
-  font-size: 2rem;
+  font-size: 1rem;
   cursor: pointer;
+  &:hover {
+    @include hover-icon;
+  }
 }

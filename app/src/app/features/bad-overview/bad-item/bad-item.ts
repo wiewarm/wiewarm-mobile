@@ -3,7 +3,7 @@ import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { AfterViewInit, Component, HostBinding, inject, input } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import type { BadItem } from 'src/app/shared/services/interfaces/bad-item.interface';
-import { FavoriteService } from 'src/app/shared/services/favorite.service';
+import { FavoriteService } from 'src/app/shared/services/storage/favorite.service';
 import { isOlderThanOneMonth } from 'src/app/shared/util/date.util';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { TemperatureDirective } from 'src/app/shared/directives/temperature';

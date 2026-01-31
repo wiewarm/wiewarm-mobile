@@ -29,29 +29,42 @@ h1 {
   .filter-sort {
     @include flex-between;
     gap: $space-3;
+    padding-bottom: $space-2;
 
-    .sort-link {
-      order: 1;
-      width: auto;
-      padding-left: $space-2;
-    }
-    .gradient-icon {
-      font-size: $font-size-lg;
-      color: $color-secondary;
-    }
-
+    .sort-link,
     .filter-link {
       display: inline-flex;
       align-items: center;
-      order: 2;
       width: auto;
-      @include gradient-text($color-secondary, $color-secondary-light);
-      .filter-text {
-        color: $color-primary;
-        padding-right: $space-2;
-        text-decoration: underline;
-        text-underline-offset: $text-underline-offset;
+      cursor: pointer;
+      text-decoration: wavy underline;
+      text-underline-offset: $text-underline-offset;
+    }
+
+    .sort-link {
+      color: $color-primary-light;
+      order: 1;
+      padding-left: $space-2;
+
+      .sort-text {
+        padding-left: $space-2;
+        @include gradient-text($color-primary-dark, $color-primary-light);
       }
+    }
+
+    .filter-link {
+      color: $color-secondary-light;
+      order: 2;
+
+      .filter-text {
+        padding-right: $space-2;
+        @include gradient-text($color-secondary, $color-secondary-light);
+      }
+    }
+
+    .gradient-icon {
+      font-size: $font-size-lg;
+      color: $color-secondary;
     }
   }
 }
@@ -80,20 +93,7 @@ h1 {
   }
 }
 
-.sort-link {
-  display: inline-flex;
-  align-items: center;
-  color: $color-primary;
-  text-decoration: none;
-  padding: $space-3 $space-3 $space-3 0;
-  width: auto;
-  cursor: pointer;
-  @include gradient-text($color-primary-dark, $color-primary-light);
-
-  .sort-text {
-    padding-left: $space-2;
-  }
-}
+// sort-link styles live under .filter-sort for consistency
 
 // Accordion container
 .accordion {

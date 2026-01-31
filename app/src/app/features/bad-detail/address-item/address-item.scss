@@ -49,6 +49,12 @@ dt {
   align-items: center;
 }
 
+.location-icon {
+  background-color: transparent;
+  border: none;
+  font-size: larger;
+}
+
 .address-text {
   display: flex;
   flex-direction: column;

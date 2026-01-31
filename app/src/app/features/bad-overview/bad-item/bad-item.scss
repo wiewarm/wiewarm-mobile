@@ -24,7 +24,10 @@
   align-items: center;
   padding: 0 $space-4;
   text-align: left;
-  transition: background $transition-fast, box-shadow $transition-fast;
+  transition:
+    background $transition-fast,
+    box-shadow $transition-fast,
+    transform $transition-fast;
 
   .kanton-wappen {
     vertical-align: middle;
@@ -33,9 +36,11 @@
     height: 18px;
   }
 
-  &:hover {
-    // ToDo: darkmode fix
-    @include hover-state;
+  &:hover,
+  &:focus-visible {
+    cursor: pointer;
+    background: var(--color-surface-alt);
+    outline: none;
   }
 
   .accordion-header-left {
@@ -54,6 +59,11 @@
     display: flex;
     font-size: $font-size-xl;
   }
+}
+
+:host:nth-child(even) .accordion-header:hover,
+:host:nth-child(even) .accordion-header:focus-visible {
+  background: var(--color-bg);
 }
 
 @media (min-width: $breakpoint-md) {
@@ -110,7 +120,9 @@
       font-size: 2rem;
       margin-left: $space-1;
 
-      transition: transform $transition-fast, filter $transition-fast;
+      transition:
+        transform $transition-fast,
+        filter $transition-fast;
       display: inline-flex;
 
       &:hover {

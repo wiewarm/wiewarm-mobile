@@ -7,7 +7,7 @@
     (click)="toggleMenu()"
     (keydown.escape)="closeMenu()"
   >
-    <app-icon symbolId="#arrow_down" />
+    <app-icon [symbolId]="menuOpen() ? '#arrow_up' : '#arrow_down'" />
   </button>
   @if (menuOpen()) {
   <div class="menu" role="menu">
@@ -18,17 +18,29 @@
         </a>
       </li>
       <li>
-        <a role="menuitem" href="https://www.wiewarm.ch/info" (click)="closeMenu()">
+        <a
+          role="menuitem"
+          href="https://www.wiewarm.ch/info"
+          (click)="closeMenu()"
+        >
           Info
         </a>
       </li>
       <li>
-        <a role="menuitem" href="https://www.wiewarm.ch/sms-und-twitter" (click)="closeMenu()">
+        <a
+          role="menuitem"
+          href="https://www.wiewarm.ch/sms-und-twitter"
+          (click)="closeMenu()"
+        >
           SMS
         </a>
       </li>
       <li>
-        <a role="menuitem" href="https://www.wiewarm.ch/admin" (click)="closeMenu()">
+        <a
+          role="menuitem"
+          href="https://www.wiewarm.ch/admin"
+          (click)="closeMenu()"
+        >
           Login
         </a>
       </li>

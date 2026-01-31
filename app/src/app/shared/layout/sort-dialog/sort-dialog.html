@@ -20,16 +20,24 @@
           width="19"
           height="16"
         />&nbsp;
-        <span class="underline">{{ option.label }}</span>
+        <span
+          class="no-underline"
+          [class.is-selected]="
+            sortField() === option.field &&
+            sortDirection() === option.direction
+          "
+        >
+          {{ option.label }}
+        </span>
         @if( sortField() === option.field && sortDirection() ===
         option.direction ) {
-        <span> ✓</span>
+        <span>✓</span>
         }
       </a>
     </li>
     }
   </ul>
   <button class="close-button" (click)="close()" aria-label="Schliessen">
-    <span aria-hidden="true">×</span>
+    <span aria-hidden="true">❌</span>
   </button>
 </div>

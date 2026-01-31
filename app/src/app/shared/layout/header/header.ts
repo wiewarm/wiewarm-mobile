@@ -1,6 +1,7 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { IconComponent } from '../icon/icon';
 import { MenuBarComponent } from '../menu-bar/menu-bar';
+import { ThemeService } from '../../services/storage/theme.service';
 
 @Component({
   selector: 'header[app-header]',
@@ -14,22 +15,11 @@ import { MenuBarComponent } from '../menu-bar/menu-bar';
 })
 export class HeaderComponent {
   protected title = 'wiewarm.ch';
-  
-  protected darkMode = signal(false);
-  protected menuOpen = signal(false);
+  private readonly themeService = inject(ThemeService);
+
+  protected darkMode = this.themeService.darkMode;
 
   toggleDarkMode() {
-    this.darkMode.set(!this.darkMode());
-    document.body.classList.toggle('dark-mode', this.darkMode());
-  }
-
-  toggleMenu() {
-    this.menuOpen.set(!this.menuOpen());
-  }
-
-  closeMenu() {
-    if (this.menuOpen()) {
-      this.menuOpen.set(false);
-    }
+    this.themeService.toggle();
   }
 }

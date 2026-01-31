@@ -10,7 +10,7 @@ import { AddressItemComponent } from './address-item/address-item';
 import { PoolItemComponent } from './pool-item/pool-item';
 import { IconComponent } from 'src/app/shared/layout/icon/icon';
 import { ImgItemComponent } from './img-item/img-item';
-import { FavoriteService } from 'src/app/shared/services/favorite.service';
+import { FavoriteService } from 'src/app/shared/services/storage/favorite.service';
 import type { BadItem } from 'src/app/shared/services/interfaces/bad-item.interface';
 
 @Component({

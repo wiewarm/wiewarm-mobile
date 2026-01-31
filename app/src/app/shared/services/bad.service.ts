@@ -8,7 +8,7 @@ type CacheEntry<T> = { data: T; ts: number };
 @Injectable({ providedIn: 'root' })
 export class BadResourceService {
   private readonly API_BASE = environment.apiBase;
-  private readonly TTL_MS = 5 * 60_000; // 5 Minutes
+  private readonly TTL_MS = 5 * 60_000; // 5 Minutes, then refetch
 
   private badCache?: CacheEntry<BadItem[]>;
   private readonly detailCache = new Map<string, CacheEntry<BadDetail>>();
