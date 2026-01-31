@@ -1,4 +1,10 @@
-import { Component, signal } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  HostListener,
+  inject,
+  signal,
+} from '@angular/core';
 import { IconComponent } from '../icon/icon';
 import { RouterLink } from '@angular/router';
 
@@ -10,14 +16,30 @@ import { RouterLink } from '@angular/router';
 })
 export class MenuBarComponent {
   protected menuOpen = signal(false);
+  private elRef = inject(ElementRef<HTMLElement>);
 
   toggleMenu() {
-    this.menuOpen.set(!this.menuOpen());
+    this.menuOpen.update((open) => !open);
   }
 
   closeMenu() {
-    if (this.menuOpen()) {
-      this.menuOpen.set(false);
-    }
+    this.menuOpen.set(false);
+  }
+
+  // Close menu when clicking outside this component
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent) {
+    if (!this.menuOpen()) return;
+
+    const target = event.target;
+    if (!(target instanceof Node)) return;
+    if (this.elRef.nativeElement.contains(target)) return;
+
+    this.closeMenu();
+  }
+
+  @HostListener('document:keydown.escape')
+  onEscape() {
+    this.closeMenu();
   }
 }
