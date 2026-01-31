@@ -2,10 +2,27 @@
 
 .footer-content {
   font-size: $font-size-sm;
-  height: 0;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.25rem;
+  padding: $space-4  0 $space-4  $space-4;
 
   .meta {
     color: $color-text;
     font-family: $font-family-englebert;
+    white-space: nowrap;
+  }
+
+  .license {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  img {
+    display: block;
   }
 }

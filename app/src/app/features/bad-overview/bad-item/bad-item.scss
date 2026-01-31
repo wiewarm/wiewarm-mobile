@@ -19,7 +19,7 @@
   font-family: $font-family-englebert;
   width: 100%;
   box-sizing: border-box;
-  min-height: $row-height-md; // important for virtual scroll
+  min-height: $row-height-md;
   border: none;
   align-items: center;
   padding: 0 $space-4;
@@ -68,7 +68,7 @@
 
 @media (min-width: $breakpoint-md) {
   .accordion-header {
-    min-height: $row-height-sm; // important for virtual scroll
+    min-height: $row-height-sm;
     padding: $space-2 $space-4;
     .accordion-header-left {
       display: flex;

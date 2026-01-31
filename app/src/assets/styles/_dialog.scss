@@ -35,8 +35,7 @@
   }
 
   .no-underline.is-selected {
-    text-decoration: wavy underline;
-    text-underline-offset: $text-underline-offset;
+    font-weight: $font-weight-bold;
   }
 }
 

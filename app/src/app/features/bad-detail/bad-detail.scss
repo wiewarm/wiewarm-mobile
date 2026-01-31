@@ -7,6 +7,11 @@
   overflow: visible;
 }
 
+.detail-hero {
+  position: relative;
+  padding-top: var(--app-header-height, 0px);
+}
+
 .back-link {
   display: inline-flex;
   align-items: center;
@@ -21,7 +26,7 @@
 
   // Overlay over the image carousel
   position: absolute;
-  top: $space-3;
+  top: calc(var(--app-header-height, 0px) + #{$space-2});
   left: $space-2;
   z-index: 100;
 
@@ -43,7 +48,7 @@
   transition: transform 0.2s ease-in-out, filter 0.2s;
 
   position: absolute;
-  top: $space-2;
+  top: calc(var(--app-header-height, 0px) + #{$space-1});
   right: $space-2;
   z-index: 100;
 }

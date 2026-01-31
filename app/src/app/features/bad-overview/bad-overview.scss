@@ -14,9 +14,8 @@ h1 {
 }
 
 .item-viewport {
-  flex: 1 1 auto;
-  height: 100%;
-  min-height: 0;
+  flex: 0 0 auto;
+  height: auto;
 }
 
 // List header styles

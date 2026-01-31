@@ -1,34 +1,34 @@
 <div class="container-lg">
-  <a routerLink="/" class="back-link" aria-label="Zurück zur Übersicht">
-    <app-icon class="back-icon" symbolId="#arrow_back" />
-    <span class="back-text">zurück</span>
-  </a>
-  @let bItem = badItem();
-  <button
-    type="button"
-    class="favorite-link"
-    [disabled]="!bItem"
-    [attr.aria-label]="
-      bItem && favoriteService.isFavorite(bItem)
-        ? 'Favorit entfernen'
-        : 'Als Favorit speichern'
-    "
-    (click)="bItem && favoriteService.toggleFavorite(bItem)"
-  >
-    <app-icon
-      class="favorite-icon"
-      [symbolId]="bItem && favoriteService.isFavorite(bItem) ? '#star' : '#star_border'"
-    />
-  </button>
-
   <app-loading-error
-    [isLoading]="detailResource.isLoading()"
-    [error]="detailResource.error()"
+    [state]="detailResource.isLoading() ? 'loading' : detailResource.error() ? 'error' : 'idle'"
   ></app-loading-error>
 
   <div class="bad-detail">
     @let dRes = detailResource.value(); @if (dRes) {
-    <app-img-item [detail]="dRes"></app-img-item>
+    <div class="detail-hero">
+      <app-img-item [detail]="dRes"></app-img-item>
+      <a routerLink="/" class="back-link" aria-label="Zurück zur Übersicht">
+        <app-icon class="back-icon" symbolId="#arrow_back" />
+        <span class="back-text">zurück</span>
+      </a>
+      @let bItem = badItem();
+      <button
+        type="button"
+        class="favorite-link"
+        [disabled]="!bItem"
+        [attr.aria-label]="
+          bItem && favoriteService.isFavorite(bItem)
+            ? 'Favorit entfernen'
+            : 'Als Favorit speichern'
+        "
+        (click)="bItem && favoriteService.toggleFavorite(bItem)"
+      >
+        <app-icon
+          class="favorite-icon"
+          [symbolId]="bItem && favoriteService.isFavorite(bItem) ? '#star' : '#star_border'"
+        />
+      </button>
+    </div>
     <app-address-item [detail]="dRes"></app-address-item>
 
     <section aria-labelledby="info-heading">
@@ -62,5 +62,4 @@
     </section>
     }
   </div>
-  <div class="spacer-bottom"></div>
 </div>

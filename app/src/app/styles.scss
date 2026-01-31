@@ -43,6 +43,12 @@ body {
   background-size: auto;
 }
 
+/* Thin scrollbar (Firefox + WebKit) */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border) transparent;
+}
+
 body.dark-mode {
   color-scheme: dark;
   --color-bg: #121212;
@@ -59,10 +65,8 @@ body.dark-mode {
 .container-lg {
   display: flex;
   flex-direction: column;
-  /* Use dynamic viewport units */
   min-height: 100svh;
-
-  overflow-y: hidden;
+  padding-top: var(--app-header-height, 0px);
   position: relative; // allow absolute-positioned children (e.g., back-link)
 }
 

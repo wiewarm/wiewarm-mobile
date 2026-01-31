@@ -1,19 +1,17 @@
 import { Component, input } from '@angular/core';
 
+type State = 'idle' | 'loading' | 'error';
+
 @Component({
   selector: 'app-loading-error',
-  standalone: true,
   template: `
-    @if (isLoading()) {
-    <div class="status" role="status" aria-live="polite">
-      <span aria-hidden="true">⏳</span>
-      <p>{{ loadingMessage() }}</p>
-    </div>
-    } @else if (error()) {
-    <div class="status error" role="alert" aria-live="assertive">
-      <span aria-hidden="true">❌</span>
-      <p>{{ errorMessage() }}</p>
-    </div>
+    @switch (state()) {
+      @case ('loading') {
+        <p class="status" role="status">⏳ {{ loadingMsg() }}</p>
+      }
+      @case ('error') {
+        <p class="status error" role="alert">❌ {{ errorMsg() }}</p>
+      }
     }
   `,
   styles: [
@@ -23,15 +21,13 @@ import { Component, input } from '@angular/core';
         padding: 1rem;
       }
       .error {
-        color: var(--color-error, #ff0000);
+        color: var(--color-error, #f00);
       }
     `,
   ],
 })
 export class LoadingErrorComponent {
-  isLoading = input(false);
-  error = input<unknown | null>(null);
-
-  loadingMessage = input('Laden…');
-  errorMessage = input('Fehler beim Laden. Bitte später erneut versuchen.');
+  state = input<State>('idle');
+  loadingMsg = input('Laden…');
+  errorMsg = input('Fehler beim Laden. Bitte später erneut versuchen.');
 }

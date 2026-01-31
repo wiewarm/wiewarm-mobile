@@ -1,9 +1,5 @@
 import { CdkAccordionModule } from '@angular/cdk/accordion';
 import {
-  ScrollingModule,
-  VIRTUAL_SCROLL_STRATEGY,
-} from '@angular/cdk/scrolling';
-import {
   ChangeDetectionStrategy,
   Component,
   computed,
@@ -26,10 +22,6 @@ import type {
 } from 'src/app/shared/util/constants/sort-options';
 import { SORT_FIELDS } from 'src/app/shared/util/constants/sort-options';
 import { FavoriteItemComponent } from './favorite-item/favorite-item';
-import {
-  ADAPTIVE_VS_CONFIG,
-  AdaptiveVirtualScrollStrategy,
-} from 'src/app/shared/layout/virtual-scroll/adaptive-virtual-scroll.strategy';
 import { filterItems, sortItems } from 'src/app/shared/util/list.util';
 import { LoadingErrorComponent } from '../../shared/layout/loading-error/loading-error.component';
 import { IconComponent } from 'src/app/shared/layout/icon/icon';
@@ -42,7 +34,6 @@ import { IconComponent } from 'src/app/shared/layout/icon/icon';
   imports: [
     FormsModule,
     CdkAccordionModule,
-    ScrollingModule,
     SortDialogComponent,
     FilterDialogComponent,
     BadItemComponent,
@@ -54,21 +45,6 @@ import { IconComponent } from 'src/app/shared/layout/icon/icon';
     role: 'main', // a11y
     class: 'bad-overview',
   },
-  providers: [
-    {
-      provide: ADAPTIVE_VS_CONFIG,
-      useValue: {
-        mobile: { itemSize: 81 },
-        desktop: { itemSize: 52 },
-        factorMin: 7,
-        factorMax: 14,
-      },
-    },
-    {
-      provide: VIRTUAL_SCROLL_STRATEGY,
-      useClass: AdaptiveVirtualScrollStrategy,
-    },
-  ],
 })
 export class BadOverviewComponent {
   private readonly favoriteService = inject(FavoriteService);

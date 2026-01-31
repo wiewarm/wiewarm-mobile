@@ -1,4 +1,4 @@
-<cdk-virtual-scroll-viewport class="item-viewport">
+<div class="item-viewport">
   <div class="bad-overview-header">
     <h1>Aktuelle Temperaturen</h1>
 
@@ -62,15 +62,13 @@
   ></dialog>
 
   <app-loading-error
-    [isLoading]="badResource.isLoading()"
-    [error]="badResource.error()"
-  >
-  </app-loading-error>
+    [state]="badResource.isLoading() ? 'loading':badResource.error() ? 'error' : 'idle' "
+  ></app-loading-error>
 
   <span class="accordion" cdkAccordion>
-    <ng-container *cdkVirtualFor="let item of filteredItems(); let i = index">
+    @for (item of filteredItems(); track item.badid_text; let i = $index) {
       <app-bad-item [item]="item" [index]="i"></app-bad-item>
-    </ng-container>
+    }
 
     @if ( !badResource.isLoading() && !badResource.error() &&
     filteredItems().length === 0 ) {
@@ -80,4 +78,4 @@
     </div>
     }
   </span>
-</cdk-virtual-scroll-viewport>
+</div>

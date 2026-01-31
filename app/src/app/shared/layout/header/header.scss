@@ -1,6 +1,21 @@
 @use "../../../../assets/styles/variables" as *;
 @use "../../../../assets/styles/mixins" as *;
 
+:host.app-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  transform: translateY(0);
+  transition: transform $transition-fast;
+}
+
+:host.app-header.is-hidden {
+  transform: translateY(-110%);
+  pointer-events: none;
+}
+
 .header-content {
   @include flex-between;
   padding: $space-2 $space-3;

@@ -1,4 +1,11 @@
-import { Component, inject } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  HostBinding,
+  HostListener,
+  inject,
+} from '@angular/core';
 import { IconComponent } from '../icon/icon';
 import { MenuBarComponent } from '../menu-bar/menu-bar';
 import { ThemeService } from '../../services/storage/theme.service';
@@ -13,13 +20,55 @@ import { ThemeService } from '../../services/storage/theme.service';
     class: 'app-header',
   },
 })
-export class HeaderComponent {
+export class HeaderComponent implements AfterViewInit {
   protected title = 'wiewarm.ch';
   private readonly themeService = inject(ThemeService);
+  private readonly elRef = inject(ElementRef<HTMLElement>);
+  private lastScrollY = 0;
+  private readonly nearTopPx = 8;
+  private readonly minDeltaPx = 4;
+
+  @HostBinding('class.is-hidden')
+  protected isHidden = false;
 
   protected darkMode = this.themeService.darkMode;
 
+  ngAfterViewInit(): void {
+    this.updateHeaderHeight();
+    this.lastScrollY = window.scrollY || 0;
+  }
+
   toggleDarkMode() {
     this.themeService.toggle();
+  }
+
+  @HostListener('window:resize')
+  onResize() {
+    this.updateHeaderHeight();
+  }
+
+  @HostListener('window:scroll')
+  onScroll() {
+    const current = window.scrollY || 0;
+    const delta = current - this.lastScrollY;
+    const hide = !this.isNearTop(current) && delta > this.minDeltaPx;
+    const show = this.isNearTop(current) || delta < -this.minDeltaPx;
+
+    if (hide) this.isHidden = true;
+    if (show) this.isHidden = false;
+
+    this.lastScrollY = current;
+  }
+
+  private updateHeaderHeight() {
+    const height = this.elRef.nativeElement.offsetHeight;
+    document.documentElement.style.setProperty(
+      '--app-header-height',
+      `${height}px`,
+    );
+  }
+
+  private isNearTop(scrollY: number) {
+    return scrollY < this.nearTopPx;
   }
 }
