@@ -1,0 +1,30 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="ring" x1="64" y1="84" x2="438" y2="438" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FF8C00" />
+      <stop offset="1" stop-color="#0057B8" />
+    </linearGradient>
+    <linearGradient id="water" x1="140" y1="282" x2="372" y2="356" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#00AAFF" />
+      <stop offset="1" stop-color="#0057B8" />
+    </linearGradient>
+  </defs>
+
+  <rect x="16" y="16" width="480" height="480" rx="240" fill="#FFFFFF" />
+  <circle cx="256" cy="256" r="220" stroke="url(#ring)" stroke-width="10" />
+
+  <circle cx="170" cy="168" r="30" fill="#FF8C00" fill-opacity="0.16" />
+  <circle cx="170" cy="168" r="18" stroke="#FF8C00" stroke-width="6" />
+
+  <path
+    d="M116 332C136 318 152 306 170 292C190 312 202 320 214 326C234 302 252 278 272 256C300 294 332 318 396 338"
+    stroke="#B7B7B7" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" />
+
+  <path d="M134 352C170 336 214 336 254 350C296 366 336 366 378 350"
+    stroke="url(#water)" stroke-width="12" stroke-linecap="round" />
+  <path d="M140 382C176 366 218 366 256 380C296 394 334 394 372 380"
+    stroke="url(#water)" stroke-width="10" stroke-linecap="round" opacity="0.7" />
+
+  <circle cx="328" cy="184" r="20" stroke="#0057B8" stroke-width="6" />
+  <path d="M346 202L372 228" stroke="#0057B8" stroke-width="6" stroke-linecap="round" />
+</svg>

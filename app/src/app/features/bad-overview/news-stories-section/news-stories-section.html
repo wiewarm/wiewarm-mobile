@@ -1,0 +1,25 @@
+<app-news-stories-strip
+  [stories]="visibleNewsStories()"
+  [isReadFn]="isStoryReadFn"
+  [hasMore]="hasMoreStories()"
+  [remainingCount]="remainingStoryCount()"
+  (openStory)="openStory($event)"
+  (loadMore)="loadMoreStories()"
+/>
+
+<app-loading-error
+  [state]="newsStoriesResource.isLoading() ? 'loading' : newsStoriesResource.error() ? 'error' : 'idle'"
+  [loadingMsg]="'Stories laden...'"
+  [errorMsg]="'Stories konnten nicht geladen werden.'"
+></app-loading-error>
+
+<dialog
+  app-news-story-dialog
+  #newsStoryDialog
+  [stories]="visibleNewsStories()"
+  [activeIndex]="newsStoryDialogState.activeStoryIndex()"
+  [activeStoryId]="newsStoryDialogState.activeStoryId()"
+  (closeDialog)="newsStoryDialogState.closeStory()"
+  (nextStory)="nextStory()"
+  (prevStory)="prevStory()"
+></dialog>

@@ -1,0 +1,62 @@
+@if (activeStory(); as story) {
+<article class="news-dialog-panel">
+  <header class="dialog-header">
+    <h1 id="news-dialog-title" class="dialog-title">{{ story.title }}</h1>
+    <button
+      type="button"
+      class="close-button"
+      aria-label="Schliessen"
+      (click)="close()"
+    >
+      <span aria-hidden="true">❌</span>
+    </button>
+  </header>
+
+  <div class="dialog-image-wrap">
+    <img
+      class="dialog-image"
+      [ngSrc]="story.imageUrl || '/assets/img/news-placeholder.svg'"
+      [attr.alt]="story.title || 'Story-Bild'"
+      fill
+      sizes="(max-width: 768px) 100vw, 38rem"
+    />
+  </div>
+
+  <section class="dialog-content">
+    @if (story.body) {
+    <p class="dialog-body">{{ story.body }}</p>
+    }
+    <p class="dialog-meta">
+      {{ story.badName }} @if (story.locationText) {
+      <span> | {{ story.locationText }}</span>
+      }
+    </p>
+    @if (story.publishedAtPretty || story.publishedAt) {
+    <p class="dialog-date">
+      {{ story.publishedAtPretty || story.publishedAt }}
+    </p>
+    }
+  </section>
+
+  <!-- Todo: <footer class="dialog-nav">
+      <button
+        type="button"
+        class="dialog-action"
+        (click)="prev()"
+        [disabled]="!hasPrev()"
+      >
+        <app-icon class="dialog-nav-icon" symbolId="#arrow_back" />
+        Zurück
+      </button>
+      <button
+        type="button"
+        class="dialog-action"
+        (click)="next()"
+        [disabled]="!hasNext()"
+      >
+        Weiter
+        <app-icon class="dialog-nav-icon is-forward" symbolId="#arrow_back" />
+      </button>
+    </footer> -->
+</article>
+}

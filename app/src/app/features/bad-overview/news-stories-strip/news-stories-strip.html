@@ -1,0 +1,42 @@
+@if (stories().length > 0) {
+<section class="news-stories" aria-label="News und Impressionen">
+  <div class="news-stories-track" role="list">
+    @for (story of stories(); track story.id; let i = $index) {
+    <button
+      type="button"
+      class="story-button"
+      role="listitem"
+      [class.is-read]="isRead(story.id)"
+      [attr.aria-label]="story.title"
+      (click)="open(i)"
+    >
+      <span class="story-ring">
+        <img
+          class="story-image"
+          [ngSrc]="story.thumbnailUrl || story.imageUrl || '/assets/img/news-placeholder.svg'"
+          [attr.alt]="story.title"
+          [priority]="i === 0"
+          width="180"
+          height="180"
+        />
+      </span>
+      <span class="story-label" [attr.title]="story.badName"
+        >{{ story.badName }}</span
+      >
+    </button>
+    } @if (hasMore()) {
+    <button
+      type="button"
+      class="story-button story-button-more"
+      role="listitem"
+      [attr.aria-label]="'Mehr laden (' + remainingCount() + ' weitere)'"
+      (click)="requestMore()"
+    >
+      <span class="story-ring story-ring-more">
+        <span class="story-more-count">+{{ remainingCount() }} </span>
+      </span>
+    </button>
+    }
+  </div>
+</section>
+}

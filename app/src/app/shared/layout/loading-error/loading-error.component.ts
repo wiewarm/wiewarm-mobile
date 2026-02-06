@@ -27,7 +27,9 @@ type State = 'idle' | 'loading' | 'error';
   ],
 })
 export class LoadingErrorComponent {
-  state = input<State>('idle');
-  loadingMsg = input('Laden…');
-  errorMsg = input('Fehler beim Laden. Bitte später erneut versuchen.');
+  readonly state = input<State>('idle');
+  readonly loadingMsg = input('Laden…');
+  readonly errorMsg = input(
+    'Fehler beim Laden. Bitte später erneut versuchen.',
+  );
 }

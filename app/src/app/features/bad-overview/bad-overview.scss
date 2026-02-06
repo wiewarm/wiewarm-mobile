@@ -25,6 +25,10 @@ h1 {
   padding: $space-4 $space-3 0;
   flex: 0 0 auto;
 
+  article {
+    max-width: 600px;
+  }
+
   .filter-sort {
     @include flex-between;
     gap: $space-3;
@@ -32,11 +36,21 @@ h1 {
 
     .sort-link,
     .filter-link {
+      // use button reset styles for accessibility
+      appearance: none;
+      -webkit-appearance: none;
+      background: transparent;
+      border: 0;
+      padding: 0;
+      margin: 0;
+      font: inherit;
+      color: inherit;
+
       display: inline-flex;
       align-items: center;
       width: auto;
       cursor: pointer;
-      text-decoration: wavy underline;
+      text-decoration: underline;
       text-underline-offset: $text-underline-offset;
     }
 
@@ -46,7 +60,7 @@ h1 {
       padding-left: $space-2;
 
       .sort-text {
-        padding-left: $space-2;
+        padding-left: $space-1;
         @include gradient-text($color-primary-dark, $color-primary-light);
       }
     }
@@ -56,7 +70,7 @@ h1 {
       order: 2;
 
       .filter-text {
-        padding-right: $space-2;
+        padding-right: $space-1;
         @include gradient-text($color-secondary, $color-secondary-light);
       }
     }
@@ -70,6 +84,7 @@ h1 {
 
 .search {
   position: relative;
+  margin-bottom: $space-2;
 
   .search-emoji {
     position: absolute;

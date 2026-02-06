@@ -1,5 +1,4 @@
 @if(favorite()){
-<article>
   <a
     class="favorite-card"
     [routerLink]="[favorite()?.badid_text]"
@@ -28,5 +27,4 @@
       {{ favorite()?.temp != null ? (favorite()?.temp + ' °C') : '—' }}
     </data>
   </a>
-</article>
 }

@@ -3,7 +3,7 @@
 export const routes: Routes = [
   {
     path: '',
-    title: 'wiewarm.ch - Aktuelle Temperaturen',
+    title: 'Übersicht',
     loadComponent: () =>
       import('./features/bad-overview/bad-overview').then(
         (m) => m.BadOverviewComponent
@@ -11,7 +11,7 @@ export const routes: Routes = [
   },
   {
     path: ':id',
-    title: 'wiewarm.ch - Detail',
+    title: 'Detail',
     loadComponent: () =>
       import('./features/bad-detail/bad-detail').then(
         (m) => m.BadDetailComponent

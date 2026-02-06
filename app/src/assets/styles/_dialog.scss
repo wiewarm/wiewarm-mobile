@@ -7,6 +7,7 @@
   max-width: 150px;
   border-radius: $radius-l;
   border-color: $color-border;
+  animation: dialog-scale-in 180ms ease-out;
 
   background-color: var(--color-bg);
   background-image: url("/assets/img/wav-bg.svg");
@@ -39,6 +40,26 @@
   }
 }
 
+@keyframes dialog-scale-in {
+  from {
+    transform: translateY(8px) scale(0.98);
+    opacity: 0.94;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+@mixin dialog-shell {
+  font-family: $font-family-englebert;
+  background: $color-surface;
+  color: $color-text;
+  border-radius: $radius-l;
+  border: 2px solid $color-border;
+  box-shadow: $shadow-md;
+}
+
 @mixin dialog-link {
   display: inline-block;
   font-size: $font-size-lg;
@@ -50,7 +71,6 @@
   font-size: $font-size-lg;
   font-weight: $font-weight-bold;
   font-family: $font-family-englebert;
-  padding-bottom: $space-2;
 }
 
 @mixin close-button {

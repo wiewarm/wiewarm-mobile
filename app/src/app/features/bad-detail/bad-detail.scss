@@ -3,6 +3,7 @@
 
 .bad-detail {
   display: block;
+  position: relative;
   font-family: $font-family-englebert;
   overflow: visible;
 }
@@ -22,8 +23,6 @@
   border: 2px solid $color-border;
   border-radius: $radius-l;
   @include hover-link;
-
-  // Overlay over the image carousel
   position: absolute;
   top: $space-2;
   left: $space-2;

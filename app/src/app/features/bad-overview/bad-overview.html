@@ -1,11 +1,16 @@
 <div class="item-viewport">
   <div class="bad-overview-header">
-    <h1>Aktuelle Temperaturen</h1>
+    <h1 style="display: none">Übersicht</h1>
+    <h2>News & Impressionen</h2>
+    <app-news-stories-section></app-news-stories-section>
 
-    @if (favorites().length) { @for (fav of favorites(); track fav.beckenid) {
-    <app-favorite-item [favorite]="fav"></app-favorite-item>
+    @if (favorites().length){
+    <h2>Favoriten</h2>
+    @for (fav of favorites(); track fav.beckenid) {
+    <article app-favorite-item [favorite]="fav"></article>
     } }
 
+    <h2>Aktuelle Temperaturen</h2>
     <div class="search">
       <span class="search-emoji" aria-hidden="true">🔍</span>
       <input
@@ -17,36 +22,38 @@
     </div>
 
     <div class="filter-sort">
-      <a
-        href="#"
+      <button
+        type="button"
         class="sort-link"
         aria-haspopup="dialog"
         aria-controls="sort-dialog"
         aria-label="Sortieroptionen öffnen"
-        (click)="$event.preventDefault(); sortDialog.open();"
-        ><img
-          [attr.src]="sortDirection() === 'asc' ? 'assets/img/up.png' : 'assets/img/down.png'"
+        (click)="openSortDialog()"
+      >
+        <img
+          [ngSrc]="sortDirection() === 'asc' ? 'assets/img/up.png' : 'assets/img/down.png'"
           aria-hidden="true"
           alt
           width="17"
           height="16"
         />
-        <span class="sort-text">{{ SORT_FIELDS[sortField()] }}</span></a
-      >
-      <a
-        href="#"
+        <span class="sort-text">{{ SORT_FIELDS[sortField()] }}</span>
+      </button>
+      <button
+        type="button"
         class="filter-link"
         aria-haspopup="dialog"
         aria-controls="filter-dialog"
         aria-label="Filteroptionen öffnen"
-        (click)="$event.preventDefault(); filterDialog.open();"
+        (click)="openFilterDialog()"
       >
         <span class="filter-text">{{ FILTER_FIELDS[filterOption()] }}</span>
         <app-icon class="gradient-icon" symbolId="#filter_list" />
-      </a>
+      </button>
     </div>
   </div>
 
+  @defer () {
   <dialog
     app-sort-dialog
     #sortDialog
@@ -54,28 +61,30 @@
     [sortDirection]="sortDirection()"
     (setSort)="setSort($event.field, $event.direction)"
   ></dialog>
+  } @defer () {
   <dialog
     app-filter-dialog
     #filterDialog
     [filterField]="filterOption()"
     (setFilter)="setFilter($event)"
   ></dialog>
+  }
 
   <app-loading-error
     [state]="badResource.isLoading() ? 'loading':badResource.error() ? 'error' : 'idle' "
+    [loadingMsg]="'Badis laden...'"
+    [errorMsg]="'Badis konnten nicht geladen werden.'"
   ></app-loading-error>
 
-  <span class="accordion" cdkAccordion>
-    @for (item of filteredItems(); track item.badid_text; let i = $index) {
-      <app-bad-item [item]="item" [index]="i"></app-bad-item>
-    }
-
-    @if ( !badResource.isLoading() && !badResource.error() &&
+  <div class="accordion" cdkAccordion>
+    @for (item of filteredItems(); track item.beckenid; let i = $index) {
+    <app-bad-item [item]="item" [index]="i"></app-bad-item>
+    } @if ( !badResource.isLoading() && !badResource.error() &&
     filteredItems().length === 0 ) {
     <div class="status" role="status">
       <span aria-hidden="true">😕</span>
       <p>Keine Resultate gefunden.</p>
     </div>
     }
-  </span>
+  </div>
 </div>

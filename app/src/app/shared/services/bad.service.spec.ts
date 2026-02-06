@@ -29,7 +29,6 @@ describe('BadResourceService', () => {
     const pending = httpMock.match((r) => r.url.endsWith(listUrlSuffix));
     pending.forEach((req) => req.flush([]));
   };
-
   const dummyDetail = { badname: '', plz: '', ort: '' } as any;
 
   it('uses beta host when configured', fakeAsync(() => {
@@ -90,4 +89,5 @@ describe('BadResourceService', () => {
     tick();
     expect(service.badResource.value()).toEqual(dummyList);
   }));
+
 });

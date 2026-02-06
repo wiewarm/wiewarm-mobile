@@ -23,18 +23,18 @@ import {
   },
 })
 export class FilterDialogComponent {
-  private elementRef = inject(ElementRef<HTMLDialogElement>);
+  private readonly elRef = inject(ElementRef<HTMLDialogElement>);
 
   readonly filterOptions = FILTER_OPTION_LIST;
   readonly filterField = input.required<FilterField>();
   readonly setFilter = output<FilterField>();
 
   open() {
-    this.elementRef.nativeElement.showModal();
+    this.elRef.nativeElement.showModal();
   }
 
   close() {
-    this.elementRef.nativeElement.close();
+    this.elRef.nativeElement.close();
   }
 
   applyFilter(option: FilterField) {

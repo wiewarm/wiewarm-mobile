@@ -42,7 +42,7 @@ describe('filterItems', () => {
 });
 
 describe('sortItems', () => {
-  it('sortiert Strings numerisch-freundlich (localeCompare numeric)', () => {
+  it('sortiert Strings numerisch-freundlisch (localeCompare numeric)', () => {
     const items = [{ v: '2' }, { v: '10' }, { v: '1' }];
     const res = sortItems(items, 'v', 'asc').map((i) => i.v);
     expect(res).toEqual(['1', '2', '10']);
@@ -63,7 +63,7 @@ describe('sortItems', () => {
       { d: new Date('2023-12-31') },
     ];
     const res = sortItems(items, 'd', 'asc').map((i) =>
-      i.d!.toISOString().slice(0, 10)
+      i.d!.toISOString().slice(0, 10),
     );
     expect(res).toEqual(['2023-12-31', '2024-01-01', '2025-06-15']);
   });
@@ -71,10 +71,10 @@ describe('sortItems', () => {
   it('legt null/undefined immer ans Ende (egal welche Richtung)', () => {
     const items = [{ n: 2 }, { n: null }, { n: 1 }, { n: undefined as any }];
     const asc = sortItems(items, 'n', 'asc').map(
-      (i) => i.n as number | null | undefined
+      (i) => i.n as number | null | undefined,
     );
     const desc = sortItems(items, 'n', 'desc').map(
-      (i) => i.n as number | null | undefined
+      (i) => i.n as number | null | undefined,
     );
 
     expect(asc.slice(-2)).toEqual([null, undefined]);
