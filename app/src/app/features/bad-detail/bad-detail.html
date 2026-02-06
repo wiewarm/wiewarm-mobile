@@ -1,65 +1,63 @@
-<div class="container-lg">
-  <app-loading-error
-    [state]="detailResource.isLoading() ? 'loading' : detailResource.error() ? 'error' : 'idle'"
-  ></app-loading-error>
+<app-loading-error
+  [state]="detailResource.isLoading() ? 'loading' : detailResource.error() ? 'error' : 'idle'"
+></app-loading-error>
 
-  <div class="bad-detail">
-    @let dRes = detailResource.value(); @if (dRes) {
-    <div class="detail-hero">
-      <app-img-item [detail]="dRes"></app-img-item>
-      <a routerLink="/" class="back-link" aria-label="Zurück zur Übersicht">
-        <app-icon class="back-icon" symbolId="#arrow_back" />
-        <span class="back-text">zurück</span>
-      </a>
-      @let bItem = badItem();
-      <button
-        type="button"
-        class="favorite-link"
-        [disabled]="!bItem"
-        [attr.aria-label]="
-          bItem && favoriteService.isFavorite(bItem)
-            ? 'Favorit entfernen'
-            : 'Als Favorit speichern'
-        "
-        (click)="bItem && favoriteService.toggleFavorite(bItem)"
-      >
-        <app-icon
-          class="favorite-icon"
-          [symbolId]="bItem && favoriteService.isFavorite(bItem) ? '#star' : '#star_border'"
-        />
-      </button>
-    </div>
-    <app-address-item [detail]="dRes"></app-address-item>
-
-    <section aria-labelledby="info-heading">
-      <div class="info-box" style="display: none">
-        @if(dRes.info) {
-        <div class="info-item">
-          <span class="info-icon">ℹ️</span>
-          <pre [innerHTML]="dRes.info"></pre>
-        </div>
-        } @if(dRes.zeiten) {
-        <div class="info-item">
-          <span class="info-icon">🕓</span>
-          <pre [innerHTML]="dRes.zeiten"></pre>
-        </div>
-        } @if(dRes.preise) {
-        <div class="info-item">
-          <span class="info-icon">💰</span>
-          <pre [innerHTML]="dRes.preise"></pre>
-        </div>
-        }
-      </div>
-    </section>
-
-    <section aria-labelledby="becken-heading">
-      <h2 id="becken-heading" class="becken-title">Becken und Temperaturen</h2>
-      <ul class="pool-list">
-        @for (pool of poolEntries(dRes); track pool.beckenid) {
-        <app-pool-item [pool]="pool"></app-pool-item>
-        }
-      </ul>
-    </section>
-    }
+<div class="bad-detail">
+  @let dRes = detailResource.value(); @if (dRes) {
+  <div class="detail-hero">
+    <app-img-item [detail]="dRes"></app-img-item>
+    <a routerLink="/" class="back-link" aria-label="Zurück zur Übersicht">
+      <app-icon class="back-icon" symbolId="#arrow_back" />
+      <span class="back-text">zurück</span>
+    </a>
+    @let bItem = badItem();
+    <button
+      type="button"
+      class="favorite-link"
+      [disabled]="!bItem"
+      [attr.aria-label]="
+        bItem && favoriteService.isFavorite(bItem)
+          ? 'Favorit entfernen'
+          : 'Als Favorit speichern'
+      "
+      (click)="bItem && favoriteService.toggleFavorite(bItem)"
+    >
+      <app-icon
+        class="favorite-icon"
+        [symbolId]="bItem && favoriteService.isFavorite(bItem) ? '#star' : '#star_border'"
+      />
+    </button>
   </div>
+  <app-address-item [detail]="dRes"></app-address-item>
+
+  <!-- <section aria-labelledby="info-heading">
+    <div class="info-box" style="display: none">
+      @if(dRes.info) {
+      <div class="info-item">
+        <span class="info-icon">ℹ️</span>
+        <pre [innerHTML]="dRes.info"></pre>
+      </div>
+      } @if(dRes.zeiten) {
+      <div class="info-item">
+        <span class="info-icon">🕓</span>
+        <pre [innerHTML]="dRes.zeiten"></pre>
+      </div>
+      } @if(dRes.preise) {
+      <div class="info-item">
+        <span class="info-icon">💰</span>
+        <pre [innerHTML]="dRes.preise"></pre>
+      </div>
+      }
+    </div>
+  </section> -->
+
+  <section aria-labelledby="becken-heading">
+    <h2 id="becken-heading" class="becken-title">Becken und Temperaturen</h2>
+    <ul class="pool-list">
+      @for (pool of poolEntries(dRes); track pool.beckenid) {
+      <app-pool-item [pool]="pool"></app-pool-item>
+      }
+    </ul>
+  </section>
+  }
 </div>

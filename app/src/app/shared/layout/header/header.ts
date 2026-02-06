@@ -1,11 +1,5 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  HostBinding,
-  HostListener,
-  inject,
-} from '@angular/core';
+import { Component, ElementRef, HostBinding, HostListener, inject } from '@angular/core';
+import type { AfterViewInit } from '@angular/core';
 import { IconComponent } from '../icon/icon';
 import { MenuBarComponent } from '../menu-bar/menu-bar';
 import { ThemeService } from '../../services/storage/theme.service';

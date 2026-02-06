@@ -1,26 +1,30 @@
-import { Injectable, signal, effect } from '@angular/core';
+import { Injectable, effect, inject, signal } from '@angular/core';
 import type { FilterField } from '../../util/constants/filter-options';
 import { FILTER_FIELDS } from '../../util/constants/filter-options';
-import type { SortDirection, SortField } from '../../util/constants/sort-options';
+import type {
+  SortDirection,
+  SortField,
+} from '../../util/constants/sort-options';
 import { SORT_FIELDS } from '../../util/constants/sort-options';
-import { StorageService, STORAGE_KEYS } from './storage.service';
+import { STORAGE_KEYS } from './storage.service';
+import { StorageService } from './storage.service';
 
 @Injectable({ providedIn: 'root' })
 export class ListPreferencesService {
+  private readonly storage = inject(StorageService);
+
   readonly sortField = signal<SortField>('kanton');
   readonly sortDirection = signal<SortDirection>('asc');
   readonly filterField = signal<FilterField>('aktuell');
 
-  constructor(private readonly storage: StorageService) {
-    this.loadFromStorage();
-    effect(() => {
-      this.storage.write(STORAGE_KEYS.list, {
-        sortField: this.sortField(),
-        sortDirection: this.sortDirection(),
-        filterField: this.filterField(),
-      });
+  readonly initialLoad = this.loadFromStorage();
+  readonly persistPreferences = effect(() => {
+    this.storage.write(STORAGE_KEYS.list, {
+      sortField: this.sortField(),
+      sortDirection: this.sortDirection(),
+      filterField: this.filterField(),
     });
-  }
+  });
 
   setSort(field: SortField, direction: SortDirection = 'asc') {
     this.sortField.set(field);
@@ -37,6 +41,7 @@ export class ListPreferencesService {
       sortDirection?: SortDirection;
       filterField?: FilterField;
     }>(STORAGE_KEYS.list);
+
     if (!parsed) return;
     if (parsed.sortField && parsed.sortField in SORT_FIELDS) {
       this.sortField.set(parsed.sortField);

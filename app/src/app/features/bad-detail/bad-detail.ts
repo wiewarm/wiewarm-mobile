@@ -1,17 +1,18 @@
-import { Component, inject, computed } from '@angular/core';
+import type { ResourceRef } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
+import { IconComponent } from '../../shared/layout/icon/icon';
 import { LoadingErrorComponent } from '../../shared/layout/loading-error/loading-error.component';
+import { BadResourceService } from '../../shared/services/bad.service';
 import type {
   BadDetail,
   BadDetailPool,
-} from 'src/app/shared/services/interfaces/bad-detail.interface';
-import { BadResourceService } from 'src/app/shared/services/bad.service';
+} from '../../shared/services/interfaces/bad-detail.interface';
+import type { BadItem } from '../../shared/services/interfaces/bad-item.interface';
+import { FavoriteService } from '../../shared/services/storage/favorite.service';
 import { AddressItemComponent } from './address-item/address-item';
-import { PoolItemComponent } from './pool-item/pool-item';
-import { IconComponent } from 'src/app/shared/layout/icon/icon';
 import { ImgItemComponent } from './img-item/img-item';
-import { FavoriteService } from 'src/app/shared/services/storage/favorite.service';
-import type { BadItem } from 'src/app/shared/services/interfaces/bad-item.interface';
+import { PoolItemComponent } from './pool-item/pool-item';
 
 @Component({
   selector: 'main[app-bad-detail]',
@@ -36,9 +37,9 @@ export class BadDetailComponent {
 
   private readonly detailService = inject(BadResourceService);
   readonly favoriteService = inject(FavoriteService);
-  readonly detailResource = this.detailService.getDetailResource(this.badId);
+  readonly detailResource: ResourceRef<BadDetail | undefined> = this.detailService.getDetailResource(this.badId);
 
-  readonly listResource = this.detailService.getResource();
+  readonly listResource = this.detailService.badResource;
   readonly badItem = computed<BadItem | null>(() =>
     (this.listResource.value() ?? []).find((i) => i.badid_text === this.badId) ?? null
   );

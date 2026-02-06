@@ -1,38 +1,35 @@
-import type { Signal} from '@angular/core';
-import { Injectable, signal, computed, effect } from '@angular/core';
-import type { BadItem } from '../interfaces/bad-item.interface';
+import { inject, Injectable, signal, computed, effect } from '@angular/core';
+import { BadResourceService } from '../bad.service';
 import { StorageService, STORAGE_KEYS } from './storage.service';
+import type { BadItem } from '../interfaces/bad-item.interface';
 
 @Injectable({ providedIn: 'root' })
 export class FavoriteService {
-  private favoriteIds = signal<string[]>([]);
-  private items?: Signal<BadItem[] | null | undefined>;
+  private readonly storage = inject(StorageService);
+  private readonly badService = inject(BadResourceService);
+  private readonly favoriteIds = signal<string[]>([]);
 
-  readonly favoriteItems: Signal<BadItem[]> = computed(() => {
-    const ids = new Set(this.favoriteIds());
-    const list = this.items?.() ?? null;
-    if (!Array.isArray(list) || ids.size === 0) return [];
-    return list.filter((i) => ids.has(String(i.beckenid)));
+  readonly initialLoad = this.initializeFromStorage();
+  readonly persistFavorite = effect(() => {
+    const ids = this.favoriteIds();
+    if (ids.length > 0) {
+      this.storage.write(STORAGE_KEYS.favorites, ids);
+    } else {
+      this.storage.remove(STORAGE_KEYS.favorites);
+    }
   });
 
-  // Backward-compatible single favorite (first match)
-  readonly favoriteItem: Signal<BadItem | null> = computed(() => {
+  readonly favoriteItems = computed(() => {
+    const ids = new Set(this.favoriteIds());
+    const list = this.badService.badResource.value() ?? [];
+    if (ids.size === 0 || list.length === 0) return [];
+    return list.filter((item) => ids.has(String(item.beckenid)));
+  });
+
+  readonly favoriteItem = computed(() => {
     const list = this.favoriteItems();
     return list.length > 0 ? list[0] : null;
   });
-
-  constructor(private readonly storage: StorageService) {
-    this.initializeFromStorage();
-    effect(() => {
-      const ids = this.favoriteIds();
-      if (ids.length > 0) this.storage.write(STORAGE_KEYS.favorites, ids);
-      else this.storage.remove(STORAGE_KEYS.favorites);
-    });
-  }
-
-  connect(items: Signal<BadItem[] | null | undefined>) {
-    this.items = items;
-  }
 
   setFavorite(itemOrId: BadItem | string) {
     const id =
@@ -47,11 +44,12 @@ export class FavoriteService {
   toggleFavorite(item: BadItem) {
     const id = String(item.beckenid);
     this.favoriteIds.update((curr) =>
-      curr.includes(id) ? curr.filter((v) => v !== id) : [...curr, id]
+      curr.includes(id) ? curr.filter((v) => v !== id) : [...curr, id],
     );
   }
 
-  isFavorite(item: BadItem): boolean {
+  isFavorite(item: BadItem | null | undefined): boolean {
+    if (!item) return false;
     return this.favoriteIds().includes(String(item.beckenid));
   }
 
@@ -66,8 +64,7 @@ export class FavoriteService {
 
   private loadCurrentIds(): string[] {
     const stored = this.storage.read<unknown>(STORAGE_KEYS.favorites);
-    if (!Array.isArray(stored)) return [];
-    return stored.map(String);
+    return Array.isArray(stored) ? stored.map(String) : [];
   }
 
   private migrateLegacyId() {

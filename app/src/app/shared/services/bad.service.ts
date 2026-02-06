@@ -1,4 +1,6 @@
-import { Injectable, resource } from '@angular/core';
+import { inject, Injectable, resource } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { lastValueFrom } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import type { BadDetail } from './interfaces/bad-detail.interface';
 import type { BadItem } from './interfaces/bad-item.interface';
@@ -7,21 +9,26 @@ type CacheEntry<T> = { data: T; ts: number };
 
 @Injectable({ providedIn: 'root' })
 export class BadResourceService {
-  private readonly API_BASE = environment.apiBase;
+  private readonly http = inject(HttpClient);
+  private get apiBase() {
+    return environment.apiBase;
+  }
   private readonly TTL_MS = 5 * 60_000; // 5 Minutes, then refetch
 
   private badCache?: CacheEntry<BadItem[]>;
   private readonly detailCache = new Map<string, CacheEntry<BadDetail>>();
 
-  getResource() {
-    return resource<BadItem[], unknown>({
-      loader: ({ abortSignal }) => this.loadList(abortSignal),
-    });
-  }
+  /**
+   * Shared resource for the list of all baths.
+   * Components can use this to avoid redundant fetching.
+   */
+  readonly badResource = resource<BadItem[], unknown>({
+    loader: () => this.loadList(),
+  });
 
   getDetailResource(id: string) {
     return resource<BadDetail, unknown>({
-      loader: ({ abortSignal }) => this.loadDetail(id, abortSignal),
+      loader: () => this.loadDetail(id),
     });
   }
 
@@ -29,46 +36,27 @@ export class BadResourceService {
     return !!entry && Date.now() - entry.ts <= this.TTL_MS;
   }
 
-  private async fetchJson<T>(
-    base: string,
-    path: string,
-    signal?: AbortSignal
-  ): Promise<T> {
-    const res = await fetch(`${base}${path}`, { signal });
-    if (!res.ok) {
-      throw new Error(`HTTP ${res.status} ${res.statusText || ''}`.trim());
-    }
-    return res.json() as Promise<T>;
-  }
-
-  private async loadList(signal?: AbortSignal): Promise<BadItem[]> {
+  private async loadList(): Promise<BadItem[]> {
     if (this.isFresh(this.badCache)) {
       return this.badCache.data;
     }
 
-    const data = await this.fetchJson<BadItem[]>(
-      this.API_BASE,
-      '/temperature/all_current.json/0',
-      signal
+    const data = await lastValueFrom(
+      this.http.get<BadItem[]>(`${this.apiBase}/temperature/all_current.json/0`)
     );
     this.badCache = { data, ts: Date.now() };
     return data;
   }
 
-  private async loadDetail(
-    id: string,
-    signal?: AbortSignal
-  ): Promise<BadDetail> {
+  private async loadDetail(id: string): Promise<BadDetail> {
     const key = String(id);
     const cached = this.detailCache.get(key);
     if (this.isFresh(cached)) {
       return cached.data;
     }
 
-    const data = await this.fetchJson<BadDetail>(
-      this.API_BASE,
-      `/bad/${key}`,
-      signal
+    const data = await lastValueFrom(
+      this.http.get<BadDetail>(`${this.apiBase}/bad/${key}`)
     );
     this.detailCache.set(key, { data, ts: Date.now() });
     return data;

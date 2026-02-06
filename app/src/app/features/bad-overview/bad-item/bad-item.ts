@@ -1,6 +1,7 @@
-﻿import { CdkAccordionModule } from '@angular/cdk/accordion';
+import { CdkAccordionModule } from '@angular/cdk/accordion';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { AfterViewInit, Component, HostBinding, inject, input } from '@angular/core';
+import { Component, HostBinding, inject, input } from '@angular/core';
+import type { AfterViewInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import type { BadItem } from 'src/app/shared/services/interfaces/bad-item.interface';
 import { FavoriteService } from 'src/app/shared/services/storage/favorite.service';
@@ -58,3 +59,4 @@ export class BadItemComponent implements AfterViewInit {
     });
   }
 }
+
