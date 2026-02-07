@@ -29,11 +29,11 @@
   #sortDialog
   [sortField]="sortOption()"
   [sortDirection]="sortDirection()"
-  (setSort)="onSetSort($event)"
+  (setSort)="setSort.emit($event)"
 ></dialog>
 <dialog
   app-filter-dialog
   #filterDialog
   [filterField]="filterOption()"
-  (setFilter)="onSetFilter($event)"
+  (setFilter)="setFilter.emit($event)"
 ></dialog>

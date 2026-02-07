@@ -36,14 +36,7 @@ export class FilterSortControlsComponent {
   readonly setSort = output<{ field: SortField; direction: SortDirection }>();
   readonly setFilter = output<FilterField>();
 
+  // Todo: replace this pseudo-translation
   readonly SORT_FIELDS = SORT_FIELDS;
   readonly FILTER_FIELDS = FILTER_FIELDS;
-
-  onSetSort(event: { field: SortField; direction: SortDirection }) {
-    this.setSort.emit(event);
-  }
-
-  onSetFilter(field: FilterField) {
-    this.setFilter.emit(field);
-  }
 }
