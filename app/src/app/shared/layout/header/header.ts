@@ -22,7 +22,7 @@ import { ThemeService } from '../../services/storage/theme.service';
 })
 export class HeaderComponent implements AfterViewInit {
   protected title = 'wiewarm.ch';
-  protected subtitle = 'dein Badiportal..';
+  protected subtitle = 'dis Badiportau...';
   private readonly themeService = inject(ThemeService);
   private readonly elRef = inject(ElementRef<HTMLElement>);
   private lastScrollY = 0;
