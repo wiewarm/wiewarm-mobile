@@ -2,11 +2,21 @@ import { Directive, ElementRef, inject, input } from '@angular/core';
 
 type DialogTarget = HTMLDialogElement | { open: () => void };
 
+/**
+ * Directive that triggers the opening of a native dialog element when clicked.
+ *
+ * @example
+ * ```html
+ * <button [appDialogTrigger]="myDialog">Open Dialog</button>
+ * <dialog #myDialog>...</dialog>
+ * ```
+ *
+ * @see HTMLDialogElement
+ */
 @Directive({
   selector: 'a[appDialogTrigger],button[appDialogTrigger]',
   host: {
     'attr.aria-haspopup': 'dialog',
-    '[attr.href]': 'isAnchor ? "#" : null',
     '(click)': 'onClick($event)',
   },
 })
@@ -22,13 +32,15 @@ export class DialogTriggerDirective {
     event.preventDefault();
 
     const targetDialog = this.dialog();
-    if (targetDialog instanceof HTMLDialogElement && !targetDialog.open) {
+    if (targetDialog instanceof HTMLDialogElement) {
+      if (targetDialog.open) {
+        // If the dialog is already open, focus it instead of reopening
+        targetDialog.focus();
+        return;
+      }
       targetDialog.showModal();
       return;
     }
-
-    if (!(targetDialog instanceof HTMLDialogElement)) {
-      targetDialog.open();
-    }
+    targetDialog.open();
   }
 }
