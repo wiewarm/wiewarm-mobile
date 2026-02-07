@@ -23,7 +23,7 @@ import {
   },
 })
 export class FilterDialogComponent {
-  private elementRef = inject(ElementRef<HTMLDialogElement>);
+  private readonly elementRef = inject(ElementRef<HTMLDialogElement>);
 
   readonly filterOptions = FILTER_OPTION_LIST;
   readonly filterField = input.required<FilterField>();

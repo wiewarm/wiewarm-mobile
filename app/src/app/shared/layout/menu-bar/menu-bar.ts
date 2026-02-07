@@ -16,7 +16,7 @@ import { RouterLink } from '@angular/router';
 })
 export class MenuBarComponent {
   protected menuOpen = signal(false);
-  private elRef = inject(ElementRef<HTMLElement>);
+  private readonly elementRef = inject(ElementRef<HTMLElement>);
 
   toggleMenu() {
     this.menuOpen.update((open) => !open);
@@ -33,7 +33,7 @@ export class MenuBarComponent {
 
     const target = event.target;
     if (!(target instanceof Node)) return;
-    if (this.elRef.nativeElement.contains(target)) return;
+    if (this.elementRef.nativeElement.contains(target)) return;
 
     this.closeMenu();
   }

@@ -3,13 +3,13 @@
 ></app-loading-error>
 
 <div class="bad-detail">
+  <a routerLink="/" class="back-link" aria-label="Zurück zur Übersicht">
+    <app-icon class="back-icon" symbolId="#arrow_back" />
+    <span class="back-text">zurück</span>
+  </a>
   @let dRes = detailResource.value(); @if (dRes) {
   <div class="detail-hero">
     <app-img-item [detail]="dRes"></app-img-item>
-    <a routerLink="/" class="back-link" aria-label="Zurück zur Übersicht">
-      <app-icon class="back-icon" symbolId="#arrow_back" />
-      <span class="back-text">zurück</span>
-    </a>
     @let bItem = badItem();
     <button
       type="button"

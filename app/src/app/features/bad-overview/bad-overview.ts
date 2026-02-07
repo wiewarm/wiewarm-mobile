@@ -10,7 +10,7 @@ import {
 import { FormsModule } from '@angular/forms';
 import { FilterDialogComponent } from '../../shared/layout/filter-dialog/filter-dialog';
 import { IconComponent } from '../../shared/layout/icon/icon';
-import { LoadingErrorComponent } from '../../shared/layout/loading-error/loading-error.component';
+import { LoadingErrorComponent } from '../../shared/layout/loading-error/loading-error';
 import { SortDialogComponent } from '../../shared/layout/sort-dialog/sort-dialog';
 import { BadResourceService } from '../../shared/services/bad.service';
 import type { BadItem } from '../../shared/services/interfaces/bad-item.interface';
@@ -53,7 +53,8 @@ export class BadOverviewComponent {
   private readonly listPreferences = inject(ListPreferencesService);
   readonly favoriteService = inject(FavoriteService);
 
-  readonly badResource: ResourceRef<BadItem[] | undefined> = this.badService.badResource;
+  readonly badResource: ResourceRef<BadItem[] | undefined> =
+    this.badService.badResource;
   readonly favorites = this.favoriteService.favoriteItems;
 
   readonly searchInput = signal('');
@@ -61,7 +62,7 @@ export class BadOverviewComponent {
   readonly sortField = this.listPreferences.sortField;
   readonly sortDirection = this.listPreferences.sortDirection;
   readonly filterOption = this.listPreferences.filterField;
-  
+
   readonly SORT_FIELDS = SORT_FIELDS;
   readonly FILTER_FIELDS = FILTER_FIELDS;
 
@@ -70,13 +71,21 @@ export class BadOverviewComponent {
     const searchTerm = this.searchInput().toLowerCase();
     const currentFilter = this.filterOption();
 
-    let out: BadItem[] = filterItems<BadItem>(rawItems, searchTerm, ['bad', 'ort', 'becken']);
-    
+    let out: BadItem[] = filterItems<BadItem>(rawItems, searchTerm, [
+      'bad',
+      'ort',
+      'becken',
+    ]);
+
     if (currentFilter === 'aktuell') {
       out = out.filter((item) => isThisYear(item.date || null));
     }
-    
-    return sortItems<BadItem>(out, this.sortField() as keyof BadItem, this.sortDirection());
+
+    return sortItems<BadItem>(
+      out,
+      this.sortField() as keyof BadItem,
+      this.sortDirection(),
+    );
   });
 
   setFilter(option: FilterField) {

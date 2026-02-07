@@ -32,6 +32,14 @@
       height: 2.5rem;
     }
 
+    .brand-copy {
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
+      user-select: none;
+      font-family: $font-family-englebert;
+    }
+
     .app-title {
       margin: 0;
       font-size: $font-size-lg;
@@ -39,8 +47,16 @@
       color: $color-text;
       user-select: none;
     }
-  }
 
+    .app-subtitle {
+      margin: 0;
+      font-size: smaller;
+      font-style: italic;
+      color: $color-text-muted;
+      letter-spacing: 0.02em;
+      line-height: 1;
+    }
+  }
 
   .theme-toggle {
     background: none;
@@ -54,7 +70,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: transform $transition-fast, filter $transition-fast;
+    transition:
+      transform $transition-fast,
+      filter $transition-fast;
 
     &:hover {
       @include hover-icon;

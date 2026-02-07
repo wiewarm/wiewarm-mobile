@@ -7,6 +7,7 @@
   max-width: 150px;
   border-radius: $radius-l;
   border-color: $color-border;
+  animation: dialog-scale-in 180ms ease-out;
 
   background-color: var(--color-bg);
   background-image: url("/assets/img/wav-bg.svg");
@@ -63,5 +64,16 @@
   cursor: pointer;
   &:hover {
     @include hover-icon;
+  }
+}
+
+@keyframes dialog-scale-in {
+  from {
+    transform: translateY(8px) scale(0.98);
+    opacity: 0.94;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
   }
 }

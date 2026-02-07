@@ -3,7 +3,7 @@
     <h1>Aktuelle Temperaturen</h1>
 
     @if (favorites().length) { @for (fav of favorites(); track fav.beckenid) {
-    <app-favorite-item [favorite]="fav"></app-favorite-item>
+    <article app-favorite-item [favorite]="fav"></article>
     } }
 
     <div class="search">
@@ -66,7 +66,7 @@
   ></app-loading-error>
 
   <span class="accordion" cdkAccordion>
-    @for (item of filteredItems(); track item.badid_text; let i = $index) {
+    @for (item of filteredItems(); track item.beckenid; let i = $index) {
       <app-bad-item [item]="item" [index]="i"></app-bad-item>
     }
 

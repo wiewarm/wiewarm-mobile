@@ -2,7 +2,7 @@ import type { ResourceRef } from '@angular/core';
 import { Component, computed, inject } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { IconComponent } from '../../shared/layout/icon/icon';
-import { LoadingErrorComponent } from '../../shared/layout/loading-error/loading-error.component';
+import { LoadingErrorComponent } from '../../shared/layout/loading-error/loading-error';
 import { BadResourceService } from '../../shared/services/bad.service';
 import type {
   BadDetail,

@@ -11,7 +11,10 @@ import { temperatureClass } from 'src/app/shared/util/temperature.util';
   selector: '[temperature]',
 })
 export class TemperatureDirective {
-  temperature = input<number | null, string | number | null | undefined>(null, {
+  readonly temperature = input<
+    number | null,
+    string | number | null | undefined
+  >(null, {
     transform: (v) => (v == null || v === '' ? null : numberAttribute(v)),
   });
 

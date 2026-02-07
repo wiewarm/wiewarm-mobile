@@ -1,4 +1,10 @@
-import { Component, ElementRef, HostBinding, HostListener, inject } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  HostBinding,
+  HostListener,
+  inject,
+} from '@angular/core';
 import type { AfterViewInit } from '@angular/core';
 import { IconComponent } from '../icon/icon';
 import { MenuBarComponent } from '../menu-bar/menu-bar';
@@ -16,6 +22,7 @@ import { ThemeService } from '../../services/storage/theme.service';
 })
 export class HeaderComponent implements AfterViewInit {
   protected title = 'wiewarm.ch';
+  protected subtitle = 'dein Badiportal..';
   private readonly themeService = inject(ThemeService);
   private readonly elRef = inject(ElementRef<HTMLElement>);
   private lastScrollY = 0;
@@ -36,6 +43,11 @@ export class HeaderComponent implements AfterViewInit {
     this.themeService.toggle();
   }
 
+  /**
+   * The component uses a CSS custom property `--app-header-height` to communicate its height to the rest of the application.
+   * The header automatically hides when the user scrolls down more than {@link minDeltaPx} pixels and is not near the top,
+   * and shows when the user scrolls up or is within {@link nearTopPx} pixels from the top.
+   */
   @HostListener('window:resize')
   onResize() {
     this.updateHeaderHeight();
