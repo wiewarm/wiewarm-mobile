@@ -13,6 +13,10 @@ export function isOlderThanOneMonth(dateStr: string | null): boolean {
   return itemDate < oneMonthAgo;
 }
 
+/**
+ * Returns `true` when the input can be parsed and falls within the current calendar year.
+ * Empty or invalid values intentionally return `false`.
+ */
 export function isThisYear(dateStr: string | null): boolean {
   const itemDate = parseDate(dateStr);
   return !!itemDate && itemDate.getFullYear() === new Date().getFullYear();

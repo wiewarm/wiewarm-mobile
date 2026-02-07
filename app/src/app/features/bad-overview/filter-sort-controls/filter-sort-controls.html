@@ -1,0 +1,39 @@
+<div class="filter-sort">
+  <a
+    [appDialogTrigger]="sortDialog"
+    class="sort-link"
+    aria-controls="sort-dialog"
+    aria-label="Sortieroptionen öffnen"
+    ><img
+      [src]="sortDirection() === 'asc' ? 'assets/img/up.png' : 'assets/img/down.png'"
+      aria-hidden="true"
+      alt
+      width="17"
+      height="16"
+    />
+    <span class="sort-text">{{ SORT_FIELDS[sortOption()] }}</span></a
+  >
+  <a
+    [appDialogTrigger]="filterDialog"
+    class="filter-link"
+    aria-controls="filter-dialog"
+    aria-label="Filteroptionen öffnen"
+  >
+    <span class="filter-text">{{ FILTER_FIELDS[filterOption()] }}</span>
+    <app-icon class="gradient-icon" symbolId="#filter_list" />
+  </a>
+</div>
+
+<dialog
+  app-sort-dialog
+  #sortDialog
+  [sortField]="sortOption()"
+  [sortDirection]="sortDirection()"
+  (setSort)="onSetSort($event)"
+></dialog>
+<dialog
+  app-filter-dialog
+  #filterDialog
+  [filterField]="filterOption()"
+  (setFilter)="onSetFilter($event)"
+></dialog>

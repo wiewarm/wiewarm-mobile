@@ -1,0 +1,44 @@
+@use "../../../../assets/styles/variables" as *;
+@use "../../../../assets/styles/mixins" as *;
+
+.filter-sort {
+  @include flex-between;
+  gap: $space-3;
+  padding-bottom: $space-2;
+
+  .sort-link,
+  .filter-link {
+    display: inline-flex;
+    align-items: center;
+    width: auto;
+    cursor: pointer;
+    text-decoration: wavy underline;
+    text-underline-offset: $text-underline-offset;
+  }
+
+  .sort-link {
+    color: $color-primary-light;
+    order: 1;
+    padding-left: $space-2;
+
+    .sort-text {
+      padding-left: $space-2;
+      @include gradient-text($color-primary-dark, $color-primary-light);
+    }
+  }
+
+  .filter-link {
+    color: $color-secondary-light;
+    order: 2;
+
+    .filter-text {
+      padding-right: $space-2;
+      @include gradient-text($color-secondary, $color-secondary-light);
+    }
+  }
+
+  .gradient-icon {
+    font-size: $font-size-lg;
+    color: $color-secondary;
+  }
+}

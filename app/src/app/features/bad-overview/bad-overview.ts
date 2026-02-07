@@ -8,25 +8,17 @@ import {
   signal,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { FilterDialogComponent } from '../../shared/layout/filter-dialog/filter-dialog';
-import { IconComponent } from '../../shared/layout/icon/icon';
+
 import { LoadingErrorComponent } from '../../shared/layout/loading-error/loading-error';
-import { SortDialogComponent } from '../../shared/layout/sort-dialog/sort-dialog';
-import { DialogTriggerDirective } from '../../shared/directives/dialog-trigger';
 import { BadResourceService } from '../../shared/services/bad.service';
 import type { BadItem } from '../../shared/services/interfaces/bad-item.interface';
 import { FavoriteService } from '../../shared/services/storage/favorite.service';
 import { ListPreferencesService } from '../../shared/services/storage/list-preferences.service';
-import type {
-  SortDirection,
-  SortField,
-} from '../../shared/util/constants/sort-options';
-import { SORT_FIELDS } from '../../shared/util/constants/sort-options';
 import { isThisYear } from '../../shared/util/date.util';
 import { filterItems, sortItems } from '../../shared/util/list.util';
-import type { FilterField } from './../../shared/util/constants/filter-options';
-import { FILTER_FIELDS } from './../../shared/util/constants/filter-options';
+
 import { BadItemComponent } from './bad-item/bad-item';
+import { FilterSortControlsComponent } from './filter-sort-controls/filter-sort-controls';
 import { FavoriteItemComponent } from './favorite-item/favorite-item';
 
 @Component({
@@ -37,22 +29,16 @@ import { FavoriteItemComponent } from './favorite-item/favorite-item';
   imports: [
     FormsModule,
     CdkAccordionModule,
-    SortDialogComponent,
-    FilterDialogComponent,
     BadItemComponent,
+    FilterSortControlsComponent,
     FavoriteItemComponent,
     LoadingErrorComponent,
-    IconComponent,
-    DialogTriggerDirective,
   ],
-  host: {
-    role: 'main', // a11y
-    class: 'bad-overview',
-  },
+  host: { role: 'main', class: 'bad-overview' },
 })
 export class BadOverviewComponent {
   private readonly badService = inject(BadResourceService);
-  private readonly listPreferences = inject(ListPreferencesService);
+  readonly listPreferences = inject(ListPreferencesService);
   readonly favoriteService = inject(FavoriteService);
 
   readonly badResource: ResourceRef<BadItem[] | undefined> =
@@ -61,40 +47,35 @@ export class BadOverviewComponent {
 
   readonly searchInput = signal('');
 
-  readonly sortOption = this.listPreferences.sortField;
-  readonly sortDirection = this.listPreferences.sortDirection;
-  readonly filterOption = this.listPreferences.filterField;
+  // 1) Normalize source
+  private readonly items = computed<BadItem[]>(
+    () => this.badResource.value() ?? [],
+  );
 
-  readonly SORT_FIELDS = SORT_FIELDS;
-  readonly FILTER_FIELDS = FILTER_FIELDS;
+  // 2) Normalize search term
+  private readonly searchTerm = computed(() =>
+    this.searchInput().trim().toLowerCase(),
+  );
 
-  readonly filteredItems = computed(() => {
-    const rawItems: BadItem[] = this.badResource.value() ?? [];
-    const searchTerm = this.searchInput().toLowerCase();
-    const currentFilter = this.filterOption();
+  // 3) Textfilter for Bad, Ort, Becken..
+  private readonly textFiltered = computed(() =>
+    filterItems(this.items(), this.searchTerm(), ['bad', 'ort', 'becken']),
+  );
 
-    let out: BadItem[] = filterItems<BadItem>(rawItems, searchTerm, [
-      'bad',
-      'ort',
-      'becken',
-    ]);
-
-    if (currentFilter === 'aktuell') {
-      out = out.filter((item) => isThisYear(item.date || null));
-    }
-
-    return sortItems<BadItem>(
-      out,
-      this.sortOption() as keyof BadItem,
-      this.sortDirection(),
-    );
+  // 4) Custom filter (Fresh data, "nur aktuell")
+  private readonly freshDataFiltered = computed(() => {
+    const list = this.textFiltered();
+    return this.listPreferences.filterField() === 'aktuell'
+      ? list.filter((item) => isThisYear(item.date ?? null))
+      : list;
   });
 
-  setFilter(option: FilterField) {
-    this.listPreferences.setFilter(option);
-  }
-
-  setSort(field: SortField, direction: SortDirection = 'asc') {
-    this.listPreferences.setSort(field, direction);
-  }
+  // 5) Sortieren (renders the list)
+  readonly filteredItems = computed(() =>
+    sortItems(
+      this.freshDataFiltered(),
+      this.listPreferences.sortField() as keyof BadItem,
+      this.listPreferences.sortDirection(),
+    ),
+  );
 }

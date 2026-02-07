@@ -16,46 +16,14 @@
       />
     </div>
 
-    <div class="filter-sort">
-      <a
-        [appDialogTrigger]="sortDialog"
-        class="sort-link"
-        aria-controls="sort-dialog"
-        aria-label="Sortieroptionen öffnen"
-        ><img
-          [attr.src]="sortDirection() === 'asc' ? 'assets/img/up.png' : 'assets/img/down.png'"
-          aria-hidden="true"
-          alt
-          width="17"
-          height="16"
-        />
-        <span class="sort-text">{{ SORT_FIELDS[sortOption()] }}</span></a
-      >
-      <a
-        [appDialogTrigger]="filterDialog"
-        class="filter-link"
-        aria-controls="filter-dialog"
-        aria-label="Filteroptionen öffnen"
-      >
-        <span class="filter-text">{{ FILTER_FIELDS[filterOption()] }}</span>
-        <app-icon class="gradient-icon" symbolId="#filter_list" />
-      </a>
-    </div>
+    <app-filter-sort-controls
+      [sortOption]="this.listPreferences.sortField()"
+      [sortDirection]="this.listPreferences.sortDirection()"
+      [filterOption]="this.listPreferences.filterField()"
+      (setSort)="this.listPreferences.setSort($event.field, $event.direction)"
+      (setFilter)="this.listPreferences.setFilter($event)"
+    ></app-filter-sort-controls>
   </div>
-
-  <dialog
-    app-sort-dialog
-    #sortDialog
-    [sortField]="sortOption()"
-    [sortDirection]="sortDirection()"
-    (setSort)="setSort($event.field, $event.direction)"
-  ></dialog>
-  <dialog
-    app-filter-dialog
-    #filterDialog
-    [filterField]="filterOption()"
-    (setFilter)="setFilter($event)"
-  ></dialog>
 
   <app-loading-error
     [state]="badResource.isLoading() ? 'loading':badResource.error() ? 'error' : 'idle' "
