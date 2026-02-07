@@ -1,3 +1,4 @@
+// Todo: replace this pseudo-translation
 export const SORT_FIELDS = {
   kanton: 'Kanton',
   ort: 'Ort',

@@ -1,24 +1,14 @@
-import {
-  Component,
-  ElementRef,
-  inject,
-  input,
-  output,
-} from '@angular/core';
+import { Component, ElementRef, inject, input, output } from '@angular/core';
 import type { FilterField } from '../../util/constants/filter-options';
-import {
-  FILTER_OPTION_LIST
-} from '../../util/constants/filter-options';
+import { FILTER_OPTION_LIST } from '../../util/constants/filter-options';
 
 @Component({
   selector: 'dialog[app-filter-dialog]',
   templateUrl: './filter-dialog.html',
   styleUrl: './filter-dialog.scss',
   host: {
-    role: 'dialog',
     'aria-modal': 'true',
     'aria-labelledby': 'filter-dialog-title',
-    tabindex: '-1',
   },
 })
 export class FilterDialogComponent {

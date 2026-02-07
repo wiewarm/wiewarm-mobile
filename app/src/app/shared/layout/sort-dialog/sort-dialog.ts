@@ -1,26 +1,17 @@
-import {
-  Component,
-  ElementRef,
-  inject,
-  input,
-  output,
-} from '@angular/core';
+import { Component, ElementRef, inject, input, output } from '@angular/core';
 import type {
   SortDirection,
-  SortField} from '../../util/constants/sort-options';
-import {
-  SORT_OPTION_LIST
+  SortField,
 } from '../../util/constants/sort-options';
+import { SORT_OPTION_LIST } from '../../util/constants/sort-options';
 
 @Component({
   selector: 'dialog[app-sort-dialog]',
   templateUrl: './sort-dialog.html',
   styleUrl: './sort-dialog.scss',
   host: {
-    role: 'dialog',
     'aria-modal': 'true',
     'aria-labelledby': 'sort-dialog-title',
-    tabindex: '-1',
   },
 })
 export class SortDialogComponent {
