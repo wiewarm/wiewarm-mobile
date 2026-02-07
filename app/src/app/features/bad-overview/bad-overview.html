@@ -29,7 +29,7 @@
           width="17"
           height="16"
         />
-        <span class="sort-text">{{ SORT_FIELDS[sortField()] }}</span></a
+        <span class="sort-text">{{ SORT_FIELDS[sortOption()] }}</span></a
       >
       <a
         [appDialogTrigger]="filterDialog"
@@ -46,7 +46,7 @@
   <dialog
     app-sort-dialog
     #sortDialog
-    [sortField]="sortField()"
+    [sortField]="sortOption()"
     [sortDirection]="sortDirection()"
     (setSort)="setSort($event.field, $event.direction)"
   ></dialog>
@@ -63,10 +63,8 @@
 
   <span class="accordion" cdkAccordion>
     @for (item of filteredItems(); track item.beckenid; let i = $index) {
-      <app-bad-item [item]="item" [index]="i"></app-bad-item>
-    }
-
-    @if ( !badResource.isLoading() && !badResource.error() &&
+    <app-bad-item [item]="item" [index]="i"></app-bad-item>
+    } @if ( !badResource.isLoading() && !badResource.error() &&
     filteredItems().length === 0 ) {
     <div class="status" role="status">
       <span aria-hidden="true">😕</span>

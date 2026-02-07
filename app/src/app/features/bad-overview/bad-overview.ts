@@ -61,7 +61,7 @@ export class BadOverviewComponent {
 
   readonly searchInput = signal('');
 
-  readonly sortField = this.listPreferences.sortField;
+  readonly sortOption = this.listPreferences.sortField;
   readonly sortDirection = this.listPreferences.sortDirection;
   readonly filterOption = this.listPreferences.filterField;
 
@@ -85,7 +85,7 @@ export class BadOverviewComponent {
 
     return sortItems<BadItem>(
       out,
-      this.sortField() as keyof BadItem,
+      this.sortOption() as keyof BadItem,
       this.sortDirection(),
     );
   });
