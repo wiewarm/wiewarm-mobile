@@ -61,7 +61,7 @@
     [state]="badResource.isLoading() ? 'loading':badResource.error() ? 'error' : 'idle' "
   ></app-loading-error>
 
-  <span class="accordion" cdkAccordion>
+  <div class="accordion" cdkAccordion>
     @for (item of filteredItems(); track item.beckenid; let i = $index) {
     <app-bad-item [item]="item" [index]="i"></app-bad-item>
     } @if ( !badResource.isLoading() && !badResource.error() &&
@@ -71,5 +71,5 @@
       <p>Keine Resultate gefunden.</p>
     </div>
     }
-  </span>
+  </div>
 </div>
