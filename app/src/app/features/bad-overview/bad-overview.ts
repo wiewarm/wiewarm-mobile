@@ -12,6 +12,7 @@ import { FilterDialogComponent } from '../../shared/layout/filter-dialog/filter-
 import { IconComponent } from '../../shared/layout/icon/icon';
 import { LoadingErrorComponent } from '../../shared/layout/loading-error/loading-error';
 import { SortDialogComponent } from '../../shared/layout/sort-dialog/sort-dialog';
+import { DialogTriggerDirective } from '../../shared/directives/dialog-trigger';
 import { BadResourceService } from '../../shared/services/bad.service';
 import type { BadItem } from '../../shared/services/interfaces/bad-item.interface';
 import { FavoriteService } from '../../shared/services/storage/favorite.service';
@@ -42,6 +43,7 @@ import { FavoriteItemComponent } from './favorite-item/favorite-item';
     FavoriteItemComponent,
     LoadingErrorComponent,
     IconComponent,
+    DialogTriggerDirective,
   ],
   host: {
     role: 'main', // a11y

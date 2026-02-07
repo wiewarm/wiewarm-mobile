@@ -21,11 +21,10 @@ import {
     'aria-modal': 'true',
     'aria-labelledby': 'sort-dialog-title',
     tabindex: '-1',
-    class: 'sort-dialog',
   },
 })
 export class SortDialogComponent {
-  private elementRef = inject(ElementRef<HTMLDialogElement>);
+  private readonly elementRef = inject(ElementRef<HTMLDialogElement>);
 
   readonly sortOptions = SORT_OPTION_LIST;
   readonly sortField = input.required<SortField>();

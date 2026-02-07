@@ -19,7 +19,6 @@ import {
     'aria-modal': 'true',
     'aria-labelledby': 'filter-dialog-title',
     tabindex: '-1',
-    class: 'filter-dialog',
   },
 })
 export class FilterDialogComponent {

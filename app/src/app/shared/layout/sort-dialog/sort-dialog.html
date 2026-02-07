@@ -1,43 +1,42 @@
-<div class="sort-dialog-content">
-  <h1 id="sort-dialog-title" class="sort-dialog-title">Sortieren nach:</h1>
-  <ul>
-    @for (option of sortOptions; track option.field + option.direction) {
-    <li>
-      <a
-        href="#"
-        role="option"
-        class="sort-link"
-        [attr.aria-selected]="
+<h1 id="sort-dialog-title" class="sort-dialog-title">Sortieren nach:</h1>
+<button class="close-button" (click)="close()" aria-label="Schliessen">
+  <span aria-hidden="true">❌</span>
+</button>
+<ul>
+  @for (option of sortOptions; track option.field + option.direction) {
+  <li>
+    <a
+      href="#"
+      role="option"
+      class="sort-link"
+      [attr.aria-selected]="
               sortField() === option.field && sortDirection() === option.direction
             "
-        (click)="applySort(option.field, option.direction); $event.preventDefault();"
-      >
-        <img
-          class="no-underline"
-          aria-hidden="true"
-          [attr.src]="option.icon"
-          alt
-          width="19"
-          height="16"
-        />&nbsp;
-        <span
-          class="no-underline"
-          [class.is-selected]="
+      (click)="applySort(option.field, option.direction); $event.preventDefault();"
+    >
+      <img
+        class="no-underline"
+        aria-hidden="true"
+        [attr.src]="option.icon"
+        alt
+        width="19"
+        height="16"
+      />&nbsp;
+      <span
+        class="no-underline"
+        [class.is-selected]="
             sortField() === option.field &&
             sortDirection() === option.direction
           "
-        >
-          {{ option.label }}
-        </span>
-        @if( sortField() === option.field && sortDirection() ===
-        option.direction ) {
-        <span>✓</span>
-        }
-      </a>
-    </li>
-    }
-  </ul>
-  <button class="close-button" (click)="close()" aria-label="Schliessen">
-    <span aria-hidden="true">❌</span>
-  </button>
-</div>
+      >
+        {{ option.label }}
+      </span>
+      @if( sortField() === option.field && sortDirection() === option.direction
+      ) {
+      <span>✓</span>
+      }
+    </a>
+  </li>
+  }
+</ul>
+

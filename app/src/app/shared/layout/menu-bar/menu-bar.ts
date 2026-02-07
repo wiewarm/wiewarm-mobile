@@ -7,12 +7,13 @@ import {
 } from '@angular/core';
 import { IconComponent } from '../icon/icon';
 import { RouterLink } from '@angular/router';
+import { ExternalLinkDirective } from '../../directives/external-link';
 
 @Component({
   selector: 'app-menu-bar',
   templateUrl: './menu-bar.html',
   styleUrls: ['./menu-bar.scss'],
-  imports: [IconComponent, RouterLink],
+  imports: [IconComponent, RouterLink, ExternalLinkDirective],
 })
 export class MenuBarComponent {
   protected menuOpen = signal(false);

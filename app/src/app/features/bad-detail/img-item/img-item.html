@@ -1,4 +1,4 @@
-@let images = detail().bilder ?? [];
+@defer (on viewport) { @let images = detail().bilder ?? [];
 <section class="img-carousel" aria-label="Bildergalerie">
   @if (images.length > 0) {
   <owl-carousel-o
@@ -22,3 +22,8 @@
   <div class="img-empty">Keine Bilder verfügbar.</div>
   }
 </section>
+} @placeholder {
+<section class="img-carousel" aria-label="Bildergalerie">
+  <div class="img-empty">Bilder werden geladen…</div>
+</section>
+}

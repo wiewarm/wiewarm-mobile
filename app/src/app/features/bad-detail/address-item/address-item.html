@@ -5,10 +5,9 @@
       <app-icon class="location-icon" symbolId="#location"></app-icon>Adresse:
     </div>
     <a
+      appExternalLink
       class="address-text"
       [href]="mapUrl(detail())"
-      target="_blank"
-      rel="noopener noreferrer"
       aria-label="Adresse in Google Maps öffnen"
     >
       <p>
@@ -48,9 +47,8 @@
         </dt>
         <dd class="contact-content">
           <a
+            appExternalLink
             [attr.href]="detail().www"
-            target="_blank"
-            rel="noopener noreferrer"
             >Link</a
           >
         </dd>

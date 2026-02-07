@@ -1,27 +1,25 @@
-<div class="filter-dialog-content">
-  <h1 id="filter-dialog-title" class="filter-dialog-title">Filtern:</h1>
-  <ul>
-    @for (option of filterOptions; track option.value) {
-    <li>
-      <a
-        href="#"
-        role="option"
-        class="filter-link"
-        [attr.aria-selected]="filterField() === option.value"
-        (click)="applyFilter(option.value); $event.preventDefault();"
+<h1 id="filter-dialog-title" class="filter-dialog-title">Filtern:</h1>
+<button class="close-button" (click)="close()" aria-label="Schliessen">
+  <span aria-hidden="true">❌</span>
+</button>
+<ul>
+  @for (option of filterOptions; track option.value) {
+  <li>
+    <a
+      href="#"
+      role="option"
+      class="filter-link"
+      [attr.aria-selected]="filterField() === option.value"
+      (click)="applyFilter(option.value); $event.preventDefault();"
+    >
+      <span
+        class="no-underline"
+        [class.is-selected]="filterField() === option.value"
       >
-        <span
-          class="no-underline"
-          [class.is-selected]="filterField() === option.value"
-        >
-          {{ option.label }}
-        </span>
-        @if(filterField() === option.value) { <span>✓</span> }
-      </a>
-    </li>
-    }
-  </ul>
-  <button class="close-button" (click)="close()" aria-label="Schliessen">
-    <span aria-hidden="true">❌</span>
-  </button>
-</div>
+        {{ option.label }}
+      </span>
+      @if(filterField() === option.value) { <span>✓</span> }
+    </a>
+  </li>
+  }
+</ul>

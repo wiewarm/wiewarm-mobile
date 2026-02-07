@@ -18,12 +18,10 @@
 
     <div class="filter-sort">
       <a
-        href="#"
+        [appDialogTrigger]="sortDialog"
         class="sort-link"
-        aria-haspopup="dialog"
         aria-controls="sort-dialog"
         aria-label="Sortieroptionen öffnen"
-        (click)="$event.preventDefault(); sortDialog.open();"
         ><img
           [attr.src]="sortDirection() === 'asc' ? 'assets/img/up.png' : 'assets/img/down.png'"
           aria-hidden="true"
@@ -34,12 +32,10 @@
         <span class="sort-text">{{ SORT_FIELDS[sortField()] }}</span></a
       >
       <a
-        href="#"
+        [appDialogTrigger]="filterDialog"
         class="filter-link"
-        aria-haspopup="dialog"
         aria-controls="filter-dialog"
         aria-label="Filteroptionen öffnen"
-        (click)="$event.preventDefault(); filterDialog.open();"
       >
         <span class="filter-text">{{ FILTER_FIELDS[filterOption()] }}</span>
         <app-icon class="gradient-icon" symbolId="#filter_list" />

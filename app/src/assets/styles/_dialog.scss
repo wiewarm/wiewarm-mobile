@@ -54,7 +54,7 @@
   padding-bottom: $space-2;
 }
 
-@mixin close-button {
+@mixin dialog-close-button {
   position: absolute;
   top: 0.75rem;
   right: 0.5rem;
