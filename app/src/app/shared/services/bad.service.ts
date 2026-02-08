@@ -4,8 +4,7 @@ import { lastValueFrom } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import type { BadDetail } from './interfaces/bad-detail.interface';
 import type { BadItem } from './interfaces/bad-item.interface';
-
-type CacheEntry<T> = { data: T; ts: number };
+import { CacheEntry, isCacheEntryFresh } from '../util/cache.util';
 
 @Injectable({ providedIn: 'root' })
 export class BadResourceService {
@@ -13,7 +12,6 @@ export class BadResourceService {
   private get apiBase() {
     return environment.apiBase;
   }
-  private readonly TTL_MS = 5 * 60_000; // 5 Minutes, then refetch
 
   private badCache?: CacheEntry<BadItem[]>;
   private readonly detailCache = new Map<string, CacheEntry<BadDetail>>();
@@ -22,43 +20,55 @@ export class BadResourceService {
    * Shared resource for the list of all baths.
    * Components can use this to avoid redundant fetching.
    */
-  readonly badResource = resource<BadItem[], unknown>({
+  readonly badResource = resource<BadItem[], Error>({
     loader: () => this.loadList(),
   });
 
   getDetailResource(id: string) {
-    return resource<BadDetail, unknown>({
+    return resource<BadDetail, Error>({
       loader: () => this.loadDetail(id),
     });
   }
 
-  private isFresh<T>(entry?: CacheEntry<T>): entry is CacheEntry<T> {
-    return !!entry && Date.now() - entry.ts <= this.TTL_MS;
-  }
-
   private async loadList(): Promise<BadItem[]> {
-    if (this.isFresh(this.badCache)) {
+    if (isCacheEntryFresh(this.badCache)) {
       return this.badCache.data;
     }
 
-    const data = await lastValueFrom(
-      this.http.get<BadItem[]>(`${this.apiBase}/temperature/all_current.json/0`)
-    );
-    this.badCache = { data, ts: Date.now() };
-    return data;
+    try {
+      const data = await lastValueFrom(
+        this.http.get<BadItem[]>(`${this.apiBase}/temperature/all_current.json/0`)
+      );
+      this.badCache = { data, ts: Date.now() };
+      return data;
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        throw error;
+      }
+
+      throw new Error('Failed to load bad list', { cause: error });
+    }
   }
 
   private async loadDetail(id: string): Promise<BadDetail> {
     const key = String(id);
     const cached = this.detailCache.get(key);
-    if (this.isFresh(cached)) {
+    if (isCacheEntryFresh(cached)) {
       return cached.data;
     }
 
-    const data = await lastValueFrom(
-      this.http.get<BadDetail>(`${this.apiBase}/bad/${key}`)
-    );
-    this.detailCache.set(key, { data, ts: Date.now() });
-    return data;
+    try {
+      const data = await lastValueFrom(
+        this.http.get<BadDetail>(`${this.apiBase}/bad/${key}`)
+      );
+      this.detailCache.set(key, { data, ts: Date.now() });
+      return data;
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        throw error;
+      }
+
+      throw new Error(`Failed to load bad detail for id ${key}`, { cause: error });
+    }
   }
 }
