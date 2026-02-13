@@ -1,8 +1,14 @@
 # Multi-stage build for Angular application
-FROM --platform=$BUILDPLATFORM node:22-alpine AS builder
+FROM --platform=$BUILDPLATFORM node:22-bookworm-slim AS builder
 
 # Set working directory
 WORKDIR /app
+
+# Chrome for Karma headless tests in CI/container
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends chromium \
+  && rm -rf /var/lib/apt/lists/*
+ENV CHROME_BIN=/usr/bin/chromium
 
 # Copy package files
 COPY app/package*.json ./
@@ -13,8 +19,10 @@ RUN npm ci --no-audit --no-fund
 # Copy source code
 COPY app/ ./
 
-# Enforce Lint, Test & Build the application
-RUN npm run lint && npm run test -- --watch=false && npm run build
+# Enforce lint, test and build (fail fast with clear step output)
+RUN npm run lint
+RUN npm run test -- --watch=false --browsers=ChromeHeadless --no-progress
+RUN npm run build
 
 # Production stage with Node.js
 FROM node:22-alpine
