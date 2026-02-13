@@ -3,8 +3,15 @@
 
 .filter-sort {
   @include flex-between;
-  gap: $space-3;
-  padding-bottom: $space-2;
+
+  .sort-icon {
+    color: $color-secondary;
+    border-bottom: 2px solid transparent;
+    padding-bottom: 0.1em;
+    &:hover {
+      border-bottom: 2px solid currentColor;
+    }
+  }
 
   .sort-link,
   .filter-link {
@@ -12,33 +19,89 @@
     align-items: center;
     width: auto;
     cursor: pointer;
-    text-decoration: wavy underline;
-    text-underline-offset: $text-underline-offset;
   }
 
-  .sort-link {
+  .sort-button {
+    cursor: pointer;
     color: $color-primary-light;
     order: 1;
-    padding-left: $space-2;
-
-    .sort-text {
-      padding-left: $space-2;
-      @include gradient-text($color-primary-dark, $color-primary-light);
-    }
+    border: none;
+    background: none;
+    font-size: larger;
   }
 
-  .filter-link {
-    color: $color-secondary-light;
-    order: 2;
+  .filter-toggle {
+    position: relative;
+    display: inline-flex;
+    align-items: stretch;
+    justify-content: stretch;
+    height: var(--controls-height, 2.25rem);
+    padding: 0.2rem;
+    border: 2px solid $color-border;
+    border-radius: 999px;
+    background: linear-gradient(180deg, $color-surface, $color-surface-alt);
+    box-sizing: border-box;
+    cursor: pointer;
+    @include haptic-click(0.02rem, 0.98, 90ms);
 
-    .filter-text {
-      padding-right: $space-2;
-      @include gradient-text($color-secondary, $color-secondary-light);
+    .filter-track {
+      box-shadow: $shadow-sm;
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      border-radius: 999px;
+      background: linear-gradient(180deg, $color-surface-alt, $color-surface);
+    }
+
+    .filter-thumb {
+      position: absolute;
+      top: 0.1rem;
+      bottom: 0.1rem;
+      left: 0.1rem;
+      width: calc(50% - 0.1rem);
+      border-radius: 999px;
+      background: $color-secondary-light;
+      pointer-events: none;
+    }
+
+    .filter-label {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 0 $space-2;
+      font-family: $font-family-englebert;
+      font-weight: $font-weight-bold;
+      line-height: 1;
+      transition: color $transition-fast;
+      color: $color-text-muted;
+      &:hover {
+        text-decoration: underline;
+        text-decoration-thickness: 2px;
+        text-underline-offset: $text-underline-offset;
+      }
+    }
+
+    &.is-all {
+      .filter-label-all {
+        color: $color-surface;
+      }
+    }
+
+    &.is-aktuell {
+      .filter-thumb {
+        transform: translateX(100%);
+      }
+
+      .filter-label-aktuell {
+        color: $color-surface;
+      }
     }
   }
 
   .gradient-icon {
     font-size: $font-size-lg;
-    color: $color-secondary;
   }
 }

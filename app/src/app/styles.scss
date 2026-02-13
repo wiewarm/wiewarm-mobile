@@ -83,6 +83,12 @@ h1 {
   margin-bottom: $space-3;
 }
 
+h2 {
+  font-size: $font-size-lg;
+  font-family: $font-family-englebert;
+  font-weight: $font-weight-bold;
+}
+
 // Status
 .status {
   display: flex;

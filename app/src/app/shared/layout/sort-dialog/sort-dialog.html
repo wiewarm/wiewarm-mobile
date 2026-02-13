@@ -1,7 +1,5 @@
-<h1 id="sort-dialog-title" class="sort-dialog-title">Sortieren nach:</h1>
-<button class="close-button" (click)="close()" aria-label="Schliessen">
-  <span aria-hidden="true">❌</span>
-</button>
+﻿<h1 id="sort-dialog-title" class="sort-dialog-title">Sortieren nach:</h1>
+<app-close-button (closed)="close()" />
 <ul>
   @for (option of sortOptions; track option.field + option.direction) {
   <li>
@@ -19,8 +17,8 @@
         aria-hidden="true"
         [attr.src]="option.icon"
         alt
-        width="19"
-        height="16"
+        width="16"
+        height="14"
       />&nbsp;
       <span
         class="no-underline"
@@ -33,10 +31,9 @@
       </span>
       @if( sortField() === option.field && sortDirection() === option.direction
       ) {
-      <span>✓</span>
+      <span>&#10003;</span>
       }
     </a>
   </li>
   }
 </ul>
-

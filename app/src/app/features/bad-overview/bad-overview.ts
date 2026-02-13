@@ -4,8 +4,10 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  ElementRef,
   inject,
   signal,
+  viewChild,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
@@ -46,6 +48,8 @@ export class BadOverviewComponent {
   readonly favorites = this.favoriteService.favoriteItems;
 
   readonly searchInput = signal('');
+  readonly searchOpen = signal(false);
+  private readonly searchField = viewChild<ElementRef<HTMLInputElement>>('searchField');
 
   // 1) Normalize source
   private readonly items = computed<BadItem[]>(
@@ -78,4 +82,20 @@ export class BadOverviewComponent {
       this.listPreferences.sortDirection(),
     ),
   );
+
+  toggleSearch() {
+    if (this.searchOpen() && !this.searchInput().trim()) {
+      this.searchOpen.set(false);
+      return;
+    }
+
+    this.searchOpen.set(true);
+    requestAnimationFrame(() => this.searchField()?.nativeElement.focus());
+  }
+
+  onSearchBlur() {
+    if (!this.searchInput().trim()) {
+      this.searchOpen.set(false);
+    }
+  }
 }

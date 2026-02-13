@@ -7,20 +7,22 @@
 }
 
 .menu-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   background: none;
   border: none;
   font-size: $font-size-lg;
   color: $color-text;
   cursor: pointer;
-  border-radius: $radius-sm;
-  height: 2.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   padding-inline-start: 0;
-
+  padding-inline-end: 0;
+  padding-bottom: 0.1em;
+  
+  border-bottom: 2px solid transparent;
   &:hover {
-    @include hover-icon;
+    border-bottom: 2px solid currentColor;
   }
 }
 

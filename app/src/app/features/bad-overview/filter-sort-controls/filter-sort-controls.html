@@ -1,27 +1,38 @@
 <div class="filter-sort">
-  <a
+  <button
+    type="button"
+    class="filter-toggle"
+    role="switch"
+    [class.is-aktuell]="filterOption() === 'aktuell'"
+    [class.is-all]="filterOption() === 'all'"
+    [attr.aria-label]="
+      filterOption() === 'aktuell'
+        ? 'Auf Alle umschalten'
+        : 'Auf Aktuelle umschalten'
+    "
+    [attr.aria-checked]="filterOption() === 'aktuell'"
+    (click)="toggle()"
+    (keydown.enter)="toggle()"
+  >
+    <span class="filter-track">
+      <span class="filter-thumb" aria-hidden="true"></span>
+      <span class="filter-label filter-label-all"
+        >{{ FILTER_FIELDS['all'] }}</span
+      >
+      <span class="filter-label filter-label-aktuell"
+        >{{ FILTER_FIELDS['aktuell'] }}</span
+      >
+    </span>
+  </button>
+  <button
+    type="button"
     [appDialogTrigger]="sortDialog"
-    class="sort-link"
+    class="sort-button"
     aria-controls="sort-dialog"
-    aria-label="Sortieroptionen öffnen"
-    ><img
-      [src]="sortDirection() === 'asc' ? 'assets/img/up.png' : 'assets/img/down.png'"
-      aria-hidden="true"
-      alt
-      width="17"
-      height="16"
-    />
-    <span class="sort-text">{{ SORT_FIELDS[sortOption()] }}</span></a
+    aria-label="Sortieroptionen oeffnen"
   >
-  <a
-    [appDialogTrigger]="filterDialog"
-    class="filter-link"
-    aria-controls="filter-dialog"
-    aria-label="Filteroptionen öffnen"
-  >
-    <span class="filter-text">{{ FILTER_FIELDS[filterOption()] }}</span>
-    <app-icon class="gradient-icon" symbolId="#filter_list" />
-  </a>
+    <app-icon class="sort-icon" symbolId="#updown"></app-icon>
+  </button>
 </div>
 
 <dialog
@@ -30,10 +41,4 @@
   [sortField]="sortOption()"
   [sortDirection]="sortDirection()"
   (setSort)="setSort.emit($event)"
-></dialog>
-<dialog
-  app-filter-dialog
-  #filterDialog
-  [filterField]="filterOption()"
-  (setFilter)="setFilter.emit($event)"
 ></dialog>
