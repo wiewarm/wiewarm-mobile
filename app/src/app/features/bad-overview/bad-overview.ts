@@ -1,10 +1,9 @@
 import { CdkAccordionModule } from '@angular/cdk/accordion';
-import type { ResourceRef } from '@angular/core';
+import type { ElementRef, ResourceRef } from '@angular/core';
 import {
   ChangeDetectionStrategy,
   Component,
   computed,
-  ElementRef,
   inject,
   signal,
   viewChild,
