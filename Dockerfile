@@ -13,8 +13,8 @@ RUN npm ci --no-audit --no-fund
 # Copy source code
 COPY app/ ./
 
-# Build the application
-RUN npm run build
+# Enforce Lint, Test & Build the application
+RUN npm run lint && npm run test -- --watch=false && npm run build
 
 # Production stage with Node.js
 FROM node:22-alpine
