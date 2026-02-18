@@ -48,39 +48,31 @@ export class BadOverviewComponent {
 
   readonly searchInput = signal('');
   readonly searchOpen = signal(false);
-  private readonly searchField = viewChild<ElementRef<HTMLInputElement>>('searchField');
+  private readonly searchField =
+    viewChild<ElementRef<HTMLInputElement>>('searchField');
 
-  // 1) Normalize source
-  private readonly items = computed<BadItem[]>(
-    () => this.badResource.value() ?? [],
-  );
+  readonly filteredItems = computed(() => {
+    // Normalize source
+    const items = this.badResource.value() ?? [];
 
-  // 2) Normalize search term
-  private readonly searchTerm = computed(() =>
-    this.searchInput().trim().toLowerCase(),
-  );
+    // Normalize search term
+    const term = this.searchInput().trim().toLowerCase();
 
-  // 3) Textfilter for Bad, Ort, Becken..
-  private readonly textFiltered = computed(() =>
-    filterItems(this.items(), this.searchTerm(), ['bad', 'ort', 'becken']),
-  );
+    // Textfilter for Bad, Ort, Becken..
+    let list = filterItems(items, term, ['bad', 'ort', 'becken']);
 
-  // 4) Custom filter (Fresh data, "nur aktuell")
-  private readonly freshDataFiltered = computed(() => {
-    const list = this.textFiltered();
-    return this.listPreferences.filterField() === 'aktuell'
-      ? list.filter((item) => isThisYear(item.date ?? null))
-      : list;
-  });
+    // Custom filter (Fresh data, "nur aktuell")
+    if (this.listPreferences.filterField() === 'aktuell') {
+      list = list.filter((item) => isThisYear(item.date ?? null));
+    }
 
-  // 5) Sortieren (renders the list)
-  readonly filteredItems = computed(() =>
-    sortItems(
-      this.freshDataFiltered(),
+    // Sort (renders the list)
+    return sortItems(
+      list,
       this.listPreferences.sortField() as keyof BadItem,
       this.listPreferences.sortDirection(),
-    ),
-  );
+    );
+  });
 
   toggleSearch() {
     if (this.searchOpen() && !this.searchInput().trim()) {
