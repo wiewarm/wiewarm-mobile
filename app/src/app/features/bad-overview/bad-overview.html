@@ -1,35 +1,42 @@
-<div class="item-viewport">
+﻿<div class="item-viewport">
   <div class="bad-overview-header">
     <h1>Aktuelle Temperaturen</h1>
 
-    @if (favorites().length) { @for (fav of favorites(); track fav.beckenid) {
+    @if (favorites().length) {
+    @for (fav of favorites(); track fav.beckenid) {
     <article app-favorite-item [favorite]="fav"></article>
     } }
-
-    <div class="search">
-      <span class="search-emoji" aria-hidden="true">🔍</span>
-      <input
-        type="text"
-        [(ngModel)]="searchInput"
-        placeholder="Suche…"
-        aria-label="Badi suchen"
-      />
+    <div class="search-controls">
+      <div class="search">
+        <span class="search-emoji" aria-hidden="true">&#128269;</span>
+        <input
+          #searchField
+          type="text"
+          [(ngModel)]="searchInput"
+          (blur)="onSearchBlur()"
+          placeholder="Suche…"
+          aria-label="Badi suchen"
+        />
+      </div>
+      <app-filter-sort-controls
+        [sortOption]="this.listPreferences.sortField()"
+        [sortDirection]="this.listPreferences.sortDirection()"
+        [filterOption]="this.listPreferences.filterField()"
+        (setSort)="this.listPreferences.setSort($event.field, $event.direction)"
+        (setFilter)="this.listPreferences.setFilter($event)"
+      ></app-filter-sort-controls>
     </div>
-
-    <app-filter-sort-controls
-      [sortOption]="this.listPreferences.sortField()"
-      [sortDirection]="this.listPreferences.sortDirection()"
-      [filterOption]="this.listPreferences.filterField()"
-      (setSort)="this.listPreferences.setSort($event.field, $event.direction)"
-      (setFilter)="this.listPreferences.setFilter($event)"
-    ></app-filter-sort-controls>
   </div>
 
   <app-loading-error
     [state]="badResource.isLoading() ? 'loading':badResource.error() ? 'error' : 'idle' "
   ></app-loading-error>
 
-  <div class="accordion" cdkAccordion>
+  <div
+    class="accordion"
+    [class.has-content]="filteredItems().length > 0"
+    cdkAccordion
+  >
     @for (item of filteredItems(); track item.beckenid; let i = $index) {
     <app-bad-item [item]="item" [index]="i"></app-bad-item>
     } @if ( !badResource.isLoading() && !badResource.error() &&

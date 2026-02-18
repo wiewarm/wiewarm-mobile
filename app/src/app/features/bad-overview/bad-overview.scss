@@ -1,4 +1,4 @@
-@use "../../../assets/styles/variables" as *;
+﻿@use "../../../assets/styles/variables" as *;
 @use "../../../assets/styles/mixins" as *;
 
 :host {
@@ -26,6 +26,22 @@ h1 {
   flex: 0 0 auto;
 }
 
+.search-controls {
+  display: flex;
+  align-items: center;
+  gap: $space-2;
+  margin-bottom: $space-2;
+
+  .search {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  app-filter-sort-controls {
+    flex: 0 0 auto;
+  }
+}
+
 .search {
   position: relative;
 
@@ -44,26 +60,26 @@ h1 {
     padding: $space-2 $space-3 $space-2 calc(#{$space-2 * 3} + 1rem);
     border: 2px solid $color-border;
     border-radius: $radius-l;
-    @include focus-ring;
     caret-color: currentColor;
     box-sizing: border-box;
+
+    @include focus-ring;
+    @include hover-state;
+    @include haptic-click(0.02rem, 0.998, 90ms);
   }
 }
 
-// Accordion container
 .accordion {
-  border-top-left-radius: $radius-l;
-  border-top-right-radius: $radius-l;
-  // Accordion items
-  app-bad-item {
-    border: 2px solid $color-border;
-    border-top: none;
+  border: 0;
+  border-radius: $radius-l;
+  overflow: hidden;
 
-    &:first-of-type {
-      border-top: 2px solid $color-border;
-      border-top-left-radius: $radius-l;
-      border-top-right-radius: $radius-l;
-      overflow: hidden;
-    }
+  &.has-content {
+    border: 2px solid $color-border;
+  }
+
+  app-bad-item + app-bad-item {
+    border-top: 2px solid $color-border;
   }
 }
+

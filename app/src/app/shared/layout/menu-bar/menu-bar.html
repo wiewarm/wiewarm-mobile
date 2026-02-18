@@ -1,38 +1,35 @@
 <div class="menu-bar">
   <button
     class="menu-button"
-    aria-haspopup="menu"
+    aria-controls="main-menu"
     aria-label="Hauptmenü öffnen"
-    [attr.aria-expanded]="menuOpen()"
-    (click)="toggleMenu()"
-    (keydown.escape)="closeMenu()"
+    [attr.aria-expanded]="isMenuOpen()"
+    (click)="toggle()"
+    (keydown.escape)="close()"
   >
-    <app-icon [symbolId]="menuOpen() ? '#arrow_up' : '#arrow_down'" />
+    <app-icon [symbolId]="isMenuOpen() ? '#arrow_up' : '#arrow_down'" />
   </button>
-  @if (menuOpen()) {
-  <div class="menu" role="menu">
+  @if (isMenuOpen()) {
+  <nav
+    id="main-menu"
+    class="menu"
+    aria-label="Hauptmenü"
+    (keydown.escape)="close()"
+  >
     <ul>
       <li>
-        <a role="menuitem" routerLink="/" (click)="closeMenu()">
-          Aktuelle Temperaturen
-        </a>
+        <a routerLink="/" (click)="close()"> Aktuelle Temperaturen </a>
       </li>
       <li>
-        <a
-          appExternalLink
-          role="menuitem"
-          href="https://www.wiewarm.ch/info"
-          (click)="closeMenu()"
-        >
+        <a appExternalLink href="https://www.wiewarm.ch/info" (click)="close()">
           Info
         </a>
       </li>
       <li>
         <a
           appExternalLink
-          role="menuitem"
           href="https://www.wiewarm.ch/sms-und-twitter"
-          (click)="closeMenu()"
+          (click)="close()"
         >
           SMS
         </a>
@@ -40,14 +37,13 @@
       <li>
         <a
           appExternalLink
-          role="menuitem"
           href="https://www.wiewarm.ch/admin"
-          (click)="closeMenu()"
+          (click)="close()"
         >
           Login
         </a>
       </li>
     </ul>
-  </div>
+  </nav>
   }
 </div>

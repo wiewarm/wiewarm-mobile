@@ -12,9 +12,10 @@
 }
 
 @mixin hover-state {
-  background: $color-surface-hover;
-  box-shadow: $shadow-md;
   cursor: pointer;
+  &:hover {
+    box-shadow: $shadow-md;
+  }
 }
 
 @mixin hover-icon {
@@ -23,10 +24,37 @@
 }
 
 @mixin hover-link {
-  transition: filter $transition-fast, color $transition-fast;
+  transition:
+    filter $transition-fast,
+    color $transition-fast;
 
   &:hover {
     filter: brightness(1.2);
+  }
+}
+
+@mixin haptic-click(
+  $press-translate: 0,
+  $press-scale: 0.97,
+  $duration: 90ms,
+  $easing: ease-out
+) {
+  touch-action: manipulation;
+  transition: transform $duration $easing;
+
+  &:active,
+  &:active:hover,
+  &.is-pressed {
+    transform: scale($press-scale);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+    &:active,
+    &:active:hover,
+    &.is-pressed {
+      transform: none;
+    }
   }
 }
 
@@ -68,13 +96,12 @@
 
 // Accessibility – Focus-Ring
 @mixin focus-ring {
-  transition: filter $transition-slow, color $transition-slow;
+  transition:
+    filter $transition-slow,
+    color $transition-slow;
   &:focus {
     outline: $focus-outline-width solid var(--color-surface);
     outline-offset: $focus-outline-offset;
     outline-color: $focus-outline-color;
-  }
-  &:hover {
-    box-shadow: $shadow-md;
   }
 }

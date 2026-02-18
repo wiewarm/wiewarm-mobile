@@ -15,7 +15,7 @@ export class ListPreferencesService {
 
   readonly sortField = signal<SortField>('kanton');
   readonly sortDirection = signal<SortDirection>('asc');
-  readonly filterField = signal<FilterField>('aktuell');
+  readonly filterField = signal<FilterField>('all');
 
   readonly initialLoad = this.loadFromStorage();
   readonly persistPreferences = effect(() => {

@@ -88,10 +88,11 @@ $focus-outline-offset: -3px !default;
 
 // Temperatur-Styles loop
 $temp-colors: (
-  cold: #2b7bb9,
-  cool: #00aaff,
-  mild: #ffc107,
-  warm: #ff9800,
-  hot: #e53935,
-  unknown: $color-border,
+  cold: #1f5f99,
+  cool: #0077b6,
+  mild: #8a6500,
+  warm: #a24e00,
+  hot: #b42318,
+  unknown: $color-text-muted,
 );
+

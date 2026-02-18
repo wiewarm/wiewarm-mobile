@@ -47,15 +47,6 @@
       color: $color-text;
       user-select: none;
     }
-
-    .app-subtitle {
-      margin: 0;
-      font-size: smaller;
-      font-style: italic;
-      color: $color-text-muted;
-      letter-spacing: 0.02em;
-      line-height: 1;
-    }
   }
 
   .theme-toggle {
@@ -63,10 +54,8 @@
     border: none;
     font-size: $font-size-lg;
     cursor: pointer;
-    border-radius: $radius-sm;
     perspective: 600px;
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 1rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -74,8 +63,10 @@
       transform $transition-fast,
       filter $transition-fast;
 
+    border-bottom: 2px solid transparent;
+    padding-bottom: 0.1em;
     &:hover {
-      @include hover-icon;
+      border-bottom: 2px solid currentColor;
     }
 
     &.flipped .theme-emoji {

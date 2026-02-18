@@ -4,9 +4,6 @@ import {
   input,
   output,
 } from '@angular/core';
-import { DialogTriggerDirective } from '../../../shared/directives/dialog-trigger';
-import { FilterDialogComponent } from '../../../shared/layout/filter-dialog/filter-dialog';
-import { IconComponent } from '../../../shared/layout/icon/icon';
 import { SortDialogComponent } from '../../../shared/layout/sort-dialog/sort-dialog';
 import type { FilterField } from '../../../shared/util/constants/filter-options';
 import { FILTER_FIELDS } from '../../../shared/util/constants/filter-options';
@@ -15,18 +12,15 @@ import type {
   SortField,
 } from '../../../shared/util/constants/sort-options';
 import { SORT_FIELDS } from '../../../shared/util/constants/sort-options';
+import { DialogTriggerDirective } from 'src/app/shared/directives/dialog-trigger';
+import { IconComponent } from 'src/app/shared/layout/icon/icon';
 
 @Component({
   selector: 'app-filter-sort-controls',
   templateUrl: './filter-sort-controls.html',
   styleUrl: './filter-sort-controls.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    DialogTriggerDirective,
-    IconComponent,
-    SortDialogComponent,
-    FilterDialogComponent,
-  ],
+  imports: [SortDialogComponent, DialogTriggerDirective, IconComponent],
 })
 export class FilterSortControlsComponent {
   readonly sortOption = input.required<SortField>();
@@ -39,4 +33,7 @@ export class FilterSortControlsComponent {
   // Todo: replace this pseudo-translation
   readonly SORT_FIELDS = SORT_FIELDS;
   readonly FILTER_FIELDS = FILTER_FIELDS;
+
+  readonly toggle = () =>
+    this.setFilter.emit(this.filterOption() === 'aktuell' ? 'all' : 'aktuell');
 }

@@ -54,19 +54,6 @@
   padding-bottom: $space-2;
 }
 
-@mixin dialog-close-button {
-  position: absolute;
-  top: 0.75rem;
-  right: 0.5rem;
-  background: transparent;
-  border: none;
-  font-size: 1rem;
-  cursor: pointer;
-  &:hover {
-    @include hover-icon;
-  }
-}
-
 @keyframes dialog-scale-in {
   from {
     transform: translateY(8px) scale(0.98);

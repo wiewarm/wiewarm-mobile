@@ -22,7 +22,6 @@ import { ThemeService } from '../../services/storage/theme.service';
 })
 export class HeaderComponent implements AfterViewInit {
   protected title = 'wiewarm.ch';
-  protected subtitle = 'dis Badiportau...';
   private readonly themeService = inject(ThemeService);
   private readonly elRef = inject(ElementRef<HTMLElement>);
   private lastScrollY = 0;
@@ -49,9 +48,7 @@ export class HeaderComponent implements AfterViewInit {
    * and shows when the user scrolls up or is within {@link nearTopPx} pixels from the top.
    */
   @HostListener('window:resize')
-  onResize() {
-    this.updateHeaderHeight();
-  }
+  onResize = () => this.updateHeaderHeight();
 
   @HostListener('window:scroll')
   onScroll() {

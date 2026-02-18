@@ -26,7 +26,7 @@ WORKDIR /app
 RUN npm install -g serve
 
 # Copy built application from builder stage
-COPY --from=builder /app/dist/app ./dist
+COPY --from=builder /app/dist/app/browser ./dist
 
 # Expose port 3000 (serve default)
 EXPOSE 3000

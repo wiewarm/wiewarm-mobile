@@ -16,31 +16,24 @@ import { ExternalLinkDirective } from '../../directives/external-link';
   imports: [IconComponent, RouterLink, ExternalLinkDirective],
 })
 export class MenuBarComponent {
-  protected menuOpen = signal(false);
+  protected isMenuOpen = signal(false);
   private readonly elementRef = inject(ElementRef<HTMLElement>);
 
-  toggleMenu() {
-    this.menuOpen.update((open) => !open);
-  }
-
-  closeMenu() {
-    this.menuOpen.set(false);
-  }
+  readonly toggle = () => this.isMenuOpen.update((open) => !open);
+  readonly close = () => this.isMenuOpen.set(false);
 
   // Close menu when clicking outside this component
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: MouseEvent) {
-    if (!this.menuOpen()) return;
+    if (!this.isMenuOpen()) return;
 
     const target = event.target;
     if (!(target instanceof Node)) return;
     if (this.elementRef.nativeElement.contains(target)) return;
 
-    this.closeMenu();
+    this.close();
   }
 
   @HostListener('document:keydown.escape')
-  onEscape() {
-    this.closeMenu();
-  }
+  readonly onEscape = () => this.close();
 }
