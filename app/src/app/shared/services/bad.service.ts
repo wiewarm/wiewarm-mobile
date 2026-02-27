@@ -20,12 +20,12 @@ export class BadResourceService {
    * Shared resource for the list of all baths.
    * Components can use this to avoid redundant fetching.
    */
-  readonly badResource = resource<BadItem[], Error>({
+  readonly badResource = resource<BadItem[], unknown>({
     loader: () => this.loadList(),
   });
 
   getDetailResource(id: string) {
-    return resource<BadDetail, Error>({
+    return resource<BadDetail, unknown>({
       loader: () => this.loadDetail(id),
     });
   }

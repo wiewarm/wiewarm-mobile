@@ -1,5 +1,5 @@
 import { CdkAccordionModule } from '@angular/cdk/accordion';
-import type { ElementRef, ResourceRef } from '@angular/core';
+import type { ElementRef } from '@angular/core';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -35,15 +35,14 @@ import { FavoriteItemComponent } from './favorite-item/favorite-item';
     FavoriteItemComponent,
     LoadingErrorComponent,
   ],
-  host: { role: 'main', class: 'bad-overview' },
+  host: { class: 'bad-overview' },
 })
 export class BadOverviewComponent {
   private readonly badService = inject(BadResourceService);
   readonly listPreferences = inject(ListPreferencesService);
   readonly favoriteService = inject(FavoriteService);
 
-  readonly badResource: ResourceRef<BadItem[] | undefined> =
-    this.badService.badResource;
+  readonly badResource = this.badService.badResource;
   readonly favorites = this.favoriteService.favoriteItems;
 
   readonly searchInput = signal('');
