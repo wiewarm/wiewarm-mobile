@@ -1,5 +1,5 @@
 const apiBase = new URL(
-  process.env.NG_APP_API_BASE ?? "https://beta.wiewarm.ch/api/v1"
+  process.env.NG_APP_API_BASE ?? "https://www.wiewarm.ch/api/v1"
 );
 const imageBase = new URL("https://www.wiewarm.ch/");
 

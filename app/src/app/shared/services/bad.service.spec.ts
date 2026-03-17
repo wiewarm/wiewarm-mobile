@@ -32,9 +32,9 @@ describe('BadResourceService', () => {
 
   const dummyDetail = { badname: '', plz: '', ort: '' } as any;
 
-  it('uses beta host when configured', fakeAsync(() => {
-    const betaUrl = 'https://beta.wiewarm.ch/api/v1';
-    environment.apiBase = betaUrl;
+  it('uses configured host for API requests', fakeAsync(() => {
+    const apiUrl = 'https://www.wiewarm.ch/api/v1';
+    environment.apiBase = apiUrl;
     const service = TestBed.inject(BadResourceService);
     tick();
     flushListIfRequested();
@@ -44,7 +44,7 @@ describe('BadResourceService', () => {
       result = value;
     });
     
-    const req = httpMock.expectOne(`${betaUrl}/bad/foo`);
+    const req = httpMock.expectOne(`${apiUrl}/bad/foo`);
     expect(req.request.method).toBe('GET');
     req.flush(dummyDetail);
 
