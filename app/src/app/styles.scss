@@ -35,9 +35,14 @@ body {
   transition: background-color $transition-medium, color $transition-medium;
 
   background-color: var(--color-bg);
-  background-image: url("/assets/img/wav-bg.svg");
-  background-repeat: repeat;
-  background-size: auto;
+  background-image: url("/assets/img/bg-mobile.png");
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  @media (min-width: $breakpoint-lg) {
+    background-image: url("/assets/img/bg-desktop.png");
+  }
 }
 
 /* Thin scrollbar (Firefox + WebKit) */
