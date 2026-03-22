@@ -42,7 +42,10 @@ body {
 body::before {
   content: "";
   position: fixed;
-  inset: 0;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 100lvh;
   z-index: -1;
   pointer-events: none;
   background-image: url("/assets/img/bg-mobile.png");
@@ -83,9 +86,10 @@ body.dark-mode::before {
 }
 
 .container-lg {
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  min-height: 100svh;
+  min-height: 100dvh;
   padding-top: var(--app-header-height, 0px);
   position: relative; // allow absolute-positioned children (e.g., back-link)
 }

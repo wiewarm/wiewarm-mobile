@@ -1,6 +1,12 @@
 @use "../../../assets/styles/variables" as *;
 @use "../../../assets/styles/mixins" as *;
 
+:host.bad-detail {
+  display: block;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
 .bad-detail {
   display: block;
   position: relative;
@@ -53,7 +59,7 @@
   // Overlay over the image carousel
   position: absolute;
   top: $space-3;
-  right: 4.25rem;
+  right: 3.25rem;
   z-index: 100;
 
   .back-icon {
