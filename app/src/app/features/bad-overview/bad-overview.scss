@@ -13,6 +13,18 @@ h1 {
   margin-bottom: $space-2;
 }
 
+// The image contains the title text,
+// while the h1 text stays available to screen readers.
+.title-image {
+  width: min(100%, 15rem);
+  margin-bottom: 0;
+  aspect-ratio: 1500 / 647;
+  @include image-title(
+    "/assets/img/overview-title.png",
+    "/assets/img/overview-title-dark.png"
+  );
+}
+
 .item-viewport {
   flex: 0 0 auto;
   height: auto;
@@ -63,6 +75,10 @@ h1 {
     caret-color: currentColor;
     box-sizing: border-box;
 
+    &::placeholder {
+      font-family: $font-family-englebert;
+    }
+
     @include focus-ring;
     @include hover-state;
     @include haptic-click(0.02rem, 0.998, 90ms);
@@ -75,11 +91,41 @@ h1 {
   overflow: hidden;
 
   &.has-content {
-    border: 2px solid $color-border;
+    margin-left: $space-4;
+    margin-right: $space-5;
+    border: 1px solid color-mix(in srgb, $color-border 72%, transparent);
+    background: color-mix(in srgb, $color-surface 78%, transparent);
+    box-shadow:
+      0 10px 24px rgba(0, 0, 0, 0.08),
+      inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(4px);
   }
 
   app-bad-item + app-bad-item {
-    border-top: 2px solid $color-border;
+    border-top: 1px solid color-mix(in srgb, $color-border 55%, transparent);
   }
 }
 
+:host-context(.dark-mode) {
+  .search input {
+    border-color: color-mix(in srgb, $color-border-light 28%, $color-border);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  }
+
+  .accordion {
+    &.has-content {
+      border-color: color-mix(in srgb, $color-border-light 24%, transparent);
+      box-shadow:
+        0 12px 28px rgba(0, 0, 0, 0.26),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    }
+
+    app-bad-item + app-bad-item {
+      border-top-color: color-mix(
+        in srgb,
+        $color-border-light 18%,
+        transparent
+      );
+    }
+  }
+}

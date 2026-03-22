@@ -13,14 +13,13 @@ import type {
 } from '../../../shared/util/constants/sort-options';
 import { SORT_FIELDS } from '../../../shared/util/constants/sort-options';
 import { DialogTriggerDirective } from 'src/app/shared/directives/dialog-trigger';
-import { IconComponent } from 'src/app/shared/layout/icon/icon';
 
 @Component({
   selector: 'app-filter-sort-controls',
   templateUrl: './filter-sort-controls.html',
   styleUrl: './filter-sort-controls.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [SortDialogComponent, DialogTriggerDirective, IconComponent],
+  imports: [SortDialogComponent, DialogTriggerDirective],
 })
 export class FilterSortControlsComponent {
   readonly sortOption = input.required<SortField>();

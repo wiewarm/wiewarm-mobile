@@ -12,22 +12,48 @@
   position: relative;
 }
 
+.address-section {
+  position: relative;
+}
+
+.adresse-title {
+  display: block;
+  width: min(100%, 13rem);
+  aspect-ratio: 1531 / 236;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 11;
+  transform: translate($space-2, calc(-100% - #{$space-2}));
+  margin: 0;
+  @include image-title(
+    "/assets/img/adresse-title.png",
+    "/assets/img/adresse-title-dark.png"
+  );
+}
+
 .back-link {
   display: inline-flex;
   align-items: center;
+  gap: $space-1;
   width: fit-content;
-  padding: $space-1 $space-2;
-  background-color: $color-surface;
+  padding: $space-1 $space-3;
   color: $color-text;
   text-decoration: none;
-  border: 2px solid $color-border;
+  background: color-mix(in srgb, $color-surface 82%, transparent);
+  border: 1px solid color-mix(in srgb, $color-border 72%, transparent);
+
   border-radius: $radius-l;
+  box-shadow:
+    0 6px 16px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(4px);
   @include hover-link;
 
   // Overlay over the image carousel
   position: absolute;
-  top: $space-2;
-  left: $space-2;
+  top: $space-3;
+  right: 4.25rem;
   z-index: 100;
 
   .back-icon {
@@ -39,18 +65,34 @@
 
 .favorite-link {
   display: inline-flex;
+  align-items: center;
+  justify-content: center;
   background: none;
-  border: none;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  border-radius: $radius-l;
   color: var(--color-primary);
   cursor: pointer;
   font-size: 2rem;
-  margin-left: 0.25rem;
-  transition: transform 0.2s ease-in-out, filter 0.2s;
+  box-shadow:
+    0 6px 16px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(4px);
+  transition:
+    transform 0.2s ease-in-out,
+    filter 0.2s,
+    color 0.2s ease-in-out;
 
   position: absolute;
-  top: $space-1;
+  top: $space-3;
   right: $space-2;
   z-index: 100;
+
+  &:hover,
+  &:focus-visible {
+    color: $color-accent;
+  }
 }
 
 h2 {
@@ -59,6 +101,19 @@ h2 {
   margin-bottom: $space-1;
   margin-left: $space-1;
   line-height: 1.5;
+}
+
+// The image contains the visible title text, while the real h2 text stays available to screen readers.
+.becken-title {
+  display: block;
+  width: min(100%, 15rem);
+  aspect-ratio: 1521 / 301;
+  margin-left: $space-1;
+  margin-bottom: $space-2;
+  @include image-title(
+    "/assets/img/detail-title.png",
+    "/assets/img/detail-title-dark.png"
+  );
 }
 
 pre {
@@ -83,11 +138,15 @@ pre:last-of-type {
 }
 
 .info-box {
-  background-color: $color-surface-alt;
-  border: 2px solid $color-border;
+  background: color-mix(in srgb, $color-surface 80%, transparent);
+  border: 1px solid color-mix(in srgb, $color-border 72%, transparent);
   border-radius: $radius-l;
   padding: $space-3;
   margin-bottom: $space-4;
+  box-shadow:
+    0 10px 24px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(4px);
 }
 
 .info-title {
@@ -112,11 +171,24 @@ pre:last-of-type {
   margin: 0;
   width: inherit;
   max-width: 600px;
+  margin-left: 0.25rem;
+  margin-right: 0.25rem;
 }
 
 @media (min-width: 900px) {
   .bad-detail {
     gap: $space-4;
     align-items: start;
+  }
+}
+
+:host-context(.dark-mode) {
+  .back-link,
+  .favorite-link,
+  .info-box {
+    border-color: color-mix(in srgb, $color-border-light 24%, transparent);
+    box-shadow:
+      0 10px 24px rgba(0, 0, 0, 0.28),
+      inset 0 1px 0 rgba(255, 255, 255, 0.08);
   }
 }

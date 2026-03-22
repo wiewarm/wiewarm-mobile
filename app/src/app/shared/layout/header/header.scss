@@ -19,13 +19,18 @@
 .header-content {
   @include flex-between;
   padding: $space-2 $space-3;
-  background: $color-surface;
-  box-shadow: $shadow-sm;
 
   .branding {
     display: flex;
     align-items: center;
     gap: $space-2;
+    background: color-mix(in srgb, #c8c8c8 75%, transparent);
+    border: 1px solid color-mix(in srgb, $color-border 72%, transparent);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+
+
+    padding: $space-2;
+    border-radius: $radius-l;
 
     .app-icon {
       width: 2.5rem;
@@ -44,7 +49,7 @@
       margin: 0;
       font-size: $font-size-lg;
       font-family: $font-family-englebert;
-      color: $color-text;
+      color: white;
       user-select: none;
     }
   }
@@ -64,7 +69,19 @@
       filter $transition-fast;
 
     border-bottom: 2px solid transparent;
-    padding-bottom: 0.1em;
+    border-radius: $radius-l;
+
+    padding: 0.1em;
+    padding-inline: $space-3;
+
+    box-shadow:
+      0 6px 16px rgba(0, 0, 0, 0.08),
+      inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(4px);
+    transition:
+      transform 0.2s ease-in-out,
+      filter 0.2s,
+      color 0.2s ease-in-out;
     &:hover {
       border-bottom: 2px solid currentColor;
     }
@@ -76,7 +93,7 @@
 
     .theme-emoji {
       font-size: $font-size-lg;
-      color: $color-secondary;
+      color: white;
       display: inline-block;
       transform-style: preserve-3d;
       transition: transform $transition-fast;

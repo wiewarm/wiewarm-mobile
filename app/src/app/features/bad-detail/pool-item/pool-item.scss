@@ -4,11 +4,16 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: $space-4;
   margin-bottom: $space-2;
-  padding: $space-2 $space-2;
-  background-color: $color-surface-alt;
-  border: 2px solid $color-border;
+  padding: $space-2 $space-3;
+  background: color-mix(in srgb, $color-surface 82%, transparent);
+  border: 1px solid color-mix(in srgb, $color-border 72%, transparent);
   border-radius: $radius-l;
+  box-shadow:
+    0 10px 24px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.42);
+  backdrop-filter: blur(4px);
 }
 
 .pool-left {
@@ -30,15 +35,18 @@
   .pool-left-text {
     display: flex;
     flex-direction: column;
+    gap: 0.1rem;
 
     .pool-name {
       font-weight: $font-weight-bold;
       font-size: $font-size-lg;
       word-break: break-all;
+      color: $color-text;
     }
 
     time {
       font-size: $font-size-md;
+      color: $color-text-muted;
     }
   }
 }
@@ -46,7 +54,8 @@
 .pool-right {
   display: flex;
   align-items: center;
-  gap: $space-2;
+  justify-content: flex-end;
+  min-width: 6.5rem;
 
   app-icon {
     font-size: $font-size-xl;
@@ -55,11 +64,20 @@
   .pool-right-text {
     display: flex;
     flex-direction: column;
-    text-align: left;
+    align-items: flex-end;
+    text-align: right;
+    line-height: 1;
 
     .temp-value {
       font-weight: $font-weight-bold;
-      font-size: $font-size-xl;
+      font-size: clamp(2rem, 2.2vw, 2.4rem);
+      letter-spacing: -0.03em;
+    }
+
+    .temp-status {
+      margin-top: $space-1;
+      font-size: $font-size-md;
+      color: $color-text-muted;
     }
   }
 }
@@ -67,5 +85,14 @@
 @each $name, $color in $temp-colors {
   .temp-#{$name} {
     color: $color;
+  }
+}
+
+:host-context(.dark-mode) {
+  .pool-item {
+    border-color: color-mix(in srgb, $color-border-light 24%, transparent);
+    box-shadow:
+      0 10px 24px rgba(0, 0, 0, 0.28),
+      inset 0 1px 0 rgba(255, 255, 255, 0.08);
   }
 }

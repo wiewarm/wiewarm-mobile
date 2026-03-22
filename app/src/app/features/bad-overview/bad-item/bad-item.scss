@@ -3,13 +3,6 @@
 
 :host {
   display: block;
-
-  &:nth-child(even) {
-    .accordion-header,
-    .accordion-body {
-      background: $color-surface-alt;
-    }
-  }
 }
 
 .accordion-header {
@@ -28,40 +21,46 @@
     background $transition-fast,
     box-shadow $transition-fast,
     transform $transition-fast;
+  background: color-mix(in srgb, $color-surface 90%, transparent);
 
   .kanton-wappen {
     vertical-align: middle;
     margin-left: 0.25em;
+    opacity: 0.82;
   }
 
   &:hover,
   &:focus-visible {
     cursor: pointer;
-    background: var(--color-surface-alt);
+    background: color-mix(in srgb, $color-surface-alt 86%, transparent);
+    box-shadow: inset 0 1px 0 color-mix(in srgb, $color-surface 55%, transparent);
     outline: none;
   }
 
   .accordion-header-left {
     @include flex-column;
-    font-size: $font-size-lg;
+    gap: 0.1rem;
     align-items: baseline;
 
     .accordion-header-title {
       font-weight: $font-weight-bold;
-      line-height: 1.4;
-      margin-bottom: $space-1;
+      line-height: 1.1;
+      margin-bottom: 0;
+      color: $color-text;
+    }
+
+    .accordion-header-subtitle {
+      font-size: $font-size-md;
+      color: $color-text-muted;
     }
   }
 
   .accordion-header-right {
     display: flex;
-    font-size: $font-size-xl;
+    align-items: center;
+    justify-content: flex-end;
+    min-width: 7rem;
   }
-}
-
-:host:nth-child(even) .accordion-header:hover,
-:host:nth-child(even) .accordion-header:focus-visible {
-  background: var(--color-bg);
 }
 
 @media (min-width: $breakpoint-md) {
@@ -84,24 +83,45 @@
 .accordion-body {
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
+  gap: $space-4;
 
   font-family: $font-family-englebert;
   padding-left: $space-4;
   padding-right: $space-4;
-  background: $color-surface-hover;
+  padding-bottom: $space-2;
+
+  background: color-mix(in srgb, $color-surface 84%, transparent);
+  border-top: 1px solid color-mix(in srgb, $color-border 42%, transparent);
   line-height: 1.5;
   overflow: hidden;
 
   .accordion-body-left {
     @include flex-column;
+    gap: 0.2rem;
+    font-size: $font-size-md;
+    color: $color-text-muted;
+
+    p {
+      margin: 0;
+    }
+
+    .detail-title {
+      color: $color-text;
+    }
+
+    .time-label {
+      color: $color-text-muted;
+    }
 
     .detail-link {
       text-decoration: none;
-      margin-bottom: $space-2;
+      margin-top: $space-1;
       .detail-text {
         color: $color-link;
         text-decoration: underline;
         text-underline-offset: $text-underline-offset;
+        text-decoration-thickness: 1px;
         @include hover-link;
       }
     }
@@ -109,23 +129,34 @@
   .accordion-body-right {
     display: flex;
     align-items: center;
+    justify-content: flex-end;
+    min-width: 3rem;
+    padding-top: $space-4;
 
     .favorite-button {
       background: none;
       border: none;
       color: $color-link;
       cursor: pointer;
-      font-size: 2rem;
+      font-size: 1.85rem;
+      padding: $space-1;
+      line-height: 1;
 
       transition:
         transform $transition-fast,
-        filter $transition-fast;
+        filter $transition-fast,
+        color $transition-fast;
 
       &:hover {
-        transform: scale(1.1);
+        transform: scale(1.08);
+        color: $color-accent;
       }
     }
   }
+}
+
+.accordion-header[aria-expanded="true"] + .accordion-body {
+  border-top: none;
 }
 
 // Temperature
@@ -133,13 +164,18 @@
   display: flex;
   align-items: center;
   gap: $space-2;
-  font-size: $font-size-xl;
+  justify-content: flex-end;
+  font-size: clamp(1.85rem, 2vw, 2.2rem);
+  color: $color-text;
+  letter-spacing: -0.03em;
+  line-height: 1;
 }
 
 .temp-dot {
   @include stripe-effect;
-  width: 0.85rem;
-  height: 0.85rem;
+  width: 0.95rem;
+  height: 0.95rem;
+  flex: 0 0 auto;
   border-radius: 50%;
   background-color: #0098d8;
 }
@@ -158,4 +194,17 @@
 
 .label-older-than-one-month {
   color: $color-accent !important;
+}
+
+:host-context(.dark-mode) {
+  .accordion-header {
+    &:hover,
+    &:focus-visible {
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    }
+  }
+
+  .accordion-body {
+    border-top-color: color-mix(in srgb, $color-border-light 16%, transparent);
+  }
 }

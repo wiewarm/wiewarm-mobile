@@ -32,9 +32,19 @@ body {
   font-family: $font-family-base;
   font-size: $font-size-md;
   color: var(--color-text);
-  transition: background-color $transition-medium, color $transition-medium;
+  transition:
+    background-color $transition-medium,
+    color $transition-medium;
 
   background-color: var(--color-bg);
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
   background-image: url("/assets/img/bg-mobile.png");
   background-position: center top;
   background-repeat: no-repeat;
@@ -64,6 +74,14 @@ body.dark-mode {
   --color-link-hover: rgba(255, 140, 0, 0.25);
 }
 
+body.dark-mode::before {
+  background-image: url("/assets/img/bg-mobile-dark.png");
+
+  @media (min-width: $breakpoint-lg) {
+    background-image: url("/assets/img/bg-desktop-dark.png");
+  }
+}
+
 .container-lg {
   display: flex;
   flex-direction: column;
@@ -77,12 +95,11 @@ body.dark-mode {
   max-width: 824px;
 }
 
-
 h1 {
   font-size: $font-size-xl;
   font-family: $font-family-englebert;
   font-weight: $font-weight-bold;
-  margin-bottom: $space-3;
+  margin-bottom: 0;
 }
 
 h2 {
@@ -95,6 +112,7 @@ h2 {
 .status {
   display: flex;
   position: relative;
+  font-family: $font-family-englebert;
   justify-content: center;
   padding: $space-3 $space-4;
   border-radius: $radius-md;

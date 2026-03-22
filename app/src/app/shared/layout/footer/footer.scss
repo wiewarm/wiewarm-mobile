@@ -1,5 +1,10 @@
 @use "../../../../assets/styles/variables" as *;
 
+:host.app-footer {
+  display: block;
+  margin-top: auto;
+}
+
 .footer-content {
   font-size: $font-size-sm;
   height: auto;
@@ -11,7 +16,7 @@
   padding: $space-4  0 $space-4  $space-4;
 
   .meta {
-    color: $color-text;
+    color: white;
     font-family: $font-family-englebert;
     white-space: nowrap;
   }

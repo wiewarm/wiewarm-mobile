@@ -80,6 +80,23 @@
   }
 }
 
+@mixin image-title($light-image, $dark-image: null) {
+  background-image: url($light-image);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  color: transparent;
+  overflow: hidden;
+  text-indent: 100%;
+  white-space: nowrap;
+
+  @if $dark-image {
+    :host-context(.dark-mode) & {
+      background-image: url($dark-image);
+    }
+  }
+}
+
 // Gradient text (handles background-clip + webkit fill)
 @mixin gradient-text($from, $to) {
   background: linear-gradient(to bottom, $from, $to);

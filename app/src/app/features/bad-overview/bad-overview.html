@@ -1,6 +1,6 @@
 ﻿<div class="item-viewport">
   <div class="bad-overview-header">
-    <h1>Aktuelle Temperaturen</h1>
+    <h1 class="title-image">Aktuelle Temperaturen</h1>
 
     @if (favorites().length) {
     @for (fav of favorites(); track fav.beckenid) {
@@ -14,7 +14,7 @@
           type="text"
           [(ngModel)]="searchInput"
           (blur)="onSearchBlur()"
-          placeholder="Suche…"
+          placeholder="Bad, Ort oder PLZ suchen"
           aria-label="Badi suchen"
         />
       </div>
