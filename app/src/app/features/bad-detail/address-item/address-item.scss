@@ -1,13 +1,8 @@
 @use "../../../../assets/styles/variables" as *;
 
-/* address card overlaps the image slightly */
 :host {
   display: block;
   position: relative;
-  z-index: 10; 
-  margin-top: -$space-5;
-  margin-left: $space-1;
-  margin-right: $space-1;
   max-width: 600px;
 }
 
@@ -58,6 +53,8 @@ dt {
 .address-text {
   display: flex;
   flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
 }
 
 .address-text > p {
@@ -85,6 +82,8 @@ dt {
 }
 
 .contact-content {
+  margin: 0;
+  text-align: right;
   text-overflow: clip;
   box-sizing: border-box;
   overflow-wrap: break-all;

@@ -9,7 +9,6 @@
   </a>
   @let dRes = detailResource.value(); @if (dRes) {
   <div class="detail-hero">
-    <app-img-item [detail]="dRes"></app-img-item>
     @let bItem = badItem();
     <button
       type="button"
@@ -28,7 +27,10 @@
       />
     </button>
   </div>
-  <app-address-item [detail]="dRes"></app-address-item>
+  <section class="address-section" aria-labelledby="address-heading">
+    <h2 id="address-heading" class="adress-title">Adresse</h2>
+    <app-address-item [detail]="dRes"></app-address-item>
+  </section>
 
   <!-- <section aria-labelledby="info-heading">
     <div class="info-box" style="display: none">
@@ -51,13 +53,17 @@
     </div>
   </section> -->
 
-  <section aria-labelledby="becken-heading">
+  <section class="pools-section" aria-labelledby="becken-heading">
     <h2 id="becken-heading" class="becken-title">Becken und Temperaturen</h2>
     <ul class="pool-list">
       @for (pool of poolEntries(dRes); track pool.beckenid) {
       <app-pool-item [pool]="pool"></app-pool-item>
       }
     </ul>
+  </section>
+
+  <section class="images-section" aria-labelledby="img-heading">
+    <app-img-item [detail]="dRes"></app-img-item>
   </section>
   }
 </div>

@@ -6,10 +6,13 @@
   position: relative;
   font-family: $font-family-englebert;
   overflow: visible;
+  padding-inline: $space-2;
+  padding-bottom: $space-6;
 }
 
 .detail-hero {
   position: relative;
+  min-height: 3rem;
 }
 
 .back-link {
@@ -57,7 +60,6 @@ h2 {
   font-size: $font-size-lg;
   font-weight: $font-weight-bold;
   margin-bottom: $space-1;
-  margin-left: $space-1;
   line-height: 1.5;
 }
 
@@ -90,16 +92,10 @@ pre:last-of-type {
   margin-bottom: $space-4;
 }
 
-.info-title {
-  .info-tag {
-    display: inline-block;
-    color: $color-text;
-  }
-  .info-tag + .info-tag::before {
-    content: " | ";
-    color: $color-border-light;
-    margin: 0 $space-1;
-  }
+.address-section,
+.pools-section,
+.images-section {
+  min-width: 0;
 }
 
 .pool-list {
@@ -114,9 +110,43 @@ pre:last-of-type {
   max-width: 600px;
 }
 
-@media (min-width: 900px) {
+@media (min-width: $breakpoint-lg) {
   .bad-detail {
-    gap: $space-4;
+    padding-inline: $space-3;
+    column-gap: $space-5;
+    row-gap: $space-4;
     align-items: start;
+
+    display: grid;
+    grid-template-columns: minmax(20rem, 28rem) minmax(26rem, 1fr);
+    grid-template-areas:
+      "hero hero"
+      "address pools"
+      "images pools";
+  }
+
+  .detail-hero {
+    grid-area: hero;
+    min-height: $space-5;
+  }
+  .address-section {
+    grid-area: address;
+  }
+  .pools-section {
+    grid-area: pools;
+  }
+  .images-section {
+    grid-area: images;
+  }
+
+  .adress-title {
+    padding-top: 0;
+  }
+
+  .pool-list,
+  .address-section app-address-item,
+  .images-section app-img-item {
+    max-width: none;
+    width: 100%;
   }
 }

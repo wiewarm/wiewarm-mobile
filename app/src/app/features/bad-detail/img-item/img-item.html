@@ -1,29 +1,45 @@
-@defer (on viewport) { @let images = detail().bilder ?? [];
-<section class="img-carousel" aria-label="Bildergalerie">
-  @if (images.length > 0) {
-  <owl-carousel-o
-    class="img-slider"
-    [options]="carouselOptions"
-    aria-live="polite"
-  >
-    @for (image of images; track image.image) {
-    <ng-template carouselSlide>
-      <figure class="img-slide">
-        <img
-          class="img-image"
-          [src]="imageSrc(image)"
-          [alt]="image.text || 'Badbild'"
-        />
-      </figure>
-    </ng-template>
+@let images = detail().bilder ?? [];
+
+<section class="img-carousel" aria-labelledby="img-heading">
+  <div class="img-header">
+    <h2 id="img-heading" class="img-title">Bilder</h2>
+
+    @if (images.length > 0) {
+    <button
+      type="button"
+      class="img-toggle"
+      aria-controls="img-panel"
+      [attr.aria-expanded]="isOpen()"
+      aria-label="Bildergalerie umschalten"
+      (click)="toggle()"
+    >
+      <app-icon
+        class="img-toggle-icon"
+        [symbolId]="isOpen() ? '#arrow_up' : '#arrow_down'"
+      />
+    </button>
     }
-  </owl-carousel-o>
-  } @else {
+  </div>
+
+  @if (images.length === 0) {
   <div class="img-empty">Keine Bilder verfügbar.</div>
+  } @else if (isOpen()) {
+  <div id="img-panel">
+    <owl-carousel-o class="img-slider owl-theme" [options]="carouselOptions">
+      @for (image of images; track image.image) {
+      <ng-template carouselSlide>
+        <figure class="img-slide">
+          <img
+            class="img-image"
+            [src]="imageSrc(image)"
+            [alt]="image.text || 'Badbild'"
+            loading="lazy"
+            decoding="async"
+          />
+        </figure>
+      </ng-template>
+      }
+    </owl-carousel-o>
+  </div>
   }
 </section>
-} @placeholder {
-<section class="img-carousel" aria-label="Bildergalerie">
-  <div class="img-empty">Bilder werden geladen…</div>
-</section>
-}

@@ -9,33 +9,50 @@
 .img-carousel {
   @include flex-column;
   gap: $space-3;
-  position: relative;
+  margin-top: $space-2;
+}
+
+.img-header {
+  display: flex;
+  align-items: center;
+  gap: $space-2;
+}
+
+.img-title {
+  margin: 0;
+}
+
+.img-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  color: $color-text;
+  cursor: pointer;
+  padding-inline-start: 0;
+  padding-inline-end: 0;
+  padding-bottom: 0.1em;
+  border-bottom: 2px solid transparent;
+
+  &:hover {
+    border-bottom-color: currentColor;
+  }
+}
+
+.img-toggle-icon {
+  font-size: $font-size-lg;
 }
 
 .img-slider {
+  display: block;
+  position: relative;
   max-width: 600px;
 }
 
 .img-slide {
   margin: 0;
   position: relative;
-  overflow: hidden;
-}
-
-/* Soft fade address card morphs */
-.img-slide::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: clamp(2.5rem, 8vw, 6rem);
-  pointer-events: none;
-  background: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0) 30%,
-    $color-surface-alt 95%
-  );
 }
 
 .img-image {
@@ -46,17 +63,16 @@
   box-shadow: $shadow-md;
 }
 
-.img-caption {
-  margin-top: $space-2;
+.img-empty {
+  padding-top: $space-2;
   font-size: $font-size-sm;
-  text-align: center;
   color: $color-text-muted;
 }
 
-.img-empty {
-  text-align: center;
-  font-size: $font-size-sm;
-  color: $color-text-muted;
-  padding: $space-5 0;
-  margin-top: -$space-1;
+:host ::ng-deep .img-slider .owl-dots {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: $space-2;
+  margin-top: 0;
 }

@@ -62,16 +62,20 @@ body.dark-mode {
 .container-lg {
   display: flex;
   flex-direction: column;
-  min-height: 100svh;
+  min-height: calc(100svh - var(--app-header-height, 0px));
   padding-top: var(--app-header-height, 0px);
   position: relative; // allow absolute-positioned children (e.g., back-link)
+}
+
+.page-content {
+  flex: 1;
+  min-height: 0;
 }
 
 .container-md {
   margin: 0 auto;
   max-width: 824px;
 }
-
 
 h1 {
   font-size: $font-size-xl;
