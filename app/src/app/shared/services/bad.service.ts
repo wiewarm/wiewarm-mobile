@@ -28,8 +28,12 @@ export class BadResourceService {
 
   getDetailResource(id: string) {
     return resource<BadDetail, unknown>({
-      loader: () => this.loadDetail(id),
+      loader: () => this.getDetail(id),
     });
+  }
+
+  getDetail(id: string): Promise<BadDetail> {
+    return this.loadDetail(id);
   }
 
   private isFresh<T>(entry?: CacheEntry<T>): entry is CacheEntry<T> {

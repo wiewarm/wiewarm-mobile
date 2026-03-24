@@ -40,7 +40,7 @@ describe('BadResourceService', () => {
     flushListIfRequested();
     
     let result: any;
-    (service as any).loadDetail('foo').then((value: any) => {
+    service.getDetail('foo').then((value: any) => {
       result = value;
     });
     
@@ -60,7 +60,7 @@ describe('BadResourceService', () => {
     flushListIfRequested();
     
     let result: any;
-    (service as any).loadDetail('foo').then((value: any) => {
+    service.getDetail('foo').then((value: any) => {
       result = value;
     });
     
