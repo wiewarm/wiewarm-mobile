@@ -1,59 +1,34 @@
 <address aria-label="Kontakt">
-  <h1 class="bad-name">{{ detail().badname }}</h1>
+  <h2 class="bad-name">{{ detail().badname }}</h2>
+
   <div class="address-header">
     <div class="address-icon">
-      <app-icon class="location-icon" symbolId="#location"></app-icon>Adresse:
+      <app-icon symbolId="#location" /> Adresse:
     </div>
-    <a
-      appExternalLink
-      class="address-text"
-      [href]="mapUrl(detail())"
-      aria-label="Adresse in Google Maps öffnen"
-    >
+    
+    <a appExternalLink class="address-text" [href]="googleMapsUrl()" aria-label="In Google Maps öffnen">
       <p>
-        @if (detail().adresse1 || detail().adresse2) { {{ detail().adresse1 }}
-        {{ detail().adresse2 }}<br />
-        } {{ detail().plz }} {{ detail().ort }}
+        @if (detail().adresse1) { {{ detail().adresse1 }}<br> }
+        @if (detail().adresse2) { {{ detail().adresse2 }}<br> }
+        {{ detail().plz }} {{ detail().ort }}
       </p>
     </a>
   </div>
-  <div class="contact">
-    <dl>
-      @if (detail().telefon) {
-      <div class="contact-row">
-        <dt class="contact-title">
-          <app-icon symbolId="#call"></app-icon>Telefon:
-        </dt>
-        <dd class="contact-content">
-          <a [href]="'tel:' + detail().telefon">{{ detail().telefon }}</a>
-        </dd>
-      </div>
-      } @if (detail().email) {
-      <div class="contact-row">
-        <dt class="contact-title">
-          <app-icon symbolId="#mail"></app-icon>
-          E-Mail:
-        </dt>
-        <dd class="contact-content">
-          <a [href]="'mailto:' + detail().email">{{ detail().email }}</a>
-        </dd>
-      </div>
-      } @if ( detail().www && (detail().www?.startsWith('http://') ||
-      detail().www?.startsWith('https://')) ) {
-      <div class="contact-row">
-        <dt class="contact-title">
-          <app-icon symbolId="#link"></app-icon>
-          Web:
-        </dt>
-        <dd class="contact-content">
-          <a
-            appExternalLink
-            [attr.href]="detail().www"
-            >Link</a
-          >
-        </dd>
-      </div>
-      }
-    </dl>
-  </div>
+
+  <dl class="contact">
+    @if (detail().telefon; as tel) {
+      <dt><app-icon symbolId="#call" /> Telefon:</dt>
+      <dd><a [href]="'tel:' + tel">{{ tel }}</a></dd>
+    }
+
+    @if (detail().email; as mail) {
+      <dt><app-icon symbolId="#mail" /> E-Mail:</dt>
+      <dd><a [href]="'mailto:' + mail">{{ mail }}</a></dd>
+    }
+
+    @if (websiteUrl(); as url) {
+      <dt><app-icon symbolId="#link" /> Web:</dt>
+      <dd><a appExternalLink [href]="url">Website besuchen</a></dd>
+    }
+  </dl>
 </address>

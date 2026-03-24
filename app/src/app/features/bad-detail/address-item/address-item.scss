@@ -2,20 +2,15 @@
 
 :host {
   display: block;
-  position: relative;
   max-width: 600px;
-}
-
-.bad-name,
-.address-title {
-  font-weight: $font-weight-bold;
-  font-size: $font-size-xl;
-  word-break: break-all;
 }
 
 .bad-name {
   margin-top: $space-1;
   margin-bottom: $space-3;
+  font-weight: $font-weight-bold;
+  font-size: $font-size-xl;
+  overflow-wrap: anywhere;
 }
 
 address {
@@ -27,67 +22,38 @@ address {
   box-shadow: $shadow-sm;
 }
 
-dt {
-  justify-content: space-between;
+.address-header,
+.contact {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  column-gap: $space-3;
+  row-gap: $space-2;
+  align-items: start;
+  width: 100%;
 }
 
 .address-header {
-  display: flex;
-  align-items: center;
-  gap: $space-3;
-  justify-content: space-between;
+  margin-bottom: $space-2;
 }
 
-.address-icon {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-.location-icon {
-  background-color: transparent;
-  border: none;
-  font-size: larger;
-}
-
-.address-text {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  text-align: right;
-}
-
-.address-text > p {
+.address-icon,
+.contact dt {
   margin: 0;
+  display: flex;
+  align-items: center;
+}
+
+.address-text,
+.contact dd {
+  margin: 0;
+  max-width: 100%;
+  justify-self: end;
+  text-align: right;
+  overflow-wrap: anywhere;
 }
 
 .contact {
-  display: block;
-  width: 100%;
   font-style: normal;
-  padding-right: $space-1;
-}
-
-.contact-row {
-  display: flex;
-  align-items: center;
-  margin: $space-2 0;
-  justify-content: space-between;
-}
-
-.contact-title {
-  text-align: left;
-  font-size: $font-size-md;
-  margin: 0;
-}
-
-.contact-content {
-  margin: 0;
-  text-align: right;
-  text-overflow: clip;
-  box-sizing: border-box;
-  overflow-wrap: break-all;
-  word-break: break-all;
 }
 
 app-icon {
