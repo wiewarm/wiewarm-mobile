@@ -10,22 +10,7 @@
   @let dRes = detailResource.value(); @if (dRes) {
   <div class="detail-hero">
     @let bItem = badItem();
-    <button
-      type="button"
-      class="favorite-link"
-      [disabled]="!bItem"
-      [attr.aria-label]="
-        bItem && favoriteService.isFavorite(bItem)
-          ? 'Favorit entfernen'
-          : 'Als Favorit speichern'
-      "
-      (click)="bItem && favoriteService.toggleFavorite(bItem)"
-    >
-      <app-icon
-        class="favorite-icon"
-        [symbolId]="bItem && favoriteService.isFavorite(bItem) ? '#star' : '#star_border'"
-      />
-    </button>
+    <app-favorite-button [item]="bItem" variant="overlay" />
   </div>
   <section class="address-section" aria-labelledby="address-heading">
     <h2 id="address-heading" class="adress-title">Adresse</h2>

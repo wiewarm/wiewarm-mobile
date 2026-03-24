@@ -26,6 +26,20 @@ h1 {
   flex: 0 0 auto;
 }
 
+.favorites-section,
+.temperatures-section {
+  @include flex-column;
+  gap: $space-3;
+}
+
+.section-title {
+  margin: 0;
+  font-size: $font-size-xl;
+  font-family: $font-family-englebert;
+  font-weight: $font-weight-bold;
+  line-height: 1.2;
+}
+
 .search-controls {
   display: flex;
   align-items: center;
@@ -52,10 +66,12 @@ h1 {
     transform: translateY(-50%);
     pointer-events: none;
     font-size: $font-size-md;
+    font-weight: bold;
     color: $color-text-muted;
   }
 
   input {
+    font-family: $font-family-englebert;
     width: 100%;
     padding: $space-2 $space-3 $space-2 calc(#{$space-2 * 3} + 1rem);
     border: 2px solid $color-border;

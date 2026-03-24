@@ -1,14 +1,13 @@
 import { CdkAccordionModule } from '@angular/cdk/accordion';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { Component, HostBinding, inject, input } from '@angular/core';
+import { Component, HostBinding, input } from '@angular/core';
 import type { AfterViewInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import type { BadItem } from 'src/app/shared/services/interfaces/bad-item.interface';
-import { FavoriteService } from 'src/app/shared/services/storage/favorite.service';
 import { isOlderThanOneMonth } from 'src/app/shared/util/date.util';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { TemperatureDirective } from 'src/app/shared/directives/temperature';
-import { IconComponent } from 'src/app/shared/layout/icon/icon';
+import { FavoriteButtonComponent } from 'src/app/shared/layout/favorite-button/favorite-button.component';
 
 @Component({
   selector: 'app-bad-item',
@@ -19,7 +18,7 @@ import { IconComponent } from 'src/app/shared/layout/icon/icon';
     RouterModule,
     CdkAccordionModule,
     TemperatureDirective,
-    IconComponent,
+    FavoriteButtonComponent,
     NgOptimizedImage
 ],
   animations: [
@@ -51,7 +50,6 @@ export class BadItemComponent implements AfterViewInit {
 
   readonly item = input.required<BadItem>();
   readonly index = input.required<number>();
-  readonly favoriteService = inject(FavoriteService);
 
   ngAfterViewInit(): void {
     queueMicrotask(() => {

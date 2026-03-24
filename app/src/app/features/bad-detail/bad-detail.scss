@@ -40,22 +40,6 @@
   }
 }
 
-.favorite-link {
-  display: inline-flex;
-  background: none;
-  border: none;
-  color: var(--color-primary);
-  cursor: pointer;
-  font-size: 2rem;
-  margin-left: 0.25rem;
-  transition: transform 0.2s ease-in-out, filter 0.2s;
-
-  position: absolute;
-  top: $space-1;
-  right: $space-2;
-  z-index: 100;
-}
-
 h2 {
   font-size: $font-size-lg;
   font-weight: $font-weight-bold;

@@ -57,15 +57,7 @@
       >
     </div>
     <div class="accordion-body-right">
-      <button
-        class="favorite-button"
-        [attr.aria-label]="favoriteService.isFavorite(item()) ? 'Favorit entfernen' : 'Als Favorit speichern'"
-        (click)="favoriteService.toggleFavorite(item()); $event.stopPropagation();"
-      >
-        <app-icon
-          [symbolId]="favoriteService.isFavorite(item()) ? '#star' : '#star_border'"
-        />
-      </button>
+      <app-favorite-button [item]="item()" />
     </div>
   </div>
   }

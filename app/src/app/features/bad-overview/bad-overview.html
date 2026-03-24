@@ -1,31 +1,44 @@
-﻿<div class="item-viewport">
+<div class="item-viewport">
   <div class="bad-overview-header">
-    <h1>Aktuelle Temperaturen</h1>
-
     @if (favorites().length) {
-    @for (fav of favorites(); track fav.beckenid) {
-    <article app-favorite-item [favorite]="fav"></article>
-    } }
-    <div class="search-controls">
-      <div class="search">
-        <span class="search-emoji" aria-hidden="true">&#128269;</span>
-        <input
-          #searchField
-          type="text"
-          [(ngModel)]="searchInput"
-          (blur)="onSearchBlur()"
-          placeholder="Suche…"
-          aria-label="Badi suchen"
-        />
+    <section class="favorites-section" aria-labelledby="favorites-heading">
+      <h2 id="favorites-heading" class="section-title">Favoriten</h2>
+
+      @for (fav of favorites(); track fav.beckenid) {
+      <article app-favorite-item [favorite]="fav"></article>
+      }
+    </section>
+    }
+
+    <section
+      class="temperatures-section"
+      aria-labelledby="temperatures-heading"
+    >
+      <h1 id="temperatures-heading" class="section-title">
+        {{ listHeading() }}
+      </h1>
+
+      <div class="search-controls">
+        <div class="search">
+          <span class="search-emoji" aria-hidden="true">&#128269;</span>
+          <input
+            #searchField
+            type="text"
+            [(ngModel)]="searchInput"
+            (blur)="onSearchBlur()"
+            placeholder="Suche…"
+            aria-label="Badi suchen"
+          />
+        </div>
+        <app-filter-sort-controls
+          [sortOption]="this.listPreferences.sortField()"
+          [sortDirection]="this.listPreferences.sortDirection()"
+          [filterOption]="this.listPreferences.filterField()"
+          (setSort)="this.listPreferences.setSort($event.field, $event.direction)"
+          (setFilter)="this.listPreferences.setFilter($event)"
+        ></app-filter-sort-controls>
       </div>
-      <app-filter-sort-controls
-        [sortOption]="this.listPreferences.sortField()"
-        [sortDirection]="this.listPreferences.sortDirection()"
-        [filterOption]="this.listPreferences.filterField()"
-        (setSort)="this.listPreferences.setSort($event.field, $event.direction)"
-        (setFilter)="this.listPreferences.setFilter($event)"
-      ></app-filter-sort-controls>
-    </div>
+    </section>
   </div>
 
   <app-loading-error

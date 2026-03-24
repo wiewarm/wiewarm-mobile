@@ -1,0 +1,35 @@
+@use "../../../../assets/styles/variables" as *;
+
+:host {
+  display: inline-flex;
+}
+
+.favorite-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  color: var(--color-primary);
+  cursor: pointer;
+  font-size: 2rem;
+  transition:
+    transform $transition-fast,
+    filter $transition-fast;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+
+  &:disabled {
+    cursor: default;
+    opacity: 0.6;
+  }
+}
+
+:host(.is-overlay) {
+  position: absolute;
+  top: $space-1;
+  right: $space-2;
+  z-index: 100;
+}

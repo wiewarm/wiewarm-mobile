@@ -109,22 +109,6 @@
   .accordion-body-right {
     display: flex;
     align-items: center;
-
-    .favorite-button {
-      background: none;
-      border: none;
-      color: $color-link;
-      cursor: pointer;
-      font-size: 2rem;
-
-      transition:
-        transform $transition-fast,
-        filter $transition-fast;
-
-      &:hover {
-        transform: scale(1.1);
-      }
-    }
   }
 }
 

@@ -45,6 +45,11 @@ export class BadOverviewComponent {
   readonly badResource: ResourceRef<BadItem[] | undefined> =
     this.badService.badResource;
   readonly favorites = this.favoriteService.favoriteItems;
+  readonly listHeading = computed(() =>
+    this.listPreferences.filterField() === 'aktuell'
+      ? 'Aktuelle Temperaturen'
+      : 'Alle Temperaturen'
+  );
 
   readonly searchInput = signal('');
   readonly searchOpen = signal(false);
