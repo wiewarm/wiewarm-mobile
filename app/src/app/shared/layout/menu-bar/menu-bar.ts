@@ -1,10 +1,4 @@
-import {
-  Component,
-  ElementRef,
-  HostListener,
-  inject,
-  signal,
-} from '@angular/core';
+import { Component, ElementRef, inject, signal } from '@angular/core';
 import { IconComponent } from '../icon/icon';
 import { RouterLink } from '@angular/router';
 import { ExternalLinkDirective } from '../../directives/external-link';
@@ -14,16 +8,19 @@ import { ExternalLinkDirective } from '../../directives/external-link';
   templateUrl: './menu-bar.html',
   styleUrls: ['./menu-bar.scss'],
   imports: [IconComponent, RouterLink, ExternalLinkDirective],
+  host: {
+    '(document:keydown.escape)': 'closeMenu()',
+    '(document:click)': 'onDocumentClick($event)',
+  },
 })
 export class MenuBarComponent {
   protected isMenuOpen = signal(false);
   private readonly elementRef = inject(ElementRef<HTMLElement>);
 
   readonly toggle = () => this.isMenuOpen.update((open) => !open);
-  readonly close = () => this.isMenuOpen.set(false);
+  readonly closeMenu = () => this.isMenuOpen.set(false);
 
-  // Close menu when clicking outside this component
-  @HostListener('document:click', ['$event'])
+  // Closes the menu when clicking outside this component
   onDocumentClick(event: MouseEvent) {
     if (!this.isMenuOpen()) return;
 
@@ -31,9 +28,6 @@ export class MenuBarComponent {
     if (!(target instanceof Node)) return;
     if (this.elementRef.nativeElement.contains(target)) return;
 
-    this.close();
+    this.closeMenu();
   }
-
-  @HostListener('document:keydown.escape')
-  readonly onEscape = () => this.close();
 }

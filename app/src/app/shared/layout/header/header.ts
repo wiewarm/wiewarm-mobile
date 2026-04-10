@@ -7,14 +7,16 @@ import {
 } from '@angular/core';
 import type { AfterViewInit } from '@angular/core';
 import { IconComponent } from '../icon/icon';
+import { AuthDialogComponent } from '../auth-dialog/auth-dialog';
 import { MenuBarComponent } from '../menu-bar/menu-bar';
+import { AuthService } from '../../services/auth.service';
 import { ThemeService } from '../../services/storage/theme.service';
 
 @Component({
   selector: 'header[app-header]',
   templateUrl: './header.html',
   styleUrls: ['./header.scss'],
-  imports: [IconComponent, MenuBarComponent],
+  imports: [IconComponent, MenuBarComponent, AuthDialogComponent],
   host: {
     role: 'banner', // a11y: Landmark
     class: 'app-header',
@@ -22,8 +24,11 @@ import { ThemeService } from '../../services/storage/theme.service';
 })
 export class HeaderComponent implements AfterViewInit {
   protected title = 'wiewarm.ch';
+  
+  protected readonly auth = inject(AuthService);
   private readonly themeService = inject(ThemeService);
   private readonly elRef = inject(ElementRef<HTMLElement>);
+
   private lastScrollY = 0;
   private readonly nearTopPx = 8;
   private readonly minDeltaPx = 4;

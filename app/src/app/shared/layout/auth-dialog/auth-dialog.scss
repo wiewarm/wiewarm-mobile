@@ -1,0 +1,67 @@
+@use "../../../../assets/styles/variables" as *;
+@use "../../../../assets/styles/mixins" as *;
+@use "../../../../assets/styles/dialog" as dialog;
+
+:host {
+  @include dialog.dialog-container;
+}
+
+#auth-login-title {
+  @include dialog.dialog-title;
+}
+
+.dialog-copy {
+  margin-top: $space-1;
+  color: $color-text-muted;
+}
+
+.dialog-form {
+  display: grid;
+  gap: $space-3;
+  margin-top: $space-4;
+}
+
+.dialog-field {
+  display: grid;
+  gap: $space-1;
+}
+
+.dialog-field span {
+  font-size: $font-size-sm;
+  color: $color-text-muted;
+}
+
+.dialog-field input {
+  min-height: 2.75rem;
+  padding: 0 $space-2;
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+  background: $color-surface-alt;
+  color: $color-text;
+}
+
+.dialog-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-2;
+  margin-top: $space-4;
+}
+
+.dialog-action {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-1;
+  min-height: 2.75rem;
+  padding: 0 $space-3;
+  border: 1px solid $color-border;
+  border-radius: 999px;
+  background: $color-secondary;
+  color: $color-surface;
+  cursor: pointer;
+  @include hover-state;
+}
+
+.dialog-error {
+  color: #b42318;
+  font-size: $font-size-sm;
+}

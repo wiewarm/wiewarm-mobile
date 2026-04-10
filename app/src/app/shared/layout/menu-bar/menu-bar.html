@@ -5,7 +5,6 @@
     aria-label="Hauptmenü öffnen"
     [attr.aria-expanded]="isMenuOpen()"
     (click)="toggle()"
-    (keydown.escape)="close()"
   >
     <app-icon [symbolId]="isMenuOpen() ? '#arrow_up' : '#arrow_down'" />
   </button>
@@ -14,14 +13,13 @@
     id="main-menu"
     class="menu"
     aria-label="Hauptmenü"
-    (keydown.escape)="close()"
   >
     <ul>
       <li>
-        <a routerLink="/" (click)="close()"> Aktuelle Temperaturen </a>
+        <a routerLink="/" (click)="closeMenu()"> Aktuelle Temperaturen </a>
       </li>
       <li>
-        <a appExternalLink href="https://www.wiewarm.ch/info" (click)="close()">
+        <a appExternalLink href="https://www.wiewarm.ch/info" (click)="closeMenu()">
           Info
         </a>
       </li>
@@ -29,18 +27,9 @@
         <a
           appExternalLink
           href="https://www.wiewarm.ch/sms-und-twitter"
-          (click)="close()"
+          (click)="closeMenu()"
         >
           SMS
-        </a>
-      </li>
-      <li>
-        <a
-          appExternalLink
-          href="https://www.wiewarm.ch/admin"
-          (click)="close()"
-        >
-          Login
         </a>
       </li>
     </ul>

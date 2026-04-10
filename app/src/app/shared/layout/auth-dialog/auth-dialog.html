@@ -1,0 +1,59 @@
+<h2 id="auth-login-title">Badmeister Zugang</h2>
+<app-close-button (closed)="auth.closeLogin()" />
+
+@if (auth.isLoggedIn()) {
+<p class="dialog-copy">Eingeloggt (Bad-Id {{ auth.session()?.badId }}).</p>
+
+<div class="dialog-actions">
+  <button type="button" class="dialog-action" (click)="auth.logout()">
+    <app-icon symbolId="#logout" />
+    Abmelden
+  </button>
+</div>
+} @else {
+<p class="dialog-copy">
+  Ein Login gilt für alle editierbaren Bereiche dieser Badi.
+</p>
+
+<form
+  class="dialog-form"
+  [formGroup]="auth.loginForm"
+  (ngSubmit)="auth.login()"
+>
+  @let controls = auth.loginForm.controls;
+
+  <label class="dialog-field">
+    <span>Bad-Id</span>
+    <input type="number" formControlName="badId" />
+  </label>
+  @if (controls.badId.touched && controls.badId.hasError('required')) {
+  <p class="dialog-error">Bitte Bad-Id eingeben.</p>
+  }
+
+  <label class="dialog-field">
+    <span>PIN</span>
+    <input
+      type="password"
+      formControlName="pincode"
+      autocomplete="current-password"
+    />
+  </label>
+  @if (controls.pincode.touched && controls.pincode.hasError('required')) {
+  <p class="dialog-error">Bitte PIN eingeben.</p>
+  } @if (auth.error(); as error) {
+  <p class="dialog-error">{{ error }}</p>
+  }
+
+  <div class="dialog-actions">
+    <button
+      type="submit"
+      class="dialog-action"
+      [disabled]="auth.loading() || auth.loginForm.invalid"
+    >
+      @if (!auth.loading()) {
+      <app-icon symbolId="#login" />
+      } {{ auth.loading() ? 'Prüfen...' : 'Anmelden' }}
+    </button>
+  </div>
+</form>
+}

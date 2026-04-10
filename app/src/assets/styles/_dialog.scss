@@ -3,10 +3,10 @@
 
 // Shared dialog styles for sort and filter dialogs
 @mixin dialog-container {
-  min-width: 40%;
-  max-width: 150px;
+  width: min(90vw, 420px);
   border-radius: $radius-l;
   border-color: $color-border;
+  font-family: $font-family-englebert;
   animation: dialog-scale-in 180ms ease-out;
 
   background-color: var(--color-bg);
@@ -52,6 +52,7 @@
   font-weight: $font-weight-bold;
   font-family: $font-family-englebert;
   padding-bottom: $space-2;
+  padding-right: $space-6;
 }
 
 @keyframes dialog-scale-in {

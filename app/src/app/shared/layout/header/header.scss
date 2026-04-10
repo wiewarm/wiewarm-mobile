@@ -49,6 +49,36 @@
     }
   }
 
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: $space-2;
+  }
+
+  .auth-toggle {
+    background: none;
+    border: none;
+    font-size: $font-size-lg;
+    cursor: pointer;
+    padding: 0;
+    border-bottom: 2px solid transparent;
+    @include hover-link;
+
+    &:hover {
+      border-bottom: 2px solid currentColor;
+    }
+
+    &.is-logged-in {
+      color: $color-secondary;
+      padding: 0;
+    }
+
+    .auth-id {
+      min-width: 2ch;
+      text-align: center;
+    }
+  }
+
   .theme-toggle {
     background: none;
     border: none;
