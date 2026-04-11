@@ -1,4 +1,7 @@
-// Default local proxy targets for development against the Docker backend.
+/* Proxy-Ziele werden über Umgebungsvariablen gesteuert. Fallbacks:
+   Development: http://localhost:3770/ (Docker-Backend)
+   Production:  https://www.wiewarm.ch/ (Postgres-Backend)
+*/
 const apiBase = new URL(
   process.env.NG_APP_API_BASE ?? "http://localhost:3770/api/v1",
 );

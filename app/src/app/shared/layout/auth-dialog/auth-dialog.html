@@ -2,7 +2,7 @@
 <app-close-button (closed)="auth.closeLogin()" />
 
 @if (auth.isLoggedIn()) {
-<p class="dialog-copy">Eingeloggt (Bad-Id {{ auth.session()?.badId }}).</p>
+<p class="dialog-copy">Eingeloggt als Bad-Id: {{ auth.session()?.badId }}</p>
 
 <div class="dialog-actions">
   <button type="button" class="dialog-action" (click)="auth.logout()">
