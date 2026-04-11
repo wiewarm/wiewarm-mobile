@@ -3,7 +3,7 @@ import type { AfterViewInit } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CloseButtonComponent } from '../close-button/close-button.component';
 import { IconComponent } from '../icon/icon';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'dialog[app-auth-dialog]',

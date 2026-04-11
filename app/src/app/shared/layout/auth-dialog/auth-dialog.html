@@ -22,24 +22,35 @@
 >
   @let controls = auth.loginForm.controls;
 
-  <label class="dialog-field">
-    <span>Bad-Id</span>
-    <input type="number" formControlName="badId" />
-  </label>
+  <div class="dialog-field">
+    <label for="login-bad-id">Bad-Id</label>
+    <input
+      id="login-bad-id"
+      type="number"
+      formControlName="badId"
+      required
+      aria-describedby="login-bad-id-error"
+      [attr.aria-invalid]="controls.badId.touched && controls.badId.invalid ? 'true' : null"
+    />
+  </div>
   @if (controls.badId.touched && controls.badId.hasError('required')) {
-  <p class="dialog-error">Bitte Bad-Id eingeben.</p>
+  <p id="login-bad-id-error" class="dialog-error">Bitte Bad-Id eingeben.</p>
   }
 
-  <label class="dialog-field">
-    <span>PIN</span>
+  <div class="dialog-field">
+    <label for="login-pincode">PIN</label>
     <input
+      id="login-pincode"
       type="password"
       formControlName="pincode"
+      required
       autocomplete="current-password"
+      aria-describedby="login-pincode-error"
+      [attr.aria-invalid]="controls.pincode.touched && controls.pincode.invalid ? 'true' : null"
     />
-  </label>
+  </div>
   @if (controls.pincode.touched && controls.pincode.hasError('required')) {
-  <p class="dialog-error">Bitte PIN eingeben.</p>
+  <p id="login-pincode-error" class="dialog-error">Bitte PIN eingeben.</p>
   } @if (auth.error(); as error) {
   <p class="dialog-error">{{ error }}</p>
   }

@@ -52,6 +52,13 @@ export class BadResourceService {
     return data;
   }
 
+  async updateBad(
+    payload: Pick<BadDetail, 'badid'> & { pincode: string } & Partial<BadDetail>,
+  ): Promise<void> {
+    await lastValueFrom(this.http.put(`${this.apiBase}/bad`, payload));
+    this.detailCache.delete(String(payload.badid));
+  }
+
   private async loadDetail(id: string): Promise<BadDetail> {
     const key = String(id);
     const cached = this.detailCache.get(key);

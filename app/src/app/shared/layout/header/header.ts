@@ -9,7 +9,7 @@ import type { AfterViewInit } from '@angular/core';
 import { IconComponent } from '../icon/icon';
 import { AuthDialogComponent } from '../auth-dialog/auth-dialog';
 import { MenuBarComponent } from '../menu-bar/menu-bar';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../services/auth/auth.service';
 import { ThemeService } from '../../services/storage/theme.service';
 
 @Component({

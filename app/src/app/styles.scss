@@ -7,7 +7,9 @@
 @use "../assets/styles/responsive" as *;
 
 :root {
-  transition: background-color 0s ease-in-out, color 0.1s ease-in-out,
+  transition:
+    background-color 0s ease-in-out,
+    color 0.1s ease-in-out,
     border-color 0.1s ease-in-out;
 
   // Light Mode
@@ -26,13 +28,20 @@
   --color-text: #212121;
   --color-text-muted: #555555;
   --color-link-hover: rgba(255, 140, 0, 0.1);
+
+  // States
+  --color-error: #b42318;
+  --color-success: #1a7f37;
+  --color-focus-ring: rgba(0, 87, 184, 0.15);
 }
 
 body {
   font-family: $font-family-base;
   font-size: $font-size-md;
   color: var(--color-text);
-  transition: background-color $transition-medium, color $transition-medium;
+  transition:
+    background-color $transition-medium,
+    color $transition-medium;
 
   background-color: var(--color-bg);
   background-image: url("/assets/img/wav-bg.svg");
@@ -57,6 +66,11 @@ body.dark-mode {
   --color-text: #f5f5f5;
   --color-text-muted: #cccccc;
   --color-link-hover: rgba(255, 140, 0, 0.25);
+
+  // States – lightened for darkmode
+  --color-error: #f97066;
+  --color-success: #4dc773;
+  --color-focus-ring: rgba(0, 170, 255, 0.25);
 }
 
 .container-lg {

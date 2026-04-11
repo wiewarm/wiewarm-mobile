@@ -16,6 +16,20 @@
   </div>
   <div class="header-actions">
     <button
+      class="auth-toggle"
+      [class.is-logged-in]="auth.isLoggedIn()"
+      type="button"
+      (click)="this.auth.openLogin()"
+      [attr.aria-label]="auth.isLoggedIn() ? ('Eingeloggt mit Bad-Id ' + auth.session()?.badId) : 'Anmelden'"
+    >
+      @if (auth.isLoggedIn()) {
+      <app-icon symbolId="#person" />
+      } @else {
+      <p class="auth-login-label">Login</p>
+      <app-icon class="auth-login-icon" symbolId="#person" />
+      }
+    </button>
+    <button
       class="theme-toggle"
       [class.flipped]="darkMode()"
       (click)="toggleDarkMode()"
@@ -26,19 +40,6 @@
         class="theme-emoji"
         [symbolId]="darkMode() ? '#light_mode' : '#dark_mode'"
       />
-    </button>
-    <button
-      class="auth-toggle"
-      [class.is-logged-in]="auth.isLoggedIn()"
-      type="button"
-      (click)="this.auth.openLogin()"
-      [attr.aria-label]="auth.isLoggedIn() ? ('Eingeloggt mit Bad-Id ' + auth.session()?.badId) : 'Anmelden'"
-    >
-      @if (auth.isLoggedIn()) {
-      <span class="auth-id">{{ auth.session()?.badId }}</span>
-      } @else {
-      <app-icon symbolId="#person" />
-      }
     </button>
   </div>
 </div>

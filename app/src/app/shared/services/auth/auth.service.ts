@@ -4,9 +4,12 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { lastValueFrom } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { BadResourceService } from './bad.service';
-import { StorageService, STORAGE_KEYS } from './storage/storage.service';
-import { AuthSession } from './interfaces/auth-session.interface';
+import { BadResourceService } from '../bad.service';
+import { StorageService, STORAGE_KEYS } from '../storage/storage.service';
+import type {
+  ActiveAuthGrant,
+  PersistedAuthContext,
+} from '../interfaces/auth-session.interface';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -15,9 +18,13 @@ export class AuthService {
   private readonly badService = inject(BadResourceService);
   private readonly storage = inject(StorageService);
 
-  readonly session = signal<AuthSession | null>(
-    this.storage.read<AuthSession>(STORAGE_KEYS.auth),
+  /** Persisted to localStorage – used for UI/permission display across reloads. */
+  readonly session = signal<PersistedAuthContext | null>(
+    this.storage.read<PersistedAuthContext>(STORAGE_KEYS.auth),
   );
+
+  /** Held only in memory – cleared on reload, user must re-authenticate to edit. */
+  private readonly activeGrant = signal<ActiveAuthGrant | null>(null);
 
   readonly persistSession = effect(() => {
     const s = this.session();
@@ -29,7 +36,7 @@ export class AuthService {
   });
 
   readonly showLogin = signal(false);
-  
+
   readonly loading = signal(false);
   readonly error = signal('');
 
@@ -45,6 +52,14 @@ export class AuthService {
   });
 
   readonly isLoggedIn = computed(() => !!this.session());
+
+  canEdit(badid: number | undefined): boolean {
+    return badid != null && this.session()?.badId === badid;
+  }
+
+  getEditCredential(): string | null {
+    return this.activeGrant()?.pincode ?? null;
+  }
 
   async openLogin() {
     const badId = await this.getCurrentRouteBadId();
@@ -75,9 +90,8 @@ export class AuthService {
         ),
       );
 
-      this.session.set({
-        badId: badId!,
-      });
+      this.session.set({ badId: badId! });
+      this.activeGrant.set({ pincode });
       this.closeLogin();
     } catch {
       this.error.set('Login fehlgeschlagen. Bitte Daten prüfen.');
@@ -88,6 +102,7 @@ export class AuthService {
 
   logout() {
     this.session.set(null);
+    this.activeGrant.set(null);
     this.closeLogin();
   }
 

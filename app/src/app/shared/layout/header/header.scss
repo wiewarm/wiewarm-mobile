@@ -59,6 +59,7 @@
     background: none;
     border: none;
     font-size: $font-size-lg;
+    font-family: $font-family-englebert;
     cursor: pointer;
     padding: 0;
     border-bottom: 2px solid transparent;
@@ -76,6 +77,20 @@
     .auth-id {
       min-width: 2ch;
       text-align: center;
+    }
+
+    .auth-login-label {
+      display: none;
+
+      @media (min-width: $breakpoint-md) {
+        display: inline;
+      }
+    }
+
+    .auth-login-icon {
+      @media (min-width: $breakpoint-md) {
+        display: none;
+      }
     }
   }
 

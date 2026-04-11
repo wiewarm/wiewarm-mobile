@@ -1,6 +1,7 @@
 @use "../../../../assets/styles/variables" as *;
 @use "../../../../assets/styles/mixins" as *;
 @use "../../../../assets/styles/dialog" as dialog;
+@use "../../../../assets/styles/form-fields" as *;
 
 :host {
   @include dialog.dialog-container;
@@ -22,22 +23,11 @@
 }
 
 .dialog-field {
-  display: grid;
-  gap: $space-1;
-}
+  @include form-field;
 
-.dialog-field span {
-  font-size: $font-size-sm;
-  color: $color-text-muted;
-}
-
-.dialog-field input {
-  min-height: 2.75rem;
-  padding: 0 $space-2;
-  border: 1px solid $color-border;
-  border-radius: $radius-md;
-  background: $color-surface-alt;
-  color: $color-text;
+  input {
+    @include form-input;
+  }
 }
 
 .dialog-actions {
@@ -48,20 +38,9 @@
 }
 
 .dialog-action {
-  display: inline-flex;
-  align-items: center;
-  gap: $space-1;
-  min-height: 2.75rem;
-  padding: 0 $space-3;
-  border: 1px solid $color-border;
-  border-radius: 999px;
-  background: $color-secondary;
-  color: $color-surface;
-  cursor: pointer;
-  @include hover-state;
+  @include form-submit-btn;
 }
 
 .dialog-error {
-  color: #b42318;
-  font-size: $font-size-sm;
+  @include form-status-error;
 }

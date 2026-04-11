@@ -14,29 +14,12 @@
   </div>
   <section class="address-section" aria-labelledby="address-heading">
     <h2 id="address-heading" class="adress-title">Adresse</h2>
+    @if (canEdit()) {
+    <app-address-item-edit [detail]="dRes"></app-address-item-edit>
+    } @else {
     <app-address-item [detail]="dRes"></app-address-item>
+    }
   </section>
-
-  <!-- <section aria-labelledby="info-heading">
-    <div class="info-box" style="display: none">
-      @if(dRes.info) {
-      <div class="info-item">
-        <span class="info-icon">ℹ️</span>
-        <pre [innerHTML]="dRes.info"></pre>
-      </div>
-      } @if(dRes.zeiten) {
-      <div class="info-item">
-        <span class="info-icon">🕓</span>
-        <pre [innerHTML]="dRes.zeiten"></pre>
-      </div>
-      } @if(dRes.preise) {
-      <div class="info-item">
-        <span class="info-icon">💰</span>
-        <pre [innerHTML]="dRes.preise"></pre>
-      </div>
-      }
-    </div>
-  </section> -->
 
   <section class="pools-section" aria-labelledby="becken-heading">
     <h2 id="becken-heading" class="becken-title">Becken und Temperaturen</h2>

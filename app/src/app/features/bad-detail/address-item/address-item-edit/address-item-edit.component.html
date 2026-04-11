@@ -1,0 +1,107 @@
+<form class="address-edit-form" (submit)="$event.preventDefault(); save()">
+  <div class="form-field">
+    <label for="adresse1">Adresse</label>
+    <input
+      id="adresse1"
+      type="text"
+      [formField]="addressForm.adresse1"
+      [class.ng-invalid]="addressForm.adresse1().invalid()"
+      [class.ng-touched]="addressForm.adresse1().touched()"
+      autocomplete="street-address"
+      aria-describedby="adresse1-error"
+      [attr.aria-invalid]="addressForm.adresse1().invalid() && addressForm.adresse1().touched() ? 'true' : null"
+    />
+    @if (addressForm.adresse1().invalid() && addressForm.adresse1().touched()) {
+      <span id="adresse1-error" class="field-error">Pflichtfeld</span>
+    }
+  </div>
+
+  <div class="form-field">
+    <label for="adresse2">Adresse 2</label>
+    <input
+      id="adresse2"
+      type="text"
+      [formField]="addressForm.adresse2"
+      autocomplete="street-address"
+    />
+  </div>
+
+  <div class="form-row">
+    <div class="form-field form-field--plz">
+      <label for="plz">PLZ</label>
+      <input
+        id="plz"
+        type="text"
+        [formField]="addressForm.plz"
+        [class.ng-invalid]="addressForm.plz().invalid()"
+        [class.ng-touched]="addressForm.plz().touched()"
+        autocomplete="postal-code"
+        aria-describedby="plz-error"
+        [attr.aria-invalid]="addressForm.plz().invalid() && addressForm.plz().touched() ? 'true' : null"
+      />
+      @if (addressForm.plz().invalid() && addressForm.plz().touched()) {
+        <span id="plz-error" class="field-error">Pflichtfeld</span>
+      }
+    </div>
+
+    <div class="form-field form-field--ort">
+      <label for="ort">Ort</label>
+      <input
+        id="ort"
+        type="text"
+        [formField]="addressForm.ort"
+        [class.ng-invalid]="addressForm.ort().invalid()"
+        [class.ng-touched]="addressForm.ort().touched()"
+        autocomplete="address-level2"
+        aria-describedby="ort-error"
+        [attr.aria-invalid]="addressForm.ort().invalid() && addressForm.ort().touched() ? 'true' : null"
+      />
+      @if (addressForm.ort().invalid() && addressForm.ort().touched()) {
+        <span id="ort-error" class="field-error">Pflichtfeld</span>
+      }
+    </div>
+  </div>
+
+  <div class="form-field">
+    <label for="telefon">Telefon</label>
+    <input
+      id="telefon"
+      type="tel"
+      [formField]="addressForm.telefon"
+      autocomplete="tel"
+    />
+  </div>
+
+  <div class="form-field">
+    <label for="email">E-Mail</label>
+    <input
+      id="email"
+      type="email"
+      [formField]="addressForm.email"
+      autocomplete="email"
+    />
+  </div>
+
+  <div class="form-field">
+    <label for="www">Website</label>
+    <input
+      id="www"
+      type="url"
+      [formField]="addressForm.www"
+      placeholder="https://"
+      autocomplete="url"
+    />
+  </div>
+
+  @if (error()) {
+    <p class="error" role="alert">{{ error() }}</p>
+  }
+
+  @if (success()) {
+    <p class="success" role="status">Gespeichert.</p>
+  }
+
+  <button type="submit" class="save-btn" [disabled]="loading()">
+    {{ loading() ? "Speichern..." : "Speichern" }}
+  </button>
+</form>

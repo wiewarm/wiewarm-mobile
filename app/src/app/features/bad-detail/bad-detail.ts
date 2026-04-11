@@ -11,8 +11,10 @@ import type {
 } from '../../shared/services/interfaces/bad-detail.interface';
 import type { BadItem } from '../../shared/services/interfaces/bad-item.interface';
 import { AddressItemComponent } from './address-item/address-item';
+import { AddressItemEditComponent } from './address-item/address-item-edit/address-item-edit.component';
 import { ImgItemComponent } from './img-item/img-item';
 import { PoolItemComponent } from './pool-item/pool-item';
+import { AuthService } from '../../shared/services/auth/auth.service';
 
 @Component({
   selector: 'main[app-bad-detail]',
@@ -26,6 +28,7 @@ import { PoolItemComponent } from './pool-item/pool-item';
     RouterModule,
     LoadingErrorComponent,
     AddressItemComponent,
+    AddressItemEditComponent,
     PoolItemComponent,
     IconComponent,
     FavoriteButtonComponent,
@@ -33,15 +36,24 @@ import { PoolItemComponent } from './pool-item/pool-item';
   ],
 })
 export class BadDetailComponent {
-  readonly badId =
-    inject(ActivatedRoute).snapshot.paramMap.get('id') ?? '';
+  readonly badId = inject(ActivatedRoute).snapshot.paramMap.get('id') ?? '';
 
   private readonly detailService = inject(BadResourceService);
-  readonly detailResource: ResourceRef<BadDetail | undefined> = this.detailService.getDetailResource(this.badId);
+  private readonly authService = inject(AuthService);
+
+  readonly detailResource: ResourceRef<BadDetail | undefined> =
+    this.detailService.getDetailResource(this.badId);
 
   readonly listResource = this.detailService.badResource;
-  readonly badItem = computed<BadItem | null>(() =>
-    (this.listResource.value() ?? []).find((i) => i.badid_text === this.badId) ?? null
+  readonly badItem = computed<BadItem | null>(
+    () =>
+      (this.listResource.value() ?? []).find(
+        (i) => i.badid_text === this.badId,
+      ) ?? null,
+  );
+
+  readonly canEdit = computed(() =>
+    this.authService.canEdit(this.detailResource.value()?.badid),
   );
 
   poolEntries(detail: BadDetail | null | undefined): BadDetailPool[] {
