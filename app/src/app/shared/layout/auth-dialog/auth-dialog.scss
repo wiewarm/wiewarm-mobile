@@ -22,14 +22,6 @@
   margin-top: $space-4;
 }
 
-.dialog-field {
-  @include form-field;
-
-  input {
-    @include form-input;
-  }
-}
-
 .dialog-actions {
   display: flex;
   flex-wrap: wrap;

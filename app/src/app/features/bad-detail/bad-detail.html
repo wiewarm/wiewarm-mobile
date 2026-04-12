@@ -14,9 +14,14 @@
   </div>
   <section class="address-section" aria-labelledby="address-heading">
     <h2 id="address-heading" class="adress-title">Adresse</h2>
-    @if (canEdit()) {
-    <app-address-item-edit [detail]="dRes"></app-address-item-edit>
-    } @else {
+    @if (canEdit()) { @defer (when canEdit()) {
+    <app-address-item-edit
+      [detail]="dRes"
+      (saved)="refetchDetail()"
+    ></app-address-item-edit>
+    } @placeholder {
+    <app-address-item [detail]="dRes"></app-address-item>
+    } } @else {
     <app-address-item [detail]="dRes"></app-address-item>
     }
   </section>

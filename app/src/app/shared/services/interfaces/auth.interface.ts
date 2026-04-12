@@ -7,3 +7,9 @@ export interface PersistedAuthContext {
 export interface ActiveAuthGrant {
   pincode: string;
 }
+
+export interface LoginModel {
+  [key: string]: string;
+  badId: string;
+  pincode: string;
+}

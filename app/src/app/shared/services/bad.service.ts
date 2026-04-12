@@ -2,14 +2,26 @@ import { inject, Injectable, resource } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { lastValueFrom } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import type { BadDetail } from './interfaces/bad-detail.interface';
+import { AuthService } from './auth/auth.service';
+import type {
+  BadDetail,
+  RawBadDetail,
+} from './interfaces/bad-detail.interface';
 import type { BadItem } from './interfaces/bad-item.interface';
+
+export class EditCredentialError extends Error {
+  constructor() {
+    super('no-credential');
+  }
+}
 
 type CacheEntry<T> = { data: T; ts: number };
 
 @Injectable({ providedIn: 'root' })
 export class BadResourceService {
   private readonly http = inject(HttpClient);
+  private readonly authService = inject(AuthService);
+
   private get apiBase() {
     return environment.apiBase;
   }
@@ -46,17 +58,42 @@ export class BadResourceService {
     }
 
     const data = await lastValueFrom(
-      this.http.get<BadItem[]>(`${this.apiBase}/temperature/all_current.json/0`)
+      this.http.get<BadItem[]>(
+        `${this.apiBase}/temperature/all_current.json/0`,
+      ),
     );
     this.badCache = { data, ts: Date.now() };
     return data;
   }
 
-  async updateBad(
-    payload: Pick<BadDetail, 'badid'> & { pincode: string } & Partial<BadDetail>,
+  /**
+   * Partial update: merges fields with cached detail before sending.
+   * Throws EditCredentialError when the session has expired.
+   */
+  async updateBadFields(
+    badid: number,
+    fields: Record<string, unknown>,
   ): Promise<void> {
-    await lastValueFrom(this.http.put(`${this.apiBase}/bad`, payload));
-    this.detailCache.delete(String(payload.badid));
+    const pincode = this.authService.getEditCredential();
+    if (!pincode) throw new EditCredentialError();
+
+    const entry = [...this.detailCache.entries()].find(
+      ([, e]) => e.data.badid === badid,
+    );
+    if (!entry)
+      throw new Error('Detail nicht im Cache – bitte Seite neu laden.');
+    const [cacheKey, cached] = entry;
+
+    await lastValueFrom(
+      this.http.put(`${this.apiBase}/bad`, {
+        ...cached.data,
+        ...fields,
+        badid,
+        pincode,
+      }),
+    );
+
+    this.detailCache.delete(cacheKey);
   }
 
   private async loadDetail(id: string): Promise<BadDetail> {
@@ -66,10 +103,30 @@ export class BadResourceService {
       return cached.data;
     }
 
-    const data = await lastValueFrom(
-      this.http.get<BadDetail>(`${this.apiBase}/bad/${key}`)
+    const raw = await lastValueFrom(
+      this.http.get<RawBadDetail>(`${this.apiBase}/bad/${key}`),
     );
+    const data = this.normalizeDetail(raw);
     this.detailCache.set(key, { data, ts: Date.now() });
     return data;
+  }
+
+  private normalizeDetail(raw: RawBadDetail): BadDetail {
+    return {
+      ...raw,
+      badid: Number(raw.badid),
+      becken:
+        raw.becken &&
+        Object.fromEntries(
+          Object.entries(raw.becken).map(([name, pool]) => [
+            name,
+            {
+              ...pool,
+              beckenid: Number(pool.beckenid),
+              temp: pool.temp == null ? null : Number(pool.temp),
+            },
+          ]),
+        ),
+    };
   }
 }

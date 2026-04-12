@@ -3,49 +3,39 @@ import {
   Component,
   inject,
   input,
-  signal,
+  linkedSignal,
+  output,
 } from '@angular/core';
-import type { OnInit } from '@angular/core';
 import { FormField, form, required, submit } from '@angular/forms/signals';
-import { AuthService } from '../../../../shared/services/auth/auth.service';
-import { BadResourceService } from '../../../../shared/services/bad.service';
+import { EditBase } from '../../../../shared/edit.base';
+import { FormInputComponent } from '../../../../shared/layout/form-input/form-input.component';
 import type { BadDetail } from '../../../../shared/services/interfaces/bad-detail.interface';
-
-interface AddressFormModel {
-  adresse1: string;
-  adresse2: string;
-  plz: string;
-  ort: string;
-  telefon: string;
-  email: string;
-  www: string;
-}
+import { BadResourceService } from 'src/app/shared/services/bad.service';
+import type { AddressFormModel } from 'src/app/shared/services/interfaces/address-form.interface';
 
 @Component({
   selector: 'app-address-item-edit',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [FormField],
+  imports: [FormField, FormInputComponent],
   templateUrl: './address-item-edit.component.html',
   styleUrl: './address-item-edit.component.scss',
 })
-export class AddressItemEditComponent implements OnInit {
+export class AddressItemEditComponent extends EditBase {
+  protected readonly badService = inject(BadResourceService);
   readonly detail = input.required<BadDetail>();
+  readonly saved = output<void>();
 
-  private readonly badService = inject(BadResourceService);
-  private readonly authService = inject(AuthService);
-
-  readonly loading = signal(false);
-  readonly error = signal('');
-  readonly success = signal(false);
-
-  readonly model = signal<AddressFormModel>({
-    adresse1: '',
-    adresse2: '',
-    plz: '',
-    ort: '',
-    telefon: '',
-    email: '',
-    www: '',
+  readonly model = linkedSignal<BadDetail, AddressFormModel>({
+    source: this.detail,
+    computation: (d) => ({
+      adresse1: d.adresse1 ?? '',
+      adresse2: d.adresse2 ?? '',
+      plz: d.plz,
+      ort: d.ort,
+      telefon: d.telefon ?? '',
+      email: d.email ?? '',
+      www: d.www ?? '',
+    }),
   });
 
   readonly addressForm = form(this.model, (f) => {
@@ -54,49 +44,15 @@ export class AddressItemEditComponent implements OnInit {
     required(f.ort);
   });
 
-  ngOnInit() {
-    const d = this.detail();
-    this.model.set({
-      adresse1: d.adresse1 ?? '',
-      adresse2: d.adresse2 ?? '',
-      plz: d.plz,
-      ort: d.ort,
-      telefon: d.telefon ?? '',
-      email: d.email ?? '',
-      www: d.www ?? '',
-    });
-  }
-
-  async save() {
-    const detail = this.detail();
-    const credential = this.authService.getEditCredential();
-    if (!credential) {
-      this.error.set('Sitzung abgelaufen. Bitte erneut anmelden.');
-      return;
+  async saveAddress() {
+    await submit(this.addressForm, () =>
+      this.save(() =>
+        this.badService.updateBadFields(this.detail().badid, this.model()),
+      ),
+    );
+    // ToDo: maybe optimize
+    if (this.success()) {
+      this.saved.emit();
     }
-
-    this.error.set('');
-    this.success.set(false);
-
-    await submit(this.addressForm, async () => {
-      this.loading.set(true);
-      try {
-        await this.badService.updateBad({
-          badid: detail.badid,
-          pincode: credential,
-          // The legacy API expects these optional keys to be present on update,
-          // even when this form does not edit them.
-          zeiten: detail.zeiten ?? '',
-          preise: detail.preise ?? '',
-          info: detail.info ?? '',
-          ...this.model(),
-        });
-        this.success.set(true);
-      } catch {
-        this.error.set('Speichern fehlgeschlagen. Bitte erneut versuchen.');
-      } finally {
-        this.loading.set(false);
-      }
-    });
   }
 }

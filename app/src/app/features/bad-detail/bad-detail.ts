@@ -56,6 +56,10 @@ export class BadDetailComponent {
     this.authService.canEdit(this.detailResource.value()?.badid),
   );
 
+  refetchDetail() {
+    this.detailResource.reload();
+  }
+
   poolEntries(detail: BadDetail | null | undefined): BadDetailPool[] {
     return detail?.becken ? Object.values(detail.becken) : [];
   }

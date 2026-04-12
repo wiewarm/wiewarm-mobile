@@ -16,20 +16,8 @@
   box-shadow: $shadow-sm;
 }
 
-.form-field {
-  @include form-field;
-
-  input {
-    @include form-input;
-  }
-}
-
 .form-row {
   @include form-row;
-}
-
-.field-error {
-  @include form-field-error;
 }
 
 .error {

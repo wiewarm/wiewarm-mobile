@@ -4,6 +4,7 @@ import {
   HostBinding,
   HostListener,
   inject,
+  signal,
 } from '@angular/core';
 import type { AfterViewInit } from '@angular/core';
 import { IconComponent } from '../icon/icon';
@@ -24,8 +25,18 @@ import { ThemeService } from '../../services/storage/theme.service';
 })
 export class HeaderComponent implements AfterViewInit {
   protected title = 'wiewarm.ch';
-  
+
   protected readonly auth = inject(AuthService);
+  protected readonly showLogin = signal(false);
+
+  openLogin() {
+    this.showLogin.set(true);
+  }
+
+  closeLogin() {
+    this.showLogin.set(false);
+  }
+
   private readonly themeService = inject(ThemeService);
   private readonly elRef = inject(ElementRef<HTMLElement>);
 

@@ -1,11 +1,11 @@
 <h2 id="auth-login-title">Badmeister Zugang</h2>
-<app-close-button (closed)="auth.closeLogin()" />
+<app-close-button (closed)="close()" />
 
 @if (auth.isLoggedIn()) {
 <p class="dialog-copy">Eingeloggt als Bad-Id: {{ auth.session()?.badId }}</p>
 
 <div class="dialog-actions">
-  <button type="button" class="dialog-action" (click)="auth.logout()">
+  <button type="button" class="dialog-action" (click)="logout()">
     <app-icon symbolId="#logout" />
     Abmelden
   </button>
@@ -15,55 +15,35 @@
   Ein Login gilt für alle editierbaren Bereiche dieser Badi.
 </p>
 
-<form
-  class="dialog-form"
-  [formGroup]="auth.loginForm"
-  (ngSubmit)="auth.login()"
->
-  @let controls = auth.loginForm.controls;
+<form class="dialog-form" (submit)="$event.preventDefault(); login()">
+  <app-form-input
+    id="login-bad-id"
+    label="Bad-Id"
+    type="number"
+    autocomplete="off"
+    errorText="Bitte Bad-Id eingeben."
+    [formField]="loginForm.badId"
+  />
 
-  <div class="dialog-field">
-    <label for="login-bad-id">Bad-Id</label>
-    <input
-      id="login-bad-id"
-      type="number"
-      formControlName="badId"
-      required
-      aria-describedby="login-bad-id-error"
-      [attr.aria-invalid]="controls.badId.touched && controls.badId.invalid ? 'true' : null"
-    />
-  </div>
-  @if (controls.badId.touched && controls.badId.hasError('required')) {
-  <p id="login-bad-id-error" class="dialog-error">Bitte Bad-Id eingeben.</p>
-  }
+  <app-form-input
+    id="login-pincode"
+    label="PIN"
+    type="password"
+    autocomplete="current-password"
+    errorText="Bitte PIN eingeben."
+    [formField]="loginForm.pincode"
+  />
 
-  <div class="dialog-field">
-    <label for="login-pincode">PIN</label>
-    <input
-      id="login-pincode"
-      type="password"
-      formControlName="pincode"
-      required
-      autocomplete="current-password"
-      aria-describedby="login-pincode-error"
-      [attr.aria-invalid]="controls.pincode.touched && controls.pincode.invalid ? 'true' : null"
-    />
-  </div>
-  @if (controls.pincode.touched && controls.pincode.hasError('required')) {
-  <p id="login-pincode-error" class="dialog-error">Bitte PIN eingeben.</p>
-  } @if (auth.error(); as error) {
-  <p class="dialog-error">{{ error }}</p>
+  @if (error()) {
+    <p class="dialog-error">{{ error() }}</p>
   }
 
   <div class="dialog-actions">
-    <button
-      type="submit"
-      class="dialog-action"
-      [disabled]="auth.loading() || auth.loginForm.invalid"
-    >
-      @if (!auth.loading()) {
-      <app-icon symbolId="#login" />
-      } {{ auth.loading() ? 'Prüfen...' : 'Anmelden' }}
+    <button type="submit" class="dialog-action" [disabled]="loading()">
+      @if (!loading()) {
+        <app-icon symbolId="#login" />
+      }
+      {{ loading() ? 'Prüfen...' : 'Anmelden' }}
     </button>
   </div>
 </form>

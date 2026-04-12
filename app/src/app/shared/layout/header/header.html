@@ -1,6 +1,6 @@
-@if (auth.showLogin()) {
-<dialog app-auth-dialog (close)="auth.closeLogin()"></dialog>
-}
+@if (showLogin()) { @defer (when showLogin()) {
+<dialog app-auth-dialog (close)="closeLogin()"></dialog>
+} }
 
 <div class="header-content">
   <div class="branding" aria-label="App Icon und Name">
@@ -19,7 +19,7 @@
       class="auth-toggle"
       [class.is-logged-in]="auth.isLoggedIn()"
       type="button"
-      (click)="this.auth.openLogin()"
+      (click)="openLogin()"
       [attr.aria-label]="auth.isLoggedIn() ? ('Eingeloggt mit Bad-Id ' + auth.session()?.badId) : 'Anmelden'"
     >
       @if (auth.isLoggedIn()) {
