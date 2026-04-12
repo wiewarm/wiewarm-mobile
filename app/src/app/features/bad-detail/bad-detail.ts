@@ -1,6 +1,7 @@
 import type { ResourceRef } from '@angular/core';
-import { Component, computed, inject } from '@angular/core';
+import { Component, computed, effect, inject } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 import { IconComponent } from '../../shared/layout/icon/icon';
 import { FavoriteButtonComponent } from '../../shared/layout/favorite-button/favorite-button.component';
 import { LoadingErrorComponent } from '../../shared/layout/loading-error/loading-error';
@@ -37,6 +38,7 @@ import { AuthService } from '../../shared/services/auth/auth.service';
 })
 export class BadDetailComponent {
   readonly badId = inject(ActivatedRoute).snapshot.paramMap.get('id') ?? '';
+  private readonly title = inject(Title);
 
   private readonly detailService = inject(BadResourceService);
   private readonly authService = inject(AuthService);
@@ -55,6 +57,13 @@ export class BadDetailComponent {
   readonly canEdit = computed(() =>
     this.authService.canEdit(this.detailResource.value()?.badid),
   );
+
+  readonly dynamicPageTitle = effect(() => {
+    const name = this.detailResource.value()?.badname?.trim();
+    if (name) {
+      this.title.setTitle(`wiewarm.ch - ${name}`);
+    }
+  });
 
   refetchDetail() {
     this.detailResource.reload();
