@@ -94,37 +94,4 @@
     }
   }
 
-  .theme-toggle {
-    background: none;
-    border: none;
-    font-size: $font-size-lg;
-    cursor: pointer;
-    perspective: 600px;
-    width: 1rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition:
-      transform $transition-fast,
-      filter $transition-fast;
-
-    border-bottom: 2px solid transparent;
-    padding-bottom: 0.1em;
-    &:hover {
-      border-bottom: 2px solid currentColor;
-    }
-
-    &.flipped .theme-emoji {
-      color: $color-primary;
-      transform: rotateY(180deg);
-    }
-
-    .theme-emoji {
-      font-size: $font-size-lg;
-      color: $color-secondary;
-      display: inline-block;
-      transform-style: preserve-3d;
-      transition: transform $transition-fast;
-    }
-  }
 }

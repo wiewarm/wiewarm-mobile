@@ -11,7 +11,6 @@ import { IconComponent } from '../icon/icon';
 import { AuthDialogComponent } from '../auth-dialog/auth-dialog';
 import { MenuBarComponent } from '../menu-bar/menu-bar';
 import { AuthService } from '../../services/auth/auth.service';
-import { ThemeService } from '../../services/storage/theme.service';
 
 @Component({
   selector: 'header[app-header]',
@@ -37,7 +36,6 @@ export class HeaderComponent implements AfterViewInit {
     this.showLogin.set(false);
   }
 
-  private readonly themeService = inject(ThemeService);
   private readonly elRef = inject(ElementRef<HTMLElement>);
 
   private lastScrollY = 0;
@@ -47,15 +45,9 @@ export class HeaderComponent implements AfterViewInit {
   @HostBinding('class.is-hidden')
   protected isHidden = false;
 
-  protected darkMode = this.themeService.darkMode;
-
   ngAfterViewInit(): void {
     this.updateHeaderHeight();
     this.lastScrollY = window.scrollY || 0;
-  }
-
-  toggleDarkMode() {
-    this.themeService.toggle();
   }
 
   /**

@@ -29,17 +29,5 @@
       <app-icon class="auth-login-icon" symbolId="#person" />
       }
     </button>
-    <button
-      class="theme-toggle"
-      [class.flipped]="darkMode()"
-      (click)="toggleDarkMode()"
-      [attr.aria-label]="darkMode() ? 'Wechsel zu Light Mode' : 'Wechsel zu Dark Mode'"
-      [attr.aria-pressed]="darkMode()"
-    >
-      <app-icon
-        class="theme-emoji"
-        [symbolId]="darkMode() ? '#light_mode' : '#dark_mode'"
-      />
-    </button>
   </div>
 </div>
