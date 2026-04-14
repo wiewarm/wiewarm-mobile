@@ -32,8 +32,10 @@ export class AuthService {
 
   readonly isLoggedIn = computed(() => !!this.session());
 
+  readonly hasActiveGrant = computed(() => !!this.activeGrant());
+
   canEdit(badid: number | undefined): boolean {
-    return badid != null && this.session()?.badId === badid;
+    return badid != null && this.session()?.badId === badid && this.hasActiveGrant();
   }
 
   getEditCredential(): string | null {

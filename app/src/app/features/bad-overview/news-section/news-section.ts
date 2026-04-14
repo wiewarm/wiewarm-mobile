@@ -58,7 +58,7 @@ export class NewsSectionComponent {
   });
 
   readonly canCreate = computed(() => {
-    if (!this.auth.isLoggedIn()) {
+    if (!this.auth.isLoggedIn() || !this.auth.hasActiveGrant()) {
       return false;
     }
 
@@ -96,7 +96,7 @@ export class NewsSectionComponent {
       this.toast.show(
         e instanceof EditCredentialError
           ? 'Sitzung abgelaufen. Bitte erneut anmelden.'
-          : 'Loeschen fehlgeschlagen. Bitte erneut versuchen.',
+          : 'Löschen fehlgeschlagen. Bitte erneut versuchen.',
       );
     }
   }

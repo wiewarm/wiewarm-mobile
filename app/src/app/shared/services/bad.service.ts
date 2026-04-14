@@ -82,7 +82,7 @@ export class BadResourceService {
     );
     if (!entry)
       throw new Error('Detail nicht im Cache – bitte Seite neu laden.');
-    const [cacheKey, cached] = entry;
+    const [, cached] = entry;
 
     await lastValueFrom(
       this.http.put(`${this.apiBase}/bad`, {
@@ -93,7 +93,13 @@ export class BadResourceService {
       }),
     );
 
-    this.detailCache.delete(cacheKey);
+    // Delete all cache entries for this bad — there may be multiple keys
+    // (e.g. slug and numeric id) pointing to the same record.
+    for (const [key, e] of [...this.detailCache.entries()]) {
+      if (e.data.badid === badid) {
+        this.detailCache.delete(key);
+      }
+    }
   }
 
   private async loadDetail(id: string): Promise<BadDetail> {

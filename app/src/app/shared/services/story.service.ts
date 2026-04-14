@@ -1,5 +1,5 @@
 import { inject, Injectable, resource } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { lastValueFrom } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import type { NewsStoryItem } from './interfaces/news-story.interface';
@@ -16,6 +16,10 @@ import {
 } from './schemas/news-story.schema';
 import { AuthService } from './auth/auth.service';
 import { EditCredentialError } from './bad.service';
+
+function isAuthError(e: unknown): boolean {
+  return e instanceof HttpErrorResponse && (e.status === 401 || e.status === 403);
+}
 
 @Injectable({ providedIn: 'root' })
 export class StoryService {
@@ -96,13 +100,17 @@ export class StoryService {
     const pincode = this.auth.getEditCredential();
     if (!session || !pincode) throw new EditCredentialError();
 
-    await lastValueFrom(
-      this.http.post(`${this.apiBase}/news.json`, {
-        badid: session.badId,
-        pincode,
-        info,
-      }),
-    );
+    try {
+      await lastValueFrom(
+        this.http.post(`${this.apiBase}/news.json`, {
+          badid: session.badId,
+          pincode,
+          info,
+        }),
+      );
+    } catch (e) {
+      throw isAuthError(e) ? new EditCredentialError() : e;
+    }
 
     this.storiesCache = undefined;
     this.newsStoriesResource.reload();
@@ -113,11 +121,15 @@ export class StoryService {
     const pincode = this.auth.getEditCredential();
     if (!session || !pincode) throw new EditCredentialError();
 
-    await lastValueFrom(
-      this.http.delete(
-        `${this.apiBase}/news.json/${session.badId}/${encodeURIComponent(pincode)}/${infoId}`,
-      ),
-    );
+    try {
+      await lastValueFrom(
+        this.http.delete(
+          `${this.apiBase}/news.json/${session.badId}/${encodeURIComponent(pincode)}/${infoId}`,
+        ),
+      );
+    } catch (e) {
+      throw isAuthError(e) ? new EditCredentialError() : e;
+    }
 
     this.storiesCache = undefined;
     this.newsStoriesResource.reload();
