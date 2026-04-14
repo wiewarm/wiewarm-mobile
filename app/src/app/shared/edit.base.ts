@@ -1,7 +1,10 @@
-import { signal } from '@angular/core';
+import { inject, signal } from '@angular/core';
 import { EditCredentialError } from './services/bad.service';
+import { ToastService } from './services/toast.service';
 
 export abstract class EditBase {
+  private readonly toast = inject(ToastService);
+
   readonly loading = signal(false);
   readonly error = signal('');
   readonly success = signal(false);
@@ -17,7 +20,7 @@ export abstract class EditBase {
       await fn();
       this.success.set(true);
     } catch (e) {
-      this.error.set(
+      this.toast.show(
         e instanceof EditCredentialError
           ? 'Sitzung abgelaufen. Bitte erneut anmelden.'
           : defaultErrorMessage,

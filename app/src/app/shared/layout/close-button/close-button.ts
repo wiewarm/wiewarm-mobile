@@ -10,7 +10,7 @@ import { ChangeDetectionStrategy, Component, output } from '@angular/core';
   >
     <span aria-hidden="true">&#10060;</span>
   </button> `,
-  styleUrl: './close-button.component.scss',
+  styleUrl: './close-button.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CloseButtonComponent {

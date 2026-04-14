@@ -1,0 +1,32 @@
+<div class="news-icon" aria-hidden="true">ℹ️</div>
+
+<div class="news-content">
+  <div class="news-main">
+    <div class="news-body" [innerHTML]="item().body"></div>
+  </div>
+
+  <div class="news-meta">
+    @if (item().publishedAtPretty) {
+    <p class="news-date">{{ item().publishedAtPretty }}</p>
+    }
+
+    <div class="news-actions">
+      @if (item().badName) {
+      <span class="news-badge">{{ item().badName }}</span>
+      } @if (item().locationText) {
+      <p class="news-location">{{ item().locationText }}</p>
+      }
+    </div>
+  </div>
+</div>
+
+@if (canDelete()) {
+<button
+  class="news-delete-btn"
+  type="button"
+  (click)="confirmDelete()"
+  aria-label="Mitteilung löschen"
+>
+  &#x2715;
+</button>
+}

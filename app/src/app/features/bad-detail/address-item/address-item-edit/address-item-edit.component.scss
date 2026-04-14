@@ -20,16 +20,6 @@
   @include form-row;
 }
 
-.error {
-  @include form-status-error;
-  margin: 0;
-}
-
-.success {
-  @include form-status-success;
-  margin: 0;
-}
-
 .save-btn {
   @include form-submit-btn;
   justify-self: start;

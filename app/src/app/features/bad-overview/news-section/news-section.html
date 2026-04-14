@@ -1,0 +1,44 @@
+@if (shouldShowSection()) {
+<section class="news-section" [attr.aria-labelledby]="headingId">
+  <div class="news-section-header">
+    <h2 [id]="headingId">{{ heading() }}</h2>
+    @if (canCreate()) {
+    <button
+      type="button"
+      class="news-add-btn"
+      (click)="showNewsEditor.set(true)"
+    >
+      <app-icon symbolId="#add" />
+      <span>Mitteilung</span>
+    </button>
+    } @else {
+    <span class="news-add-btn-placeholder" aria-hidden="true"></span>
+    }
+  </div>
+
+  <app-loading-error
+    [state]="newsState()"
+    loadingMsg="News laden..."
+    errorMsg="News konnten nicht geladen werden."
+  ></app-loading-error>
+
+  @if (newsItems().length) {
+  <div class="news-list">
+    @for (story of newsItems(); track story.id) {
+    <article
+      app-news-item
+      [item]="story"
+      [canDelete]="auth.session()?.badId === +story.badId"
+      (deleted)="deleteNews($event)"
+    ></article>
+    }
+  </div>
+  }
+</section>
+} @if (showNewsEditor()) {
+<dialog
+  app-news-editor
+  [badId]="auth.session()?.badId"
+  (closed)="showNewsEditor.set(false)"
+></dialog>
+}

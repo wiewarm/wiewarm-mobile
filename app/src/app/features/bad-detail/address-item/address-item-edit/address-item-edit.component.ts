@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import { FormField, form, required, submit } from '@angular/forms/signals';
 import { EditBase } from '../../../../shared/edit.base';
+import { EditFeedbackComponent } from '../../../../shared/layout/edit-feedback/edit-feedback';
 import { FormInputComponent } from '../../../../shared/layout/form-input/form-input.component';
 import type { BadDetail } from '../../../../shared/services/interfaces/bad-detail.interface';
 import { BadResourceService } from 'src/app/shared/services/bad.service';
@@ -16,7 +17,7 @@ import type { AddressFormModel } from 'src/app/shared/services/interfaces/addres
 @Component({
   selector: 'app-address-item-edit',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [FormField, FormInputComponent],
+  imports: [FormField, FormInputComponent, EditFeedbackComponent],
   templateUrl: './address-item-edit.component.html',
   styleUrl: './address-item-edit.component.scss',
 })

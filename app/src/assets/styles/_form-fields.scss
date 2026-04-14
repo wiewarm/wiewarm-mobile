@@ -59,14 +59,14 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 2.75rem;
+  min-height: 2.5rem;
   padding: 0 $space-4;
   border: none;
   border-radius: 999px;
   background: $color-secondary;
   color: $color-surface;
   font-size: $font-size-base;
-  font-family: inherit;
+  font-family: $font-family-englebert;
   cursor: pointer;
   @include hover-state;
   @include haptic-click;

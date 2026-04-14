@@ -1,5 +1,5 @@
 import { Component, ElementRef, inject, input, output } from '@angular/core';
-import { CloseButtonComponent } from '../close-button/close-button.component';
+import { CloseButtonComponent } from '../close-button/close-button';
 import type {
   SortDirection,
   SortField,

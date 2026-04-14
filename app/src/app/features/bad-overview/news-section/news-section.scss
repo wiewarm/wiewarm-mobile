@@ -1,0 +1,68 @@
+@use "../../../../assets/styles/variables" as *;
+@use "../../../../assets/styles/mixins" as *;
+
+:host {
+  display: block;
+}
+
+.news-section {
+  @include flex-column;
+  gap: $space-2;
+}
+
+.news-section-header {
+  @include flex-between;
+  gap: $space-2;
+}
+
+.news-add-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-1;
+  padding: $space-1 $space-2;
+  border: none;
+  border-radius: 999px;
+  background: $color-secondary;
+  color: $color-surface;
+  font-family: $font-family-englebert;
+  font-size: $font-size-sm;
+  cursor: pointer;
+  @include hover-state;
+  @include haptic-click;
+
+  app-icon {
+    font-size: 0.95em;
+  }
+}
+
+.news-add-btn-placeholder {
+  display: inline-block;
+  flex: 0 0 auto;
+  width: 8.5rem;
+  height: calc(2 * #{$space-1} + 2 * 2px + 1lh);
+  visibility: hidden;
+}
+
+.news-list {
+  @include flex-column;
+  gap: $space-3;
+
+  article[app-news-item] {
+    break-inside: avoid;
+    margin-bottom: $space-3;
+  }
+
+  article[app-news-item]:nth-child(even) {
+    --news-card-accent-color: #{$color-secondary-light};
+  }
+
+  @media (min-width: $breakpoint-md) {
+    columns: var(--news-columns, 2);
+    display: block;
+  }
+
+  @media (min-width: $breakpoint-lg) {
+    columns: var(--news-columns, 3);
+  }
+}
+

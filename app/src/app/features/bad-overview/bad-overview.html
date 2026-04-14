@@ -43,6 +43,8 @@
 
   <app-loading-error
     [state]="badResource.isLoading() ? 'loading':badResource.error() ? 'error' : 'idle' "
+    loadingMsg="Temperaturen laden..."
+    errorMsg="Temperaturen konnten nicht geladen werden."
   ></app-loading-error>
 
   <div
@@ -60,4 +62,7 @@
     </div>
     }
   </div>
+    <app-news-section />
+
 </div>
+

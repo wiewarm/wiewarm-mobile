@@ -57,13 +57,7 @@
     [formField]="addressForm.www"
   />
 
-  @if (error()) {
-    <p class="error" role="alert">❌ {{ error() }}</p>
-  }
-
-  @if (success()) {
-    <p class="success" role="status">💾 Gespeichert.</p>
-  }
+  <app-edit-feedback [error]="error()" [success]="success()" />
 
   <button type="submit" class="save-btn" [disabled]="loading()">
     {{ loading() ? "Speichern..." : "Speichern" }}

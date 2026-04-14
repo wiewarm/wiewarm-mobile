@@ -9,7 +9,7 @@ import type { AfterViewInit } from '@angular/core';
 import { FormField, form, required, submit } from '@angular/forms/signals';
 import { Router } from '@angular/router';
 import { EditBase } from '../../edit.base';
-import { CloseButtonComponent } from '../close-button/close-button.component';
+import { CloseButtonComponent } from '../close-button/close-button';
 import { FormInputComponent } from '../form-input/form-input.component';
 import { IconComponent } from '../icon/icon';
 import { AuthService } from '../../services/auth/auth.service';

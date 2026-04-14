@@ -5,6 +5,13 @@ function parseDate(dateStr: string | null): Date | null {
   return isNaN(d.getTime()) ? null : d;
 }
 
+export function toTimestamp(
+  primaryDate: string | null | undefined,
+  fallbackDate: string | null | undefined,
+): number {
+  return (parseDate(primaryDate ?? fallbackDate ?? null))?.getTime() ?? 0;
+}
+
 export function isOlderThanOneMonth(dateStr: string | null): boolean {
   const itemDate = parseDate(dateStr);
   if (!itemDate) return false;

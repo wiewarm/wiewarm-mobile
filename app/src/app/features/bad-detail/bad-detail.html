@@ -11,36 +11,35 @@
   @let dRes = detailResource.value();
 
   <div class="detail-hero">
-    @let bItem = badItem();
-    @if (bItem) {
+    @let bItem = badItem(); @if (bItem) {
     <app-favorite-button [item]="bItem" variant="overlay" />
     }
   </div>
 
   <section class="address-section" aria-labelledby="address-heading">
     <h2 id="address-heading" class="adress-title">Adresse</h2>
-    @if (dRes && canEdit()) {
-    @defer (when canEdit()) {
+    @if (dRes && canEdit()) { @defer (when canEdit()) {
     <app-address-item-edit
       [detail]="dRes"
       (saved)="refetchDetail()"
     ></app-address-item-edit>
     } @placeholder {
     <app-address-item [detail]="dRes"></app-address-item>
-    }
-    } @else if (dRes) {
+    } } @else if (dRes) {
     <app-address-item [detail]="dRes"></app-address-item>
     }
   </section>
 
+  @if (dRes) {
+  <app-news-section heading="Mitteilungen" [badId]="dRes.badid" />
+  }
+
   <section class="pools-section" aria-labelledby="becken-heading">
     <h2 id="becken-heading" class="becken-title">Becken und Temperaturen</h2>
     <ul class="pool-list">
-      @if (dRes) {
-      @for (pool of poolEntries(dRes); track pool.beckenid) {
+      @if (dRes) { @for (pool of poolEntries(dRes); track pool.beckenid) {
       <app-pool-item [pool]="pool"></app-pool-item>
-      }
-      }
+      } }
     </ul>
   </section>
 
