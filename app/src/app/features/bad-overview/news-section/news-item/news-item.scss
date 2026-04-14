@@ -94,7 +94,9 @@
 .news-actions {
   display: flex;
   align-items: baseline;
+  justify-content: space-between;
   gap: $space-2;
+  flex: 1 1 0;
   min-width: 0;
   flex-wrap: nowrap;
 }
@@ -103,7 +105,8 @@
   margin: 0;
   font-size: $font-size-sm;
   color: $color-text-muted;
-  overflow-wrap: break-word;
+  white-space: nowrap;
+  text-align: right;
 }
 
 .news-delete-btn {
