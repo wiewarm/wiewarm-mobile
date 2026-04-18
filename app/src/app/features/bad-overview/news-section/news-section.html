@@ -28,7 +28,7 @@
     <article
       app-news-item
       [item]="story"
-      [canDelete]="auth.session()?.badId === +story.badId"
+      [canDelete]="auth.session()?.badId === story.badId"
       (deleted)="deleteNews($event)"
     ></article>
     }

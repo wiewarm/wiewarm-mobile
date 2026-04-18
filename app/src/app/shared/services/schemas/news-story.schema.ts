@@ -19,7 +19,7 @@ const imageItemSchema = z.object({
   description: z.string().optional(),
   date: z.string().optional(),
   date_pretty: z.string().optional(),
-  badid: z.string(),
+  badid: z.coerce.number(),
   badname: z.string(),
   ort: z.string(),
   plz: z.string(),

@@ -10,12 +10,12 @@ import {
   resolveImageUrl,
 } from './news-story.mapper.utils';
 
-function latestImagesByBadId(imageItems: ImageItem[]): Map<string, ImageItem> {
-  const imgByBadId = new Map<string, ImageItem>();
-  const tsByBadId = new Map<string, number>();
+function latestImagesByBadId(imageItems: ImageItem[]): Map<number, ImageItem> {
+  const imgByBadId = new Map<number, ImageItem>();
+  const tsByBadId = new Map<number, number>();
 
   for (const img of imageItems) {
-    const badId = String(img.badid);
+    const badId = img.badid;
 
     const tsRaw = toTimestamp(img.date, img.date_pretty);
     const ts = Number.isFinite(tsRaw) ? tsRaw : -Infinity;
@@ -31,7 +31,7 @@ function latestImagesByBadId(imageItems: ImageItem[]): Map<string, ImageItem> {
 }
 
 function toNewsStory(item: NewsItem, img?: ImageItem): NewsStoryItem {
-  const badId = String(item.badid);
+  const badId = item.badid;
 
   return {
     id: `news:${badId}:${item.infoid}`,
@@ -54,7 +54,5 @@ export function mapNewsToStories(
   imageItems: ImageItem[],
 ): NewsStoryItem[] {
   const latest = latestImagesByBadId(imageItems);
-  return newsItems.map((item) =>
-    toNewsStory(item, latest.get(String(item.badid))),
-  );
+  return newsItems.map((item) => toNewsStory(item, latest.get(item.badid)));
 }

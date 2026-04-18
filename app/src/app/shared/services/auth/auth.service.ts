@@ -38,6 +38,16 @@ export class AuthService {
     return badid != null && this.session()?.badId === badid && this.hasActiveGrant();
   }
 
+  /**
+   * True when the user may post/delete news for the given bad.
+   * `null` = no bad filter (overview page) — any authenticated editor passes.
+   */
+  canEditNewsFor(badId: number | null | undefined): boolean {
+    const session = this.session();
+    if (!session || !this.hasActiveGrant()) return false;
+    return badId == null || session.badId === badId;
+  }
+
   getEditCredential(): string | null {
     return this.activeGrant()?.pincode ?? null;
   }

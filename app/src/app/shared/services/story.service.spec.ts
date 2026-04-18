@@ -53,7 +53,7 @@ describe('StoryService', () => {
 
   const validImageItem = {
     image: 'photo.jpg',
-    badid: '2',
+    badid: 2,
     badname: 'Seebad',
     ort: 'Bern',
     plz: '3000',
@@ -89,8 +89,8 @@ describe('StoryService', () => {
 
     const stories = service.newsStoriesResource.value()!;
     expect(stories).toHaveSize(2);
-    expect(stories.some((s) => s.kind === 'news' && s.badId === '1')).toBeTrue();
-    expect(stories.some((s) => s.kind === 'impression' && s.badId === '2')).toBeTrue();
+    expect(stories.some((s) => s.kind === 'news' && s.badId === 1)).toBeTrue();
+    expect(stories.some((s) => s.kind === 'impression' && s.badId === 2)).toBeTrue();
   }));
 
   it('sorts combined stories newest-first', fakeAsync(() => {
@@ -209,7 +209,7 @@ describe('StoryService', () => {
     expect(service.newsStoriesResource.value()).toEqual(
       jasmine.arrayContaining([
         jasmine.objectContaining({
-          badId: '1',
+          badId: 1,
           infoId: 10,
         }),
       ]),

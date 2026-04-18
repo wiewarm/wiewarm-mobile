@@ -15,7 +15,7 @@ import {
  */
 export function mapImagesToStories(imageItems: ImageItem[]): NewsStoryItem[] {
   return imageItems.map((item) => {
-    const badId = String(item.badid);
+    const badId = item.badid;
     const image = item.original ?? item.image ?? '';
     const thumb = item.thumbnail ?? item.image;
 

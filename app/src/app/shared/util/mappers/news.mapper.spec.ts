@@ -32,7 +32,7 @@ describe('mapNewsToStories', () => {
 
   const makeImage = (overrides: Partial<ImageItem> = {}): ImageItem => ({
     image: 'photo.jpg',
-    badid: '1',
+    badid: 1,
     badname: 'Testbad',
     ort: 'Zürich',
     plz: '8000',
@@ -45,7 +45,7 @@ describe('mapNewsToStories', () => {
 
     expect(story.id).toBe('news:1:100');
     expect(story.kind).toBe('news');
-    expect(story.badId).toBe('1');
+    expect(story.badId).toBe(1);
     expect(story.badName).toBe('Testbad');
     expect(story.locationText).toBe('8000 Zürich');
     expect(story.title).toBe('Mitteilung von Testbad, Zürich');
@@ -63,7 +63,7 @@ describe('mapNewsToStories', () => {
   });
 
   it('returns null image URLs when no image matches', () => {
-    const img = makeImage({ badid: '99' });
+    const img = makeImage({ badid: 99 });
     const story = mapNewsToStories([makeNews({ badid: 1 })], [img])[0];
 
     expect(story.imageUrl).toBeNull();

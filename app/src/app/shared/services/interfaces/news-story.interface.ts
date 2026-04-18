@@ -3,7 +3,7 @@ export type NewsStoryKind = 'news' | 'impression';
 export interface NewsStoryItem {
   id: string;
   kind: NewsStoryKind;
-  badId: string;
+  badId: number;
   badName: string;
   locationText: string;
   title: string;

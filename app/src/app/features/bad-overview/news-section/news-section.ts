@@ -37,7 +37,7 @@ export class NewsSectionComponent {
   private readonly toast = inject(ToastService);
   readonly auth = inject(AuthService);
 
-  readonly badId = input<string | number | null>(null);
+  readonly badId = input<number | null>(null);
   readonly heading = input('News');
 
   readonly headingId = `news-heading-${nextHeadingId++}`;
@@ -45,26 +45,13 @@ export class NewsSectionComponent {
 
   private readonly newsResource = this.storyService.newsStoriesResource;
 
-  readonly normalizedBadId = computed(() => {
-    const id = this.badId();
-    return id != null ? String(id) : null;
-  });
-
   readonly newsItems = computed(() => {
-    let items = this.storyService.getNewsItems();
-    const badId = this.normalizedBadId();
-    if (badId) items = items.filter((item) => item.badId === badId);
-    return items;
+    const items = this.storyService.getNewsItems();
+    const badId = this.badId();
+    return badId != null ? items.filter((item) => item.badId === badId) : items;
   });
 
-  readonly canCreate = computed(() => {
-    if (!this.auth.isLoggedIn() || !this.auth.hasActiveGrant()) {
-      return false;
-    }
-
-    const badId = this.normalizedBadId();
-    return !badId || String(this.auth.session()?.badId) === badId;
-  });
+  readonly canCreate = computed(() => this.auth.canEditNewsFor(this.badId()));
 
   readonly newsState = computed<'idle' | 'loading' | 'error'>(() => {
     if (this.newsResource.error()) {

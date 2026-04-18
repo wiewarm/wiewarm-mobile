@@ -17,7 +17,7 @@ describe('mapImagesToStories', () => {
 
   const makeImage = (overrides: Partial<ImageItem> = {}): ImageItem => ({
     image: 'photo.jpg',
-    badid: '42',
+    badid: 42,
     badname: 'Seebad',
     ort: 'Bern',
     plz: '3000',
@@ -29,14 +29,14 @@ describe('mapImagesToStories', () => {
     const story = mapImagesToStories([makeImage()])[0];
 
     expect(story.kind).toBe('impression');
-    expect(story.badId).toBe('42');
+    expect(story.badId).toBe(42);
     expect(story.badName).toBe('Seebad');
     expect(story.locationText).toBe('3000 Bern');
     expect(story.title).toBe('Bild hochgeladen von Seebad, Bern');
   });
 
   it('generates a deterministic ID from badid and image hash', () => {
-    const item = makeImage({ badid: '42', original: 'orig.jpg' });
+    const item = makeImage({ badid: 42, original: 'orig.jpg' });
     const story = mapImagesToStories([item])[0];
 
     expect(story.id).toBe(`img:42:${hashString('orig.jpg')}`);
