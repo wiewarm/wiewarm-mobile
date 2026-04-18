@@ -2,7 +2,7 @@
 <section class="news-section" [attr.aria-labelledby]="headingId">
   <div class="news-section-header">
     <h2 [id]="headingId">{{ heading() }}</h2>
-    @if (canCreate()) {
+    @if (this.auth.canEditNewsFor(this.badId())) {
     <button
       type="button"
       class="news-add-btn"

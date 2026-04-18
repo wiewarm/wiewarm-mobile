@@ -50,8 +50,6 @@ export class NewsSectionComponent {
     return badId != null ? items.filter((item) => item.badId === badId) : items;
   });
 
-  readonly canCreate = computed(() => this.auth.canEditNewsFor(this.badId()));
-
   readonly newsState = computed<'idle' | 'loading' | 'error'>(() => {
     if (this.newsResource.error()) {
       return 'error';
@@ -69,7 +67,7 @@ export class NewsSectionComponent {
       this.newsResource.isLoading() ||
       !!this.newsResource.error() ||
       this.newsItems().length > 0 ||
-      this.canCreate(),
+      this.auth.canEditNewsFor(this.badId()),
   );
 
   /**
