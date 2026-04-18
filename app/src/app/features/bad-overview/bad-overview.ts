@@ -1,12 +1,11 @@
 import { CdkAccordionModule } from '@angular/cdk/accordion';
-import type { ElementRef, ResourceRef } from '@angular/core';
+import type { ResourceRef } from '@angular/core';
 import {
   ChangeDetectionStrategy,
   Component,
   computed,
   inject,
   signal,
-  viewChild,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
@@ -54,9 +53,6 @@ export class BadOverviewComponent {
   );
 
   readonly searchInput = signal('');
-  readonly searchOpen = signal(false);
-  private readonly searchField =
-    viewChild<ElementRef<HTMLInputElement>>('searchField');
 
   readonly filteredItems = computed(() => {
     // Normalize source
@@ -80,20 +76,4 @@ export class BadOverviewComponent {
       this.listPreferences.sortDirection(),
     );
   });
-
-  toggleSearch() {
-    if (this.searchOpen() && !this.searchInput().trim()) {
-      this.searchOpen.set(false);
-      return;
-    }
-
-    this.searchOpen.set(true);
-    requestAnimationFrame(() => this.searchField()?.nativeElement.focus());
-  }
-
-  onSearchBlur() {
-    if (!this.searchInput().trim()) {
-      this.searchOpen.set(false);
-    }
-  }
 }
