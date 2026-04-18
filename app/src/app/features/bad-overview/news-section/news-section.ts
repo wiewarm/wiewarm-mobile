@@ -9,9 +9,8 @@ import {
 import { LoadingErrorComponent } from '../../../shared/layout/loading-error/loading-error';
 import { IconComponent } from '../../../shared/layout/icon/icon';
 import { AuthService } from '../../../shared/services/auth/auth.service';
-import { EditCredentialError } from '../../../shared/services/bad.service';
 import { StoryService } from '../../../shared/services/story.service';
-import { ToastService } from '../../../shared/services/toast.service';
+import { ErrorReporter } from '../../../shared/util/edit-error.util';
 import { NewsItemComponent } from './news-item/news-item';
 import { NewsEditorComponent } from './news-editor/news-editor';
 
@@ -34,7 +33,7 @@ let nextHeadingId = 0;
 })
 export class NewsSectionComponent {
   private readonly storyService = inject(StoryService);
-  private readonly toast = inject(ToastService);
+  private readonly error = inject(ErrorReporter);
   readonly auth = inject(AuthService);
 
   readonly badId = input<number | null>(null);
@@ -73,18 +72,16 @@ export class NewsSectionComponent {
       this.canCreate(),
   );
 
+  /**
+   * Uses `ErrorReporter` directly instead of going through `EditBase.save`:
+   * this is a container component, not a form — no loading/error/success
+   * signals, no inline feedback. A failed delete just surfaces a toast.
+   */
   async deleteNews(infoId: number) {
     try {
       await this.storyService.deleteNews(infoId);
     } catch (e) {
-      if (e instanceof EditCredentialError) {
-        this.auth.logout();
-      }
-      this.toast.show(
-        e instanceof EditCredentialError
-          ? 'Sitzung abgelaufen. Bitte erneut anmelden.'
-          : 'Löschen fehlgeschlagen. Bitte erneut versuchen.',
-      );
+      this.error.report(e, 'Löschen fehlgeschlagen. Bitte erneut versuchen.');
     }
   }
 }

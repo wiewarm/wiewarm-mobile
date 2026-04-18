@@ -12,7 +12,6 @@ import { EditBase } from '../../edit.base';
 import { CloseButtonComponent } from '../close-button/close-button';
 import { FormInputComponent } from '../form-input/form-input.component';
 import { IconComponent } from '../icon/icon';
-import { AuthService } from '../../services/auth/auth.service';
 import { BadResourceService } from '../../services/bad.service';
 import type { LoginModel } from '../../services/interfaces/auth.interface';
 
@@ -30,7 +29,6 @@ export class AuthDialogComponent extends EditBase implements AfterViewInit {
   private readonly elementRef = inject(ElementRef<HTMLDialogElement>);
   private readonly router = inject(Router);
   private readonly badService = inject(BadResourceService);
-  readonly auth = inject(AuthService);
 
   private readonly prefillBadId = signal('');
 

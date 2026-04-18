@@ -8,10 +8,12 @@
 .news-section {
   @include flex-column;
   gap: $space-2;
+  padding-top: $space-4;
 }
 
 .news-section-header {
-  @include flex-between;
+  display: flex;
+  align-items: center;
   gap: $space-2;
 }
 
@@ -19,7 +21,7 @@
   display: inline-flex;
   align-items: center;
   gap: $space-1;
-  padding: $space-1 $space-2;
+  padding: $space-1;
   border: none;
   border-radius: 999px;
   background: $color-secondary;
@@ -65,4 +67,3 @@
     columns: var(--news-columns, 3);
   }
 }
-

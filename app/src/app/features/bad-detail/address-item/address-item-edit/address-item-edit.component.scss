@@ -22,5 +22,5 @@
 
 .save-btn {
   @include form-submit-btn;
-  justify-self: start;
+  justify-self: end;
 }

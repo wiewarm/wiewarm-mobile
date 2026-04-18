@@ -8,14 +8,14 @@ import type {
   RawBadDetail,
 } from './interfaces/bad-detail.interface';
 import type { BadItem } from './interfaces/bad-item.interface';
+import type { CacheEntry } from '../util/cache.util';
+import { isCacheEntryFresh } from '../util/cache.util';
 
 export class EditCredentialError extends Error {
   constructor() {
     super('no-credential');
   }
 }
-
-type CacheEntry<T> = { data: T; ts: number };
 
 @Injectable({ providedIn: 'root' })
 export class BadResourceService {
@@ -25,7 +25,6 @@ export class BadResourceService {
   private get apiBase() {
     return environment.apiBase;
   }
-  private readonly TTL_MS = 5 * 60_000; // 5 Minutes, then refetch
 
   private badCache?: CacheEntry<BadItem[]>;
   private readonly detailCache = new Map<string, CacheEntry<BadDetail>>();
@@ -48,12 +47,8 @@ export class BadResourceService {
     return this.loadDetail(id);
   }
 
-  private isFresh<T>(entry?: CacheEntry<T>): entry is CacheEntry<T> {
-    return !!entry && Date.now() - entry.ts <= this.TTL_MS;
-  }
-
   private async loadList(): Promise<BadItem[]> {
-    if (this.isFresh(this.badCache)) {
+    if (isCacheEntryFresh(this.badCache)) {
       return this.badCache.data;
     }
 
@@ -105,7 +100,7 @@ export class BadResourceService {
   private async loadDetail(id: string): Promise<BadDetail> {
     const key = String(id);
     const cached = this.detailCache.get(key);
-    if (this.isFresh(cached)) {
+    if (isCacheEntryFresh(cached)) {
       return cached.data;
     }
 
