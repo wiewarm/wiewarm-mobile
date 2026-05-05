@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 
 import { LoadingErrorComponent } from '../../shared/layout/loading-error/loading-error';
 import { NewsSectionComponent } from './news-section/news-section';
+import { ImpressionsSectionComponent } from './impressions-section/impressions-section';
 import { BadResourceService } from '../../shared/services/bad.service';
 import type { BadItem } from '../../shared/services/interfaces/bad-item.interface';
 import { FavoriteService } from '../../shared/services/storage/favorite.service';
@@ -34,6 +35,7 @@ import { FavoriteItemComponent } from './favorite-item/favorite-item';
     FilterSortControlsComponent,
     FavoriteItemComponent,
     NewsSectionComponent,
+    ImpressionsSectionComponent,
     LoadingErrorComponent,
   ],
   host: { role: 'main', class: 'bad-overview' },

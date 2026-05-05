@@ -1,0 +1,94 @@
+@use "../../../../../assets/styles/variables" as *;
+@use "../../../../../assets/styles/mixins" as *;
+
+:host {
+  width: auto;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: $color-bg;
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+  font-family: $font-family-englebert;
+  overflow: hidden;
+}
+
+.impression-image-wrap {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  flex: 0 0 auto;
+  display: block;
+
+  &:hover .impression-image,
+  &:focus-visible .impression-image {
+    transform: scale(1.04);
+  }
+
+  &:focus-visible {
+    outline: 2px solid $color-secondary;
+    outline-offset: -2px;
+  }
+}
+
+.impression-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.2s ease;
+}
+
+.impression-content {
+  padding: $space-2 $space-4;
+  min-width: 0;
+}
+
+.impression-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: $space-3;
+}
+
+.impression-date {
+  margin: 0;
+  flex: 0 0 auto;
+  padding-right: $space-1;
+  font-size: $font-size-sm;
+  color: $color-text-muted;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.impression-badge {
+  display: inline-block;
+  padding: 0 $space-2;
+  color: var(--impression-card-accent-color, #{$color-secondary});
+  font-size: $font-size-sm;
+  font-weight: $font-weight-bold;
+}
+
+.impression-actions {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: $space-2;
+  flex: 1 1 0;
+  min-width: 0;
+  flex-wrap: nowrap;
+}
+
+.impression-location {
+  margin: 0;
+  font-size: $font-size-sm;
+  color: $color-text-muted;
+  white-space: nowrap;
+  text-align: right;
+}
+
+@media (max-width: $breakpoint-sm) {
+  .impression-content {
+    padding: $space-3;
+  }
+}

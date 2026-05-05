@@ -1,0 +1,34 @@
+@if (item().thumbnailUrl) {
+<a
+  class="impression-image-wrap"
+  [href]="item().imageUrl"
+  target="_blank"
+  rel="noopener"
+  [attr.aria-label]="item().badName + ' Bild öffnen'"
+>
+  <img
+    class="impression-image"
+    [src]="item().thumbnailUrl"
+    [alt]="item().badName"
+    loading="lazy"
+  />
+</a>
+}
+
+<div class="impression-content">
+  <div class="impression-meta">
+    @if (item().publishedAtPretty) {
+    <p class="impression-date">{{ item().publishedAtPretty }}</p>
+    }
+
+    <div class="impression-actions">
+      @if (item().badName && badSlug()) {
+      <a class="impression-badge" [routerLink]="['/', badSlug()]">{{ item().badName }}</a>
+      } @else if (item().badName) {
+      <span class="impression-badge">{{ item().badName }}</span>
+      } @if (item().locationText) {
+      <p class="impression-location">{{ item().locationText }}</p>
+      }
+    </div>
+  </div>
+</div>

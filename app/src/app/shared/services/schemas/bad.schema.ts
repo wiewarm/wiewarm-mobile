@@ -23,7 +23,7 @@ export const badDetailSchema = z.object({
   adresse2: z.string().optional(),
   telefon: z.string().optional(),
   email: z.string().optional(),
-  www: z.string().optional(),
+  www: z.string().nullable().optional(),
   zeiten: z.string().optional(),
   preise: z.string().optional(),
   info: z.string().optional(),

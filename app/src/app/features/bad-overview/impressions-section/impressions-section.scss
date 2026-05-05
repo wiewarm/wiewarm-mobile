@@ -1,0 +1,36 @@
+@use "../../../../assets/styles/variables" as *;
+@use "../../../../assets/styles/mixins" as *;
+
+:host {
+  display: block;
+}
+
+.impressions-section {
+  @include flex-column;
+  gap: $space-2;
+  padding: $space-4 $space-3 0;
+}
+
+.impressions-section-header {
+  display: flex;
+  align-items: center;
+  gap: $space-2;
+}
+
+.impressions-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: $space-3;
+
+  @media (min-width: $breakpoint-sm) {
+    grid-template-columns: repeat(var(--impressions-columns, 3), 1fr);
+  }
+
+  @media (min-width: $breakpoint-md) {
+    grid-template-columns: repeat(var(--impressions-columns, 4), 1fr);
+  }
+
+  @media (min-width: $breakpoint-lg) {
+    grid-template-columns: repeat(var(--impressions-columns, 5), 1fr);
+  }
+}

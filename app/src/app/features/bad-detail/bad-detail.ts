@@ -6,6 +6,7 @@ import { IconComponent } from '../../shared/layout/icon/icon';
 import { FavoriteButtonComponent } from '../../shared/layout/favorite-button/favorite-button.component';
 import { LoadingErrorComponent } from '../../shared/layout/loading-error/loading-error';
 import { NewsSectionComponent } from '../bad-overview/news-section/news-section';
+import { ImpressionsSectionComponent } from '../bad-overview/impressions-section/impressions-section';
 import { BadResourceService } from '../../shared/services/bad.service';
 import type {
   BadDetail,
@@ -36,6 +37,7 @@ import { AuthService } from '../../shared/services/auth/auth.service';
     FavoriteButtonComponent,
     ImgItemComponent,
     NewsSectionComponent,
+    ImpressionsSectionComponent,
   ],
 })
 export class BadDetailComponent {

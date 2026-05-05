@@ -1,0 +1,25 @@
+@if (shouldShowSection()) {
+<section class="impressions-section" [attr.aria-labelledby]="headingId">
+  <div class="impressions-section-header">
+    <h2 [id]="headingId">{{ heading() }}</h2>
+  </div>
+
+  <app-loading-error
+    [state]="impressionsState()"
+    loadingMsg="Bilder laden..."
+    errorMsg="Bilder konnten nicht geladen werden."
+  ></app-loading-error>
+
+  @if (impressionItems().length) {
+  <div class="impressions-list">
+    @for (item of impressionItems(); track item.id) {
+    <article
+      app-impression-item
+      [item]="item"
+      [badSlug]="badSlugById().get(item.badId) ?? null"
+    ></article>
+    }
+  </div>
+  }
+</section>
+}
