@@ -6,10 +6,12 @@ import {
   input,
   signal,
 } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { LoadingErrorComponent } from '../../../shared/layout/loading-error/loading-error';
 import { IconComponent } from '../../../shared/layout/icon/icon';
 import { AuthService } from '../../../shared/services/auth/auth.service';
 import { StoryService } from '../../../shared/services/story.service';
+import { BadResourceService } from '../../../shared/services/bad.service';
 import { ErrorReporter } from '../../../shared/util/edit-error.util';
 import { NewsItemComponent } from './news-item/news-item';
 import { NewsEditorComponent } from './news-editor/news-editor';
@@ -22,6 +24,7 @@ let nextHeadingId = 0;
   styleUrl: './news-section.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
+    RouterModule,
     LoadingErrorComponent,
     IconComponent,
     NewsItemComponent,
@@ -33,6 +36,7 @@ let nextHeadingId = 0;
 })
 export class NewsSectionComponent {
   private readonly storyService = inject(StoryService);
+  private readonly badService = inject(BadResourceService);
   private readonly error = inject(ErrorReporter);
   readonly auth = inject(AuthService);
 
@@ -43,6 +47,14 @@ export class NewsSectionComponent {
   readonly showNewsEditor = signal(false);
 
   private readonly newsResource = this.storyService.newsStoriesResource;
+
+  readonly badSlugById = computed(() => {
+    const map = new Map<number, string>();
+    for (const bad of this.badService.badResource.value() ?? []) {
+      map.set(bad.badid, bad.badid_text);
+    }
+    return map;
+  });
 
   readonly newsItems = computed(() => {
     const items = this.storyService.getNewsItems();

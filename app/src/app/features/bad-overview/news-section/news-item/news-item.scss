@@ -138,6 +138,13 @@
   }
 }
 
+:host.is-clickable {
+  cursor: pointer;
+  &:hover {
+    box-shadow: $shadow-md, inset 0.22rem 0 0 var(--news-card-accent-color, #{$color-secondary});
+  }
+}
+
 @media (max-width: $breakpoint-sm) {
   :host {
     padding: $space-3;

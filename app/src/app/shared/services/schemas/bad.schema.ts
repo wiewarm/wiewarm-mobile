@@ -34,6 +34,7 @@ export const badDetailSchema = z.object({
 const nullToEmpty = z.string().nullable().catch('').transform((v) => v ?? '');
 
 export const badItemSchema = z.object({
+  badid: z.coerce.number(),
   badid_text: z.string(),
   bad: z.string(),
   becken: z.string(),
