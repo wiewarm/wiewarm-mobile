@@ -1,0 +1,18 @@
+@use "../../../../assets/styles/variables" as *;
+@use "../../../../assets/styles/form-fields" as *;
+
+:host {
+  display: block;
+}
+
+.form-field {
+  @include form-field;
+
+  input {
+    @include form-input;
+  }
+}
+
+.field-error {
+  @include form-field-error;
+}

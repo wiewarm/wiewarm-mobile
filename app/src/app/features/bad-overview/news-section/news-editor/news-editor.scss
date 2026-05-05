@@ -1,0 +1,37 @@
+@use "../../../../../assets/styles/variables" as *;
+@use "../../../../../assets/styles/dialog" as dialog;
+@use "../../../../../assets/styles/form-fields" as *;
+
+:host {
+  @include dialog.dialog-container;
+  padding: $space-4;
+}
+
+#news-editor-title {
+  @include dialog.dialog-title;
+}
+
+.editor-meta {
+  margin: $space-1 0 $space-4;
+  font-size: $font-size-sm;
+  color: $color-text-muted;
+}
+
+.editor-content {
+  @include form-input;
+  min-height: 10rem;
+  padding: $space-3;
+  font-family: $font-family-englebert;
+  line-height: $line-height-base;
+  resize: vertical;
+}
+
+.editor-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: $space-4;
+}
+
+.submit-btn {
+  @include form-submit-btn;
+}

@@ -23,6 +23,11 @@ $color-text-muted: var(--color-text-muted) !default; // Muted Text
 $color-link: var(--color-primary) !default;
 $color-link-hover: var(--color-link-hover) !default;
 
+// Semantic states
+$color-error: var(--color-error) !default;
+$color-success: var(--color-success) !default;
+$color-focus-ring: var(--color-focus-ring) !default;
+
 // Tables
 $color-table-header-bg: $color-surface !default;
 $color-table-header-text: $color-primary-dark !default;

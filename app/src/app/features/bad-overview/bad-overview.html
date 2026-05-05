@@ -22,10 +22,8 @@
         <div class="search">
           <span class="search-emoji" aria-hidden="true">&#128269;</span>
           <input
-            #searchField
             type="text"
             [(ngModel)]="searchInput"
-            (blur)="onSearchBlur()"
             placeholder="Suche…"
             aria-label="Badi suchen"
           />
@@ -43,6 +41,8 @@
 
   <app-loading-error
     [state]="badResource.isLoading() ? 'loading':badResource.error() ? 'error' : 'idle' "
+    loadingMsg="Temperaturen laden..."
+    errorMsg="Temperaturen konnten nicht geladen werden."
   ></app-loading-error>
 
   <div
@@ -60,4 +60,7 @@
     </div>
     }
   </div>
+    <app-news-section />
+
 </div>
+

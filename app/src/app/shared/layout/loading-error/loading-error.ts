@@ -16,8 +16,13 @@ type State = 'idle' | 'loading' | 'error';
   `,
   styles: [
     `
-      .status {
+      @use '../../../../assets/styles/variables' as *;
+      .status,
+      .error {
         text-align: center;
+        font-family: $font-family-englebert;
+      }
+      .status {
         padding: 1rem;
       }
       .error {

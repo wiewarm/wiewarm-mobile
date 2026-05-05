@@ -82,6 +82,11 @@ pre:last-of-type {
   min-width: 0;
 }
 
+app-news-section {
+  --news-columns: 1;
+  max-width: 600px;
+}
+
 .pool-list {
   display: flex;
   flex-direction: column;
@@ -106,7 +111,8 @@ pre:last-of-type {
     grid-template-areas:
       "hero hero"
       "address pools"
-      "images pools";
+      "images pools"
+      "news news";
   }
 
   .detail-hero {
@@ -121,6 +127,9 @@ pre:last-of-type {
   }
   .images-section {
     grid-area: images;
+  }
+  app-news-section {
+    grid-area: news;
   }
 
   .adress-title {

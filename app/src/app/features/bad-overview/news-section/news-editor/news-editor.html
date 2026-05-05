@@ -1,0 +1,25 @@
+<h2 id="news-editor-title">Neue Mitteilung</h2>
+<app-close-button (closed)="close()" />
+
+<p class="editor-meta">Mitteilung von Bad-Id {{ badId() }}</p>
+
+<textarea
+  #editor
+  class="editor-content"
+  [(ngModel)]="text"
+  aria-label="Mitteilungstext"
+  placeholder="Hier Mitteilung eingeben..."
+></textarea>
+
+<app-edit-feedback [error]="error()" [success]="success()" />
+
+<div class="editor-actions">
+  <button
+    type="button"
+    class="submit-btn"
+    (click)="submit()"
+    [disabled]="loading()"
+  >
+    {{ loading() ? 'Speichern...' : 'Publizieren' }}
+  </button>
+</div>

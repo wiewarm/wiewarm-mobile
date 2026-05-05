@@ -1,0 +1,15 @@
+@use "../../../../assets/styles/form-fields" as *;
+
+:host {
+  display: contents;
+}
+
+.error {
+  @include form-status-error;
+  margin: 0;
+}
+
+.success {
+  @include form-status-success;
+  margin: 0;
+}

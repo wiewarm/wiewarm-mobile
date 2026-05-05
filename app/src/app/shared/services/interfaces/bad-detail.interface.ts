@@ -1,29 +1,5 @@
-import type { BadImage } from './bad-image.interface';
+import type { badDetailSchema } from '../schemas/bad.schema';
+import type { z } from 'zod';
 
-export interface BadDetailPool {
-  beckenid: number;
-  beckenname: string;
-  typ: string;
-  status: string;
-  date_pretty: string;
-  temp: number | null;
-}
-
-export interface BadDetail {
-  badid: number;
-  badname: string;
-  plz: string;
-  ort: string;
-  adresse1?: string;
-  adresse2?: string;
-  telefon?: string;
-  email?: string;
-  www?: string;
-  zeiten?: string;
-  preise?: string;
-  info?: string;
-  becken?: Record<string, BadDetailPool>;
-  bilder?: BadImage[];
-  // Allow additional properties
-  [key: string]: unknown;
-}
+export type BadDetail = z.infer<typeof badDetailSchema>;
+export type BadDetailPool = BadDetail['becken'] extends Record<string, infer P> | undefined ? P : never;

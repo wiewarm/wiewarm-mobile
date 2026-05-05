@@ -1,7 +1,13 @@
+/* Proxy-Ziele werden über Umgebungsvariablen gesteuert. Fallbacks:
+   Development: http://localhost:3770/ (Docker-Backend)
+   Production:  https://www.wiewarm.ch/ (Postgres-Backend)
+*/
 const apiBase = new URL(
-  process.env.NG_APP_API_BASE ?? "https://www.wiewarm.ch/api/v1"
+  process.env.NG_APP_API_BASE ?? "http://localhost:3770/api/v1",
 );
-const imageBase = new URL("https://www.wiewarm.ch/");
+const imageBase = new URL(
+  process.env.NG_APP_IMAGE_BASE ?? "http://localhost:3770/",
+);
 
 module.exports = {
   "/api": {

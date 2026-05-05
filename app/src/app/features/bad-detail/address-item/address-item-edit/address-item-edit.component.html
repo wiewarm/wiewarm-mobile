@@ -1,0 +1,65 @@
+<form class="address-edit-form" (submit)="$event.preventDefault(); saveAddress()">
+  <app-form-input
+    id="adresse1"
+    label="Adresse"
+    type="text"
+    autocomplete="street-address"
+    [formField]="addressForm.adresse1"
+  />
+
+  <app-form-input
+    id="adresse2"
+    label="Adresse 2"
+    type="text"
+    autocomplete="street-address"
+    [formField]="addressForm.adresse2"
+  />
+
+  <div class="form-row">
+    <app-form-input
+      id="plz"
+      label="PLZ"
+      type="text"
+      autocomplete="postal-code"
+      [formField]="addressForm.plz"
+    />
+    <app-form-input
+      id="ort"
+      label="Ort"
+      type="text"
+      autocomplete="address-level2"
+      [formField]="addressForm.ort"
+    />
+  </div>
+
+  <app-form-input
+    id="telefon"
+    label="Telefon"
+    type="tel"
+    autocomplete="tel"
+    [formField]="addressForm.telefon"
+  />
+
+  <app-form-input
+    id="email"
+    label="E-Mail"
+    type="email"
+    autocomplete="email"
+    [formField]="addressForm.email"
+  />
+
+  <app-form-input
+    id="www"
+    label="Website"
+    type="url"
+    placeholder="https://"
+    autocomplete="url"
+    [formField]="addressForm.www"
+  />
+
+  <app-edit-feedback [error]="error()" [success]="success()" />
+
+  <button type="submit" class="save-btn" [disabled]="loading()">
+    {{ loading() ? "Speichern..." : "Speichern" }}
+  </button>
+</form>

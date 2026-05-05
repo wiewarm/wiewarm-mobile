@@ -4,17 +4,19 @@ import {
   HostBinding,
   HostListener,
   inject,
+  signal,
 } from '@angular/core';
 import type { AfterViewInit } from '@angular/core';
 import { IconComponent } from '../icon/icon';
+import { AuthDialogComponent } from '../auth-dialog/auth-dialog';
 import { MenuBarComponent } from '../menu-bar/menu-bar';
-import { ThemeService } from '../../services/storage/theme.service';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'header[app-header]',
   templateUrl: './header.html',
   styleUrls: ['./header.scss'],
-  imports: [IconComponent, MenuBarComponent],
+  imports: [IconComponent, MenuBarComponent, AuthDialogComponent],
   host: {
     role: 'banner', // a11y: Landmark
     class: 'app-header',
@@ -22,8 +24,20 @@ import { ThemeService } from '../../services/storage/theme.service';
 })
 export class HeaderComponent implements AfterViewInit {
   protected title = 'wiewarm.ch';
-  private readonly themeService = inject(ThemeService);
+
+  protected readonly auth = inject(AuthService);
+  protected readonly showLogin = signal(false);
+
+  openLogin() {
+    this.showLogin.set(true);
+  }
+
+  closeLogin() {
+    this.showLogin.set(false);
+  }
+
   private readonly elRef = inject(ElementRef<HTMLElement>);
+
   private lastScrollY = 0;
   private readonly nearTopPx = 8;
   private readonly minDeltaPx = 4;
@@ -31,15 +45,9 @@ export class HeaderComponent implements AfterViewInit {
   @HostBinding('class.is-hidden')
   protected isHidden = false;
 
-  protected darkMode = this.themeService.darkMode;
-
   ngAfterViewInit(): void {
     this.updateHeaderHeight();
     this.lastScrollY = window.scrollY || 0;
-  }
-
-  toggleDarkMode() {
-    this.themeService.toggle();
   }
 
   /**

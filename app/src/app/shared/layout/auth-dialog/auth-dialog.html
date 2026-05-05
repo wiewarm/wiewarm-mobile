@@ -1,0 +1,50 @@
+<h2 id="auth-login-title">Badmeister Zugang</h2>
+<app-close-button (closed)="close()" />
+
+@if (auth.isLoggedIn()) {
+<p class="dialog-copy">Eingeloggt als Bad-Id: {{ auth.session()?.badId }}</p>
+
+<div class="dialog-actions">
+  <button type="button" class="dialog-action" (click)="logout()">
+    <app-icon symbolId="#logout" />
+    Abmelden
+  </button>
+</div>
+} @else {
+<p class="dialog-copy">
+  Ein Login gilt für alle editierbaren Bereiche dieser Badi.
+</p>
+
+<form class="dialog-form" (submit)="$event.preventDefault(); login()">
+  <app-form-input
+    id="login-bad-id"
+    label="Bad-Id"
+    type="number"
+    autocomplete="off"
+    errorText="Bitte Bad-Id eingeben."
+    [formField]="loginForm.badId"
+  />
+
+  <app-form-input
+    id="login-pincode"
+    label="PIN"
+    type="password"
+    autocomplete="current-password"
+    errorText="Bitte PIN eingeben."
+    [formField]="loginForm.pincode"
+  />
+
+  @if (error()) {
+    <p class="dialog-error">{{ error() }}</p>
+  }
+
+  <div class="dialog-actions">
+    <button type="submit" class="dialog-action" [disabled]="loading()">
+      @if (!loading()) {
+        <app-icon symbolId="#login" />
+      }
+      {{ loading() ? 'Prüfen...' : 'Anmelden' }}
+    </button>
+  </div>
+</form>
+}

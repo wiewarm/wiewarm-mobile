@@ -1,0 +1,38 @@
+@use "../../../../assets/styles/variables" as *;
+@use "../../../../assets/styles/mixins" as *;
+@use "../../../../assets/styles/dialog" as dialog;
+@use "../../../../assets/styles/form-fields" as *;
+
+:host {
+  @include dialog.dialog-container;
+}
+
+#auth-login-title {
+  @include dialog.dialog-title;
+}
+
+.dialog-copy {
+  margin-top: $space-1;
+  color: $color-text-muted;
+}
+
+.dialog-form {
+  display: grid;
+  gap: $space-3;
+  margin-top: $space-4;
+}
+
+.dialog-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-2;
+  margin-top: $space-4;
+}
+
+.dialog-action {
+  @include form-submit-btn;
+}
+
+.dialog-error {
+  @include form-status-error;
+}

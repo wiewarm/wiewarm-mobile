@@ -49,37 +49,49 @@
     }
   }
 
-  .theme-toggle {
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: $space-2;
+  }
+
+  .auth-toggle {
     background: none;
     border: none;
     font-size: $font-size-lg;
+    font-family: $font-family-englebert;
     cursor: pointer;
-    perspective: 600px;
-    width: 1rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition:
-      transform $transition-fast,
-      filter $transition-fast;
-
+    padding: 0;
     border-bottom: 2px solid transparent;
-    padding-bottom: 0.1em;
+    @include hover-link;
+
     &:hover {
       border-bottom: 2px solid currentColor;
     }
 
-    &.flipped .theme-emoji {
-      color: $color-primary;
-      transform: rotateY(180deg);
+    &.is-logged-in {
+      color: $color-secondary;
+      padding: 0;
     }
 
-    .theme-emoji {
-      font-size: $font-size-lg;
-      color: $color-secondary;
-      display: inline-block;
-      transform-style: preserve-3d;
-      transition: transform $transition-fast;
+    .auth-id {
+      min-width: 2ch;
+      text-align: center;
+    }
+
+    .auth-login-label {
+      display: none;
+
+      @media (min-width: $breakpoint-md) {
+        display: inline;
+      }
+    }
+
+    .auth-login-icon {
+      @media (min-width: $breakpoint-md) {
+        display: none;
+      }
     }
   }
+
 }

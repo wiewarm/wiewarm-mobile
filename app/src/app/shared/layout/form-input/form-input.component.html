@@ -1,0 +1,19 @@
+<div class="form-field">
+  <label [for]="id()">{{ label() }}</label>
+  <input
+    [id]="id()"
+    [type]="type()"
+    [value]="value()"
+    [class.ng-invalid]="invalid()"
+    [class.ng-touched]="touched()"
+    [autocomplete]="autocomplete() ?? 'off'"
+    [placeholder]="placeholder() ?? ''"
+    [attr.aria-describedby]="invalid() && touched() ? id() + '-error' : null"
+    [attr.aria-invalid]="invalid() && touched() ? 'true' : null"
+    (input)="value.set($any($event.target).value)"
+    (blur)="touched.set(true)"
+  />
+  @if (invalid() && touched()) {
+    <span [id]="id() + '-error'" class="field-error">❌ {{ errorText() }}</span>
+  }
+</div>

@@ -1,3 +1,7 @@
+@if (showLogin()) { @defer (when showLogin()) {
+<dialog app-auth-dialog (close)="closeLogin()"></dialog>
+} }
+
 <div class="header-content">
   <div class="branding" aria-label="App Icon und Name">
     <img
@@ -10,16 +14,21 @@
     </div>
     <app-menu-bar />
   </div>
-  <button
-    class="theme-toggle"
-    [class.flipped]="darkMode()"
-    (click)="toggleDarkMode()"
-    [attr.aria-label]="darkMode() ? 'Wechsel zu Light Mode' : 'Wechsel zu Dark Mode'"
-    [attr.aria-pressed]="darkMode()"
-  >
-    <app-icon
-      class="theme-emoji"
-      [symbolId]="darkMode() ? '#light_mode' : '#dark_mode'"
-    />
-  </button>
+  <div class="header-actions">
+    <button
+      class="auth-toggle"
+      style="display: none"
+      [class.is-logged-in]="auth.isLoggedIn()"
+      type="button"
+      (click)="openLogin()"
+      [attr.aria-label]="auth.isLoggedIn() ? ('Eingeloggt mit Bad-Id ' + auth.session()?.badId) : 'Anmelden'"
+    >
+      @if (auth.isLoggedIn()) {
+      <app-icon symbolId="#person" />
+      } @else {
+      <p class="auth-login-label">Login</p>
+      <app-icon class="auth-login-icon" symbolId="#person" />
+      }
+    </button>
+  </div>
 </div>

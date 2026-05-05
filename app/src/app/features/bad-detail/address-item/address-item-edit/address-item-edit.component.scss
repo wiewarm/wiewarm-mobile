@@ -1,0 +1,26 @@
+@use "../../../../../assets/styles/variables" as *;
+@use "../../../../../assets/styles/form-fields" as *;
+
+:host {
+  display: block;
+  max-width: 600px;
+}
+
+.address-edit-form {
+  display: grid;
+  gap: $space-3;
+  padding: $space-3 $space-4;
+  background: $color-surface-alt;
+  border: 2px solid $color-border;
+  border-radius: $radius-l;
+  box-shadow: $shadow-sm;
+}
+
+.form-row {
+  @include form-row;
+}
+
+.save-btn {
+  @include form-submit-btn;
+  justify-self: end;
+}

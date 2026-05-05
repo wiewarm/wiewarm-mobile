@@ -1,0 +1,71 @@
+@use "../../../../assets/styles/variables" as *;
+
+:host {
+  all: unset;
+  position: fixed !important;
+  inset: 0 !important;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.toast-container {
+  position: absolute;
+  bottom: $space-5;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.toast {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+  padding: $space-3 $space-4;
+  border-radius: $radius-l;
+  font-family: $font-family-englebert;
+  font-size: $font-size-base;
+  box-shadow: $shadow-md;
+  pointer-events: all;
+  animation: toast-in 0.2s ease-out;
+
+  &--error {
+    --toast-theme-color: var(--color-error);
+  }
+  &--success {
+    --toast-theme-color: var(--color-success);
+  }
+  &--info {
+    --toast-theme-color: var(--color-secondary);
+  }
+
+  &--error,
+  &--success,
+  &--info {
+    background: color-mix(
+      in srgb,
+      var(--toast-theme-color) 12%,
+      var(--color-surface)
+    );
+    border: 1px solid var(--toast-theme-color);
+    color: var(--toast-theme-color);
+  }
+}
+
+.toast-message {
+  flex: 1 1 auto;
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

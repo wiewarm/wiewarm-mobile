@@ -1,16 +1,16 @@
 import { CdkAccordionModule } from '@angular/cdk/accordion';
-import type { ElementRef, ResourceRef } from '@angular/core';
+import type { ResourceRef } from '@angular/core';
 import {
   ChangeDetectionStrategy,
   Component,
   computed,
   inject,
   signal,
-  viewChild,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { LoadingErrorComponent } from '../../shared/layout/loading-error/loading-error';
+import { NewsSectionComponent } from './news-section/news-section';
 import { BadResourceService } from '../../shared/services/bad.service';
 import type { BadItem } from '../../shared/services/interfaces/bad-item.interface';
 import { FavoriteService } from '../../shared/services/storage/favorite.service';
@@ -33,6 +33,7 @@ import { FavoriteItemComponent } from './favorite-item/favorite-item';
     BadItemComponent,
     FilterSortControlsComponent,
     FavoriteItemComponent,
+    NewsSectionComponent,
     LoadingErrorComponent,
   ],
   host: { role: 'main', class: 'bad-overview' },
@@ -48,13 +49,10 @@ export class BadOverviewComponent {
   readonly listHeading = computed(() =>
     this.listPreferences.filterField() === 'aktuell'
       ? 'Aktuelle Temperaturen'
-      : 'Alle Temperaturen'
+      : 'Alle Temperaturen',
   );
 
   readonly searchInput = signal('');
-  readonly searchOpen = signal(false);
-  private readonly searchField =
-    viewChild<ElementRef<HTMLInputElement>>('searchField');
 
   readonly filteredItems = computed(() => {
     // Normalize source
@@ -78,20 +76,4 @@ export class BadOverviewComponent {
       this.listPreferences.sortDirection(),
     );
   });
-
-  toggleSearch() {
-    if (this.searchOpen() && !this.searchInput().trim()) {
-      this.searchOpen.set(false);
-      return;
-    }
-
-    this.searchOpen.set(true);
-    requestAnimationFrame(() => this.searchField()?.nativeElement.focus());
-  }
-
-  onSearchBlur() {
-    if (!this.searchInput().trim()) {
-      this.searchOpen.set(false);
-    }
-  }
 }

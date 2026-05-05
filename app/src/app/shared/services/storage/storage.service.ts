@@ -5,6 +5,7 @@ export const STORAGE_KEYS = {
   legacyFavorite: 'favoriteId',
   theme: 'themeMode',
   list: 'listPreferences',
+  auth: 'auth',
 } as const;
 
 @Injectable({ providedIn: 'root' })

@@ -1,0 +1,91 @@
+@use "./variables" as *;
+@use "./mixins" as *;
+
+// Wrapper for label+input pair
+@mixin form-field {
+  display: grid;
+  gap: $space-1;
+
+  label {
+    font-size: $font-size-sm;
+    color: $color-text-muted;
+  }
+}
+
+// Horizontale Gruppe (z.B. PLZ + Ort nebeneinander)
+@mixin form-row {
+  display: grid;
+  grid-template-columns: 6rem 1fr;
+  gap: $space-3;
+
+  @media (max-width: $breakpoint-sm) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// Text-Input / Select / Textarea
+@mixin form-input {
+  width: 100%;
+  min-height: 2.75rem;
+  padding: 0 $space-3;
+  border: 2px solid $color-border;
+  border-radius: $radius-l;
+  background: $color-surface-alt;
+  color: $color-text;
+  font-size: $font-size-base;
+  font-family: inherit;
+  box-sizing: border-box;
+  transition:
+    border-color $transition-fast,
+    box-shadow $transition-fast;
+
+  @include focus-ring;
+  @include hover-state;
+  @include haptic-click(0.02rem, 0.998, 90ms);
+
+  &.ng-invalid.ng-touched {
+    border-color: $color-error;
+  }
+}
+
+// Inline error below the field
+@mixin form-field-error {
+  font-size: $font-size-sm;
+  color: $color-error;
+}
+
+// Submit
+@mixin form-submit-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.5rem;
+  padding: 0 $space-4;
+  border: none;
+  border-radius: 999px;
+  background: $color-secondary;
+  color: $color-surface;
+  font-size: $font-size-base;
+  font-family: $font-family-englebert;
+  cursor: pointer;
+  @include hover-state;
+  @include haptic-click;
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+  }
+}
+
+// State
+@mixin form-status-error {
+  font-size: $font-size-sm;
+  color: $color-error;
+}
+
+@mixin form-status-success {
+  font-size: $font-size-sm;
+  color: $color-success;
+}
