@@ -3,13 +3,11 @@ import { HttpClient } from '@angular/common/http';
 import { lastValueFrom } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { AuthService } from './auth/auth.service';
-import type {
-  BadDetail,
-  RawBadDetail,
-} from './interfaces/bad-detail.interface';
+import type { BadDetail } from './interfaces/bad-detail.interface';
 import type { BadItem } from './interfaces/bad-item.interface';
 import type { CacheEntry } from '../util/cache.util';
 import { isCacheEntryFresh } from '../util/cache.util';
+import { badDetailSchema, badItemsSchema } from './schemas/bad.schema';
 
 export class EditCredentialError extends Error {
   constructor() {
@@ -52,11 +50,10 @@ export class BadResourceService {
       return this.badCache.data;
     }
 
-    const data = await lastValueFrom(
-      this.http.get<BadItem[]>(
-        `${this.apiBase}/temperature/all_current.json/0`,
-      ),
+    const raw = await lastValueFrom(
+      this.http.get<unknown>(`${this.apiBase}/temperature/all_current.json/0`),
     );
+    const data = badItemsSchema.parse(raw);
     this.badCache = { data, ts: Date.now() };
     return data;
   }
@@ -105,29 +102,10 @@ export class BadResourceService {
     }
 
     const raw = await lastValueFrom(
-      this.http.get<RawBadDetail>(`${this.apiBase}/bad/${key}`),
+      this.http.get<unknown>(`${this.apiBase}/bad/${key}`),
     );
-    const data = this.normalizeDetail(raw);
+    const data = badDetailSchema.parse(raw);
     this.detailCache.set(key, { data, ts: Date.now() });
     return data;
-  }
-
-  private normalizeDetail(raw: RawBadDetail): BadDetail {
-    return {
-      ...raw,
-      badid: Number(raw.badid),
-      becken:
-        raw.becken &&
-        Object.fromEntries(
-          Object.entries(raw.becken).map(([name, pool]) => [
-            name,
-            {
-              ...pool,
-              beckenid: Number(pool.beckenid),
-              temp: pool.temp == null ? null : Number(pool.temp),
-            },
-          ]),
-        ),
-    };
   }
 }

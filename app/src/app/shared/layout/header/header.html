@@ -17,6 +17,7 @@
   <div class="header-actions">
     <button
       class="auth-toggle"
+      style="display: none"
       [class.is-logged-in]="auth.isLoggedIn()"
       type="button"
       (click)="openLogin()"

@@ -68,4 +68,9 @@ export class AuthService {
     this.session.set(null);
     this.activeGrant.set(null);
   }
+
+  /** Clears only the in-memory PIN — session (badId) is kept for re-login prefill. */
+  revokeGrant() {
+    this.activeGrant.set(null);
+  }
 }

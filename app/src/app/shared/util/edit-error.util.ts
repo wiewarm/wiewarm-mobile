@@ -18,7 +18,7 @@ export class ErrorReporter {
 
   report(e: unknown, defaultMessage: string): void {
     if (e instanceof EditCredentialError) {
-      this.auth.logout();
+      this.auth.revokeGrant();
       this.toast.show('Sitzung abgelaufen. Bitte erneut anmelden.');
       return;
     }
