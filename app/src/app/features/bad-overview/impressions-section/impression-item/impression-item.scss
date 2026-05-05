@@ -67,6 +67,19 @@
   color: var(--impression-card-accent-color, #{$color-secondary});
   font-size: $font-size-sm;
   font-weight: $font-weight-bold;
+
+  &[href] {
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+    text-decoration-color: transparent;
+    transition: text-decoration-color $transition-fast;
+
+    &:hover,
+    &:focus-visible {
+      text-decoration-color: currentColor;
+      outline: none;
+    }
+  }
 }
 
 .impression-actions {

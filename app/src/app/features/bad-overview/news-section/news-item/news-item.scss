@@ -140,8 +140,20 @@
 
 :host.is-clickable {
   cursor: pointer;
+
+  .news-badge {
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+    text-decoration-color: transparent;
+    transition: text-decoration-color $transition-fast;
+  }
+
   &:hover {
     box-shadow: $shadow-md, inset 0.22rem 0 0 var(--news-card-accent-color, #{$color-secondary});
+
+    .news-badge {
+      text-decoration-color: currentColor;
+    }
   }
 }
 
