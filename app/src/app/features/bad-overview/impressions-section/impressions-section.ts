@@ -35,14 +35,18 @@ export class ImpressionsSectionComponent {
 
   readonly badSlugById = computed(() => {
     const map = new Map<number, string>();
-    for (const bad of this.badService.badResource.value() ?? []) {
+    for (const bad of this.badService.getBadItems()) {
       map.set(bad.badid, bad.badid_text);
     }
     return map;
   });
 
   readonly impressionItems = computed(() => {
-    const items = (this.storiesResource.value() ?? []).filter(
+    if (!this.storiesResource.hasValue()) {
+      return [];
+    }
+
+    const items = this.storiesResource.value().filter(
       (s) => s.kind === 'impression',
     );
     const badId = this.badId();

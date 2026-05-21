@@ -168,6 +168,7 @@ describe('StoryService', () => {
     tick();
 
     expect(service.newsStoriesResource.error()).toBeInstanceOf(Error);
+    expect(service.getNewsItems()).toEqual([]);
   }));
 
   it('keeps news available when image data is invalid', fakeAsync(() => {
@@ -211,6 +212,31 @@ describe('StoryService', () => {
         jasmine.objectContaining({
           badId: 1,
           infoId: 10,
+        }),
+      ]),
+    );
+  }));
+
+  it('normalizes null news info from the API', fakeAsync(() => {
+    const service = TestBed.inject(StoryService);
+    service.newsStoriesResource.value();
+    tick();
+
+    httpMock.expectOne((r) => r.url === newsUrl).flush([
+      {
+        ...validNewsItem,
+        info: null,
+      },
+    ]);
+    httpMock.expectOne((r) => r.url === imagesUrl).flush([]);
+    tick();
+
+    expect(service.newsStoriesResource.error()).toBeUndefined();
+    expect(service.newsStoriesResource.value()).toEqual(
+      jasmine.arrayContaining([
+        jasmine.objectContaining({
+          kind: 'news',
+          body: '',
         }),
       ]),
     );

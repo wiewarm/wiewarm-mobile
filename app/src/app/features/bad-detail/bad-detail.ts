@@ -47,21 +47,23 @@ export class BadDetailComponent {
 
   readonly detailResource: ResourceRef<BadDetail | undefined> =
     this.detailService.getDetailResource(this.badId);
+  readonly detail = computed(() =>
+    this.detailResource.hasValue() ? this.detailResource.value() : undefined,
+  );
 
-  readonly listResource = this.detailService.badResource;
   readonly badItem = computed<BadItem | null>(
     () =>
-      (this.listResource.value() ?? []).find(
+      this.detailService.getBadItems().find(
         (i) => i.badid_text === this.badId,
       ) ?? null,
   );
 
   readonly canEdit = computed(() =>
-    this.authService.canEdit(this.detailResource.value()?.badid),
+    this.authService.canEdit(this.detail()?.badid),
   );
 
   readonly dynamicPageTitle = effect(() => {
-    const name = this.detailResource.value()?.badname?.trim();
+    const name = this.detail()?.badname?.trim();
     if (name) {
       this.title.setTitle(`wiewarm.ch - ${name}`);
     }

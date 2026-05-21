@@ -7,14 +7,13 @@
 
 .news-section {
   @include flex-column;
-  gap: $space-2;
-  padding-top: $space-4;
+  gap: $space-1;
 }
 
 .news-section-header {
   display: flex;
   align-items: center;
-  gap: $space-2;
+  gap: $space-1;
 }
 
 .news-add-btn {

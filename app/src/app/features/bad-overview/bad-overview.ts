@@ -58,7 +58,7 @@ export class BadOverviewComponent {
 
   readonly filteredItems = computed(() => {
     // Normalize source
-    const items = this.badResource.value() ?? [];
+    const items = this.badService.getBadItems();
 
     // Normalize search term
     const term = this.searchInput().trim().toLowerCase();

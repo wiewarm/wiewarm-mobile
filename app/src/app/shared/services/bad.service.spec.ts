@@ -39,6 +39,22 @@ describe('BadResourceService', () => {
     pending.forEach((req) => req.flush([]));
   };
 
+  const validBadItem = {
+    badid: 1,
+    badid_text: 'testbad',
+    bad: 'Test Bad',
+    becken: 'Hauptbecken',
+    plz: '8000',
+    ort: 'Zuerich',
+    date: '2024-06-10',
+    date_pretty: '10.06.2024',
+    beckenid: 11,
+    temp: 22,
+    ortlat: 47.3769,
+    ortlong: 8.5417,
+    kanton: 'ZH',
+  };
+
   const dummyDetail = { badid: 1, badname: '', plz: '', ort: '' } as any;
 
   it('uses configured host for API requests', fakeAsync(() => {
@@ -100,7 +116,7 @@ describe('BadResourceService', () => {
   it('exposes a shared badResource', fakeAsync(() => {
     environment.apiBase = originalApiBase;
     const service = TestBed.inject(BadResourceService);
-    const dummyList = [{ bad: 'Test Bad' }] as any;
+    const dummyList = [validBadItem];
 
     // Trigger evaluation, then let resource scheduling settle.
     service.badResource.value();
@@ -114,6 +130,22 @@ describe('BadResourceService', () => {
 
     tick();
     expect(service.badResource.value()).toEqual(dummyList);
+  }));
+
+  it('returns an empty bad list when badResource is in an error state', fakeAsync(() => {
+    environment.apiBase = originalApiBase;
+    const service = TestBed.inject(BadResourceService);
+
+    service.badResource.value();
+    tick();
+
+    const req = httpMock.expectOne(`${environment.apiBase}${listUrlSuffix}`);
+    expect(req.request.method).toBe('GET');
+    req.flush([{ bad: 'Test Bad' }]);
+
+    tick();
+    expect(service.badResource.error()).toBeInstanceOf(Error);
+    expect(service.getBadItems()).toEqual([]);
   }));
 
   it('updates a cached detail loaded by slug lookup', fakeAsync(() => {

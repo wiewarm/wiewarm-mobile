@@ -21,7 +21,7 @@ export class FavoriteService {
 
   readonly favoriteItems = computed(() => {
     const ids = new Set(this.favoriteIds());
-    const list = this.badService.badResource.value() ?? [];
+    const list = this.badService.getBadItems();
     if (ids.size === 0 || list.length === 0) return [];
     return list.filter((item) => ids.has(String(item.beckenid)));
   });
@@ -44,7 +44,8 @@ export class FavoriteService {
   toggleFavorite(item: BadItem) {
     const id = String(item.beckenid);
     this.favoriteIds.update((curr) =>
-      curr.includes(id) ? curr.filter((v) => v !== id) : [...curr, id],
+      curr.includes(id) ? 
+      curr.filter((v) => v !== id) : [...curr, id],
     );
   }
 

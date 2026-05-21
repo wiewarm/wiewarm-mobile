@@ -45,6 +45,7 @@
   color: var(--news-card-accent-color, #{$color-secondary});
   font-size: $font-size-sm;
   font-weight: $font-weight-bold;
+  line-height: auto;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -53,6 +54,7 @@
   flex: 1 1 auto;
   min-width: 0;
   color: $color-text;
+  line-height: auto;
   text-wrap: pretty;
   display: -webkit-box;
   -webkit-line-clamp: var(--news-body-max-lines);
@@ -92,6 +94,7 @@
   margin: 0;
   flex: 0 0 auto;
   font-size: $font-size-sm;
+  line-height: 1.35;
   color: $color-text-muted;
   letter-spacing: 0.05em;
   white-space: nowrap;
@@ -113,6 +116,7 @@
   min-width: 0;
   overflow: hidden;
   font-size: $font-size-sm;
+  line-height: 1.35;
   color: $color-text-muted;
   white-space: nowrap;
   text-align: right;

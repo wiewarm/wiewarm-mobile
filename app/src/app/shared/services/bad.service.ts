@@ -45,6 +45,10 @@ export class BadResourceService {
     return this.loadDetail(id);
   }
 
+  getBadItems(): BadItem[] {
+    return this.badResource.hasValue() ? this.badResource.value() : [];
+  }
+
   private async loadList(): Promise<BadItem[]> {
     if (isCacheEntryFresh(this.badCache)) {
       return this.badCache.data;

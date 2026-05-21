@@ -90,7 +90,11 @@ export class StoryService {
   }
 
   getNewsItems(): NewsStoryItem[] {
-    return (this.newsStoriesResource.value() ?? []).filter(
+    if (!this.newsStoriesResource.hasValue()) {
+      return [];
+    }
+
+    return this.newsStoriesResource.value().filter(
       (s) => s.kind === 'news',
     );
   }

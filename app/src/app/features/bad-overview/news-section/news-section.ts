@@ -50,7 +50,7 @@ export class NewsSectionComponent {
 
   readonly badSlugById = computed(() => {
     const map = new Map<number, string>();
-    for (const bad of this.badService.badResource.value() ?? []) {
+    for (const bad of this.badService.getBadItems()) {
       map.set(bad.badid, bad.badid_text);
     }
     return map;

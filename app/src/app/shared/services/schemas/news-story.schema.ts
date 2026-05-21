@@ -8,7 +8,10 @@ const newsItemSchema = z.object({
   plz: z.string(),
   infoid: z.coerce.number(),
   date: z.string(),
-  info: z.string(),
+  info: z
+    .string()
+    .nullable()
+    .transform((value) => value ?? ''),
   date_pretty: z.string(),
 });
 
