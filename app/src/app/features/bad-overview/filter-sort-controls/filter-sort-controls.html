@@ -12,7 +12,7 @@
     "
     [attr.aria-checked]="filterOption() === 'aktuell'"
     (click)="toggle()"
-    (keydown.enter)="toggle()"
+    (keydown.enter)="$event.preventDefault(); toggle()"
   >
     <span class="filter-track">
       <span class="filter-thumb" aria-hidden="true"></span>

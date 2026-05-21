@@ -4,6 +4,21 @@
 :host {
   display: block;
 
+  &:first-child {
+    .accordion-header {
+      border-top-left-radius: calc(#{$radius-l} - 2px);
+      border-top-right-radius: calc(#{$radius-l} - 2px);
+    }
+  }
+
+  &:last-child {
+    .accordion-header[aria-expanded="false"],
+    .accordion-body {
+      border-bottom-left-radius: calc(#{$radius-l} - 2px);
+      border-bottom-right-radius: calc(#{$radius-l} - 2px);
+    }
+  }
+
   &:nth-child(even) {
     .accordion-header,
     .accordion-body {
@@ -34,11 +49,16 @@
     margin-left: 0.25em;
   }
 
-  &:hover,
+  &:hover {
+    cursor: pointer;
+    background: var(--color-surface-alt);
+  }
+
   &:focus-visible {
     cursor: pointer;
     background: var(--color-surface-alt);
     outline: none;
+    box-shadow: inset 0 0 0 2px $color-secondary;
   }
 
   .accordion-header-left {
@@ -97,6 +117,7 @@
 
     .detail-link {
       text-decoration: none;
+      align-self: flex-start;
       margin-bottom: $space-2;
       .detail-text {
         color: $color-link;

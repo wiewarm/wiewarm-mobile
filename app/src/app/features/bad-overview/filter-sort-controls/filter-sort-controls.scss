@@ -44,6 +44,11 @@
     cursor: pointer;
     @include haptic-click(0.02rem, 0.98, 90ms);
 
+    &:focus-visible {
+      outline: 2px solid $color-secondary;
+      outline-offset: 2px;
+    }
+
     .filter-track {
       box-shadow: $shadow-sm;
       position: relative;
