@@ -26,7 +26,11 @@ export const badDetailSchema = z.object({
   www: z.string().nullable().optional(),
   zeiten: z.string().optional(),
   preise: z.string().optional(),
-  info: z.string().optional(),
+  info: z
+    .string()
+    .nullable()
+    .optional()
+    .transform((value) => value ?? undefined),
   becken: z.record(z.string(), badDetailPoolSchema).optional(),
   bilder: z.array(badImageSchema).optional(),
 });
