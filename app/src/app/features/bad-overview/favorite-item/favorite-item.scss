@@ -14,10 +14,15 @@
   box-shadow: $shadow-sm;
   transition: box-shadow $transition-fast, transform $transition-fast;
 
-  &:hover,
-  &:focus-visible {
+  &:hover {
     box-shadow: $shadow-md;
+  }
+
+  &:focus-visible {
     outline: none;
+    box-shadow:
+      $shadow-md,
+      inset 0 0 0 2px $color-secondary;
   }
 }
 
