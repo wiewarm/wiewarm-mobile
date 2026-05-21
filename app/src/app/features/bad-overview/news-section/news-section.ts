@@ -6,7 +6,7 @@ import {
   input,
   signal,
 } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { LoadingErrorComponent } from '../../../shared/layout/loading-error/loading-error';
 import { IconComponent } from '../../../shared/layout/icon/icon';
 import { AuthService } from '../../../shared/services/auth/auth.service';
@@ -38,6 +38,7 @@ export class NewsSectionComponent {
   private readonly storyService = inject(StoryService);
   private readonly badService = inject(BadResourceService);
   private readonly error = inject(ErrorReporter);
+  private readonly router = inject(Router);
   readonly auth = inject(AuthService);
 
   readonly badId = input<number | null>(null);
@@ -55,6 +56,13 @@ export class NewsSectionComponent {
     }
     return map;
   });
+
+  onNavigate(story: any) {
+    const slug = this.badSlugById().get(story.badId);
+    if (slug) {
+      this.router.navigate(['/', slug]);
+    }
+  }
 
   readonly newsItems = computed(() => {
     const items = this.storyService.getNewsItems();

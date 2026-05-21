@@ -27,10 +27,13 @@
     @for (story of newsItems(); track story.id) {
     <article
       app-news-item
+      tabindex="0"
+      role="link"
       [item]="story"
       [canDelete]="auth.session()?.badId === story.badId"
       [class.is-clickable]="badSlugById().has(story.badId)"
-      [routerLink]="badSlugById().get(story.badId) ? ['/', badSlugById().get(story.badId)] : null"
+      (click)="onNavigate(story)"
+      (keydown.enter)="onNavigate(story)"
       (deleted)="deleteNews($event)"
     ></article>
     }
