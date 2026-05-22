@@ -6,7 +6,7 @@ Di moderni Web-App zur intuitive und barrierefreiä Anzeig von Temperaturdate i 
 
 ## 🔧 Technologie-Stack
 
-- **Framework:** Angular 20
+- **Framework:** Angular 21
 - **Sprach:** TypeScript/JavaScript
 - **Styles:** Design Tokens mit SCSS, Icon Sprite mit SVG-Icons
 - **Build & Deployment:** Vite/Firebase
