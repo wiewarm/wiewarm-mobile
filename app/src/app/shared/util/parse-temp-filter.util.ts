@@ -8,14 +8,12 @@ interface TempFilter {
 }
 
 export function parseTempFilter(query: string): TempFilter | null {
-  const match = query.match(
-    /^\s*(\d{1,2}(?:\.\d+)?)\s*$|(\d+(?:\.\d+)?)\s*(?:grad|\u00b0c|\u00b0)/i,
-  );
+  const regex = /^\s*(?<value>\d+(?:\.\d+)?)\s*(?:grad|\u00b0c|\u00b0)?\s*$/i;
+  const match = query.match(regex);
 
-  if (!match) return null;
+  if (!match?.groups) return null;
 
-  const value = match[1] ?? match[2];
-  const temp = parseFloat(value);
+  const temp = parseFloat(match.groups["value"]);
   if (temp > MAX_TEMP_CELSIUS) return null;
 
   return {

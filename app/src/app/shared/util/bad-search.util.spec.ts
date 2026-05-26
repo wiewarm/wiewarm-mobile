@@ -1,5 +1,6 @@
 import type { BadItem } from '../services/interfaces/bad-item.interface';
 import {
+  type BadSearchIndex,
   createBadSearchIndex,
   searchBadItems,
   suggestBadSearchTerm,
@@ -33,60 +34,60 @@ const items: BadItem[] = [
 ];
 
 describe('bad search', () => {
+  let index: BadSearchIndex;
+
+  beforeEach(async () => {
+    index = await createBadSearchIndex(items);
+  });
+
   it('returns all items when query is empty', () => {
-    expect(searchBadItems(createBadSearchIndex(items), '')).toEqual(items);
+    expect(searchBadItems(index, '')).toEqual(items);
   });
 
   it('searches across bad, location and pool name', () => {
-    const result = searchBadItems(createBadSearchIndex(items), 'schwimmer');
+    const result = searchBadItems(index, 'schwimmer');
 
     expect(result).toEqual([items[1]]);
   });
 
   it('finds umlauted locations with plain ascii input', () => {
-    const result = searchBadItems(createBadSearchIndex(items), 'zurich');
+    const result = searchBadItems(index, 'zurich');
 
     expect(result).toEqual([items[0]]);
   });
 
   it('searches by postal code', () => {
-    const result = searchBadItems(createBadSearchIndex(items), '8008');
+    const result = searchBadItems(index, '8008');
 
     expect(result).toEqual([items[0]]);
   });
 
   it('searches one or two digit numbers as temperature', () => {
-    const result = searchBadItems(createBadSearchIndex(items), '22');
+    const result = searchBadItems(index, '22');
 
     expect(result).toEqual([items[0], items[1], items[2]]);
   });
 
   it('searches by canton', () => {
-    const result = searchBadItems(createBadSearchIndex(items), 'zh');
+    const result = searchBadItems(index, 'zh');
 
     expect(result).toEqual([items[0]]);
   });
 
   it('keeps ranked Orama results in result order', () => {
-    const result = searchBadItems(createBadSearchIndex(items), 'bern');
+    const result = searchBadItems(index, 'bern');
 
     expect(result).toEqual([items[1], items[2]]);
   });
 
   it('suggests a close search term for empty results', () => {
-    const suggestion = suggestBadSearchTerm(
-      createBadSearchIndex(items),
-      'zurih',
-    );
+    const suggestion = suggestBadSearchTerm(index, 'zurih');
 
     expect(suggestion).toBe('Z\u00fcrich');
   });
 
   it('suggests a close prefix for partial typos', () => {
-    const suggestion = suggestBadSearchTerm(
-      createBadSearchIndex(items),
-      'hellq',
-    );
+    const suggestion = suggestBadSearchTerm(index, 'hellq');
 
     expect(suggestion).toBe('Hallenbad');
   });

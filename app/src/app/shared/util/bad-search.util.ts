@@ -2,119 +2,114 @@ import { create, insertMultiple, search } from '@orama/orama';
 import type { Results } from '@orama/orama';
 
 import type { BadItem } from '../services/interfaces/bad-item.interface';
-import { parseTempFilter } from './constants/parse-temp-filter';
+import {
+  SEARCH_PROPERTY_NAMES,
+  SEARCH_RELEVANCE,
+} from './constants/bad-search';
+import {
+  mapBadItemToSearchDocument,
+  mapBadItemToSearchSuggestionDocuments,
+  type BadSearchDocument,
+  type BadSearchSuggestionDocument,
+} from './mappers/bad-search.mapper';
+import { normalizeSearchText } from './normalize-search-text.util';
+import { parseTempFilter } from './parse-temp-filter.util';
 
 type BadSearchDb = Awaited<ReturnType<typeof createBadSearchDb>>;
-type BadSearchDocument = BadItem & {
-  readonly id: string;
-  readonly searchText: string;
-};
+type BadSearchSuggestionDb = Awaited<ReturnType<typeof createBadSearchSuggestionDb>>;
 export type BadSearchIndex = {
   readonly db: BadSearchDb;
+  readonly suggestionDb: BadSearchSuggestionDb;
   readonly items: BadItem[];
+  readonly itemsByBeckenId: ReadonlyMap<number, BadItem>;
 };
 
 export async function createBadSearchIndex(
   items: BadItem[],
 ): Promise<BadSearchIndex> {
   const db = await createBadSearchDb();
+  const suggestionDb = await createBadSearchSuggestionDb();
+  await insertMultiple(db, items.map(mapBadItemToSearchDocument));
   await insertMultiple(
-    db,
-    items.map((item) => ({
-      id: String(item.beckenid),
-      beckenid: item.beckenid,
-      bad: item.bad,
-      ort: item.ort,
-      plz: item.plz,
-      kanton: item.kanton,
-      becken: item.becken,
-      // Normalisierter Text für ASCII-Queries wie "zurich" statt "zürich".
-      // Wird nur als Fallback-Property gesucht (geringster Boost).
-      searchText: normalizeSearchText(
-        item.bad,
-        item.ort,
-        item.plz,
-        item.kanton,
-        item.becken,
-      ),
-      temp: item.temp,
-    })),
+    suggestionDb,
+    items.flatMap(mapBadItemToSearchSuggestionDocuments),
   );
-  return { items, db };
+  return {
+    db,
+    suggestionDb,
+    items,
+    itemsByBeckenId: new Map(items.map((item) => [item.beckenid, item])),
+  };
 }
 
 export function searchBadItems(
-  { db, items }: BadSearchIndex,
+  { db, items, itemsByBeckenId }: BadSearchIndex,
   term: string,
 ): BadItem[] {
-  const query = term.trim();
+  const { rawQuery, normalizedQuery, tempFilter } = parseSearchQuery(term);
 
-  if (!query) {
+  if (!rawQuery) {
     return items;
   }
 
-  const tempFilter = parseTempFilter(query);
-  const cleanQuery = tempFilter?.cleanQuery ?? query;
-
-  const normalizedQuery = cleanQuery ? normalizeSearchText(cleanQuery) : undefined;
-
   const { hits } = search(db, {
     term: normalizedQuery,
-    // searchText wird bewusst ausgelassen: Die normalisierten Originalfelder
-    // (bad, ort, …) matchen bereits – searchText würde Scores nur verzerren.
-    properties: ['bad', 'ort', 'plz', 'kanton', 'becken'],
-    boost: {
-      bad: 2,
-      ort: 1.5,
-      plz: 1.2,
-      kanton: 1,
-      becken: 1,
-    },
-    // Kurze Queries (≤3 Zeichen) müssen exakt matchen, längere dürfen 1 Fehler haben.
-    // Damit verhindert man, dass z.B. "Bad" plötzlich "Bad Ragaz" UND "Bern" liefert.
+    properties: SEARCH_PROPERTY_NAMES,
+    boost: SEARCH_RELEVANCE,
+    // Short queries (<=3 characters) must match exactly; longer ones may have 1 typo.
+    // This prevents queries like "Bad" from suddenly returning both "Bad Ragaz" AND "Bern".
     tolerance: toleranceForQuery(normalizedQuery),
-    // Schwache Treffer (z.B. einzelner Buchstabe irgendwo im Text) werden abgeschnitten.
+    // Weak matches, such as a single letter somewhere in the text, are filtered out.
     threshold: 0.8,
     limit: items.length,
     ...(tempFilter && { where: { temp: { between: tempFilter.range } } }),
   }) as Results<BadSearchDocument>;
 
-  const byId = new Map(items.map((item) => [item.beckenid, item]));
   return hits
-    .map((hit) => byId.get(hit.document.beckenid))
+    .map((hit) => itemsByBeckenId.get(hit.document.beckenid))
     .filter((item): item is BadItem => item != null);
 }
 
 export function suggestBadSearchTerm(
-  { db }: BadSearchIndex,
+  { suggestionDb }: BadSearchIndex,
   term: string,
 ): string | null {
-  const query = term.trim();
-  if (query.length < 3) return null;
+  const { rawQuery, searchableQuery } = parseSearchQuery(term);
 
-  const tempFilter = parseTempFilter(query);
-  const cleanQuery = tempFilter?.cleanQuery ?? query;
-  if (!cleanQuery) return null;
+  if (rawQuery.length < 3) return null;
+  if (!searchableQuery) return null;
 
-  // Orama's tolerance-based fuzzy search erledigt die Ähnlichkeitssuche –
-  // kein manuelles Levenshtein nötig.
-  const { hits } = search(db, {
-    term: normalizeSearchText(cleanQuery),
-    properties: ['bad', 'ort', 'kanton'],
-    tolerance: query.length <= 4 ? 1 : 2,
+  const { hits } = search(suggestionDb, {
+    term: normalizeSearchText(searchableQuery),
+    properties: ['normalizedSuggestion'],
+    // Longer queries get slightly more fuzzy tolerance.
+    tolerance: rawQuery.length <= 4 ? 1 : 2,
+    threshold: 0.8,
     limit: 1,
-  }) as Results<BadSearchDocument>;
+  }) as Results<BadSearchSuggestionDocument>;
 
-  if (!hits.length) return null;
+  return hits[0]?.document.suggestion ?? null;
+}
 
-  const best = hits[0].document;
-  return best.bad ?? best.ort ?? best.kanton ?? null;
+function parseSearchQuery(input: string) {
+  const rawQuery = input.trim();
+  const tempFilter = parseTempFilter(rawQuery);
+  const searchableQuery = tempFilter?.cleanQuery ?? rawQuery;
+
+  return {
+    rawQuery,
+    searchableQuery,
+    normalizedQuery: searchableQuery
+      ? normalizeSearchText(searchableQuery)
+      : undefined,
+    tempFilter,
+  };
 }
 
 /**
- * ≤3 Zeichen → kein Fuzzy (exakter Prefix-Match reicht)
- * 4–6 Zeichen → 1 Fehler erlaubt
- * ≥7 Zeichen → bleibt bei 1 (2 würde zu viel Rauschen erzeugen)
+ * <=3 characters -> no fuzzy matching; exact prefix matching is enough
+ * 4-6 characters -> 1 typo allowed
+ * >=7 characters -> stays at 1 because 2 would create too much noise
  */
 function toleranceForQuery(query: string | undefined): number {
   if (!query || query.length <= 3) return 0;
@@ -125,21 +120,22 @@ async function createBadSearchDb() {
   return create({
     schema: {
       beckenid: 'number',
-      bad: 'string',
-      ort: 'string',
-      plz: 'string',
-      kanton: 'string',
-      becken: 'string',
-      searchText: 'string',
       temp: 'number',
+      normalizedBad: 'string',
+      normalizedOrt: 'string',
+      normalizedPlz: 'string',
+      normalizedKanton: 'string',
+      normalizedBecken: 'string',
     },
   });
 }
 
-function normalizeSearchText(...values: string[]): string {
-  return values
-    .join(' ')
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .toLowerCase();
+async function createBadSearchSuggestionDb() {
+  return create({
+    schema: {
+      id: 'string',
+      suggestion: 'string',
+      normalizedSuggestion: 'string',
+    },
+  });
 }
