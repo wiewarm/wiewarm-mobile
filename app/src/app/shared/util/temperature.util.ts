@@ -13,3 +13,19 @@ export function temperatureClass(temp: number | null): string {
       return 'temp-hot';
   }
 }
+
+export function temperatureTitle(temp: number | null): string {
+  if (temp == null || Number.isNaN(temp)) return 'Keine Temperatur';
+  switch (true) {
+    case temp < 15:
+      return 'Kalt';
+    case temp < 20:
+      return 'Kühl';
+    case temp < 24:
+      return 'Mild';
+    case temp < 27:
+      return 'Warm';
+    default:
+      return 'Heiss';
+  }
+}

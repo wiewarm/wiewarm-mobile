@@ -1,0 +1,88 @@
+@use "../../../../assets/styles/variables" as *;
+@use "../../../../assets/styles/mixins" as *;
+
+:host {
+  display: block;
+}
+
+.search {
+  position: relative;
+}
+
+.search-icon {
+  position: absolute;
+  left: $space-3;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  transition:
+    transform 0.2s ease,
+    color 0.2s ease;
+  z-index: 2;
+}
+
+input {
+  font-family: $font-family-englebert;
+  width: 100%;
+  padding: $space-2 $space-3 $space-2 calc(#{$space-2 * 3} + 1rem);
+  border: 2px solid $color-border;
+  border-radius: $radius-l;
+  caret-color: currentColor;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+
+  @include hover-state;
+  @include haptic-click(0.02rem, 0.998, 90ms);
+
+  &:hover {
+    border-color: $color-orama-violet;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: $color-orama-violet;
+    box-shadow:
+      0 0 12px $color-orama-violet-ring,
+      0 2px 4px rgba(0, 0, 0, 0.05);
+  }
+}
+
+.ai-pill {
+  position: absolute;
+  right: $space-2;
+  top: 50%;
+  transform: translateY(-50%);
+  display: none;
+  align-items: center;
+  gap: $space-1;
+  padding: 0.25rem $space-2;
+  color: $color-orama-violet;
+  font-size: 0.8rem;
+  line-height: 1;
+  pointer-events: auto;
+  z-index: 2;
+}
+
+.ai-pill-logo {
+  --app-icon-width: 3.5rem;
+  --app-icon-height: 1.5rem;
+  display: inline-flex;
+}
+
+.search:focus-within .search-icon {
+  color: $color-orama-violet;
+  transform: translateY(-50%) scale(1.1) rotate(10deg);
+}
+
+@media (min-width: $breakpoint-md) {
+  input {
+    padding-right: calc(#{$space-3} + 4.75rem);
+  }
+
+  .ai-pill {
+    display: inline-flex;
+  }
+}

@@ -23,6 +23,12 @@ $color-text-muted: var(--color-text-muted) !default; // Muted Text
 $color-link: var(--color-primary) !default;
 $color-link-hover: var(--color-link-hover) !default;
 
+// Orama search accent
+$color-orama-violet: #6c47ff !default;
+$color-orama-violet-soft: #f2efff !default;
+$color-orama-violet-border: rgba(108, 71, 255, 0.28) !default;
+$color-orama-violet-ring: rgba(108, 71, 255, 0.25) !default;
+
 // Semantic states
 $color-error: var(--color-error) !default;
 $color-success: var(--color-success) !default;

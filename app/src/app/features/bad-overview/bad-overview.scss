@@ -18,7 +18,6 @@ h1 {
   height: auto;
 }
 
-// List header styles
 .bad-overview-header,
 .app-news-section {
   @include flex-column;
@@ -47,42 +46,13 @@ h1 {
   gap: $space-2;
   margin-bottom: $space-2;
 
-  .search {
+  app-bad-search {
     flex: 1 1 auto;
     min-width: 0;
   }
 
   app-filter-sort-controls {
     flex: 0 0 auto;
-  }
-}
-
-.search {
-  position: relative;
-
-  .search-emoji {
-    position: absolute;
-    left: $space-3;
-    top: 50%;
-    transform: translateY(-50%);
-    pointer-events: none;
-    font-size: $font-size-md;
-    font-weight: bold;
-    color: $color-text-muted;
-  }
-
-  input {
-    font-family: $font-family-englebert;
-    width: 100%;
-    padding: $space-2 $space-3 $space-2 calc(#{$space-2 * 3} + 1rem);
-    border: 2px solid $color-border;
-    border-radius: $radius-l;
-    caret-color: currentColor;
-    box-sizing: border-box;
-
-    @include focus-ring;
-    @include hover-state;
-    @include haptic-click(0.02rem, 0.998, 90ms);
   }
 }
 
@@ -97,5 +67,52 @@ h1 {
 
   app-bad-item + app-bad-item {
     border-top: 2px solid $color-border;
+  }
+}
+
+.status {
+  align-items: center;
+  flex-wrap: wrap;
+  gap: $space-2;
+  max-width: min(100%, 34rem);
+
+  p {
+    margin: 0;
+  }
+}
+
+.search-suggestion {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-1;
+  border: 1px solid $color-orama-violet-border;
+  border-radius: $radius-l;
+  padding: $space-1 $space-3;
+  background: $color-orama-violet-soft;
+  color: $color-orama-violet;
+  cursor: pointer;
+  font: inherit;
+  line-height: 1.2;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.1s ease;
+
+  @include haptic-click(0.02rem, 0.998, 90ms);
+
+  &:hover {
+    border-color: $color-orama-violet;
+    box-shadow: 0 0 10px $color-orama-violet-ring;
+  }
+
+  &:focus-visible {
+    outline: none;
+    border-color: $color-orama-violet;
+    box-shadow: 0 0 0 3px $color-orama-violet-ring;
+  }
+
+  strong {
+    font-weight: $font-weight-bold;
   }
 }

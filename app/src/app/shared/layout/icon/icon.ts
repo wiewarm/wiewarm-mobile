@@ -20,8 +20,8 @@ import { Component, input } from '@angular/core';
         font-size: inherit;
       }
       .icon {
-        width: 1.1em;
-        height: 1.1em;
+        width: var(--app-icon-width, 1.1em);
+        height: var(--app-icon-height, 1.1em);
         fill: currentColor;
         vertical-align: -0.24em;
       }

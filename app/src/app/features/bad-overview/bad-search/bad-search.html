@@ -1,0 +1,17 @@
+<div class="search">
+  <span class="search-icon" aria-hidden="true">&#10024;</span>
+  <input
+    type="text"
+    [value]="value()"
+    (input)="value.set($any($event.target).value)"
+    placeholder="Suche..."
+    aria-label="Badi suchen"
+  />
+  <span
+    class="ai-pill"
+    aria-label="Volltext Suche mit Orama"
+    title="Volltext Suche mit Orama"
+  >
+    <app-icon class="ai-pill-logo" symbolId="#orama"></app-icon>
+  </span>
+</div>

@@ -38,8 +38,8 @@ Diese Datei definiert verbindliche Arbeitsregeln fuer Coding-Agents in diesem Re
 
 ## Qualitaetsregeln bei Aenderungen
 
-- Vor Abschluss mindestens `npm run build` in `app/` ausfuehren.
-- Bei Logik-Aenderungen in Utils sowie Services passende Tests erstellen oder anpassen.
+- Vor Abschluss `npm run build` in `app/` ausfuehren.
+- Bei Logik-Änderungen in Utils sowie Services passende Tests erstellen oder anpassen.
 - Code gemäss `.editorconfig` formatieren.
 
 ## Dokumentation
