@@ -29,7 +29,7 @@ input {
   border-radius: $radius-l;
   caret-color: currentColor;
   box-sizing: border-box;
-  background-color: #ffffff;
+  background-color: $color-bg;
   transition:
     border-color 0.3s ease,
     box-shadow 0.3s ease;
