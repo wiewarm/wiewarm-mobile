@@ -9,27 +9,27 @@
     <app-icon [symbolId]="isMenuOpen() ? '#arrow_up' : '#arrow_down'" />
   </button>
   @if (isMenuOpen()) {
-  <nav
-    id="main-menu"
-    class="menu"
-    aria-label="Hauptmenü"
-  >
+  <nav id="main-menu" class="menu" aria-label="Hauptmenü">
     <ul>
       <li>
         <a routerLink="/" (click)="closeMenu()"> Aktuelle Temperaturen </a>
       </li>
       <li>
-        <a appExternalLink href="https://www.wiewarm.ch/info" (click)="closeMenu()">
+        <a
+          appExternalLink
+          href="https://www.wiewarm.ch/info"
+          (click)="closeMenu()"
+        >
           Info
         </a>
       </li>
       <li>
         <a
           appExternalLink
-          href="https://www.wiewarm.ch/sms-und-twitter"
+          href="https://www.wiewarm.ch/admin"
           (click)="closeMenu()"
         >
-          SMS
+          Login
         </a>
       </li>
     </ul>
