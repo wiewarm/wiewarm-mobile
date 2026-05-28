@@ -14,9 +14,25 @@
       class="temperatures-section"
       aria-labelledby="temperatures-heading"
     >
-      <h1 id="temperatures-heading" class="section-title">
-        {{ listHeading() }}
-      </h1>
+      <div class="section-heading-row">
+        <h1 id="temperatures-heading" class="section-title">
+          {{ listHeading() }}
+        </h1>
+        <!-- <details class="temp-legend">
+          <summary aria-label="Temperaturfarben erklären">i</summary>
+          <div class="temp-legend-panel">
+            <p>Farbenskale für die Wassertemperatur:</p>
+            <ul class="temp-legend-list">
+              @for (step of temperatureScale; track step.className) {
+              <li>
+                <span class="temp-legend-dot" [class]="step.className"></span>
+                <span>{{ step.label }}: {{ step.rangeText }}</span>
+              </li>
+              }
+            </ul>
+          </div>
+        </details> -->
+      </div>
 
       <div class="search-controls">
         <app-bad-search [(value)]="searchInput"></app-bad-search>

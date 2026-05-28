@@ -16,7 +16,9 @@ import { AddressItemComponent } from './address-item/address-item';
 import { AddressItemEditComponent } from './address-item/address-item-edit/address-item-edit.component';
 import { ImgItemComponent } from './img-item/img-item';
 import { PoolItemComponent } from './pool-item/pool-item';
+import { WeatherItemComponent } from './weather-item/weather-item';
 import { AuthService } from '../../shared/services/auth/auth.service';
+import { WeatherService } from '../../shared/services/weather.service';
 
 @Component({
   selector: 'main[app-bad-detail]',
@@ -32,6 +34,7 @@ import { AuthService } from '../../shared/services/auth/auth.service';
     AddressItemComponent,
     AddressItemEditComponent,
     PoolItemComponent,
+    WeatherItemComponent,
     IconComponent,
     FavoriteButtonComponent,
     ImgItemComponent,
@@ -44,6 +47,7 @@ export class BadDetailComponent {
 
   private readonly detailService = inject(BadResourceService);
   private readonly authService = inject(AuthService);
+  private readonly weatherService = inject(WeatherService);
 
   readonly detailResource: ResourceRef<BadDetail | undefined> =
     this.detailService.getDetailResource(this.badId);
@@ -53,13 +57,27 @@ export class BadDetailComponent {
 
   readonly badItem = computed<BadItem | null>(
     () =>
-      this.detailService.getBadItems().find(
-        (i) => i.badid_text === this.badId,
-      ) ?? null,
+      this.detailService
+        .getBadItems()
+        .find((i) => i.badid_text === this.badId) ?? null,
   );
 
   readonly canEdit = computed(() =>
     this.authService.canEdit(this.detail()?.badid),
+  );
+
+  readonly weatherLocation = computed(() => {
+    const detail = this.detail();
+    const latitude = detail?.ortlat;
+    const longitude = detail?.ortlong;
+
+    return latitude !== undefined && longitude !== undefined
+      ? { latitude, longitude }
+      : undefined;
+  });
+
+  readonly currentWeather = this.weatherService.getCurrentWeatherResource(
+    this.weatherLocation,
   );
 
   readonly dynamicPageTitle = effect(() => {

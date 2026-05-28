@@ -113,6 +113,79 @@ describe('BadResourceService', () => {
     expect(result.becken.Hauptbecken.temp).toBe(15.6);
   }));
 
+  it('normalizes nullable detail fields and scaled API coordinates', fakeAsync(() => {
+    environment.apiBase = originalApiBase;
+    const service = TestBed.inject(BadResourceService);
+    tick();
+    flushListIfRequested();
+
+    let result: any;
+    service.getDetail('Strandbad_Biel').then((value: any) => {
+      result = value;
+    });
+
+    const req = httpMock.expectOne(
+      `${environment.apiBase}/bad/Strandbad_Biel`,
+    );
+    expect(req.request.method).toBe('GET');
+    req.flush({
+      badid: '70',
+      badname: 'Strandbad',
+      plz: null,
+      ort: 'Biel',
+      adresse1: null,
+      telefon: null,
+      long: '7234757',
+      lat: '47129706',
+      becken: {
+        Bielersee: {
+          beckenid: '184',
+          beckenname: 'Bielersee',
+          typ: 'See',
+          status: 'geöffnet',
+          date_pretty: '2015',
+          temp: '21.0',
+        },
+      },
+    });
+
+    tick();
+    expect(result.plz).toBe('');
+    expect(result.adresse1).toBeUndefined();
+    expect(result.telefon).toBeUndefined();
+    expect(result.ortlat).toBe(47.129706);
+    expect(result.ortlong).toBe(7.234757);
+  }));
+
+  it('keeps decimal detail coordinates unchanged', fakeAsync(() => {
+    environment.apiBase = originalApiBase;
+    const service = TestBed.inject(BadResourceService);
+    tick();
+    flushListIfRequested();
+
+    let result: any;
+    service.getDetail('decimal-coordinates').then((value: any) => {
+      result = value;
+    });
+
+    const req = httpMock.expectOne(
+      `${environment.apiBase}/bad/decimal-coordinates`,
+    );
+    expect(req.request.method).toBe('GET');
+    req.flush({
+      badid: '71',
+      badname: 'Decimalbad',
+      plz: '8000',
+      ort: 'Zuerich',
+      long: '8.5417',
+      lat: '47.3769',
+    });
+
+    tick();
+    expect(result.ortlat).toBe(47.3769);
+    expect(result.ortlong).toBe(8.5417);
+  }));
+
   it('exposes a shared badResource', fakeAsync(() => {
     environment.apiBase = originalApiBase;
     const service = TestBed.inject(BadResourceService);

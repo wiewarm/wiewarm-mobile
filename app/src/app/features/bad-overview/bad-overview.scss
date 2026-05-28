@@ -40,6 +40,88 @@ h1 {
   line-height: 1.2;
 }
 
+.section-heading-row {
+  display: flex;
+  align-items: center;
+  gap: $space-2;
+}
+
+.temp-legend {
+  position: relative;
+  flex: 0 0 auto;
+  font-family: $font-family-base;
+
+  summary {
+    display: grid;
+    place-items: center;
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 1px solid $color-border;
+    border-radius: 50%;
+    color: $color-text-muted;
+    cursor: pointer;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-bold;
+    line-height: 1;
+    list-style: none;
+  }
+
+  summary::-webkit-details-marker {
+    display: none;
+  }
+}
+
+.temp-legend-panel {
+  position: absolute;
+  z-index: 2;
+  top: calc(100% + #{$space-1});
+  left: 0;
+  width: min(17rem, calc(100vw - #{$space-4}));
+  padding: $space-2 $space-3;
+  border: 1px solid $color-border;
+  border-radius: $radius-l;
+  background: $color-surface;
+  box-shadow: $shadow-sm;
+  color: $color-text;
+  font-size: $font-size-sm;
+  line-height: 1.35;
+
+  p {
+    margin: 0;
+  }
+
+  p + p {
+    margin-top: $space-1;
+  }
+}
+
+.temp-legend-list {
+  display: grid;
+  gap: $space-1;
+  margin: $space-2 0;
+  padding: 0;
+  list-style: none;
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: $space-2;
+  }
+}
+
+.temp-legend-dot {
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
+  background: $color-text-muted;
+}
+
+@each $name, $color in $temp-colors {
+  .temp-legend-dot.temp-#{$name} {
+    background: $color;
+  }
+}
+
 .search-controls {
   display: flex;
   align-items: center;

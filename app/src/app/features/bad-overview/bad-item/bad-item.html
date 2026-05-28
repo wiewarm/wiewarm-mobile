@@ -46,7 +46,7 @@
       </p>
       <p
         class="time-label"
-        [class.label-older-than-one-month]="isOlderThanOneMonth(item().date || null)"
+        [class.label-stale-date]="isOlderThanOneMonth(item().date || null)"
       >
         <span aria-hidden="true">• </span>
         Zuletzt aktualisiert {{ item().date_pretty }}

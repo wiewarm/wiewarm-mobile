@@ -30,10 +30,6 @@
     }
   </section>
 
-  @if (dRes) {
-  <app-news-section heading="Mitteilungen" [badId]="dRes.badid" />
-  }
-
   <section class="pools-section" aria-labelledby="becken-heading">
     <h2 id="becken-heading" class="becken-title">Becken und Temperaturen</h2>
     <ul class="pool-list">
@@ -42,6 +38,20 @@
       } }
     </ul>
   </section>
+
+  @let weather = currentWeather.value(); @if (dRes && weatherLocation() &&
+  (currentWeather.isLoading() || weather)) {
+  <section class="weather-section" aria-labelledby="weather-heading">
+    <h2 id="weather-heading" class="weather-title">Wetter</h2>
+    @if (currentWeather.isLoading()) {
+    <app-loading-error state="loading" loadingMsg="Wetter laden..."></app-loading-error>
+    } @else if (weather) {
+    <app-weather-item [weather]="weather"></app-weather-item>
+    }
+  </section>
+  } @if (dRes) {
+  <app-news-section heading="Mitteilungen" [badId]="dRes.badid" />
+  }
 
   <section class="images-section" aria-labelledby="img-heading">
     @if (dRes) {

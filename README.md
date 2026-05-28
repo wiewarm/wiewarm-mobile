@@ -107,3 +107,7 @@ Based on a work at http://www.wiewarm.ch.
 Permissions beyond the scope of this license may be available at
 mailto:info@wiewarm.ch.
 ```
+
+### Wetterdaten
+
+Die Detailseite zeigt aktuelle Lufttemperaturdaten von Open-Meteo anhand der Bad-Koordinaten an. Die Daten werden direkt im Browser von `https://api.open-meteo.com` geladen.

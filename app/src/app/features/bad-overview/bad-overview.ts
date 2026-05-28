@@ -23,6 +23,7 @@ import {
 } from '../../shared/util/bad-search.util';
 import { isThisYear } from '../../shared/util/date.util';
 import { sortItems } from '../../shared/util/list.util';
+import { TEMPERATURE_SCALE } from '../../shared/util/temperature.util';
 
 import { SearchService } from '../../shared/services/search/search.service';
 import { BadSearchComponent } from './bad-search/bad-search';
@@ -57,6 +58,7 @@ export class BadOverviewComponent {
   readonly badResource: ResourceRef<BadItem[] | undefined> =
     this.badService.badResource;
   readonly favorites = this.favoriteService.favoriteItems;
+  readonly temperatureScale = TEMPERATURE_SCALE;
   readonly listHeading = computed(() =>
     this.listPreferences.filterField() === 'aktuell'
       ? 'Aktuelle Temperaturen'

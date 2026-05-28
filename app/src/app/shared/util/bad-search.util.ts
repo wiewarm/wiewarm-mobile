@@ -16,7 +16,9 @@ import { normalizeSearchText } from './normalize-search-text.util';
 import { parseTempFilter } from './parse-temp-filter.util';
 
 type BadSearchDb = Awaited<ReturnType<typeof createBadSearchDb>>;
-type BadSearchSuggestionDb = Awaited<ReturnType<typeof createBadSearchSuggestionDb>>;
+type BadSearchSuggestionDb = Awaited<
+  ReturnType<typeof createBadSearchSuggestionDb>
+>;
 export type BadSearchIndex = {
   readonly db: BadSearchDb;
   readonly suggestionDb: BadSearchSuggestionDb;
@@ -47,6 +49,7 @@ export function searchBadItems(
   term: string,
 ): BadItem[] {
   const { rawQuery, normalizedQuery, tempFilter } = parseSearchQuery(term);
+  const requiredTokens = searchTokens(normalizedQuery);
 
   if (!rawQuery) {
     return items;
@@ -67,7 +70,8 @@ export function searchBadItems(
 
   return hits
     .map((hit) => itemsByBeckenId.get(hit.document.beckenid))
-    .filter((item): item is BadItem => item != null);
+    .filter((item): item is BadItem => item != null)
+    .filter((item) => matchesAllTokens(item, requiredTokens));
 }
 
 export function suggestBadSearchTerm(
@@ -114,6 +118,28 @@ function parseSearchQuery(input: string) {
 function toleranceForQuery(query: string | undefined): number {
   if (!query || query.length <= 3) return 0;
   return 1;
+}
+
+function searchTokens(query: string | undefined): string[] {
+  return query?.split(/\s+/).filter(Boolean) ?? [];
+}
+
+/**
+ * Orama treats multi-word queries as OR by default ("Bad Ragaz" → hits for "Bad" OR "Ragaz").
+ * This filter enforces AND semantics: every token must appear somewhere in the item's text fields.
+ * Single-token queries are skipped — Orama handles those well enough on its own.
+ */
+function matchesAllTokens(item: BadItem, tokens: string[]): boolean {
+  if (tokens.length <= 1) return true;
+
+  const searchableText = normalizeSearchText(
+    item.bad,
+    item.ort,
+    item.plz,
+    item.kanton,
+    item.becken,
+  );
+  return tokens.every((token) => searchableText.includes(token));
 }
 
 async function createBadSearchDb() {

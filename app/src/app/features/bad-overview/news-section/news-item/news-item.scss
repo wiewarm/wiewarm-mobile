@@ -40,7 +40,6 @@
   flex: 0 1 auto;
   max-width: 100%;
   min-width: 0;
-  overflow: hidden;
   padding: 0 $space-1;
   color: var(--news-card-accent-color, #{$color-secondary});
   font-size: $font-size-sm;
@@ -59,7 +58,6 @@
   display: -webkit-box;
   -webkit-line-clamp: var(--news-body-max-lines);
   -webkit-box-orient: vertical;
-  overflow: hidden;
 
   :where(p, ul, ol) {
     margin: 0;
@@ -163,7 +161,9 @@
   }
 
   &:hover {
-    box-shadow: $shadow-md, inset 0.22rem 0 0 var(--news-card-accent-color, #{$color-secondary});
+    box-shadow:
+      $shadow-md,
+      inset 0.22rem 0 0 var(--news-card-accent-color, #{$color-secondary});
 
     .news-badge {
       text-decoration-color: currentColor;

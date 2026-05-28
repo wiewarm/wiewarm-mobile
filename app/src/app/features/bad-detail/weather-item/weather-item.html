@@ -1,0 +1,24 @@
+<div class="weather-item">
+  <div class="weather-left">
+    <app-icon class="weather-icon" [symbolId]="icon()" />
+    <div class="weather-left-text">
+      <span class="weather-name">Aktuelles Wetter</span>
+      <span class="weather-source">
+        Aktualisiert 
+        <a
+          class="source-link"
+          href="https://open-meteo.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Quelle Open-Meteo"
+          title="Quelle Open-Meteo"
+          >{{ weather().updatedAt | date: 'HH:mm' }} Uhr</a
+        >
+      </span>
+    </div>
+  </div>
+
+  <div class="weather-right">
+    <span class="weather-temp">{{ roundedTemperature() }}&deg;C</span>
+  </div>
+</div>

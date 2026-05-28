@@ -7,7 +7,11 @@
     }
     <div class="pool-left-text">
       <span class="pool-name">{{ pool().beckenname }}</span>
-      <time [attr.datetime]="pool().date_pretty" aria-label="Aktualisiert am">
+      <time
+        [attr.datetime]="pool().date_pretty"
+        aria-label="Aktualisiert am"
+        [class.label-stale-date]="isOlderThanOneMonth(pool().date_pretty)"
+      >
         Zuletzt aktualisiert {{ pool().date_pretty }}
       </time>
     </div>

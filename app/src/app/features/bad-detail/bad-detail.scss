@@ -77,6 +77,7 @@ pre:last-of-type {
 }
 
 .address-section,
+.weather-section,
 .pools-section,
 .images-section {
   min-width: 0;
@@ -111,8 +112,9 @@ app-news-section {
     grid-template-areas:
       "hero hero"
       "address pools"
-      "images pools"
-      "news news";
+      "weather pools"
+      "news pools"
+      "images pools";
   }
 
   .detail-hero {
@@ -121,6 +123,9 @@ app-news-section {
   }
   .address-section {
     grid-area: address;
+  }
+  .weather-section {
+    grid-area: weather;
   }
   .pools-section {
     grid-area: pools;
@@ -138,6 +143,7 @@ app-news-section {
 
   .pool-list,
   .address-section app-address-item,
+  .weather-section app-weather-item,
   .images-section app-img-item {
     max-width: none;
     width: 100%;

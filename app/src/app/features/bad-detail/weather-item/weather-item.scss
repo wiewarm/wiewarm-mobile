@@ -1,0 +1,67 @@
+@use "../../../../assets/styles/variables" as *;
+
+:host {
+  display: block;
+  max-width: 600px;
+}
+
+.weather-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: $space-3;
+  margin-bottom: $space-4;
+  padding: $space-2 $space-2;
+  background-color: $color-surface-alt;
+  border: 2px solid $color-border;
+  border-radius: $radius-l;
+  box-shadow: $shadow-sm;
+}
+
+.weather-left {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  gap: $space-2;
+}
+
+.weather-icon {
+  flex: 0 0 auto;
+  color: $color-text-muted;
+  font-size: $font-size-xl;
+}
+
+.weather-left-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.weather-name {
+  font-weight: $font-weight-bold;
+  font-size: $font-size-lg;
+}
+
+.weather-source {
+  color: $color-text-muted;
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+}
+
+.source-link {
+  display: inline-flex;
+  font-size: 0.9em;
+}
+
+.weather-right {
+  flex: 0 0 auto;
+}
+
+.weather-temp {
+  color: $color-text;
+  font-size: $font-size-xl;
+  font-weight: $font-weight-bold;
+}

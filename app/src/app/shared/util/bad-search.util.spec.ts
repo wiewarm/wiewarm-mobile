@@ -31,6 +31,24 @@ const items: BadItem[] = [
     kanton: 'BE',
     becken: 'Kinderbecken',
   }),
+  createBadItem({
+    beckenid: 4,
+    bad: 'Strandbad',
+    ort: 'Biel',
+    plz: '2500',
+    kanton: 'BE',
+    becken: 'Bielersee',
+    temp: 21,
+  }),
+  createBadItem({
+    beckenid: 5,
+    bad: 'Strandbad',
+    ort: 'Sursee',
+    plz: '6210',
+    kanton: 'LU',
+    becken: 'Sempachersee',
+    temp: 20,
+  }),
 ];
 
 describe('bad search', () => {
@@ -78,6 +96,12 @@ describe('bad search', () => {
     const result = searchBadItems(index, 'bern');
 
     expect(result).toEqual([items[1], items[2]]);
+  });
+
+  it('requires every search token to match for multi-word queries', () => {
+    const result = searchBadItems(index, 'strandbad biel');
+
+    expect(result).toEqual([items[3]]);
   });
 
   it('suggests a close search term for empty results', () => {
