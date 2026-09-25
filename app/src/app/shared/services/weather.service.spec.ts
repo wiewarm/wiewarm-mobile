@@ -41,6 +41,7 @@ describe('WeatherService', () => {
     expect(req.request.params.get('current')).toBe(
       'temperature_2m,is_day,weather_code',
     );
+    expect(req.request.params.get('models')).toBe('meteoswiss_icon_ch2');
     expect(req.request.params.get('timezone')).toBe('auto');
     req.flush({
       current: {

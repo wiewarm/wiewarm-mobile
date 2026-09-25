@@ -1,28 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, resource, type Signal } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
-import { z } from 'zod';
-
-export interface WeatherLocation {
-  latitude: number;
-  longitude: number;
-}
-
-export interface CurrentWeather {
-  temperature: number;
-  isDay: boolean;
-  weatherCode: number;
-  updatedAt: Date;
-}
-
-const currentWeatherSchema = z.object({
-  current: z.object({
-    time: z.string(),
-    temperature_2m: z.coerce.number(),
-    is_day: z.coerce.number(),
-    weather_code: z.coerce.number(),
-  }),
-});
+import type { CurrentWeather, WeatherLocation } from './interfaces/weather';
+import { currentWeatherSchema } from './schemas/weather';
 
 @Injectable({ providedIn: 'root' })
 export class WeatherService {
@@ -44,6 +24,8 @@ export class WeatherService {
           latitude: String(location.latitude),
           longitude: String(location.longitude),
           current: 'temperature_2m,is_day,weather_code',
+          // Swiss model from meteo swiss
+          models: 'meteoswiss_icon_ch2',
           timezone: 'auto',
         },
       }),
