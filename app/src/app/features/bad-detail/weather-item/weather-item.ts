@@ -4,7 +4,7 @@ import {
   computed,
   input,
 } from '@angular/core';
-import type { CurrentWeather } from '../../../shared/services/weather.service';
+import type { CurrentWeather } from '../../../shared/services/interfaces/weather';
 import { IconComponent } from '../../../shared/layout/icon/icon';
 import { DatePipe } from '@angular/common';
 import { weatherIcon } from '../../../shared/util/weather-icon.util';
